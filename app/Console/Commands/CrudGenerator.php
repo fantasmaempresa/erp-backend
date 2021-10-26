@@ -7,6 +7,7 @@
 
 namespace App\Console\Commands;
 
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
@@ -46,8 +47,18 @@ class CrudGenerator extends Command
         File::append(
             base_path('routes/api.php'),
             'Route::resource(\''.Str::plural(lcfirst($name))
-            ."', '{$name}\{$name}Controller', ['except' => ['create', 'edit']]); \n"
+            ."', '{$name}\{$name}Controller', ['except' => ['create', 'edit']]);\n"
         );
+
+        $date = date("Y-m-d H:i:s");
+        $dateFormat = Carbon::createFromFormat("Y-m-d H:i:s", $date)->format(
+            'Y_m_d_His'
+        );
+
+        $migrationFileName = $dateFormat."_create_".$this->toSnakeCase($name)
+            ."_table";
+
+        $this->call("make:migration", [$migrationFileName]);
     }
 
     /**
@@ -65,7 +76,7 @@ class CrudGenerator extends Command
      *
      * @return false|string
      */
-    protected function getStub($type)
+    protected function getStub($type): bool|string
     {
         return file_get_contents(resource_path("stubs/$type.stub"));
     }
@@ -114,4 +125,28 @@ class CrudGenerator extends Command
             $controllerTemplate
         );
     }
+
+    /**
+     * @param  $input
+     *
+     * @return string
+     */
+    private function toSnakeCase($input): string
+    {
+        $pattern = '!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!';
+        preg_match_all($pattern, $input, $matches);
+        $ret = $matches[0];
+        foreach ($ret as &$match) {
+            $matchString = strval($match);
+
+            if (strcmp($matchString, strtoupper($matchString)) === 0) {
+                $match = strtolower($match);
+            } else {
+                $match = lcfirst($match);
+            }
+        }
+
+        return implode('_', $ret);
+    }
+
 }
