@@ -43,22 +43,14 @@ class CrudGenerator extends Command
 
         $this->controller($name);
         $this->model($name);
+        $this->migration($name);
 
+        $controllerName = $name."\\".$name."Controller";
         File::append(
             base_path('routes/api.php'),
             'Route::resource(\''.Str::plural(lcfirst($name))
-            ."', '{$name}\{$name}Controller', ['except' => ['create', 'edit']]);\n"
+            ."', '{$controllerName}', ['except' => ['create', 'edit']]);\n"
         );
-
-        $date = date("Y-m-d H:i:s");
-        $dateFormat = Carbon::createFromFormat("Y-m-d H:i:s", $date)->format(
-            'Y_m_d_His'
-        );
-
-        $migrationFileName = $dateFormat."_create_".$this->toSnakeCase($name)
-            ."_table";
-
-        $this->call("make:migration", [$migrationFileName]);
     }
 
     /**
@@ -127,6 +119,43 @@ class CrudGenerator extends Command
     }
 
     /**
+     * @param $name
+     */
+    protected function migration($name)
+    {
+        $migrationTemplate = str_replace(
+            [
+                '{{modelName}}',
+                '{{modelNamePluralLowerCase}}',
+                '{{modelNamePlural}}',
+            ],
+            [
+                $name,
+                lcfirst(Str::plural($name)),
+                Str::plural($name),
+            ],
+            $this->getStub('Migration')
+        );
+
+        $path = database_path("migrations");
+
+        $date = date("Y-m-d H:i:s");
+        $dateFormat = Carbon::createFromFormat("Y-m-d H:i:s", $date)->format(
+            'Y_m_d_His'
+        );
+
+        $migrationFileName = $dateFormat."_create_".Str::plural(
+                $this->toSnakeCase($name)
+            )
+            ."_table";
+
+        file_put_contents(
+            $path."/{$migrationFileName}.php",
+            $migrationTemplate
+        );
+    }
+
+    /**
      * @param  $input
      *
      * @return string
@@ -148,5 +177,4 @@ class CrudGenerator extends Command
 
         return implode('_', $ret);
     }
-
 }
