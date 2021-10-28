@@ -2,7 +2,7 @@
 
 /*
  * CODE
- * Role Class Migration
+ * ClientDocument Class Migration
  */
 
 use Illuminate\Database\Migrations\Migration;
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Schema;
  *
  * @version 1.0
  */
-class CreateRolesTable extends Migration
+class CreateClientDocumentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -23,11 +23,11 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('client_documents', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100);
-            $table->string('description');
-            $table->json('config')->nullable();
+            $table->foreignId('client_id')->constrained();
+            $table->foreignId('document_id')->constrained();
+            $table->string('file');
             $table->timestamps();
         });
     }
@@ -39,6 +39,6 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('client_documents');
     }
 }

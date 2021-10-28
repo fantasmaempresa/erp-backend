@@ -23,8 +23,11 @@ class CreateWorkAreasTable extends Migration
      */
     public function up()
     {
-        Schema::create('workAreas', function (Blueprint $table) {
+        Schema::create('work_areas', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('description');
+            $table->json('config')->nullable();
             $table->timestamps();
         });
     }
@@ -36,6 +39,6 @@ class CreateWorkAreasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('workAreas');
+        Schema::dropIfExists('work_areas');
     }
 }

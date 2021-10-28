@@ -2,7 +2,7 @@
 
 /*
  * CODE
- * Role Class Migration
+ * ProcessProject Class Migration
  */
 
 use Illuminate\Database\Migrations\Migration;
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Schema;
  *
  * @version 1.0
  */
-class CreateRolesTable extends Migration
+class CreateProcessProjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -23,11 +23,10 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('process_projects', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100);
-            $table->string('description');
-            $table->json('config')->nullable();
+            $table->foreignId('project_id')->constrained();
+            $table->foreignId('process_id')->constrained();
             $table->timestamps();
         });
     }
@@ -39,6 +38,6 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('process_projects');
     }
 }

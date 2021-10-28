@@ -2,8 +2,9 @@
 
 /*
  * CODE
- * Clients Class Migration
+ * User Class Migration
  */
+
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Schema;
  *
  * @version 1.0
  */
-class CreateClientsTable extends Migration
+class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -23,16 +24,14 @@ class CreateClientsTable extends Migration
      */
     public function up()
     {
-        Schema::create('clients', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('email')->unique();
-            $table->string('phone', 10)->unique();
-            $table->string('nickname')->nullable();
-            $table->string('address')->nullable();
-            $table->string('rfc')->nullable();
-            $table->json('extra_information')->nullable();
-            $table->foreignId('user_id')->nullable()->constrained();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->json('config')->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -44,6 +43,6 @@ class CreateClientsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clients');
+        Schema::dropIfExists('users');
     }
 }

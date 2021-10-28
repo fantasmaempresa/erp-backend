@@ -2,7 +2,7 @@
 
 /*
  * CODE
- * Role Class Migration
+ * Document Class Migration
  */
 
 use Illuminate\Database\Migrations\Migration;
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Schema;
  *
  * @version 1.0
  */
-class CreateRolesTable extends Migration
+class CreateDocumentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -23,11 +23,11 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100);
+            $table->string('name');
             $table->string('description');
-            $table->json('config')->nullable();
+            $table->float('quote')->nullable();
             $table->timestamps();
         });
     }
@@ -39,6 +39,6 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('documents');
     }
 }

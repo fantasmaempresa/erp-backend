@@ -2,9 +2,8 @@
 
 /*
  * CODE
- * Log Class Migration
+ * DetailProjectProcessProject Class Migration
  */
-
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,7 +14,7 @@ use Illuminate\Support\Facades\Schema;
  *
  * @version 1.0
  */
-class CreateUserLogsTable extends Migration
+class CreateDetailProjectProcessProjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -24,8 +23,10 @@ class CreateUserLogsTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_logs', function (Blueprint $table) {
+        Schema::create('detail_project_process_projects', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('detail_project_id')->constrained();
+            $table->foreignId('process_project_id')->constrained();
             $table->timestamps();
         });
     }
@@ -37,6 +38,6 @@ class CreateUserLogsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_logs');
+        Schema::dropIfExists('detail_project_process_projects');
     }
 }

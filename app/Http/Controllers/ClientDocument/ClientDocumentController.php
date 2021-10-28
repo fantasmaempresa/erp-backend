@@ -2,13 +2,13 @@
 
 /*
  * CODE
- * DocumentClient Controller
+ * ClientDocument Controller
 */
 
-namespace App\Http\Controllers\DocumentClient;
+namespace App\Http\Controllers\ClientDocument;
 
 use Exception;
-use App\Models\DocumentClient;
+use App\Models\ClientDocument;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\ApiController;
@@ -19,7 +19,7 @@ use Illuminate\Validation\ValidationException;
  *
  * @version 1.0
  */
-class DocumentClientController extends ApiController
+class ClientDocumentController extends ApiController
 {
 
     /**
@@ -27,9 +27,9 @@ class DocumentClientController extends ApiController
      */
     public function index(): JsonResponse
     {
-        $documentClients = DocumentClient::all();
+        $clientDocuments = ClientDocument::all();
 
-        return $this->showAll($documentClients);
+        return $this->showAll($clientDocuments);
     }
 
     /**
@@ -44,49 +44,49 @@ class DocumentClientController extends ApiController
         $rules = [];
 
         $this->validate($request, $rules);
-        $documentClient = DocumentClient::create($request->all());
+        $clientDocument = ClientDocument::create($request->all());
 
-        return $this->showOne($documentClient);
+        return $this->showOne($clientDocument);
     }
 
     /**
-     * @param DocumentClient $documentClient
+     * @param ClientDocument $clientDocument
      *
      * @return JsonResponse
      */
-    public function show(DocumentClient $documentClient): JsonResponse
+    public function show(ClientDocument $clientDocument): JsonResponse
     {
-        return $this->showOne($documentClient);
+        return $this->showOne($clientDocument);
     }
 
     /**
      * @param Request $request
-     * @param DocumentClient $documentClient
+     * @param ClientDocument $clientDocument
      *
      * @return JsonResponse
      */
-    public function update(Request $request, DocumentClient $documentClient): JsonResponse
+    public function update(Request $request, ClientDocument $clientDocument): JsonResponse
     {
-        $documentClient->fill($request->all());
-        if ($documentClient->isClean()) {
+        $clientDocument->fill($request->all());
+        if ($clientDocument->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);
         }
 
-        $documentClient->save();
+        $clientDocument->save();
 
-        return $this->showOne($documentClient);
+        return $this->showOne($clientDocument);
     }
 
     /**
-     * @param DocumentClient $documentClient
+     * @param ClientDocument $clientDocument
      *
      * @return JsonResponse
      *
      * @throws Exception
      */
-    public function destroy(DocumentClient $documentClient): JsonResponse
+    public function destroy(ClientDocument $clientDocument): JsonResponse
     {
-        $documentClient->delete();
+        $clientDocument->delete();
 
         return $this->showMessage('Record deleted successfully');
     }

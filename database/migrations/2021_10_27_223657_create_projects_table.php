@@ -2,7 +2,7 @@
 
 /*
  * CODE
- * Staff Class Migration
+ * Projects Class Migration
  */
 
 use Illuminate\Database\Migrations\Migration;
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Schema;
  *
  * @version 1.0
  */
-class CreateStaffTable extends Migration
+class CreateProjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -23,15 +23,15 @@ class CreateStaffTable extends Migration
      */
     public function up()
     {
-        Schema::create('staff', function (Blueprint $table) {
+        Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
-            $table->string('phone', 10)->unique();
-            $table->string('nickname')->nullable();
-            $table->json('extra_information')->nullable();
-            $table->foreignId('work_area_id');
-            $table->foreignId('user_id')->nullable()->constrained();
+            $table->text('description');
+            $table->date('estimate_end_date');
+            $table->json('quotes');
+            $table->string('folio')->nullable();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('client_id')->nullable()->constrained();
             $table->timestamps();
         });
     }
@@ -43,6 +43,6 @@ class CreateStaffTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('staff');
+        Schema::dropIfExists('projects');
     }
 }
