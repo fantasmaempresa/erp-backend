@@ -17,8 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::resource('carExamples', 'CarExample\CarExampleController', ['except' => ['create', 'edit']]);
-Route::resource('rols', 'Rol\RolController', ['except' => ['create', 'edit']]);
 Route::resource('roles', 'Role\RoleController', ['except' => ['create', 'edit']]);
 Route::resource('logs', 'UserLog\LogController', ['except' => ['create', 'edit']]);
 Route::resource('workAreas', 'WorkArea\WorkAreaController', ['except' => ['create', 'edit']]);
@@ -36,3 +34,5 @@ Route::resource('processProjects', 'ProcessProject\ProcessProjectController', ['
 Route::resource('detailProjectProcessProjects', 'DetailProjectProcessProject\DetailProjectProcessProjectController', ['except' => ['create', 'edit']]);
 Route::resource('documents', 'Document\DocumentController', ['except' => ['create', 'edit']]);
 Route::resource('clientDocuments', 'ClientDocument\ClientDocumentController', ['except' => ['create', 'edit']]);
+Route::resource('salaries', 'Salary\SalaryController', ['except' => ['create', 'edit']]);
+Route::resource('taxData', 'TaxDatum\TaxDatumController', ['except' => ['create', 'edit']]);
