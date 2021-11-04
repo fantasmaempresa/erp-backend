@@ -2,7 +2,7 @@
 
 /*
  * CODE
- * Staff Model Class
+ * Projects Model Class
  */
 
 namespace App\Models;
@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  *
  * @version 1.0
  */
-class Staff extends Model
+class Project extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -26,13 +26,21 @@ class Staff extends Model
     protected $fillable = [
         'id',
         'name',
-        'email',
-        'phone',
-        'nickname',
-        'extra_information',
-        'work_area_id',
+        'description',
+        'estimate_end_date',
+        'quotes',
+        'folio',
         'user_id',
+        'client_id',
     ];
+
+    /**
+     * @return BelongsTo
+     */
+    public function client(): BelongsTo
+    {
+        return $this->belongsTo(Client::class);
+    }
 
     /**
      * @return BelongsTo
@@ -43,18 +51,18 @@ class Staff extends Model
     }
 
     /**
-     * @return BelongsTo
+     * @return BelongsToMany
      */
-    public function workArea(): BelongsTo
+    public function process(): BelongsToMany
     {
-        return $this->belongsTo(WorkArea::class);
+        return $this->belongsToMany(Process::class);
     }
 
     /**
      * @return BelongsToMany
      */
-    public function project(): BelongsToMany
+    public function staff(): BelongsToMany
     {
-        return $this->belongsToMany(Project::class);
+        return $this->belongsToMany(Staff::class);
     }
 }

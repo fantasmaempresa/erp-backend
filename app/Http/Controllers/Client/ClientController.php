@@ -2,13 +2,13 @@
 
 /*
  * CODE
- * Projects Controller
+ * Client Controller
 */
 
-namespace App\Http\Controllers\Projects;
+namespace App\Http\Controllers\Client;
 
 use Exception;
-use App\Models\Projects;
+use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\ApiController;
@@ -19,7 +19,7 @@ use Illuminate\Validation\ValidationException;
  *
  * @version 1.0
  */
-class ProjectsController extends ApiController
+class ClientController extends ApiController
 {
 
     /**
@@ -27,9 +27,9 @@ class ProjectsController extends ApiController
      */
     public function index(): JsonResponse
     {
-        $projects = Projects::all();
+        $clients = Client::all();
 
-        return $this->showAll($projects);
+        return $this->showAll($clients);
     }
 
     /**
@@ -44,49 +44,49 @@ class ProjectsController extends ApiController
         $rules = [];
 
         $this->validate($request, $rules);
-        $projects = Projects::create($request->all());
+        $clients = Client::create($request->all());
 
-        return $this->showOne($projects);
+        return $this->showOne($clients);
     }
 
     /**
-     * @param Projects $projects
+     * @param Client $clients
      *
      * @return JsonResponse
      */
-    public function show(Projects $projects): JsonResponse
+    public function show(Client $clients): JsonResponse
     {
-        return $this->showOne($projects);
+        return $this->showOne($clients);
     }
 
     /**
      * @param Request $request
-     * @param Projects $projects
+     * @param Client $clients
      *
      * @return JsonResponse
      */
-    public function update(Request $request, Projects $projects): JsonResponse
+    public function update(Request $request, Client $clients): JsonResponse
     {
-        $projects->fill($request->all());
-        if ($projects->isClean()) {
+        $clients->fill($request->all());
+        if ($clients->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);
         }
 
-        $projects->save();
+        $clients->save();
 
-        return $this->showOne($projects);
+        return $this->showOne($clients);
     }
 
     /**
-     * @param Projects $projects
+     * @param Client $clients
      *
      * @return JsonResponse
      *
      * @throws Exception
      */
-    public function destroy(Projects $projects): JsonResponse
+    public function destroy(Client $clients): JsonResponse
     {
-        $projects->delete();
+        $clients->delete();
 
         return $this->showMessage('Record deleted successfully');
     }

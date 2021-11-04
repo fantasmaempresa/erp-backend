@@ -4,9 +4,11 @@
  * CODE
  * PhasesProcess Model Class
  */
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @access  public
@@ -15,5 +17,26 @@ use Illuminate\Database\Eloquent\Model;
  */
 class PhasesProcess extends Model
 {
-    protected $fillable = [];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
+    protected $fillable = [
+        'id',
+        'name',
+        'description',
+        'form',
+        'quotes',
+        'payments',
+        'process_id',
+    ];
+
+    /**
+     * @return BelongsTo
+     */
+    public function process(): BelongsTo
+    {
+        return $this->belongsTo(Process::class);
+    }
 }

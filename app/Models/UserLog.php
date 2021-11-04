@@ -2,20 +2,20 @@
 
 /*
  * CODE
- * Role Model Class
+ * UserLog Model Class
  */
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @access  public
  *
  * @version 1.0
  */
-class Role extends Model
+class UserLog extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -24,17 +24,16 @@ class Role extends Model
      */
     protected $fillable = [
         'id',
-        'name',
-        'description',
-        'config',
+        'date',
+        'file',
+        'user_id',
     ];
 
     /**
-     * @return HasMany
+     * @return BelongsTo
      */
-    public function user(): HasMany
+    public function user(): BelongsTo
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class);
     }
 }
-

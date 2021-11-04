@@ -4,9 +4,12 @@
  * CODE
  * Process Model Class
  */
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @access  public
@@ -15,5 +18,33 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Process extends Model
 {
-    protected $fillable = [];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
+    protected $fillable = [
+        'id',
+        'name',
+        'description',
+        'config',
+    ];
+
+    /**
+     * @return HasMany
+     */
+    public function phases(): HasMany
+    {
+        return $this->hasMany(PhasesProcess::class);
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function projects(): BelongsToMany
+    {
+        return $this->belongsToMany(Project::class);
+    }
+
+
 }

@@ -2,13 +2,13 @@
 
 /*
  * CODE
- * DetailProcess Controller
+ * Projects Controller
 */
 
-namespace App\Http\Controllers\DetailProcess;
+namespace App\Http\Controllers\Project;
 
 use Exception;
-use App\Models\DetailProcess;
+use App\Models\Projects;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\ApiController;
@@ -19,7 +19,7 @@ use Illuminate\Validation\ValidationException;
  *
  * @version 1.0
  */
-class DetailProcessController extends ApiController
+class ProjectController extends ApiController
 {
 
     /**
@@ -27,9 +27,9 @@ class DetailProcessController extends ApiController
      */
     public function index(): JsonResponse
     {
-        $detailProcesses = DetailProcess::all();
+        $projects = Projects::all();
 
-        return $this->showAll($detailProcesses);
+        return $this->showAll($projects);
     }
 
     /**
@@ -44,49 +44,49 @@ class DetailProcessController extends ApiController
         $rules = [];
 
         $this->validate($request, $rules);
-        $detailProcess = DetailProcess::create($request->all());
+        $projects = Projects::create($request->all());
 
-        return $this->showOne($detailProcess);
+        return $this->showOne($projects);
     }
 
     /**
-     * @param DetailProcess $detailProcess
+     * @param Projects $projects
      *
      * @return JsonResponse
      */
-    public function show(DetailProcess $detailProcess): JsonResponse
+    public function show(Projects $projects): JsonResponse
     {
-        return $this->showOne($detailProcess);
+        return $this->showOne($projects);
     }
 
     /**
      * @param Request $request
-     * @param DetailProcess $detailProcess
+     * @param Projects $projects
      *
      * @return JsonResponse
      */
-    public function update(Request $request, DetailProcess $detailProcess): JsonResponse
+    public function update(Request $request, Projects $projects): JsonResponse
     {
-        $detailProcess->fill($request->all());
-        if ($detailProcess->isClean()) {
+        $projects->fill($request->all());
+        if ($projects->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);
         }
 
-        $detailProcess->save();
+        $projects->save();
 
-        return $this->showOne($detailProcess);
+        return $this->showOne($projects);
     }
 
     /**
-     * @param DetailProcess $detailProcess
+     * @param Projects $projects
      *
      * @return JsonResponse
      *
      * @throws Exception
      */
-    public function destroy(DetailProcess $detailProcess): JsonResponse
+    public function destroy(Projects $projects): JsonResponse
     {
-        $detailProcess->delete();
+        $projects->delete();
 
         return $this->showMessage('Record deleted successfully');
     }
