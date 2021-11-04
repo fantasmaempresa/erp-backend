@@ -35,6 +35,15 @@ class Staff extends Model
     ];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'extra_information' => 'array',
+    ];
+
+    /**
      * @return BelongsTo
      */
     public function user(): BelongsTo
