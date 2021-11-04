@@ -2,7 +2,7 @@
 
 /*
  * CODE
- * {{modelName}} Class Migration
+ * Perception Class Migration
  */
 
 use Illuminate\Database\Migrations\Migration;
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Schema;
  *
  * @version 1.0
  */
-class Create{{modelNamePlural}}Table extends Migration
+class CreatePerceptionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -23,8 +23,13 @@ class Create{{modelNamePlural}}Table extends Migration
      */
     public function up()
     {
-        Schema::create('{{modelNamePluralLowerCase}}', function (Blueprint $table) {
+        Schema::create('perceptions', function (Blueprint $table) {
             $table->id();
+            $table->string('key');
+            $table->integer('type');
+            $table->string('concept');
+            $table->decimal('aggravated_amount');
+            $table->decimal('exempt_amount');
             $table->timestamps();
         });
     }
@@ -36,6 +41,6 @@ class Create{{modelNamePlural}}Table extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('{{modelNamePluralLowerCase}}');
+        Schema::dropIfExists('perceptions');
     }
 }

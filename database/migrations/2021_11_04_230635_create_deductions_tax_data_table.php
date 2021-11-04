@@ -2,7 +2,7 @@
 
 /*
  * CODE
- * {{modelName}} Class Migration
+ * TaxDatum Class Migration
  */
 
 use Illuminate\Database\Migrations\Migration;
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Schema;
  *
  * @version 1.0
  */
-class Create{{modelNamePlural}}Table extends Migration
+class CreateDeductionsTaxDataTable extends Migration
 {
     /**
      * Run the migrations.
@@ -23,9 +23,9 @@ class Create{{modelNamePlural}}Table extends Migration
      */
     public function up()
     {
-        Schema::create('{{modelNamePluralLowerCase}}', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('deductions_tax_data', function (Blueprint $table) {
+            $table->foreignId('deductions_id')->constrained();
+            $table->foreignId('tax_datum_id')->constrained();
         });
     }
 
@@ -36,6 +36,6 @@ class Create{{modelNamePlural}}Table extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('{{modelNamePluralLowerCase}}');
+        Schema::dropIfExists('deductions_tax_data');
     }
 }
