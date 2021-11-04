@@ -131,7 +131,9 @@ class CrudGenerator extends Command
             ],
             [
                 $name,
-                lcfirst(Str::plural($name)),
+                Str::plural(
+                    $this->toSnakeCase($name)
+                ),
                 Str::plural($name),
             ],
             $this->getStub('Migration')
@@ -144,10 +146,7 @@ class CrudGenerator extends Command
             'Y_m_d_His'
         );
 
-        $migrationFileName = $dateFormat."_create_".Str::plural(
-                $this->toSnakeCase($name)
-            )
-            ."_table";
+        $migrationFileName = $dateFormat."_create_".Str::plural($this->toSnakeCase($name))."_table";
 
         file_put_contents(
             $path."/{$migrationFileName}.php",
