@@ -2,7 +2,7 @@
 
 /*
  * CODE
- * Log Class Migration
+ * UserLog Class Migration
  */
 
 
@@ -30,7 +30,6 @@ class CreateUserLogsTable extends Migration
             $table->string('file');
             $table->foreignId('user_id')->constrained();
             $table->timestamps();
-
         });
     }
 

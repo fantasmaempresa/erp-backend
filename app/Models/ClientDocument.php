@@ -2,7 +2,7 @@
 
 /*
  * CODE
- * DetailProjectProcessProject Model Class
+ * ClientDocument Model Class
  */
 
 namespace App\Models;
@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @version 1.0
  */
-class DetailProjectProcessProject extends Model
+class ClientDocument extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -24,23 +24,24 @@ class DetailProjectProcessProject extends Model
      */
     protected $fillable = [
         'id',
-        'detail_project_id',
-        'process_project_id',
+        'client_id',
+        'document_id',
+        'file',
     ];
 
     /**
      * @return BelongsTo
      */
-    public function detailProject() : BelongsTo
+    public function client(): BelongsTo
     {
-        return $this->belongsTo(DetailProject::class);
+        return $this->belongsTo(Client::class);
     }
 
     /**
      * @return BelongsTo
      */
-    public function processProject() : BelongsTo
+    public function document(): BelongsTo
     {
-        return $this->belongsTo(ProcessProject::class);
+        return $this->belongsTo(Document::class);
     }
 }

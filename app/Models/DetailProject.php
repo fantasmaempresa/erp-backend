@@ -2,7 +2,7 @@
 
 /*
  * CODE
- * ProcessProject Model Class
+ * DetailProject Model Class
  */
 
 namespace App\Models;
@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  *
  * @version 1.0
  */
-class ProcessProject extends Model
+class DetailProject extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -25,31 +25,25 @@ class ProcessProject extends Model
      */
     protected $fillable = [
         'id',
-        'project_id',
-        'process_id',
+        'comments',
+        'form_data',
+        'phases_process_id',
     ];
 
-    /**
-     * @return BelongsTo
-     */
-    public function project(): BelongsTo
-    {
-        return $this->belongsTo(Project::class);
-    }
 
     /**
      * @return BelongsTo
      */
-    public function process(): BelongsTo
+    public function phase(): BelongsTo
     {
-        return $this->belongsTo(Process::class);
+        return $this->belongsTo(PhasesProcess::class);
     }
 
     /**
      * @return BelongsToMany
      */
-    public function detailProject(): BelongsToMany
+    public function processProject(): BelongsToMany
     {
-        return $this->belongsToMany(DetailProject::class);
+        return $this->belongsToMany(ProcessProject::class);
     }
 }

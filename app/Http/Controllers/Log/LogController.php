@@ -2,13 +2,13 @@
 
 /*
  * CODE
- * Log Controller
+ * UserLog Controller
 */
 
 namespace App\Http\Controllers\Log;
 
 use Exception;
-use App\Models\Log;
+use App\Models\UserLog;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\ApiController;
@@ -27,7 +27,7 @@ class LogController extends ApiController
      */
     public function index(): JsonResponse
     {
-        $logs = Log::all();
+        $logs = UserLog::all();
 
         return $this->showAll($logs);
     }
@@ -44,28 +44,28 @@ class LogController extends ApiController
         $rules = [];
 
         $this->validate($request, $rules);
-        $log = Log::create($request->all());
+        $log = UserLog::create($request->all());
 
         return $this->showOne($log);
     }
 
     /**
-     * @param Log $log
+     * @param UserLog $log
      *
      * @return JsonResponse
      */
-    public function show(Log $log): JsonResponse
+    public function show(UserLog $log): JsonResponse
     {
         return $this->showOne($log);
     }
 
     /**
      * @param Request $request
-     * @param Log $log
+     * @param UserLog $log
      *
      * @return JsonResponse
      */
-    public function update(Request $request, Log $log): JsonResponse
+    public function update(Request $request, UserLog $log): JsonResponse
     {
         $log->fill($request->all());
         if ($log->isClean()) {
@@ -78,13 +78,13 @@ class LogController extends ApiController
     }
 
     /**
-     * @param Log $log
+     * @param UserLog $log
      *
      * @return JsonResponse
      *
      * @throws Exception
      */
-    public function destroy(Log $log): JsonResponse
+    public function destroy(UserLog $log): JsonResponse
     {
         $log->delete();
 

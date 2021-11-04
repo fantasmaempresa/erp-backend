@@ -8,7 +8,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Default Log Channel
+    | Default UserLog Channel
     |--------------------------------------------------------------------------
     |
     | This option defines the default log channel that gets used when writing
@@ -21,7 +21,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Log Channels
+    | UserLog Channels
     |--------------------------------------------------------------------------
     |
     | Here you may configure the log channels for your application. Out of
@@ -57,7 +57,7 @@ return [
         'slack' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),
-            'username' => 'Laravel Log',
+            'username' => 'Laravel UserLog',
             'emoji' => ':boom:',
             'level' => env('LOG_LEVEL', 'critical'),
         ],

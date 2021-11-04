@@ -4,9 +4,11 @@
  * CODE
  * WorkArea Model Class
  */
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @access  public
@@ -15,5 +17,23 @@ use Illuminate\Database\Eloquent\Model;
  */
 class WorkArea extends Model
 {
-    protected $fillable = [];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
+    protected $fillable = [
+        'id',
+        'name',
+        'description',
+        'config',
+    ];
+
+    /**
+     * @return HasMany
+     */
+    public function staff(): HasMany
+    {
+        return $this->hasMany(Staff::class);
+    }
 }

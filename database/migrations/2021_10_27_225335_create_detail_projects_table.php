@@ -2,7 +2,7 @@
 
 /*
  * CODE
- * DetailProcess Class Migration
+ * DetailProject Class Migration
  */
 
 use Illuminate\Database\Migrations\Migration;
