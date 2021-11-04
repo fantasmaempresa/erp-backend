@@ -30,6 +30,15 @@ class WorkArea extends Model
     ];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'config' => 'array',
+    ];
+
+    /**
      * @return HasMany
      */
     public function staff(): HasMany

@@ -33,6 +33,16 @@ class PhasesProcess extends Model
     ];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'form' => 'array',
+    ];
+
+
+    /**
      * @return BelongsTo
      */
     public function process(): BelongsTo

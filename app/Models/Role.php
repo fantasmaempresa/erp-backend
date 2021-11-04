@@ -28,7 +28,14 @@ class Role extends Model
         'description',
         'config',
     ];
-
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'config' => 'array',
+    ];
     /**
      * @return HasMany
      */

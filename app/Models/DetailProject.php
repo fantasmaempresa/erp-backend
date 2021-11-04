@@ -30,6 +30,15 @@ class DetailProject extends Model
         'phases_process_id',
     ];
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'form_data' => 'array',
+    ];
+
 
     /**
      * @return BelongsTo
