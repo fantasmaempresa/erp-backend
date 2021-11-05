@@ -24,7 +24,7 @@ class CreateTaxDataTable extends Migration
     public function up()
     {
         Schema::create('tax_data', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('rfc');
             $table->string('curp');
             $table->date('start_date_employment');
@@ -38,10 +38,9 @@ class CreateTaxDataTable extends Migration
             $table->string('county');
             $table->string('estate');
             $table->string('reference');
-            $table->unsignedBigInteger('staff_id');
+            $table->foreignId('staff_id')->constrained();
+            $table->foreignId('salary_id')->constrained();
             $table->timestamps();
-
-            $table->foreign('staff_id')->references('id')->on('staff');
         });
     }
 

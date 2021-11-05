@@ -8,6 +8,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @access  public
@@ -16,6 +18,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 class TaxDatum extends Model
 {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
     protected $fillable
         = [
             'id',
@@ -33,5 +40,38 @@ class TaxDatum extends Model
             'estate',
             'reference',
             'staff_id',
+            'salary_id',
         ];
+
+    /**
+     * @return BelongsTo
+     */
+    public function staff(): BelongsTo
+    {
+        return $this->belongsTo(Staff::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function salary(): BelongsTo
+    {
+        return $this->belongsTo(Salary::class);
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function perceptions(): BelongsToMany
+    {
+        return $this->belongsToMany(Perception::class);
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function deductions(): BelongsToMany
+    {
+        return $this->belongsToMany(Deduction::class);
+    }
 }

@@ -24,7 +24,7 @@ class CreateSalariesTable extends Migration
     public function up()
     {
         Schema::create('salaries', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('payment_periodicity', 45);
             $table->string('type_tax_regime', 45);
             $table->string('square', 45);

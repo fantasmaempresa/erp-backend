@@ -8,6 +8,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @access  public
@@ -16,6 +17,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Salary extends Model
 {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
     protected $fillable
         = [
             'id',
@@ -33,4 +39,12 @@ class Salary extends Model
             'base_salary',
             'integrated_daily_wage',
         ];
+
+    /**
+     * @return HasMany
+     */
+    public function taxData(): HasMany
+    {
+        return $this->hasMany(TaxDatum::class);
+    }
 }

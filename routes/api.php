@@ -35,3 +35,5 @@ Route::resource('documents', 'Document\DocumentController', ['except' => ['creat
 Route::resource('clientDocuments', 'ClientDocument\ClientDocumentController', ['except' => ['create', 'edit']]);
 Route::resource('salaries', 'Salary\SalaryController', ['except' => ['create', 'edit']]);
 Route::resource('taxData', 'TaxDatum\TaxDatumController', ['except' => ['create', 'edit']]);
+Route::resource('perceptions', 'Perception\PerceptionController', ['except' => ['create', 'edit']]);
+Route::resource('deductions', 'Deduction\DeductionController', ['except' => ['create', 'edit']]);
