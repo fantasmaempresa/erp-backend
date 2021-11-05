@@ -38,3 +38,5 @@ Route::resource('salaries', 'Salary\SalaryController', ['except' => ['create', '
 Route::resource('taxData', 'TaxDatum\TaxDatumController', ['except' => ['create', 'edit']]);
 Route::resource('perceptions', 'Perception\PerceptionController', ['except' => ['create', 'edit']]);
 Route::resource('deductions', 'Deduction\DeductionController', ['except' => ['create', 'edit']]);
+Route::resource('extraHours', 'ExtraHour\ExtraHourController', ['except' => ['create', 'edit']]);
+Route::resource('disabilities', 'Disability\DisabilityController', ['except' => ['create', 'edit']]);
