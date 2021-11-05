@@ -17,18 +17,17 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 Route::resource('roles', 'Role\RoleController', ['except' => ['create', 'edit']]);
-Route::resource('logs', 'UserLog\LogController', ['except' => ['create', 'edit']]);
+//Route::resource('logs', 'UserLog\LogController', ['except' => ['create', 'edit']]);
 Route::resource('workAreas', 'WorkArea\WorkAreaController', ['except' => ['create', 'edit']]);
 Route::resource('staff', 'Staff\StaffController', ['except' => ['create', 'edit']]);
-Route::resource('documentClients', 'ClientDocument\DocumentClientController', ['except' => ['create', 'edit']]);
-Route::resource('clients', 'Clients\ClientsController', ['except' => ['create', 'edit']]);
-Route::resource('documentClients', 'ClientDocument\DocumentClientController', ['except' => ['create', 'edit']]);
-Route::resource('documentClients', 'ClientDocument\DocumentClientController', ['except' => ['create', 'edit']]);
+//Route::resource('documentClients', 'ClientDocument\DocumentClientController', ['except' => ['create', 'edit']]);
+Route::resource('clients', 'Client\ClientController', ['except' => ['create', 'edit']]);
 Route::resource('phasesProcesses', 'PhasesProcess\PhasesProcessController', ['except' => ['create', 'edit']]);
 Route::resource('processes', 'Process\ProcessController', ['except' => ['create', 'edit']]);
-Route::resource('projects', 'Projects\ProjectsController', ['except' => ['create', 'edit']]);
-Route::resource('detailProcesses', 'DetailProject\DetailProcessController', ['except' => ['create', 'edit']]);
+Route::resource('projects', 'Project\ProjectController', ['except' => ['create', 'edit']]);
+Route::resource('detailProject', 'DetailProject\DetailProjectController', ['except' => ['create', 'edit']]);
 Route::resource('projectStaffs', 'ProjectStaff\ProjectStaffController', ['except' => ['create', 'edit']]);
 Route::resource('processProjects', 'ProcessProject\ProcessProjectController', ['except' => ['create', 'edit']]);
 Route::resource('detailProjectProcessProjects', 'DetailProjectProcessProject\DetailProjectProcessProjectController', ['except' => ['create', 'edit']]);

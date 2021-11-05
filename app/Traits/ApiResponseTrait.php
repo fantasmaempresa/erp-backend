@@ -42,14 +42,15 @@ trait ApiResponseTrait
 
     /**
      * @param Collection $collection
-     * @param int        $code
+     * @param int $code
      *
      * @return JsonResponse
      */
     protected function showAll(
         Collection $collection,
         int $code = 200
-    ): JsonResponse {
+    ): JsonResponse
+    {
         if ($collection->isEmpty()) {
             return $this->successResponse(['data' => $collection], $code);
         }
@@ -62,7 +63,7 @@ trait ApiResponseTrait
 
     /**
      * @param Model $instance
-     * @param int   $code
+     * @param int $code
      *
      * @return JsonResponse
      */

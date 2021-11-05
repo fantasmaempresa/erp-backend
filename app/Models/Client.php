@@ -36,6 +36,10 @@ class Client extends Model
         'user_id',
     ];
 
+    protected $casts = [
+        'extra_information' => 'array',
+    ];
+
     /**
      * @return belongsTo
      */
