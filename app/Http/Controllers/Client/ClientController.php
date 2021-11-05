@@ -12,6 +12,7 @@ use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\ApiController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 /**
@@ -27,9 +28,7 @@ class ClientController extends ApiController
      */
     public function index(): JsonResponse
     {
-        $clients = Client::all();
-
-        return $this->showAll($clients);
+        return $this->showAll(Client::paginate(100));
     }
 
     /**
@@ -41,52 +40,60 @@ class ClientController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [];
+        $rules = [
+            'name' => 'string',
+            'email' => 'email',
+            'phone' => 'string|max:10|min:10',
+            'nickname' => 'string',
+            'address' => 'string',
+            'rfc' => 'string|max:13|min:10',
+        ];
 
         $this->validate($request, $rules);
-        $clients = Client::create($request->all());
+        $client = Client::create($request->all());
+        $client->user_id = Auth::id();
+        $client->save();
 
-        return $this->showOne($clients);
+        return $this->showOne($client);
     }
 
     /**
-     * @param Client $clients
+     * @param Client $client
      *
      * @return JsonResponse
      */
-    public function show(Client $clients): JsonResponse
+    public function show(Client $client): JsonResponse
     {
-        return $this->showOne($clients);
+        return $this->showOne($client);
     }
 
     /**
      * @param Request $request
-     * @param Client $clients
+     * @param Client  $client
      *
      * @return JsonResponse
      */
-    public function update(Request $request, Client $clients): JsonResponse
+    public function update(Request $request, Client $client): JsonResponse
     {
-        $clients->fill($request->all());
-        if ($clients->isClean()) {
+        $client->fill($request->all());
+        if ($client->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);
         }
+        $client->save();
 
-        $clients->save();
-
-        return $this->showOne($clients);
+        return $this->showOne($client);
     }
 
     /**
-     * @param Client $clients
+     * @param Client $client
      *
      * @return JsonResponse
      *
      * @throws Exception
      */
-    public function destroy(Client $clients): JsonResponse
+    public function destroy(Client $client): JsonResponse
     {
-        $clients->delete();
+        $client->delete();
 
         return $this->showMessage('Record deleted successfully');
     }
