@@ -27,9 +27,7 @@ class RoleController extends ApiController
      */
     public function index(): JsonResponse
     {
-        $roles = Role::all();
-
-        return $this->showAll($roles);
+        return $this->showList(Role::paginate(env('NUMBER_PAGINATE')));
     }
 
     /**
@@ -44,7 +42,7 @@ class RoleController extends ApiController
         $rules = [
             'name' => 'string',
             'description' => 'string',
-            'config' => 'string',
+//            'config' => 'string',
         ];
 
         $this->validate($request, $rules);
@@ -65,7 +63,7 @@ class RoleController extends ApiController
 
     /**
      * @param Request $request
-     * @param Role $role
+     * @param Role    $role
      *
      * @return JsonResponse
      */
