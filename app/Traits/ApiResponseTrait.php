@@ -42,14 +42,11 @@ trait ApiResponseTrait
 
     /**
      * @param Collection $collection
-     * @param int $code
+     * @param int        $code
      *
      * @return JsonResponse
      */
-    protected function showAll(
-        Collection $collection,
-        int $code = 200
-    ): JsonResponse
+    protected function showAll(Collection $collection, int $code = 200): JsonResponse
     {
         if ($collection->isEmpty()) {
             return $this->successResponse(['data' => $collection], $code);
@@ -63,7 +60,7 @@ trait ApiResponseTrait
 
     /**
      * @param Model $instance
-     * @param int $code
+     * @param int   $code
      *
      * @return JsonResponse
      */
@@ -80,7 +77,7 @@ trait ApiResponseTrait
      */
     protected function showMessage($message, int $code = 200): JsonResponse
     {
-        return $this->successResponse(['data' => $message], $code);
+        return $this->successResponse(['data' => ['message' => $message]], $code);
     }
 
     /**
