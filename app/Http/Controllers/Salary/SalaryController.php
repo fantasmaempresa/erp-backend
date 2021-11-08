@@ -1,9 +1,9 @@
 <?php
 
-/*
+/**
  * CODE
  * Salary Controller
-*/
+ **/
 
 namespace App\Http\Controllers\Salary;
 
@@ -41,7 +41,21 @@ class SalaryController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [];
+        $rules = [
+            'payment_periodicity'    => 'required',
+            'type_tax_regime'        => 'required',
+            'square'                 => 'required',
+            'social_security_number' => 'required',
+            'worker_cable'           => 'required',
+            'worker_bank'            => 'required',
+            'start_date'             => 'required',
+            'job'                    => 'required',
+            'contract_type'          => 'required',
+            'day_type'               => 'required',
+            'job_risk'               => 'required',
+            'base_salary'            => 'required',
+            'integrated_daily_wage'  => 'required',
+        ];
 
         $this->validate($request, $rules);
         $salary = Salary::create($request->all());
@@ -69,7 +83,10 @@ class SalaryController extends ApiController
     {
         $salary->fill($request->all());
         if ($salary->isClean()) {
-            return $this->errorResponse('A different value must be specified to update', 422);
+            return $this->errorResponse(
+                'A different value must be specified to update',
+                422
+            );
         }
 
         $salary->save();

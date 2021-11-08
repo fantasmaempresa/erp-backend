@@ -25,7 +25,7 @@ class CreateSalariesTable extends Migration
     {
         Schema::create('salaries', function (Blueprint $table) {
             $table->id();
-            $table->string('payment_periodicity', 45);
+            $table->integer('payment_periodicity');
             $table->string('type_tax_regime', 45);
             $table->string('square', 45);
             $table->string('social_security_number', 45);
