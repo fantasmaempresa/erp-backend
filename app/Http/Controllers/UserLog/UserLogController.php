@@ -5,7 +5,7 @@
  * UserLog Controller
 */
 
-namespace App\Http\Controllers\Log;
+namespace App\Http\Controllers\UserLog;
 
 use Exception;
 use App\Models\UserLog;
@@ -19,7 +19,7 @@ use Illuminate\Validation\ValidationException;
  *
  * @version 1.0
  */
-class LogController extends ApiController
+class UserLogController extends ApiController
 {
 
     /**
@@ -27,9 +27,7 @@ class LogController extends ApiController
      */
     public function index(): JsonResponse
     {
-        $logs = UserLog::all();
-
-        return $this->showAll($logs);
+        return $this->showList(UserLog::paginate(env('NUMBER_PAGINATE')));
     }
 
     /**
@@ -41,52 +39,56 @@ class LogController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [];
+        $rules = [
+            'date' => 'date',
+            'file' => 'string',
+            'user_id' => 'int',
+        ];
 
         $this->validate($request, $rules);
-        $log = UserLog::create($request->all());
+        $userLog = UserLog::create($request->all());
 
-        return $this->showOne($log);
+        return $this->showOne($userLog);
     }
 
     /**
-     * @param UserLog $log
+     * @param UserLog $userLog
      *
      * @return JsonResponse
      */
-    public function show(UserLog $log): JsonResponse
+    public function show(UserLog $userLog): JsonResponse
     {
-        return $this->showOne($log);
+        return $this->showOne($userLog);
     }
 
     /**
      * @param Request $request
-     * @param UserLog $log
+     * @param UserLog $userLog
      *
      * @return JsonResponse
      */
-    public function update(Request $request, UserLog $log): JsonResponse
+    public function update(Request $request, UserLog $userLog): JsonResponse
     {
-        $log->fill($request->all());
-        if ($log->isClean()) {
+        $userLog->fill($request->all());
+        if ($userLog->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);
         }
 
-        $log->save();
+        $userLog->save();
 
-        return $this->showOne($log);
+        return $this->showOne($userLog);
     }
 
     /**
-     * @param UserLog $log
+     * @param UserLog $userLog
      *
      * @return JsonResponse
      *
      * @throws Exception
      */
-    public function destroy(UserLog $log): JsonResponse
+    public function destroy(UserLog $userLog): JsonResponse
     {
-        $log->delete();
+        $userLog->delete();
 
         return $this->showMessage('Record deleted successfully');
     }

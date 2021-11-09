@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('roles', 'Role\RoleController', ['except' => ['create', 'edit']]);
 Route::resource('users', 'User\UserController', ['except' => ['create', 'edit']]);
-//Route::resource('logs', 'UserLog\LogController', ['except' => ['create', 'edit']]);
+Route::resource('userLogs', 'UserLog\UserLogController', ['except' => ['create', 'edit']]);
 Route::resource('workAreas', 'WorkArea\WorkAreaController', ['except' => ['create', 'edit']]);
 Route::resource('staff', 'Staff\StaffController', ['except' => ['create', 'edit']]);
 //Route::resource('documentClients', 'ClientDocument\DocumentClientController', ['except' => ['create', 'edit']]);

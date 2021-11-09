@@ -27,9 +27,7 @@ class WorkAreaController extends ApiController
      */
     public function index(): JsonResponse
     {
-        $workAreas = WorkArea::all();
-
-        return $this->showAll($workAreas);
+        return $this->showList(WorkArea::paginate(env('NUMBER_PAGINATE')));
     }
 
     /**
@@ -41,7 +39,10 @@ class WorkAreaController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [];
+        $rules = [
+            'name' => 'string',
+            'description' => 'string',
+        ];
 
         $this->validate($request, $rules);
         $workArea = WorkArea::create($request->all());

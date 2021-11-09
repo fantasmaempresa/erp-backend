@@ -30,6 +30,15 @@ class UserLog extends Model
     ];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'date' => 'datetime',
+    ];
+
+    /**
      * @return BelongsTo
      */
     public function user(): BelongsTo

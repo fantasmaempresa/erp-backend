@@ -10,6 +10,8 @@ use App\Models\User;
 use App\Http\Controllers\ApiController;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use Exception;
 
 /**
  * @access  public
@@ -27,19 +29,19 @@ class UserController extends ApiController
     }
 
     /**
-     * Store a newly created resource in storage.
      * @param Request $request
      *
      * @return JsonResponse
+     *
+     * @throws ValidationException
      */
     public function store(Request $request): JsonResponse
     {
         $rules = [
             'name' => 'string',
-            'email' => 'mail',
+            'email' => 'email',
             'password' => 'string',
-            'role_id' => 'string',
-            'config' => 'string',
+            'role_id' => 'int',
         ];
 
         $this->validate($request, $rules);
@@ -49,47 +51,49 @@ class UserController extends ApiController
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource.*
+     * @param User $user
      *
-     * @param \App\Models\User $user
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function show(User $user)
+    public function show(User $user): JsonResponse
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Models\User $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
-    {
-        //
+        return $this->showOne($user);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\User $user
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param User    $user
+     *
+     * @return JsonResponse
+     *
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $user): JsonResponse
     {
-        //
+        $user->fill($request->all());
+        if ($user->isClean()) {
+            return $this->errorResponse('A different value must be specified to update', 422);
+        }
+        $user->save();
+
+        return $this->showOne($user);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\User $user
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     *
+     * @return JsonResponse
+     *
+     * @throws Exception
      */
-    public function destroy(User $user)
+    public function destroy(User $user) : JsonResponse
     {
-        //
+        $user->delete();
+
+        return $this->showMessage('Record deleted successfully');
     }
 }
