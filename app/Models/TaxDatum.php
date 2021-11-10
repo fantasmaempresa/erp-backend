@@ -10,6 +10,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @access  public
@@ -73,5 +74,21 @@ class TaxDatum extends Model
     public function deductions(): BelongsToMany
     {
         return $this->belongsToMany(Deduction::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function extraHours(): HasMany
+    {
+        return $this->hasMany(ExtraHour::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function disabilities(): HasMany
+    {
+        return $this->hasMany(Disability::class);
     }
 }
