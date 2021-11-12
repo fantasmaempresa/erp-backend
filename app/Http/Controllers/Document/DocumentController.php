@@ -27,9 +27,7 @@ class DocumentController extends ApiController
      */
     public function index(): JsonResponse
     {
-        $documents = Document::all();
-
-        return $this->showAll($documents);
+        return $this->showList(Document::paginate(env('NUMBER_PAGINATE')));
     }
 
     /**
@@ -41,7 +39,11 @@ class DocumentController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [];
+        $rules = [
+            'name' => 'string',
+            'description' => 'string',
+            'quote' => 'int',
+        ];
 
         $this->validate($request, $rules);
         $document = Document::create($request->all());
@@ -60,7 +62,7 @@ class DocumentController extends ApiController
     }
 
     /**
-     * @param Request $request
+     * @param Request  $request
      * @param Document $document
      *
      * @return JsonResponse

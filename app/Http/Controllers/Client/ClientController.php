@@ -28,7 +28,7 @@ class ClientController extends ApiController
      */
     public function index(): JsonResponse
     {
-        return $this->showAll(Client::paginate(100));
+        return $this->showList(Client::paginate(100));
     }
 
     /**
@@ -41,12 +41,12 @@ class ClientController extends ApiController
     public function store(Request $request): JsonResponse
     {
         $rules = [
-            'name' => 'string',
-            'email' => 'email',
-            'phone' => 'string|max:10|min:10',
-            'nickname' => 'string',
-            'address' => 'string',
-            'rfc' => 'string|max:13|min:10',
+            'name' => 'require|string',
+            'email' => 'require|email',
+            'phone' => 'require|string|max:10|min:10',
+            'nickname' => 'nullable|string ',
+            'address' => 'require|string',
+            'rfc' => 'require|string|max:13|min:10',
         ];
 
         $this->validate($request, $rules);
