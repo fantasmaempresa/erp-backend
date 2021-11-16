@@ -8,6 +8,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Schema;
 
@@ -41,6 +42,7 @@ class PaymentDatum extends Model
             'job_risk',
             'base_salary',
             'integrated_daily_wage',
+            'staff_id',
         ];
 
     /**
@@ -50,4 +52,13 @@ class PaymentDatum extends Model
     {
         return $this->hasMany(TaxDatum::class);
     }
+
+    /**
+     * @return BelongsTo
+     */
+    public function staff(): BelongsTo
+    {
+        return $this->belongsTo(Staff::class);
+    }
+
 }

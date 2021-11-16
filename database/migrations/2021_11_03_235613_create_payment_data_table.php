@@ -40,6 +40,7 @@ class CreatePaymentDataTable extends Migration
             $table->integer('job_risk')->nullable();
             $table->decimal('base_salary')->nullable();
             $table->string('integrated_daily_wage')->nullable();
+            $table->foreignId('staff_id')->constrained();
             $table->timestamps();
         });
     }
