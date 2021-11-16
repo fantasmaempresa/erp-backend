@@ -41,7 +41,20 @@ class TaxDatumController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [];
+        $rules = [
+            'rfc'              => 'required',
+            'curp'             => 'required',
+            'regime_type'      => 'required',
+            'postal_code'      => 'required',
+            'street'           => 'required',
+            'exterior_number'  => 'required',
+            'suburb'           => 'required',
+            'locality'         => 'required',
+            'municipality'     => 'required',
+            'country'          => 'required',
+            'estate'           => 'required',
+            'payment_datum_id' => 'required',
+        ];
 
         $this->validate($request, $rules);
         $taxDatum = TaxDatum::create($request->all());
@@ -60,7 +73,7 @@ class TaxDatumController extends ApiController
     }
 
     /**
-     * @param Request $request
+     * @param Request  $request
      * @param TaxDatum $taxDatum
      *
      * @return JsonResponse
@@ -69,7 +82,10 @@ class TaxDatumController extends ApiController
     {
         $taxDatum->fill($request->all());
         if ($taxDatum->isClean()) {
-            return $this->errorResponse('A different value must be specified to update', 422);
+            return $this->errorResponse(
+                'A different value must be specified to update',
+                422
+            );
         }
 
         $taxDatum->save();

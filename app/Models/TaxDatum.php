@@ -29,35 +29,26 @@ class TaxDatum extends Model
             'id',
             'rfc',
             'curp',
-            'start_date_employment',
-            'business_name',
+            'regime_type',
+            'postal_code',
             'street',
             'interior_number',
             'exterior_number',
             'suburb',
+            'locality',
             'municipality',
-            'tax_data_col',
-            'county',
+            'country',
             'estate',
             'reference',
-            'staff_id',
-            'salary_id',
+            'payment_datum_id',
         ];
 
     /**
      * @return BelongsTo
      */
-    public function staff(): BelongsTo
+    public function paymentDatum(): BelongsTo
     {
-        return $this->belongsTo(Staff::class);
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function salary(): BelongsTo
-    {
-        return $this->belongsTo(Salary::class);
+        return $this->belongsTo(PaymentDatum::class);
     }
 
     /**
