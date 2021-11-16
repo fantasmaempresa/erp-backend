@@ -32,6 +32,7 @@ class CreatePaymentDataTable extends Migration
             $table->string('job')->nullable();
             $table->integer('contract_type')->nullable();
             $table->integer('day_type')->nullable();
+            $table->string('employer_registration')->nullable();
             $table->integer('job_risk')->nullable();
             $table->decimal('base_salary')->nullable();
             $table->string('integrated_daily_wage')->nullable();

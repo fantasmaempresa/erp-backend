@@ -33,6 +33,7 @@ class PaymentDatum extends Model
             'job',
             'contract_type',
             'day_type',
+            'employer_registration',
             'job_risk',
             'base_salary',
             'integrated_daily_wage',
