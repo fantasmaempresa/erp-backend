@@ -29,7 +29,6 @@ class CreatePaymentDataTable extends Migration
             $table->string('square', 45);
             $table->string('worker_clabe', 45)->nullable();
             $table->string('worker_bank', 45)->nullable();
-            $table->date('start_date')->nullable();
             $table->string('job')->nullable();
             $table->integer('contract_type')->nullable();
             $table->integer('day_type')->nullable();

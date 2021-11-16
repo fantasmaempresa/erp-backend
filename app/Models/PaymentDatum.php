@@ -30,7 +30,6 @@ class PaymentDatum extends Model
             'square',
             'worker_clabe',
             'worker_bank',
-            'start_date',
             'job',
             'contract_type',
             'day_type',
