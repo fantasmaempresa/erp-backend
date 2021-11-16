@@ -44,6 +44,7 @@ class PaymentDatumController extends ApiController
         $rules = [
             'payment_periodicity' => 'required',
             'square'              => 'required',
+            'employee_number'     => 'required',
         ];
 
         $this->validate($request, $rules);
