@@ -34,9 +34,9 @@ Route::resource('processProjects', 'ProcessProject\ProcessProjectController', ['
 Route::resource('detailProjectProcessProjects', 'DetailProjectProcessProject\DetailProjectProcessProjectController', ['except' => ['create', 'edit']]);
 Route::resource('documents', 'Document\DocumentController', ['except' => ['create', 'edit']]);
 Route::resource('clientDocuments', 'ClientDocument\ClientDocumentController', ['except' => ['create', 'edit']]);
-Route::resource('salaries', 'Salary\SalaryController', ['except' => ['create', 'edit']]);
 Route::resource('taxData', 'TaxDatum\TaxDatumController', ['except' => ['create', 'edit']]);
 Route::resource('perceptions', 'Perception\PerceptionController', ['except' => ['create', 'edit']]);
 Route::resource('deductions', 'Deduction\DeductionController', ['except' => ['create', 'edit']]);
 Route::resource('extraHours', 'ExtraHour\ExtraHourController', ['except' => ['create', 'edit']]);
 Route::resource('disabilities', 'Disability\DisabilityController', ['except' => ['create', 'edit']]);
+Route::resource('paymentData', 'PaymentDatum\PaymentDatumController', ['except' => ['create', 'edit']]);

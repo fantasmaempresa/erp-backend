@@ -2,20 +2,21 @@
 
 /*
  * CODE
- * Salary Model Class
+ * PaymentDatum Model Class
  */
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Schema;
 
 /**
  * @access  public
  *
  * @version 1.0
  */
-class Salary extends Model
+class PaymentDatum extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -26,10 +27,8 @@ class Salary extends Model
         = [
             'id',
             'payment_periodicity',
-            'type_tax_regime',
             'square',
-            'social_security_number',
-            'worker_cable',
+            'worker_clabe',
             'worker_bank',
             'start_date',
             'job',

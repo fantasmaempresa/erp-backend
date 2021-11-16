@@ -39,7 +39,7 @@ class CreateTaxDataTable extends Migration
             $table->string('estate');
             $table->string('reference');
             $table->foreignId('staff_id')->constrained();
-            $table->foreignId('salary_id')->constrained();
+            $table->foreignId('payment_datum_id')->constrained();
             $table->timestamps();
         });
     }
