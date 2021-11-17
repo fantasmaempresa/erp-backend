@@ -41,7 +41,13 @@ class DisabilityController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [];
+        $rules = [
+            'days'         => 'required',
+            'type'         => 'required',
+            'discount'     => 'required',
+            'date'         => 'required',
+            'tax_datum_id' => 'required',
+        ];
 
         $this->validate($request, $rules);
         $disability = Disability::create($request->all());
@@ -60,7 +66,7 @@ class DisabilityController extends ApiController
     }
 
     /**
-     * @param Request $request
+     * @param Request    $request
      * @param Disability $disability
      *
      * @return JsonResponse
@@ -69,7 +75,10 @@ class DisabilityController extends ApiController
     {
         $disability->fill($request->all());
         if ($disability->isClean()) {
-            return $this->errorResponse('A different value must be specified to update', 422);
+            return $this->errorResponse(
+                'A different value must be specified to update',
+                422
+            );
         }
 
         $disability->save();

@@ -41,7 +41,13 @@ class ExtraHourController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [];
+        $rules = [
+            'days'         => 'required',
+            'type'         => 'required',
+            'hours'        => 'required',
+            'amount'       => 'required',
+            'tax_datum_id' => 'required',
+        ];
 
         $this->validate($request, $rules);
         $extraHour = ExtraHour::create($request->all());
@@ -60,7 +66,7 @@ class ExtraHourController extends ApiController
     }
 
     /**
-     * @param Request $request
+     * @param Request   $request
      * @param ExtraHour $extraHour
      *
      * @return JsonResponse
@@ -69,7 +75,10 @@ class ExtraHourController extends ApiController
     {
         $extraHour->fill($request->all());
         if ($extraHour->isClean()) {
-            return $this->errorResponse('A different value must be specified to update', 422);
+            return $this->errorResponse(
+                'A different value must be specified to update',
+                422
+            );
         }
 
         $extraHour->save();
