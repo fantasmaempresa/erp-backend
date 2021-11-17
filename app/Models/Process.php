@@ -40,6 +40,20 @@ class Process extends Model
     ];
 
     /**
+     * Function to return array rules in method create and update
+     *
+     * @return array
+     */
+    public static function rules(): array
+    {
+        return [
+            'name' => 'required|string',
+            'description' => 'nullable|string',
+            'config' => 'nullable|array',
+        ];
+    }
+
+    /**
      * @return HasMany
      */
     public function phases(): HasMany

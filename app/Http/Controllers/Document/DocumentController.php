@@ -39,13 +39,7 @@ class DocumentController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [
-            'name' => 'string',
-            'description' => 'string',
-            'quote' => 'int',
-        ];
-
-        $this->validate($request, $rules);
+        $this->validate($request, Document::rules());
         $document = Document::create($request->all());
 
         return $this->showOne($document);
@@ -69,6 +63,7 @@ class DocumentController extends ApiController
      */
     public function update(Request $request, Document $document): JsonResponse
     {
+        $this->validate($request, Document::rules());
         $document->fill($request->all());
         if ($document->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);

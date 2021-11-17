@@ -9,6 +9,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Validation\Rule;
 
 /**
  * @access  public
@@ -38,9 +39,26 @@ class PhasesProcess extends Model
      * @var array
      */
     protected $casts = [
-        'form' => 'array',
+        'form'     => 'array',
+        'quotes'   => 'array',
+        'payments' => 'array',
     ];
-
+    /**
+     * Function to return array rules in method create and update
+     *
+     * @return array
+     */
+    public static function rules(): array
+    {
+        return [
+            'name' => 'required|string',
+            'description' => 'nullable|string',
+            'form' => 'required|array',
+            'quotes' => 'nullable|array',
+            'payments' => 'nullable|array',
+            'process_id' => 'required|int',
+        ];
+    }
 
     /**
      * @return BelongsTo

@@ -9,6 +9,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Validation\Rule;
 
 /**
  * @access  public
@@ -37,6 +38,20 @@ class WorkArea extends Model
     protected $casts = [
         'config' => 'array',
     ];
+
+    /**
+     * Function to return array rules in method create and update
+     *
+     * @return array
+     */
+    public static function rules(): array
+    {
+        return [
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'config' => 'nullable|required|array',
+        ];
+    }
 
     /**
      * @return HasMany

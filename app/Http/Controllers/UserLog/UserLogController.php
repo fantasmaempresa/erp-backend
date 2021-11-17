@@ -39,13 +39,7 @@ class UserLogController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [
-            'date' => 'date',
-            'file' => 'string',
-            'user_id' => 'int',
-        ];
-
-        $this->validate($request, $rules);
+        $this->validate($request, UserLog::rules());
         $userLog = UserLog::create($request->all());
 
         return $this->showOne($userLog);
@@ -69,6 +63,7 @@ class UserLogController extends ApiController
      */
     public function update(Request $request, UserLog $userLog): JsonResponse
     {
+        $this->validate($request, UserLog::rules());
         $userLog->fill($request->all());
         if ($userLog->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);

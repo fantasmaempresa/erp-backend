@@ -9,6 +9,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Validation\Rule;
 
 /**
  * @access  public
@@ -28,6 +29,19 @@ class Document extends Model
         'description',
         'quote',
     ];
+    /**
+     * Function to return array rules in method create and update
+     *
+     * @return array
+     */
+    public static function rules(): array
+    {
+        return [
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'quote' => 'required|int',
+        ];
+    }
 
     /**
      * @return BelongsToMany

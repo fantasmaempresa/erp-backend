@@ -11,8 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Validation\Rule;
-use JetBrains\PhpStorm\ArrayShape;
-use function PHPUnit\Framework\isNull;
 
 /**
  * @access  public

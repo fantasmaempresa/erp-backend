@@ -30,7 +30,7 @@ class CreateClientsTable extends Migration
             $table->string('phone', 10)->unique();
             $table->string('nickname')->nullable();
             $table->string('address')->nullable();
-            $table->string('rfc')->nullable();
+            $table->string('rfc')->nullable()->unique();
             $table->json('extra_information')->nullable();
             $table->foreignId('user_id')->nullable()->constrained();
             $table->timestamps();

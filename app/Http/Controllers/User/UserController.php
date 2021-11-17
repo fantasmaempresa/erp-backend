@@ -37,17 +37,11 @@ class UserController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [
-            'name' => 'string',
-            'email' => 'email',
-            'password' => 'string',
-            'role_id' => 'int',
-        ];
+        $this->validate($request, User::rules());
+        $user = User::create($request->all());
+        $user->password = bcrypt($user->password);
 
-        $this->validate($request, $rules);
-        $role = User::create($request->all());
-
-        return $this->showOne($role);
+        return $this->showOne($user);
     }
 
     /**
@@ -65,17 +59,21 @@ class UserController extends ApiController
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param User    $user
+     * @param User $user
      *
      * @return JsonResponse
      *
      */
     public function update(Request $request, User $user): JsonResponse
     {
+        $this->validate($request, User::rules($user->id));
         $user->fill($request->all());
         if ($user->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);
         }
+        $user->password = empty($request->has('password'))
+                        ? $user->password
+                        : bcrypt($request->has('password'));
         $user->save();
 
         return $this->showOne($user);
@@ -90,7 +88,7 @@ class UserController extends ApiController
      *
      * @throws Exception
      */
-    public function destroy(User $user) : JsonResponse
+    public function destroy(User $user): JsonResponse
     {
         $user->delete();
 
