@@ -39,13 +39,8 @@ class RoleController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [
-            'name' => 'string',
-            'description' => 'string',
-//            'config' => 'string',
-        ];
 
-        $this->validate($request, $rules);
+        $this->validate($request, Role::rules());
         $role = Role::create($request->all());
 
         return $this->showOne($role);
@@ -69,6 +64,7 @@ class RoleController extends ApiController
      */
     public function update(Request $request, Role $role): JsonResponse
     {
+        $this->validate($request, Role::rules());
         $role->fill($request->all());
         if ($role->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);

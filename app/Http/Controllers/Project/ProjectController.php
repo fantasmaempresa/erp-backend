@@ -2,13 +2,13 @@
 
 /*
  * CODE
- * Projects Controller
+ * Project Controller
 */
 
 namespace App\Http\Controllers\Project;
 
 use Exception;
-use App\Models\Projects;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\ApiController;
@@ -27,9 +27,7 @@ class ProjectController extends ApiController
      */
     public function index(): JsonResponse
     {
-        $projects = Projects::all();
-
-        return $this->showAll($projects);
+        return $this->showList(Project::paginate(env('NUMBER_PAGINATE')));
     }
 
     /**
@@ -41,52 +39,53 @@ class ProjectController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [];
+        $this->validate($request, Project::rules());
+        $project = Project::create($request->all());
 
-        $this->validate($request, $rules);
-        $projects = Projects::create($request->all());
-
-        return $this->showOne($projects);
+        return $this->showOne($project);
     }
 
     /**
-     * @param Projects $projects
+     * @param Project $project
      *
      * @return JsonResponse
      */
-    public function show(Projects $projects): JsonResponse
+    public function show(Project $project): JsonResponse
     {
-        return $this->showOne($projects);
+        return $this->showOne($project);
     }
 
     /**
      * @param Request $request
-     * @param Projects $projects
+     * @param Project $project
      *
      * @return JsonResponse
+     *
+     * @throws ValidationException
      */
-    public function update(Request $request, Projects $projects): JsonResponse
+    public function update(Request $request, Project $project): JsonResponse
     {
-        $projects->fill($request->all());
-        if ($projects->isClean()) {
+        $this->validate($request, Project::rules());
+        $project->fill($request->all());
+        if ($project->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);
         }
 
-        $projects->save();
+        $project->save();
 
-        return $this->showOne($projects);
+        return $this->showOne($project);
     }
 
     /**
-     * @param Projects $projects
+     * @param Project $project
      *
      * @return JsonResponse
      *
      * @throws Exception
      */
-    public function destroy(Projects $projects): JsonResponse
+    public function destroy(Project $project): JsonResponse
     {
-        $projects->delete();
+        $project->delete();
 
         return $this->showMessage('Record deleted successfully');
     }

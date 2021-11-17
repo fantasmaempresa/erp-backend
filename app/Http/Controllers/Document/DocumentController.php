@@ -27,9 +27,7 @@ class DocumentController extends ApiController
      */
     public function index(): JsonResponse
     {
-        $documents = Document::all();
-
-        return $this->showAll($documents);
+        return $this->showList(Document::paginate(env('NUMBER_PAGINATE')));
     }
 
     /**
@@ -41,9 +39,7 @@ class DocumentController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [];
-
-        $this->validate($request, $rules);
+        $this->validate($request, Document::rules());
         $document = Document::create($request->all());
 
         return $this->showOne($document);
@@ -60,13 +56,14 @@ class DocumentController extends ApiController
     }
 
     /**
-     * @param Request $request
+     * @param Request  $request
      * @param Document $document
      *
      * @return JsonResponse
      */
     public function update(Request $request, Document $document): JsonResponse
     {
+        $this->validate($request, Document::rules());
         $document->fill($request->all());
         if ($document->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);

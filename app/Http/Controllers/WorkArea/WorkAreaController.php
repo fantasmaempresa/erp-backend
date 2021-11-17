@@ -27,9 +27,7 @@ class WorkAreaController extends ApiController
      */
     public function index(): JsonResponse
     {
-        $workAreas = WorkArea::all();
-
-        return $this->showAll($workAreas);
+        return $this->showList(WorkArea::paginate(env('NUMBER_PAGINATE')));
     }
 
     /**
@@ -41,9 +39,7 @@ class WorkAreaController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [];
-
-        $this->validate($request, $rules);
+        $this->validate($request, WorkArea::rules());
         $workArea = WorkArea::create($request->all());
 
         return $this->showOne($workArea);
@@ -60,13 +56,14 @@ class WorkAreaController extends ApiController
     }
 
     /**
-     * @param Request $request
+     * @param Request  $request
      * @param WorkArea $workArea
      *
      * @return JsonResponse
      */
     public function update(Request $request, WorkArea $workArea): JsonResponse
     {
+        $this->validate($request, WorkArea::rules());
         $workArea->fill($request->all());
         if ($workArea->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);

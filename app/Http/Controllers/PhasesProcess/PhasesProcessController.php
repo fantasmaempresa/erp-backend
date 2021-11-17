@@ -27,9 +27,7 @@ class PhasesProcessController extends ApiController
      */
     public function index(): JsonResponse
     {
-        $phasesProcesses = PhasesProcess::all();
-
-        return $this->showAll($phasesProcesses);
+        return $this->showList(PhasesProcess::paginate(env('NUMBER_PAGINATE')));
     }
 
     /**
@@ -41,9 +39,7 @@ class PhasesProcessController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [];
-
-        $this->validate($request, $rules);
+        $this->validate($request, PhasesProcess::rules());
         $phasesProcess = PhasesProcess::create($request->all());
 
         return $this->showOne($phasesProcess);
@@ -60,13 +56,16 @@ class PhasesProcessController extends ApiController
     }
 
     /**
-     * @param Request $request
+     * @param Request       $request
      * @param PhasesProcess $phasesProcess
+     *
+     * @throws ValidationException
      *
      * @return JsonResponse
      */
     public function update(Request $request, PhasesProcess $phasesProcess): JsonResponse
     {
+        $this->validate($request, PhasesProcess::rules());
         $phasesProcess->fill($request->all());
         if ($phasesProcess->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);
