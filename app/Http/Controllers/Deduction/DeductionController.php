@@ -41,7 +41,12 @@ class DeductionController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [];
+        $rules = [
+            'key'               => 'required',
+            'concept'           => 'required',
+            'aggravated_amount' => 'required',
+            'exempt_amount'     => 'required',
+        ];
 
         $this->validate($request, $rules);
         $deduction = Deduction::create($request->all());
@@ -60,7 +65,7 @@ class DeductionController extends ApiController
     }
 
     /**
-     * @param Request $request
+     * @param Request   $request
      * @param Deduction $deduction
      *
      * @return JsonResponse
@@ -69,7 +74,10 @@ class DeductionController extends ApiController
     {
         $deduction->fill($request->all());
         if ($deduction->isClean()) {
-            return $this->errorResponse('A different value must be specified to update', 422);
+            return $this->errorResponse(
+                'A different value must be specified to update',
+                422
+            );
         }
 
         $deduction->save();
