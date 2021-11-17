@@ -41,7 +41,12 @@ class PerceptionController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [];
+        $rules = [
+            'key'               => 'required',
+            'concept'           => 'required',
+            'aggravated_amount' => 'required',
+            'exempt_amount'     => 'required',
+        ];
 
         $this->validate($request, $rules);
         $perception = Perception::create($request->all());
@@ -69,7 +74,10 @@ class PerceptionController extends ApiController
     {
         $perception->fill($request->all());
         if ($perception->isClean()) {
-            return $this->errorResponse('A different value must be specified to update', 422);
+            return $this->errorResponse(
+                'A different value must be specified to update',
+                422
+            );
         }
 
         $perception->save();

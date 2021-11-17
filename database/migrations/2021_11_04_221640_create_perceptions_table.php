@@ -26,7 +26,7 @@ class CreatePerceptionsTable extends Migration
         Schema::create('perceptions', function (Blueprint $table) {
             $table->id();
             $table->string('key');
-            $table->integer('type');
+            $table->integer('type')->nullable();
             $table->string('concept');
             $table->decimal('aggravated_amount');
             $table->decimal('exempt_amount');
