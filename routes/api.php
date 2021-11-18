@@ -40,3 +40,6 @@ Route::resource('deductions', 'Deduction\DeductionController', ['except' => ['cr
 Route::resource('extraHours', 'ExtraHour\ExtraHourController', ['except' => ['create', 'edit']]);
 Route::resource('disabilities', 'Disability\DisabilityController', ['except' => ['create', 'edit']]);
 Route::resource('paymentData', 'PaymentDatum\PaymentDatumController', ['except' => ['create', 'edit']]);
+Route::resource('warehouses', 'Warehouse\WarehouseController', ['except' => ['create', 'edit']]);
+Route::resource('items', 'Item\ItemController', ['except' => ['create', 'edit']]);
+Route::resource('inventories', 'Inventory\InventoryController', ['except' => ['create', 'edit']]);
