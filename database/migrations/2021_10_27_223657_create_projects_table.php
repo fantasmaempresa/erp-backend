@@ -30,6 +30,7 @@ class CreateProjectsTable extends Migration
             $table->date('estimate_end_date')->nullable();
             $table->json('quotes')->nullable();
             $table->string('folio')->nullable();
+            $table->boolean('finished')->default(\App\Models\Project::$UNFINISHED);
             $table->foreignId('user_id')->constrained();
             $table->foreignId('client_id')->nullable()->constrained();
             $table->timestamps();

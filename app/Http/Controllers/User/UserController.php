@@ -40,6 +40,7 @@ class UserController extends ApiController
         $this->validate($request, User::rules());
         $user = User::create($request->all());
         $user->password = bcrypt($user->password);
+        $user->save();
 
         return $this->showOne($user);
     }
@@ -59,7 +60,7 @@ class UserController extends ApiController
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param User $user
+     * @param User    $user
      *
      * @return JsonResponse
      *
