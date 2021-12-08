@@ -25,7 +25,7 @@ class UserController extends ApiController
      */
     public function index(): JsonResponse
     {
-        return $this->showList(User::paginate(env('NUMBER_PAGINATE')));
+        return $this->showList(User::with('role')->paginate(env('NUMBER_PAGINATE')));
     }
 
     /**

@@ -28,7 +28,7 @@ class ClientController extends ApiController
      */
     public function index(): JsonResponse
     {
-        return $this->showList(Client::paginate(100));
+        return $this->showList(Client::with('user')->paginate(100));
     }
 
     /**

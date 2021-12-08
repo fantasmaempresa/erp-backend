@@ -27,7 +27,11 @@ class StaffController extends ApiController
      */
     public function index(): JsonResponse
     {
-        return $this->showList(Staff::paginate(env('NUMBER_PAGINATE')));
+        return $this->showList(
+            Staff::with('user')
+                ->with('workArea')
+                ->paginate(env('NUMBER_PAGINATE'))
+        );
     }
 
     /**
@@ -57,11 +61,11 @@ class StaffController extends ApiController
 
     /**
      * @param Request $request
-     * @param Staff   $staff
-     *
-     * @throws ValidationException
+     * @param Staff $staff
      *
      * @return JsonResponse
+     * @throws ValidationException
+     *
      */
     public function update(Request $request, Staff $staff): JsonResponse
     {
