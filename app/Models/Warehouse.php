@@ -4,6 +4,7 @@
  * CODE
  * Warehouse Model Class
  */
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -15,5 +16,19 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Warehouse extends Model
 {
-    protected $fillable = [];
+    const ENABLED = 1;
+    const DISABLED = 2;
+
+    /**
+     * @var string[]
+     */
+    protected $fillable
+        = [
+            'id',
+            'name',
+            'reason',
+            'address',
+            'accounting_account',
+            'status',
+        ];
 }
