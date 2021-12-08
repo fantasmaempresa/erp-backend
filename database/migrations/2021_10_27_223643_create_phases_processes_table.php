@@ -26,7 +26,7 @@ class CreatePhasesProcessesTable extends Migration
         Schema::create('phases_processes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->json('form');
             $table->json('quotes')->nullable();
             $table->json('payments')->nullable();

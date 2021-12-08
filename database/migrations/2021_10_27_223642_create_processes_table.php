@@ -26,8 +26,9 @@ class CreateProcessesTable extends Migration
         Schema::create('processes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
-            $table->json('config');
+            $table->string('description')->nullable();
+            $table->json('config')->nullable();
+            $table->boolean('finished')->default(\App\Models\Process::$UNFINISHED);
             $table->timestamps();
         });
     }

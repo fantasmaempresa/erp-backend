@@ -19,6 +19,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Project extends Model
 {
     /**
+     * @var int
+     */
+    public static int $FINISHED = 1;
+    public static int $UNFINISHED = 0;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var string[]
@@ -33,6 +39,32 @@ class Project extends Model
         'user_id',
         'client_id',
     ];
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'quotes' => 'array',
+    ];
+
+    /**
+     * Function to return array rules in method create and update
+     *
+     * @return array
+     */
+    public static function rules(): array
+    {
+        return [
+            'name' => 'required|string',
+            'description' => 'nullable|string',
+            'estimate_end_date' => 'nullable|date',
+            'quotes' => 'nullable|array',
+            'folio' => 'nullable|string',
+            'user_id' => 'required|int',
+            'client_id' => 'nullable|int',
+        ];
+    }
 
     /**
      * @return BelongsTo

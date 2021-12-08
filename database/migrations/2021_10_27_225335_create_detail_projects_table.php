@@ -27,6 +27,7 @@ class CreateDetailProjectsTable extends Migration
             $table->id();
             $table->text('comments');
             $table->json('form_data');
+            $table->boolean('finished')->default(\App\Models\DetailProject::$UNFINISHED);
             $table->foreignId('phases_process_id')->constrained();
             $table->timestamps();
         });

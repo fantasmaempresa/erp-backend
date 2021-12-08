@@ -28,7 +28,7 @@ class ClientController extends ApiController
      */
     public function index(): JsonResponse
     {
-        return $this->showAll(Client::paginate(100));
+        return $this->showList(Client::with('user')->paginate(100));
     }
 
     /**
@@ -40,17 +40,9 @@ class ClientController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [
-            'name' => 'string',
-            'email' => 'email',
-            'phone' => 'string|max:10|min:10',
-            'nickname' => 'string',
-            'address' => 'string',
-            'rfc' => 'string|max:13|min:10',
-        ];
-
-        $this->validate($request, $rules);
+        $this->validate($request, Client::rules());
         $client = Client::create($request->all());
+        // phpcs:ignore
         $client->user_id = Auth::id();
         $client->save();
 
@@ -75,6 +67,7 @@ class ClientController extends ApiController
      */
     public function update(Request $request, Client $client): JsonResponse
     {
+        $this->validate($request, Client::rules($client->id));
         $client->fill($request->all());
         if ($client->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);

@@ -55,7 +55,7 @@ trait ApiResponseTrait
         $collection = $this->sortData($collection);
         $collection = $this->filterDataLike($collection);
 
-        return $this->successResponse(['data' => $collection->values()], $code);
+        return $this->successResponse($collection->values(), $code);
     }
 
     /**
@@ -66,7 +66,7 @@ trait ApiResponseTrait
      */
     protected function showOne(Model $instance, int $code = 200): JsonResponse
     {
-        return $this->successResponse(['data' => $instance], $code);
+        return $this->successResponse($instance, $code);
     }
 
     /**
@@ -77,7 +77,7 @@ trait ApiResponseTrait
      */
     protected function showMessage($message, int $code = 200): JsonResponse
     {
-        return $this->successResponse(['data' => ['message' => $message]], $code);
+        return $this->successResponse(['message' => $message], $code);
     }
 
     /**
@@ -139,6 +139,6 @@ trait ApiResponseTrait
      */
     protected function showList($instance, int $code = 200): JsonResponse
     {
-        return $this->successResponse(['data' => $instance], $code);
+        return $this->successResponse($instance, $code);
     }
 }

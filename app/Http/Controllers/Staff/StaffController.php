@@ -27,9 +27,11 @@ class StaffController extends ApiController
      */
     public function index(): JsonResponse
     {
-        $staff = Staff::all();
-
-        return $this->showAll($staff);
+        return $this->showList(
+            Staff::with('user')
+                ->with('workArea')
+                ->paginate(env('NUMBER_PAGINATE'))
+        );
     }
 
     /**
@@ -41,9 +43,7 @@ class StaffController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [];
-
-        $this->validate($request, $rules);
+        $this->validate($request, Staff::rules());
         $staff = Staff::create($request->all());
 
         return $this->showOne($staff);
@@ -64,9 +64,13 @@ class StaffController extends ApiController
      * @param Staff $staff
      *
      * @return JsonResponse
+     * @throws ValidationException
+     *
      */
     public function update(Request $request, Staff $staff): JsonResponse
     {
+//        dd($staff->id, Staff::rules($staff->id));
+        $this->validate($request, Staff::rules($staff->id));
         $staff->fill($request->all());
         if ($staff->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);

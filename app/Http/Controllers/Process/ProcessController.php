@@ -27,9 +27,7 @@ class ProcessController extends ApiController
      */
     public function index(): JsonResponse
     {
-        $processes = Process::all();
-
-        return $this->showAll($processes);
+        return $this->showList(Process::paginate(env('NUMBER_PAGINATE')));
     }
 
     /**
@@ -41,9 +39,7 @@ class ProcessController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [];
-
-        $this->validate($request, $rules);
+        $this->validate($request, Process::rules());
         $process = Process::create($request->all());
 
         return $this->showOne($process);
@@ -63,10 +59,13 @@ class ProcessController extends ApiController
      * @param Request $request
      * @param Process $process
      *
+     *@throws ValidationException
+     *
      * @return JsonResponse
      */
     public function update(Request $request, Process $process): JsonResponse
     {
+        $this->validate($request, Process::rules());
         $process->fill($request->all());
         if ($process->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);

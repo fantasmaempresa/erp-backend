@@ -1,9 +1,24 @@
 <?php
 
+/*
+ * CODE
+ * Database Seeder
+ */
+
 namespace Database\Seeders;
 
+use App\Models\Client;
+use App\Models\Role;
+use App\Models\Staff;
+use App\Models\User;
+use App\Models\WorkArea;
 use Illuminate\Database\Seeder;
 
+/**
+ * @access  public
+ *
+ * @version 1.0
+ */
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -13,6 +28,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        Role::factory()->count(5)->has(
+            User::factory()->count(3)->has(Staff::factory())
+        )->create();
+
+        Role::factory()->count(5)->has(
+            User::factory()->count(3)->has(Client::factory())
+        )->create();
     }
 }

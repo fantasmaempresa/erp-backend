@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Validation\Rule;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
@@ -56,9 +57,41 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-            'email_verified_at' => 'datetime',
-            'config' => 'array',
+        'email_verified_at' => 'datetime',
+        'config' => 'array',
     ];
+
+    /**
+     * Function to return array rules in method create and update
+     *
+     * @param $id
+     *
+     * @return array
+     */
+    public static function rules($id = null): array
+    {
+        $rule = [
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|string|min:6',
+            'role_id' => 'required|int',
+            'config' => 'nullable|required|array',
+        ];
+
+        if ($id) {
+            // phpcs:ignore
+            $rule['email'] = [
+                'required', 'email',
+                Rule::unique('users')->ignore($id)
+            ];
+
+            $rule['password'] = [
+                'nullable', 'string', 'min:6',
+            ];
+        }
+
+        return $rule;
+    }
 
     /**
      * @return BelongsTo

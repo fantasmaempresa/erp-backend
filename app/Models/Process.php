@@ -19,6 +19,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Process extends Model
 {
     /**
+     * @var int
+     */
+    public static int $FINISHED = 1;
+    public static int $UNFINISHED = 0;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var string[]
@@ -38,6 +44,20 @@ class Process extends Model
     protected $casts = [
         'config' => 'array',
     ];
+
+    /**
+     * Function to return array rules in method create and update
+     *
+     * @return array
+     */
+    public static function rules(): array
+    {
+        return [
+            'name' => 'required|string',
+            'description' => 'nullable|string',
+            'config' => 'nullable|array',
+        ];
+    }
 
     /**
      * @return HasMany

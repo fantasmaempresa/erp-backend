@@ -7,8 +7,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Validation\Rule;
 
 /**
  * @access  public
@@ -17,6 +19,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Role extends Model
 {
+    use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -36,6 +40,21 @@ class Role extends Model
     protected $casts = [
         'config' => 'array',
     ];
+
+    /**
+     * Function to return array rules in method create and update
+     *
+     * @return array
+     */
+    public static function rules(): array
+    {
+        return [
+            'name' => 'required|string',
+            'description' => 'nullable|required|string',
+            'config' => 'nullable|required|array',
+        ];
+    }
+
     /**
      * @return HasMany
      */
