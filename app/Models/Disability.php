@@ -9,6 +9,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * @access  public
@@ -31,6 +32,25 @@ class Disability extends Model
             'date',
             'tax_datum_id',
         ];
+
+    /**
+     * @return string[]
+     */
+    #[ArrayShape(['days'         => "string",
+                  'type'         => "string",
+                  'discount'     => "string",
+                  'date'         => "string",
+                  'tax_datum_id' => "string",
+    ])] public static function rules()
+    {
+        return [
+            'days'         => 'required|string',
+            'type'         => 'required|int',
+            'discount'     => 'required|numeric',
+            'date'         => 'required|date',
+            'tax_datum_id' => 'required|int',
+        ];
+    }
 
     /**
      * @return BelongsTo

@@ -41,15 +41,7 @@ class DisabilityController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [
-            'days'         => 'required',
-            'type'         => 'required',
-            'discount'     => 'required',
-            'date'         => 'required',
-            'tax_datum_id' => 'required',
-        ];
-
-        $this->validate($request, $rules);
+        $this->validate($request, Disability::rules());
         $disability = Disability::create($request->all());
 
         return $this->showOne($disability);
@@ -70,9 +62,12 @@ class DisabilityController extends ApiController
      * @param Disability $disability
      *
      * @return JsonResponse
+     *
+     * @throws ValidationException
      */
     public function update(Request $request, Disability $disability): JsonResponse
     {
+        $this->validate($request, Disability::rules());
         $disability->fill($request->all());
         if ($disability->isClean()) {
             return $this->errorResponse(

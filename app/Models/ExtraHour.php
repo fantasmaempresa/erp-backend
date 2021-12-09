@@ -9,6 +9,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * @access  public
@@ -31,6 +32,25 @@ class ExtraHour extends Model
             'amount',
             'tax_datum_id',
         ];
+
+    /**
+     * @return string[]
+     */
+    #[ArrayShape(['days'         => "string",
+                  'type'         => "string",
+                  'hours'        => "string",
+                  'amount'       => "string",
+                  'tax_datum_id' => "string",
+    ])] public static function rules(): array
+    {
+        return [
+            'days'         => 'required|string',
+            'type'         => 'required|int',
+            'hours'        => 'required|string',
+            'amount'       => 'required|numeric',
+            'tax_datum_id' => 'required|int',
+        ];
+    }
 
     /**
      * @return BelongsTo

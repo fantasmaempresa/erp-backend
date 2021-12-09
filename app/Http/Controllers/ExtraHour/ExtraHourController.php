@@ -41,15 +41,7 @@ class ExtraHourController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [
-            'days'         => 'required',
-            'type'         => 'required',
-            'hours'        => 'required',
-            'amount'       => 'required',
-            'tax_datum_id' => 'required',
-        ];
-
-        $this->validate($request, $rules);
+        $this->validate($request, ExtraHour::rules());
         $extraHour = ExtraHour::create($request->all());
 
         return $this->showOne($extraHour);
@@ -70,9 +62,12 @@ class ExtraHourController extends ApiController
      * @param ExtraHour $extraHour
      *
      * @return JsonResponse
+     *
+     * @throws ValidationException
      */
     public function update(Request $request, ExtraHour $extraHour): JsonResponse
     {
+        $this->validate($request, ExtraHour::rules());
         $extraHour->fill($request->all());
         if ($extraHour->isClean()) {
             return $this->errorResponse(
