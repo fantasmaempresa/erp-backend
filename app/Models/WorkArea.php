@@ -49,7 +49,7 @@ class WorkArea extends Model
         return [
             'name' => 'required|string',
             'description' => 'required|string',
-            'config' => 'nullable|required|array',
+            'config' => 'nullable|array',
         ];
     }
 
