@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Validation\Rule;
 
 /**
  * @access  public
@@ -44,6 +45,32 @@ class PaymentDatum extends Model
             'integrated_daily_wage',
             'staff_id',
         ];
+
+    /**
+     *
+     * @return string[]
+     */
+    public static function rules(): array
+    {
+        return [
+            'payment_periodicity'    => 'required|int',
+            'square'                 => 'required|string',
+            'employee_number'        => 'required|string',
+            'staff_id'               => 'required|int',
+            'start_date_employment'  => 'date',
+            'office'                 => 'string',
+            'social_security_number' => 'string',
+            'worker_clabe'           => 'string',
+            'worker_bank'            => 'string',
+            'job'                    => 'string',
+            'contract_type'          => 'int',
+            'day_type'               => 'int',
+            'employer_registration'  => 'int',
+            'job_risk'               => 'int',
+            'base_salary'            => 'numeric',
+            'integrated_daily_wage'  => 'string',
+        ];
+    }
 
     /**
      * @return HasMany

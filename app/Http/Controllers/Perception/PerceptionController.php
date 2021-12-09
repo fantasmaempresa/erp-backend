@@ -41,14 +41,7 @@ class PerceptionController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [
-            'key'               => 'required',
-            'concept'           => 'required',
-            'aggravated_amount' => 'required',
-            'exempt_amount'     => 'required',
-        ];
-
-        $this->validate($request, $rules);
+        $this->validate($request, Perception::rules());
         $perception = Perception::create($request->all());
 
         return $this->showOne($perception);
@@ -69,9 +62,12 @@ class PerceptionController extends ApiController
      * @param Perception $perception
      *
      * @return JsonResponse
+     *
+     * @throws ValidationException
      */
     public function update(Request $request, Perception $perception): JsonResponse
     {
+        $this->validate($request, Perception::rules());
         $perception->fill($request->all());
         if ($perception->isClean()) {
             return $this->errorResponse(

@@ -25,8 +25,8 @@ class CreateTaxDataTable extends Migration
     {
         Schema::create('tax_data', function (Blueprint $table) {
             $table->id();
-            $table->string('rfc');
-            $table->string('curp');
+            $table->string('rfc', 13)->unique();
+            $table->string('curp', 18)->unique();
             $table->integer('regime_type');
             $table->string('postal_code');
             $table->string('street');

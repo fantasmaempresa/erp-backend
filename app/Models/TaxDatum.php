@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Validation\Rule;
 
 /**
  * @access  public
@@ -42,6 +43,52 @@ class TaxDatum extends Model
             'reference',
             'payment_datum_id',
         ];
+
+    /**
+     * @param null $id
+     *
+     * @return string[]
+     */
+    public static function rules($id = null): array
+    {
+        $rules = [
+            'rfc'              => 'required|string|min:13|max:13',
+            'curp'             => 'required|string|min:18|max:18',
+            'regime_type'      => 'required|int',
+            'postal_code'      => 'required|string',
+            'street'           => 'required|string',
+            'interior_number'  => 'string',
+            'exterior_number'  => 'required|string',
+            'suburb'           => 'required|string',
+            'locality'         => 'required|string',
+            'municipality'     => 'required|string',
+            'country'          => 'required|string',
+            'estate'           => 'required|string',
+            'reference'        => 'string',
+            'payment_datum_id' => 'required|int',
+        ];
+
+        if ($id) {
+            // phpcs:ignore
+            $rules['rfc'] = [
+                'required',
+                'string',
+                'min:13',
+                'max:13',
+                Rule::unique('tax_data')->ignore($id),
+            ];
+            // phpcs:ignore
+            $rules['curp'] = [
+                'required',
+                'string',
+                'min:18',
+                'max:18',
+                Rule::unique('tax_data')->ignore($id),
+            ];
+        }
+
+        return $rules;
+    }
 
     /**
      * @return BelongsTo

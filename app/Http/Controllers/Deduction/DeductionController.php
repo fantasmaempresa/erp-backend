@@ -41,14 +41,7 @@ class DeductionController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [
-            'key'               => 'required',
-            'concept'           => 'required',
-            'aggravated_amount' => 'required',
-            'exempt_amount'     => 'required',
-        ];
-
-        $this->validate($request, $rules);
+        $this->validate($request, Deduction::rules());
         $deduction = Deduction::create($request->all());
 
         return $this->showOne($deduction);
@@ -69,9 +62,12 @@ class DeductionController extends ApiController
      * @param Deduction $deduction
      *
      * @return JsonResponse
+     *
+     * @throws ValidationException
      */
     public function update(Request $request, Deduction $deduction): JsonResponse
     {
+        $this->validate($request, Deduction::rules());
         $deduction->fill($request->all());
         if ($deduction->isClean()) {
             return $this->errorResponse(

@@ -41,22 +41,7 @@ class TaxDatumController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [
-            'rfc'              => 'required',
-            'curp'             => 'required',
-            'regime_type'      => 'required',
-            'postal_code'      => 'required',
-            'street'           => 'required',
-            'exterior_number'  => 'required',
-            'suburb'           => 'required',
-            'locality'         => 'required',
-            'municipality'     => 'required',
-            'country'          => 'required',
-            'estate'           => 'required',
-            'payment_datum_id' => 'required',
-        ];
-
-        $this->validate($request, $rules);
+        $this->validate($request, TaxDatum::rules());
         $taxDatum = TaxDatum::create($request->all());
 
         return $this->showOne($taxDatum);
@@ -77,9 +62,12 @@ class TaxDatumController extends ApiController
      * @param TaxDatum $taxDatum
      *
      * @return JsonResponse
+     *
+     * @throws ValidationException
      */
     public function update(Request $request, TaxDatum $taxDatum): JsonResponse
     {
+        $this->validate($request, TaxDatum::rules($taxDatum->id));
         $taxDatum->fill($request->all());
         if ($taxDatum->isClean()) {
             return $this->errorResponse(

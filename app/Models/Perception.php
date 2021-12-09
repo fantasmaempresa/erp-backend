@@ -9,6 +9,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * @access  public
@@ -31,6 +32,25 @@ class Perception extends Model
             'aggravated_amount',
             'exempt_amount',
         ];
+
+    /**
+     * @return array
+     */
+    #[ArrayShape(['key'               => "string",
+                  'type'              => "string",
+                  'concept'           => "string",
+                  'aggravated_amount' => "string",
+                  'exempt_amount'     => "string",
+    ])] public static function rules(): array
+    {
+        return [
+            'key'               => 'required|string',
+            'type'              => 'int',
+            'concept'           => 'required|string',
+            'aggravated_amount' => 'required|numeric',
+            'exempt_amount'     => 'required|numeric',
+        ];
+    }
 
     /**
      * @return BelongsToMany

@@ -48,7 +48,7 @@ class PaymentDatumController extends ApiController
             'staff_id'            => 'required',
         ];
 
-        $this->validate($request, $rules);
+        $this->validate($request, PaymentDatum::rules());
         $paymentDatum = PaymentDatum::create($request->all());
 
         return $this->showOne($paymentDatum);
@@ -69,9 +69,12 @@ class PaymentDatumController extends ApiController
      * @param PaymentDatum $paymentDatum
      *
      * @return JsonResponse
+     *
+     * @throws ValidationException
      */
     public function update(Request $request, PaymentDatum $paymentDatum): JsonResponse
     {
+        $this->validate($request, PaymentDatum::rules());
         $paymentDatum->fill($request->all());
         if ($paymentDatum->isClean()) {
             return $this->errorResponse(
