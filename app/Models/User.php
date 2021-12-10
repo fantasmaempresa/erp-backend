@@ -22,7 +22,7 @@ use Laravel\Sanctum\HasApiTokens;
  *
  * @version 1.0
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
