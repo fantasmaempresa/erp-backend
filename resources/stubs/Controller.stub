@@ -41,9 +41,7 @@ class {{modelName}}Controller extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [];
-
-        $this->validate($request, $rules);
+        $this->validate($request, {{modelName}}::rules());
         ${{modelNameSingularLowerCase}} = {{modelName}}::create($request->all());
 
         return $this->showOne(${{modelNameSingularLowerCase}});
@@ -64,9 +62,12 @@ class {{modelName}}Controller extends ApiController
      * @param {{modelName}} ${{modelNameSingularLowerCase}}
      *
      * @return JsonResponse
+     *
+     * @throws ValidationException
      */
     public function update(Request $request, {{modelName}} ${{modelNameSingularLowerCase}}): JsonResponse
     {
+        $this->validate($request, {{modelName}}::rules());
         ${{modelNameSingularLowerCase}}->fill($request->all());
         if (${{modelNameSingularLowerCase}}->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);
