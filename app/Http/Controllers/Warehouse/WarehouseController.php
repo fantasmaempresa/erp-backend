@@ -41,9 +41,7 @@ class WarehouseController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [];
-
-        $this->validate($request, $rules);
+        $this->validate($request, Warehouse::rules());
         $warehouse = Warehouse::create($request->all());
 
         return $this->showOne($warehouse);
@@ -60,13 +58,16 @@ class WarehouseController extends ApiController
     }
 
     /**
-     * @param Request $request
+     * @param Request   $request
      * @param Warehouse $warehouse
      *
      * @return JsonResponse
+     *
+     * @throws ValidationException
      */
     public function update(Request $request, Warehouse $warehouse): JsonResponse
     {
+        $this->validate($request, Warehouse::rules($warehouse->id));
         $warehouse->fill($request->all());
         if ($warehouse->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);
