@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\ClientDocument\ClientDocumentController;
+use App\Http\Controllers\Concept\ConceptController;
+use App\Http\Controllers\ConceptProjectQuote\ConceptProjectQuoteController;
 use App\Http\Controllers\Deduction\DeductionController;
 use App\Http\Controllers\DetailProject\DetailProjectController;
 use App\Http\Controllers\DetailProjectProcessProject\DetailProjectProcessProjectController;
@@ -13,10 +15,13 @@ use App\Http\Controllers\PhasesProcess\PhasesProcessController;
 use App\Http\Controllers\Process\ProcessController;
 use App\Http\Controllers\ProcessProject\ProcessProjectController;
 use App\Http\Controllers\Project\ProjectController;
+use App\Http\Controllers\ProjectQuote\ProjectQuoteController;
+use App\Http\Controllers\ProjectQuotes\ProjectQuotesController;
 use App\Http\Controllers\ProjectStaff\ProjectStaffController;
 use App\Http\Controllers\Role\RoleController;
 use App\Http\Controllers\Salary\SalaryController;
 use App\Http\Controllers\Staff\StaffController;
+use App\Http\Controllers\StatusQuote\StatusQuoteController;
 use App\Http\Controllers\TaxDatum\TaxDatumController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\UserLog\UserLogController;
@@ -35,6 +40,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+//ROUTES PROJECTS
 Route::resource('roles', RoleController::class, ['except' => ['create', 'edit']]);
 Route::resource('users', UserController::class, ['except' => ['create', 'edit']]);
 Route::resource('userLogs', UserLogController::class, ['except' => ['create', 'edit']]);
@@ -50,9 +57,16 @@ Route::resource('processProjects', ProcessProjectController::class, ['except' =>
 Route::resource('detailProjectProcessProjects', DetailProjectProcessProjectController::class, ['except' => ['create', 'edit']]);
 Route::resource('documents', DocumentController::class, ['except' => ['create', 'edit']]);
 Route::resource('clientDocuments', ClientDocumentController::class, ['except' => ['create', 'edit']]);
+
+Route::resource('projectQuotes', ProjectQuoteController::class, ['except' => ['create', 'edit']]);
+Route::resource('statusQuotes', StatusQuoteController::class, ['except' => ['create', 'edit']]);
+Route::resource('concepts', ConceptController::class, ['except' => ['create', 'edit']]);
+
+//ROUTES PAYROLL
 Route::resource('salaries', SalaryController::class, ['except' => ['create', 'edit']]);
 Route::resource('taxData', TaxDatumController::class, ['except' => ['create', 'edit']]);
 Route::resource('perceptions', PerceptionController::class, ['except' => ['create', 'edit']]);
 Route::resource('deductions', DeductionController::class, ['except' => ['create', 'edit']]);
 Route::resource('extraHours', ExtraHourController::class, ['except' => ['create', 'edit']]);
 Route::resource('disabilities', DisabilityController::class, ['except' => ['create', 'edit']]);
+

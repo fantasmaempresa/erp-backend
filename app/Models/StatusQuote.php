@@ -2,14 +2,14 @@
 
 /*
  * CODE
- * Role Model Class
+ * StatusQuote Model Class
  */
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Validation\Rule;
 use JetBrains\PhpStorm\ArrayShape;
 
 /**
@@ -17,7 +17,7 @@ use JetBrains\PhpStorm\ArrayShape;
  *
  * @version 1.0
  */
-class Role extends Model
+class StatusQuote extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -28,15 +28,6 @@ class Role extends Model
         'id',
         'name',
         'description',
-        'config',
-    ];
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'config' => 'array',
     ];
 
     /**
@@ -46,25 +37,22 @@ class Role extends Model
      */
     #[ArrayShape(
         [
-            'name' => "string",
-            'description' => "string",
-            'config' => "string",
+            'name' => 'string',
+            'description' => 'string',
         ]
     )] public static function rules(): array
     {
         return [
             'name' => 'required|string',
-            'description' => 'nullable|required|string',
-            'config' => 'nullable|required|array',
+            'description' => 'required|string',
         ];
     }
 
     /**
      * @return HasMany
      */
-    public function user(): HasMany
+    public function projectQuotes(): HasMany
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(Project::class);
     }
 }
-

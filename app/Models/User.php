@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Validation\Rule;
+use JetBrains\PhpStorm\ArrayShape;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
@@ -68,7 +69,13 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @return array
      */
-    public static function rules($id = null): array
+    #[ArrayShape([
+        'name' => "string",
+        'email' => "array|string",
+        'password' => "string|string[]",
+        'role_id' => "string",
+        'config' => "string",
+    ])] public static function rules($id = null): array
     {
         $rule = [
             'name' => 'required|string',

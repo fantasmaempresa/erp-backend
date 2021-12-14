@@ -2,14 +2,13 @@
 
 /*
  * CODE
- * Role Model Class
+ * Concept Model Class
  */
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Validation\Rule;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use JetBrains\PhpStorm\ArrayShape;
 
 /**
@@ -17,7 +16,7 @@ use JetBrains\PhpStorm\ArrayShape;
  *
  * @version 1.0
  */
-class Role extends Model
+class Concept extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -28,43 +27,44 @@ class Role extends Model
         'id',
         'name',
         'description',
-        'config',
+        'formula',
+        'amount',
     ];
+
     /**
      * The attributes that should be cast.
      *
      * @var array
      */
     protected $casts = [
-        'config' => 'array',
+        'formula' => 'array',
     ];
 
     /**
-     * Function to return array rules in method create and update
-     *
-     * @return array
+     * @return string[]
      */
     #[ArrayShape(
         [
             'name' => "string",
             'description' => "string",
-            'config' => "string",
+            'formula' => "string",
+            'amount' => "string",
         ]
     )] public static function rules(): array
     {
         return [
             'name' => 'required|string',
-            'description' => 'nullable|required|string',
-            'config' => 'nullable|required|array',
+            'description' => 'required|string',
+            'formula' => 'nullable|array',
+            'amount' => 'required|int',
         ];
     }
 
     /**
-     * @return HasMany
+     * @return BelongsToMany
      */
-    public function user(): HasMany
+    public function projectQuote(): BelongsToMany
     {
-        return $this->hasMany(User::class);
+        return $this->belongsToMany(ProjectQuote::class);
     }
 }
-
