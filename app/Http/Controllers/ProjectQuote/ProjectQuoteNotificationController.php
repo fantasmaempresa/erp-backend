@@ -1,8 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\ProjectQuote;
+/*
+ * CODE
+ * ProjectQuote Controller
+*/
+
+namespace App\Http\Controllers\ProjectQuote ;
 
 use App\Http\Controllers\ApiController;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 /**
@@ -12,8 +18,12 @@ use Illuminate\Http\Request;
  */
 class ProjectQuoteNotificationController extends ApiController
 {
-    public function notificationClient()
-    {
 
+    /**
+     * @return JsonResponse
+     */
+    public function notificationClient(): JsonResponse
+    {
+        return $this->showList([]);
     }
 }

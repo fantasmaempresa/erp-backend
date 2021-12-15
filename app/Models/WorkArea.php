@@ -52,13 +52,9 @@ class WorkArea extends Model
     public static function rules(): array
     {
         return [
-            'name'        => 'required|string',
+            'name' => 'required|string',
             'description' => 'required|string',
-<<<<<<< HEAD
             'config' => 'nullable|array',
-=======
-            'config'      => 'nullable|required|array',
->>>>>>> e58e357462885d55bb7fc8bf9ce0322e6a751ae0
         ];
     }
 
@@ -70,3 +66,4 @@ class WorkArea extends Model
         return $this->hasMany(Staff::class);
     }
 }
+
