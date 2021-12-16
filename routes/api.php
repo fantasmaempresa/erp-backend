@@ -10,6 +10,7 @@ use App\Http\Controllers\DetailProjectProcessProject\DetailProjectProcessProject
 use App\Http\Controllers\Disability\DisabilityController;
 use App\Http\Controllers\Document\DocumentController;
 use App\Http\Controllers\ExtraHour\ExtraHourController;
+use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\Perception\PerceptionController;
 use App\Http\Controllers\PhasesProcess\PhasesProcessController;
 use App\Http\Controllers\Process\ProcessController;
@@ -57,10 +58,11 @@ Route::resource('processProjects', ProcessProjectController::class, ['except' =>
 Route::resource('detailProjectProcessProjects', DetailProjectProcessProjectController::class, ['except' => ['create', 'edit']]);
 Route::resource('documents', DocumentController::class, ['except' => ['create', 'edit']]);
 Route::resource('clientDocuments', ClientDocumentController::class, ['except' => ['create', 'edit']]);
-
 Route::resource('projectQuotes', ProjectQuoteController::class, ['except' => ['create', 'edit']]);
 Route::resource('statusQuotes', StatusQuoteController::class, ['except' => ['create', 'edit']]);
 Route::resource('concepts', ConceptController::class, ['except' => ['create', 'edit']]);
+Route::resource('notifications', NotificationController::class, ['only' => ['index', 'show']]);
+
 
 //ROUTES PAYROLL
 Route::resource('salaries', SalaryController::class, ['except' => ['create', 'edit']]);
@@ -68,5 +70,4 @@ Route::resource('taxData', TaxDatumController::class, ['except' => ['create', 'e
 Route::resource('perceptions', PerceptionController::class, ['except' => ['create', 'edit']]);
 Route::resource('deductions', DeductionController::class, ['except' => ['create', 'edit']]);
 Route::resource('extraHours', ExtraHourController::class, ['except' => ['create', 'edit']]);
-Route::resource('disabilities', DisabilityController::class, ['except' => ['create', 'edit']]);
-
+Route::resource('disabilities',DisabilityController::class, ['except' => ['create', 'edit']]);

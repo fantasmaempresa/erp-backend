@@ -30,8 +30,8 @@ class ProjectQuote extends Model
         'name',
         'description',
         'date_end',
-        'project_id',
         'user_id',
+        'project_id',
         'client_id',
         'status_quote_id',
     ];
