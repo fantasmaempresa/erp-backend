@@ -2,7 +2,7 @@
 
 /*
  * CODE
- * Inventory Class Migration
+ * Departure Class Migration
  */
 
 use Illuminate\Database\Migrations\Migration;
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Schema;
  *
  * @version 1.0
  */
-class CreateInventoriesTable extends Migration
+class CreateDeparturesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -23,12 +23,14 @@ class CreateInventoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('inventories', function (Blueprint $table) {
+        Schema::create('departures', function (Blueprint $table) {
             $table->id();
-            $table->integer('unit_quantity')->default(0);
-            $table->integer('group_quantity')->default(0);
-            $table->foreignId('item_id')->constrained();
+            $table->date('date');
+            $table->string('folio')->unique();
+            $table->string('series');
+            $table->tinyInteger('status');
             $table->foreignId('warehouse_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }
@@ -40,6 +42,6 @@ class CreateInventoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inventories');
+        Schema::dropIfExists('departures');
     }
 }

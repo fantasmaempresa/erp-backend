@@ -43,3 +43,6 @@ Route::resource('paymentData', 'PaymentDatum\PaymentDatumController', ['except' 
 Route::resource('warehouses', 'Warehouse\WarehouseController', ['except' => ['create', 'edit']]);
 Route::resource('items', 'Item\ItemController', ['except' => ['create', 'edit']]);
 Route::resource('inventories', 'Inventory\InventoryController', ['except' => ['create', 'edit']]);
+Route::resource('departures', 'Departure\DepartureController', ['except' => ['create', 'edit']]);
+Route::resource('departureDetails', 'DepartureDetail\DepartureDetailController', ['except' => ['create', 'edit']]);
+Route::resource('sales', 'Sales\SalesController', ['except' => ['create', 'edit']]);

@@ -44,7 +44,7 @@ class Warehouse extends Model
                   'address'            => "string",
                   'accounting_account' => "string",
                   'status'             => "string",
-    ])] public static function rules($id = null)
+    ])] public static function rules($id = null): array
     {
         $rules = [
             'name'               => 'required|string|unique:warehouses',
