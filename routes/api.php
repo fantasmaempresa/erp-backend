@@ -17,7 +17,7 @@ use App\Http\Controllers\Process\ProcessController;
 use App\Http\Controllers\ProcessProject\ProcessProjectController;
 use App\Http\Controllers\Project\ProjectController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteController;
-use App\Http\Controllers\ProjectQuotes\ProjectQuotesController;
+//use App\Http\Controllers\ProjectQuotes\ProjectQuotesController;
 use App\Http\Controllers\ProjectStaff\ProjectStaffController;
 use App\Http\Controllers\Role\RoleController;
 use App\Http\Controllers\Salary\SalaryController;
@@ -70,4 +70,7 @@ Route::resource('taxData', TaxDatumController::class, ['except' => ['create', 'e
 Route::resource('perceptions', PerceptionController::class, ['except' => ['create', 'edit']]);
 Route::resource('deductions', DeductionController::class, ['except' => ['create', 'edit']]);
 Route::resource('extraHours', ExtraHourController::class, ['except' => ['create', 'edit']]);
-Route::resource('disabilities',DisabilityController::class, ['except' => ['create', 'edit']]);
+//Route::resource('disabilities',DisabilityController::class, ['except' => ['create', 'edit']]);
+
+//ROUTES OAUTH
+Route::post('oauth/token', 'Laravel\Passport\Http\Controllers\AccessTokenController@issueToken');

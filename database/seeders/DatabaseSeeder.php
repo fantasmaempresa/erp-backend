@@ -35,5 +35,12 @@ class DatabaseSeeder extends Seeder
         Role::factory()->count(5)->has(
             User::factory()->count(3)->has(Client::factory())
         )->create();
+
+        $this->call(
+            [
+                RoleSeeder::class,
+                UserSeeder::class,
+            ]
+        );
     }
 }

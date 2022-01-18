@@ -64,6 +64,8 @@ class UserController extends ApiController
      *
      * @return JsonResponse
      *
+     * @throws ValidationException
+     *
      */
     public function update(Request $request, User $user): JsonResponse
     {
@@ -73,8 +75,8 @@ class UserController extends ApiController
             return $this->errorResponse('A different value must be specified to update', 422);
         }
         $user->password = empty($request->has('password'))
-                        ? $user->password
-                        : bcrypt($request->has('password'));
+            ? $user->password
+            : bcrypt($request->has('password'));
         $user->save();
 
         return $this->showOne($user);

@@ -66,7 +66,7 @@ class ProjectQuoteController extends ApiController
     }
 
     /**
-     * @param Request $request
+     * @param Request      $request
      * @param ProjectQuote $projectQuote
      *
      * @return JsonResponse

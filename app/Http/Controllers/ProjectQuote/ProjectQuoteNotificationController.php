@@ -14,7 +14,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 /**
- * @access  public
+ * @acc ess  public
  *
  * @version 1.0
  */
@@ -23,7 +23,7 @@ class ProjectQuoteNotificationController extends ApiController
 
     /**
      * @param ProjectQuote $projectQuote
-     * @param StatusQuote $statusQuote
+     * @param StatusQuote  $statusQuote
      *
      * @return JsonResponse
      */
@@ -55,6 +55,7 @@ class ProjectQuoteNotificationController extends ApiController
             $projectQuote->client_id = $request->get('client_id');
         }
 
+        //TODO agragar evento para notificar que se cambio el estatus de una cotización
         $projectQuote->save();
 
         return $this->showOne($projectQuote);
