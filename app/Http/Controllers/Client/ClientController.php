@@ -24,11 +24,14 @@ class ClientController extends ApiController
 {
 
     /**
+     * @param Request $request
+     *
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        return $this->showList(Client::with('user')->paginate(100));
+        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+        return $this->showList(Client::with('user')->paginate($paginate));
     }
 
     /**
@@ -61,7 +64,7 @@ class ClientController extends ApiController
 
     /**
      * @param Request $request
-     * @param Client  $client
+     * @param Client $client
      *
      * @return JsonResponse
      */

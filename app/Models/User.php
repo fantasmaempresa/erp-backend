@@ -15,16 +15,21 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Validation\Rule;
-use Laravel\Sanctum\HasApiTokens;
+use JetBrains\PhpStorm\ArrayShape;
+use Laravel\Passport\HasApiTokens;
 
 /**
  * @access  public
  *
  * @version 1.0
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
+
+    /**
+     * @var int
+     */
 
     /**
      * The attributes that are mass assignable.
@@ -68,7 +73,13 @@ class User extends Authenticatable
      *
      * @return array
      */
-    public static function rules($id = null): array
+    #[ArrayShape([
+        'name' => "string",
+        'email' => "array|string",
+        'password' => "string|string[]",
+        'role_id' => "string",
+        'config' => "string",
+    ])] public static function rules($id = null): array
     {
         $rule = [
             'name' => 'required|string',
@@ -131,5 +142,13 @@ class User extends Authenticatable
     public function project(): HasMany
     {
         return $this->hasMany(Project::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function notification(): HasMany
+    {
+        return $this->hasMany(Notification::class);
     }
 }

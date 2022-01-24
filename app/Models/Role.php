@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Validation\Rule;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * @access  public
@@ -20,6 +21,8 @@ use Illuminate\Validation\Rule;
 class Role extends Model
 {
     use HasFactory;
+
+    public static int $ADMIN = 1;
 
     /**
      * The attributes that are mass assignable.
@@ -46,7 +49,13 @@ class Role extends Model
      *
      * @return array
      */
-    public static function rules(): array
+    #[ArrayShape(
+        [
+            'name' => "string",
+            'description' => "string",
+            'config' => "string",
+        ]
+    )] public static function rules(): array
     {
         return [
             'name' => 'required|string',

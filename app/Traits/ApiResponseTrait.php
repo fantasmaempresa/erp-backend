@@ -49,7 +49,7 @@ trait ApiResponseTrait
     protected function showAll(Collection $collection, int $code = 200): JsonResponse
     {
         if ($collection->isEmpty()) {
-            return $this->successResponse(['data' => $collection], $code);
+            return $this->successResponse($collection, $code);
         }
 
         $collection = $this->sortData($collection);

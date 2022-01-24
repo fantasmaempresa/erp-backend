@@ -56,12 +56,12 @@ class Client extends Model
     public static function rules($id = null): array
     {
         $rule = [
-            'name'              => 'required|string',
-            'email'             => 'required|email|unique:clients',
-            'phone'             => 'required|string|max:10|min:10|unique:clients',
-            'nickname'          => 'nullable|string',
-            'address'           => 'required|string',
-            'rfc'               => 'nullable|required|string|max:13|min:10|unique:clients',
+            'name' => 'required|string',
+            'email' => 'required|email|unique:clients',
+            'phone' => 'required|string|max:10|min:10|unique:clients',
+            'nickname' => 'nullable|string',
+            'address' => 'nullable|string',
+            'rfc' => 'nullable|required|string|max:13|min:10|unique:clients',
             'extra_information' => 'nullable|array',
             'user_id'           => 'nullable|int',
         ];

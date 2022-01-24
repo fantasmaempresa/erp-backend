@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Validation\Rule;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * @access  public
@@ -49,12 +50,18 @@ class WorkArea extends Model
      *
      * @return array
      */
-    public static function rules(): array
+    #[ArrayShape(
+        [
+            'name' => "string",
+            'description' => "string",
+            'config' => "string",
+        ]
+    )] public static function rules(): array
     {
         return [
-            'name'        => 'required|string',
+            'name' => 'required|string',
             'description' => 'required|string',
-            'config'      => 'nullable|required|array',
+            'config' => 'nullable|array',
         ];
     }
 
@@ -66,3 +73,4 @@ class WorkArea extends Model
         return $this->hasMany(Staff::class);
     }
 }
+
