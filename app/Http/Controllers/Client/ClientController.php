@@ -30,7 +30,9 @@ class ClientController extends ApiController
      */
     public function index(Request $request): JsonResponse
     {
+        //TODO agregar funcionaliad para buscar por cualquier campo
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+
         return $this->showList(Client::with('user')->paginate($paginate));
     }
 

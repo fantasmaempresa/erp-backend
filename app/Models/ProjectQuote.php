@@ -28,6 +28,7 @@ class ProjectQuote extends Model
     protected $fillable = [
         'id',
         'name',
+        'quote',
         'description',
         'date_end',
         'user_id',
@@ -37,11 +38,21 @@ class ProjectQuote extends Model
     ];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'quote' => 'array',
+    ];
+
+    /**
      * @return string[]
      */
     #[ArrayShape(
         [
             'name' => "string",
+            'quote' => "array",
             'description' => "string",
             'date_end' => "string",
             'project_id' => "string",
@@ -98,5 +109,21 @@ class ProjectQuote extends Model
     public function statusQuote(): BelongsTo
     {
         return $this->BelongsTo(StatusQuote::class);
+    }
+
+    /**
+     * @param int $statusNotify
+     *
+     * @return array
+     */
+    public function getMessageNotify(int $statusNotify): array
+    {
+        $notifications = [
+            1 => [
+                'message' => '',
+                '' => '',
+            ],
+        ];
+        return [];
     }
 }

@@ -26,7 +26,9 @@ class CreateProjectQuotesTable extends Migration
         Schema::create('project_quotes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
+            $table->text('description');
+            $table->text('addressee');
+            $table->json('quote')->nullable();
             $table->date('date_end');
             $table->foreignId('project_id')->nullable()->constrained();
             $table->foreignId('user_id')->constrained();

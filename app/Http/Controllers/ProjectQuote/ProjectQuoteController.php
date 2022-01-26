@@ -7,6 +7,11 @@
 
 namespace App\Http\Controllers\ProjectQuote;
 
+use App\Events\QuoteEvent;
+use App\Models\Role;
+use App\Models\StatusQuote;
+use App\Models\User;
+use App\Notifications\QuoteNotification;
 use Exception;
 use App\Models\ProjectQuote;
 use Illuminate\Http\Request;
@@ -22,18 +27,21 @@ use Illuminate\Validation\ValidationException;
  */
 class ProjectQuoteController extends ApiController
 {
-
     /**
+     * @param Request $request
+     *
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
+        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+
         return $this->showList(
             ProjectQuote::with('user')
                 ->with('project')
                 ->with('client')
                 ->with('statusQuote')
-                ->paginate(env('NUMBER_PAGINATE'))
+                ->paginate($paginate)
         );
     }
 
@@ -47,10 +55,27 @@ class ProjectQuoteController extends ApiController
     public function store(Request $request): JsonResponse
     {
         $this->validate($request, ProjectQuote::rules());
-        $projectQuote = ProjectQuote::create($request->all());
+        $projectQuote = new ProjectQuote($request->all());
         // phpcs:ignore
-//        $projectQuote->user_id = Auth::id();
-//        $projectQuote->save();
+        $projectQuote->user_id = Auth::id();
+        // phpcs:ignore
+        $projectQuote->status_quote_id = StatusQuote::$START;
+
+        if ($projectQuote->save()) {
+            $this->sendNotification(
+                $this->createNotification([
+                    'message' => '',
+                    'code' => '',
+                ], null, StatusQuote::$START),
+                new QuoteNotification(User::findOrFail(Auth::id())),
+                new QuoteEvent(null, Role::$ADMIN, $projectQuote->id)
+            );
+
+            //TODO crear notificación en base de datos
+            //TODO mandar notificación y mandarla por correo electronico a los administradores
+            //TODO lanzar la notificación por el websocket:laravel
+        }
+
 
         return $this->showOne($projectQuote);
     }
@@ -66,7 +91,7 @@ class ProjectQuoteController extends ApiController
     }
 
     /**
-     * @param Request      $request
+     * @param Request $request
      * @param ProjectQuote $projectQuote
      *
      * @return JsonResponse

@@ -27,7 +27,8 @@ class CreateNotificationsTable extends Migration
             $table->id();
             $table->json('notification');
             $table->boolean('check')->default(\App\Models\Notification::$UNCHECK);
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->nullable()->constrained();
+            $table->foreignId('role_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

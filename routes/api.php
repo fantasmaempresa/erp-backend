@@ -58,7 +58,8 @@ Route::resource('processProjects', ProcessProjectController::class, ['except' =>
 Route::resource('detailProjectProcessProjects', DetailProjectProcessProjectController::class, ['except' => ['create', 'edit']]);
 Route::resource('documents', DocumentController::class, ['except' => ['create', 'edit']]);
 Route::resource('clientDocuments', ClientDocumentController::class, ['except' => ['create', 'edit']]);
-Route::resource('projectQuotes', ProjectQuoteController::class, ['except' => ['create', 'edit']]);
+
+Route::resource('projectQuotes', ProjectQuoteController::class, ['except' => ['create', 'edit']])->middleware('auth:api');
 Route::resource('statusQuotes', StatusQuoteController::class, ['except' => ['create', 'edit']]);
 Route::resource('concepts', ConceptController::class, ['except' => ['create', 'edit']]);
 Route::resource('notifications', NotificationController::class, ['only' => ['index', 'show']]);

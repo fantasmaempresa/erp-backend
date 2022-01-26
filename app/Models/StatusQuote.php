@@ -19,6 +19,10 @@ use JetBrains\PhpStorm\ArrayShape;
  */
 class StatusQuote extends Model
 {
+    public static int $START = 1;
+    public static int $REVIEW = 2;
+    public static int $APPROVED = 3;
+
     /**
      * The attributes that are mass assignable.
      *

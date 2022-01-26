@@ -8,6 +8,7 @@
 namespace App\Http\Controllers;
 
 use App\Traits\ApiResponseTrait;
+use App\Traits\NotificationTrait;
 
 /**
  * @access  public
@@ -16,5 +17,5 @@ use App\Traits\ApiResponseTrait;
  */
 class ApiController extends Controller
 {
-    use ApiResponseTrait;
+    use ApiResponseTrait, NotificationTrait;
 }
