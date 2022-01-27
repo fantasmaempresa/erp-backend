@@ -25,7 +25,7 @@ class NotificationFilterController extends ApiController
      *
      * @return JsonResponse
      */
-    public function filterUserNotifications(User $user): JsonResponse
+    public function getLastUserNotifications(User $user): JsonResponse
     {
         $user->notification;
 
@@ -37,7 +37,19 @@ class NotificationFilterController extends ApiController
      *
      * @return JsonResponse
      */
-    public function filterNoSeenNotification(User $user): JsonResponse
+    public function getUncheckUserNotifications(User $user): JsonResponse
+    {
+        $user->notification;
+
+        return $this->showOne($user);
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return JsonResponse
+     */
+    public function getAllUserNotifications(User $user): JsonResponse
     {
         $notifications = Notification::where('user_id', $user->id)
             ->where('check', Notification::$UNCHECK)

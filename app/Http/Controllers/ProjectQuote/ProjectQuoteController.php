@@ -62,18 +62,13 @@ class ProjectQuoteController extends ApiController
         $projectQuote->status_quote_id = StatusQuote::$START;
 
         if ($projectQuote->save()) {
-            $this->sendNotification(
-                $this->createNotification([
-                    'message' => '',
-                    'code' => '',
-                ], null, StatusQuote::$START),
-                new QuoteNotification(User::findOrFail(Auth::id())),
-                new QuoteEvent(null, Role::$ADMIN, $projectQuote->id)
-            );
+            $notification = $this->createNotification(ProjectQuote::getMessageNotify(StatusQuote::$START));
 
-            //TODO crear notificación en base de datos
-            //TODO mandar notificación y mandarla por correo electronico a los administradores
-            //TODO lanzar la notificación por el websocket:laravel
+            $this->sendNotification(
+                $notification,
+                new QuoteNotification(User::findOrFail(Auth::id())),
+                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
+            );
         }
 
 
@@ -91,7 +86,8 @@ class ProjectQuoteController extends ApiController
     }
 
     /**
-     * @param Request $request
+     * @param Request      $request
+     *
      * @param ProjectQuote $projectQuote
      *
      * @return JsonResponse

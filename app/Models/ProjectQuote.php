@@ -30,6 +30,7 @@ class ProjectQuote extends Model
         'name',
         'quote',
         'description',
+        'addressee',
         'date_end',
         'user_id',
         'project_id',
@@ -53,6 +54,7 @@ class ProjectQuote extends Model
         [
             'name' => "string",
             'quote' => "array",
+            'addressee' => "string",
             'description' => "string",
             'date_end' => "string",
             'project_id' => "string",
@@ -63,6 +65,7 @@ class ProjectQuote extends Model
     {
         return [
             'name' => 'required|string',
+            'addressee' => 'required|string',
             'description' => 'required|string',
             'date_end' => 'required|date',
             'project_id' => 'nullable|int',
@@ -116,14 +119,25 @@ class ProjectQuote extends Model
      *
      * @return array
      */
-    public function getMessageNotify(int $statusNotify): array
+    public static function getMessageNotify(int $statusNotify): array
     {
         $notifications = [
-            1 => [
-                'message' => '',
-                '' => '',
+            StatusQuote::$START => [
+                'message' => 'Nueva cotización creada',
+                'type' => StatusQuote::$START,
+            ],
+
+            StatusQuote::$REVIEW => [
+                'message' => 'La cotización fue puesta en estado de revisión',
+                'type' => StatusQuote::$REVIEW,
+            ],
+
+            StatusQuote::$APPROVED => [
+                'message' => '¡La cotización fue aprobada!',
+                'type' => StatusQuote::$APPROVED,
             ],
         ];
-        return [];
+
+        return $notifications[$statusNotify];
     }
 }

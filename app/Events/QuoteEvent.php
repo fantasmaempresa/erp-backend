@@ -6,17 +6,13 @@
 
 namespace App\Events;
 
-use App\Models\Role;
-use App\Models\User;
+use App\Models\Notification;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use JetBrains\PhpStorm\ArrayShape;
-use League\CommonMark\Extension\SmartPunct\Quote;
 
 /**
  * @access  public
@@ -26,20 +22,6 @@ use League\CommonMark\Extension\SmartPunct\Quote;
 class QuoteEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
-    /**
-     * Create a new event instance.
-     * @param int $user_id
-     * @param int $role_id
-     * @param int $quote_id
-     *
-     * @return void
-     */
-    // phpcs:ignore
-    public function __construct(public int $user_id, public int $role_id, public int $quote_id)
-    {
-        //
-    }
 
     /**
      * Get the channels the event should broadcast on.
@@ -52,9 +34,25 @@ class QuoteEvent implements ShouldBroadcast
     }
 
     /**
+     * Create a new event instance.
+     * @param Notification $notification
+     * @param int          $user_id
+     * @param int          $role_id
+     * @param int          $quote_id
+     *
+     * @return void
+     */
+    // phpcs:ignore
+    public function __construct(public Notification $notification, public int $quote_id, public int $user_id, public int $role_id)
+    {
+        //
+    }
+
+    /**
      * @return array
      */
     #[ArrayShape([
+        'notification' => "string",
         'role_id' => "int",
         'user_id' => "int",
         'quote_id' => "int",
@@ -62,6 +60,7 @@ class QuoteEvent implements ShouldBroadcast
     public function broadcastWith(): array
     {
         return [
+            'notification' => $this->notification->notification,
             // phpcs:ignore
             'role_id' => $this->role_id,
             // phpcs:ignore

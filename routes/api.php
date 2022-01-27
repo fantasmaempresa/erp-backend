@@ -3,21 +3,19 @@
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\ClientDocument\ClientDocumentController;
 use App\Http\Controllers\Concept\ConceptController;
-use App\Http\Controllers\ConceptProjectQuote\ConceptProjectQuoteController;
 use App\Http\Controllers\Deduction\DeductionController;
 use App\Http\Controllers\DetailProject\DetailProjectController;
 use App\Http\Controllers\DetailProjectProcessProject\DetailProjectProcessProjectController;
-use App\Http\Controllers\Disability\DisabilityController;
 use App\Http\Controllers\Document\DocumentController;
 use App\Http\Controllers\ExtraHour\ExtraHourController;
 use App\Http\Controllers\Notification\NotificationController;
+use App\Http\Controllers\Notification\NotificationFilterController;
 use App\Http\Controllers\Perception\PerceptionController;
 use App\Http\Controllers\PhasesProcess\PhasesProcessController;
 use App\Http\Controllers\Process\ProcessController;
 use App\Http\Controllers\ProcessProject\ProcessProjectController;
 use App\Http\Controllers\Project\ProjectController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteController;
-//use App\Http\Controllers\ProjectQuotes\ProjectQuotesController;
 use App\Http\Controllers\ProjectStaff\ProjectStaffController;
 use App\Http\Controllers\Role\RoleController;
 use App\Http\Controllers\Salary\SalaryController;
@@ -27,8 +25,9 @@ use App\Http\Controllers\TaxDatum\TaxDatumController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\UserLog\UserLogController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+//use App\Http\Controllers\ProjectQuotes\ProjectQuotesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,7 +61,12 @@ Route::resource('clientDocuments', ClientDocumentController::class, ['except' =>
 Route::resource('projectQuotes', ProjectQuoteController::class, ['except' => ['create', 'edit']])->middleware('auth:api');
 Route::resource('statusQuotes', StatusQuoteController::class, ['except' => ['create', 'edit']]);
 Route::resource('concepts', ConceptController::class, ['except' => ['create', 'edit']]);
+
+//NOTIFICATIONS ROUTES
 Route::resource('notifications', NotificationController::class, ['only' => ['index', 'show']]);
+Route::get('notifications/filter/getLastUserNotifications/{user}', [NotificationFilterController::class, 'lastUserNotifications']);
+Route::get('notifications/filter/getUncheckUserNotifications/{user}', [NotificationFilterController::class, 'getUncheckUserNotifications']);
+Route::get('notifications/filter/getAllUserNotifications/{user}', [NotificationFilterController::class, 'getAllUserNotifications']);
 
 
 //ROUTES PAYROLL
