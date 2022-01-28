@@ -27,6 +27,7 @@ class CreateProjectQuotesTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
+            $table->text('observation')->nullable();
             $table->text('addressee');
             $table->json('quote')->nullable();
             $table->date('date_end');

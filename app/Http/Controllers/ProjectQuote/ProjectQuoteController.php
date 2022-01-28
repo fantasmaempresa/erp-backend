@@ -1,10 +1,8 @@
 <?php
-
 /*
  * CODE
  * ProjectQuote Controller
 */
-
 namespace App\Http\Controllers\ProjectQuote;
 
 use App\Events\QuoteEvent;
@@ -41,6 +39,7 @@ class ProjectQuoteController extends ApiController
                 ->with('project')
                 ->with('client')
                 ->with('statusQuote')
+                ->with('concept')
                 ->paginate($paginate)
         );
     }
@@ -62,7 +61,13 @@ class ProjectQuoteController extends ApiController
         $projectQuote->status_quote_id = StatusQuote::$START;
 
         if ($projectQuote->save()) {
-            $notification = $this->createNotification(ProjectQuote::getMessageNotify(StatusQuote::$START));
+            if ($request->has('concepts')) {
+                $concepts = $request->get('concepts');
+                foreach ($concepts as $concept) {
+                    $projectQuote->concept()->attach($concept['id']);
+                }
+            }
+            $notification = $this->createNotification(ProjectQuote::getMessageNotify(StatusQuote::$START), null, Role::$ADMIN);
 
             $this->sendNotification(
                 $notification,
@@ -86,8 +91,7 @@ class ProjectQuoteController extends ApiController
     }
 
     /**
-     * @param Request      $request
-     *
+     * @param Request $request
      * @param ProjectQuote $projectQuote
      *
      * @return JsonResponse
@@ -103,6 +107,26 @@ class ProjectQuoteController extends ApiController
         }
 
         $projectQuote->save();
+
+        if ($request->has('concepts')) {
+            $concepts = $request->get('concepts');
+            $ids = [];
+            foreach ($concepts as $concept) {
+                $ids[] = $concept['id'];
+            }
+
+            $projectQuote->concept()->sync($ids);
+        }
+        $projectQuote->concept;
+
+        $notification = $this->createNotification(ProjectQuote::getMessageNotify($request->get('status_quote_id')), null, Role::$ADMIN);
+
+        $this->sendNotification(
+            $notification,
+            new QuoteNotification(User::findOrFail(Auth::id())),
+            new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
+        );
+
 
         return $this->showOne($projectQuote);
     }

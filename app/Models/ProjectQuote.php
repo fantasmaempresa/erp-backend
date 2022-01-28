@@ -30,6 +30,7 @@ class ProjectQuote extends Model
         'name',
         'quote',
         'description',
+        'observation',
         'addressee',
         'date_end',
         'user_id',
@@ -56,6 +57,7 @@ class ProjectQuote extends Model
             'quote' => "array",
             'addressee' => "string",
             'description' => "string",
+            'observation' => "string",
             'date_end' => "string",
             'project_id' => "string",
             'client_id' => "string",
@@ -67,6 +69,7 @@ class ProjectQuote extends Model
             'name' => 'required|string',
             'addressee' => 'required|string',
             'description' => 'required|string',
+            'observation' => 'nullable|string',
             'date_end' => 'required|date',
             'project_id' => 'nullable|int',
             'client_id' => 'nullable|int',
@@ -135,6 +138,11 @@ class ProjectQuote extends Model
             StatusQuote::$APPROVED => [
                 'message' => '¡La cotización fue aprobada!',
                 'type' => StatusQuote::$APPROVED,
+            ],
+
+            StatusQuote::$FINISH => [
+                'message' => '¡La cotización fue finalizada!',
+                'type' => StatusQuote::$FINISH,
             ],
         ];
 

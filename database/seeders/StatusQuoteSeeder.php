@@ -35,5 +35,11 @@ class StatusQuoteSeeder extends Seeder
             'name' => 'Cotización aprobada',
             'description' => 'Cotización aprobada por el administrador',
         ]);
+
+        DB::table('status_quotes')->insert([
+            'id' => StatusQuote::$FINISH,
+            'name' => 'Cotización terminada',
+            'description' => 'Cotización se dio como terminada porque el proyecto se marco como finalizado',
+        ]);
     }
 }

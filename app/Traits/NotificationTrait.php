@@ -34,11 +34,12 @@ trait NotificationTrait
         if ($notification->user_id) {
             // phpcs:ignore
             $user = User::findOrFail($notification->user_id);
-            $user->notify($typeNotification);
+            //TODO configurar el mail para que los correos puedan ser enviados
+//            $user->notify($typeNotification);
         } else {
             // phpcs:ignore
             $users = User::where('role_id', '=', $notification->role_id)->get();
-            ViaNotification::send($users, $typeNotification);
+//            ViaNotification::send($users, $typeNotification);
         }
 
         if ($broadcast) {
