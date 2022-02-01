@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\ClientDocument\ClientDocumentController;
 use App\Http\Controllers\Concept\ConceptController;
@@ -85,4 +86,4 @@ Route::resource('extraHours', ExtraHourController::class, ['except' => ['create'
 //Route::resource('disabilities',DisabilityController::class, ['except' => ['create', 'edit']]);
 
 //ROUTES OAUTH
-Route::post('oauth/token', 'Laravel\Passport\Http\Controllers\AccessTokenController@issueToken');
+Route::post('oauth/token', [AuthController::class, 'issueToken']);

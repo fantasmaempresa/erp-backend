@@ -23,11 +23,21 @@ class RoleController extends ApiController
 {
 
     /**
+     * @param Request $request
+     *
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        return $this->showList(Role::paginate(env('NUMBER_PAGINATE')));
+        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+
+        if ($request->has('search')) {
+            $response = $this->showList(Role::search($request->get('search'))->paginate($paginate));
+        } else {
+            $response = $this->showList(Role::paginate($paginate));
+        }
+
+        return $response;
     }
 
     /**
@@ -39,7 +49,6 @@ class RoleController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-
         $this->validate($request, Role::rules());
         $role = Role::create($request->all());
 
@@ -58,7 +67,7 @@ class RoleController extends ApiController
 
     /**
      * @param Request $request
-     * @param Role    $role
+     * @param Role $role
      *
      * @return JsonResponse
      */

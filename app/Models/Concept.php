@@ -67,4 +67,18 @@ class Concept extends Model
     {
         return $this->belongsToMany(ProjectQuote::class);
     }
+
+    /**
+     * @param $query
+     * @param $search
+     *
+     * @return mixed
+     */
+    public function scopeSearch($query, $search): mixed
+    {
+        return $query->orWhere('name', 'like', "%$search%")
+            ->orWhere('description', 'like', "%$search%")
+            ->orWhere('formula', 'like', "%$search%")
+            ->orWhere('amount', $search);
+    }
 }

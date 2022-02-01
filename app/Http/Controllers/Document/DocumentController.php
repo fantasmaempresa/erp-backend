@@ -23,11 +23,22 @@ class DocumentController extends ApiController
 {
 
     /**
+     * @param Request $request
+     *
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        return $this->showList(Document::paginate(env('NUMBER_PAGINATE')));
+        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+
+        if ($request->has('search')) {
+            $response = $this->showList(Document::search($request->get('search'))->paginate($paginate));
+        } else {
+            $response = $this->showList(Document::paginate($paginate));
+        }
+
+        return $response;
+
     }
 
     /**
@@ -56,7 +67,7 @@ class DocumentController extends ApiController
     }
 
     /**
-     * @param Request  $request
+     * @param Request $request
      * @param Document $document
      *
      * @return JsonResponse

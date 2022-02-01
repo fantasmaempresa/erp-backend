@@ -25,9 +25,17 @@ class WorkAreaController extends ApiController
     /**
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        return $this->showList(WorkArea::paginate(env('NUMBER_PAGINATE')));
+        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+
+        if ($request->has('search')) {
+            $response = $this->showList(WorkArea::search($request->get('search'))->paginate($paginate));
+        } else {
+            $response = $this->showList(WorkArea::paginate($paginate));
+        }
+
+        return $response;
     }
 
     /**

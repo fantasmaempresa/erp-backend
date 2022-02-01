@@ -63,7 +63,7 @@ class Client extends Model
             'address' => 'nullable|string',
             'rfc' => 'nullable|required|string|max:13|min:10|unique:clients',
             'extra_information' => 'nullable|array',
-            'user_id'           => 'nullable|int',
+            'user_id' => 'nullable|int',
         ];
 
         if ($id) {
@@ -114,5 +114,20 @@ class Client extends Model
     public function clientDocument(): BelongsToMany
     {
         return $this->belongsToMany(Document::class);
+    }
+
+    /**
+     * @param $query
+     * @param $search
+     *
+     * @return mixed
+     */
+    public function scopeSearch($query, $search): mixed
+    {
+        return $query->orWhere('name', 'like', "%$search%")
+            ->orWhere('phone', 'like', "%$search%")
+            ->orWhere('nickname', 'like', "%$search%")
+            ->orWhere('address', 'like', "%$search%")
+            ->orWhere('rfc', 'like', "%$search%");
     }
 }

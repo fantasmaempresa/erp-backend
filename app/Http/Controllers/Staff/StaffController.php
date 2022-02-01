@@ -25,13 +25,17 @@ class StaffController extends ApiController
     /**
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        return $this->showList(
-            Staff::with('user')
-                ->with('workArea')
-                ->paginate(env('NUMBER_PAGINATE'))
-        );
+        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+
+        if ($request->has('search')) {
+            $response = $this->showList(Staff::search($request->get('search'))->with('user')->with('workArea')->paginate($paginate));
+        } else {
+            $response = $this->showList(Staff::with('user')->with('workArea')->paginate($paginate));
+        }
+
+        return $response;
     }
 
     /**
