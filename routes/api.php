@@ -87,3 +87,4 @@ Route::resource('extraHours', ExtraHourController::class, ['except' => ['create'
 
 //ROUTES OAUTH
 Route::post('oauth/token', [AuthController::class, 'issueToken']);
+Route::resource('templateQuotes', 'TemplateQuotes\TemplateQuotesController', ['except' => ['create', 'edit']]);
