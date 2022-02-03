@@ -151,4 +151,16 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Notification::class);
     }
+
+    /**
+     * @param $query
+     * @param $search
+     *
+     * @return mixed
+     */
+    public function scopeSearch($query, $search): mixed
+    {
+        return $query->orWhere('name', 'like', "%$search%")
+            ->orWhere('email', 'like', "%$search%");
+    }
 }

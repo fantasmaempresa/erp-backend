@@ -25,9 +25,17 @@ class ConceptController extends ApiController
     /**
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        return $this->showList(Concept::paginate(env('NUMBER_PAGINATE')));
+        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+
+        if ($request->has('search')) {
+            $response = $this->showList(Concept::search($request->get('search'))->paginate($paginate));
+        } else {
+            $response = $this->showList(Concept::paginate($paginate));
+        }
+
+        return $response;
     }
 
     /**

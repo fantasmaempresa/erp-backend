@@ -71,5 +71,17 @@ class Role extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    /**
+     * @param $query
+     * @param $search
+     *
+     * @return mixed
+     */
+    public function scopeSearch($query, $search): mixed
+    {
+        return $query->orWhere('name', 'like', "%$search%")
+            ->orWhere('description', 'like', "%$search%");
+    }
 }
 

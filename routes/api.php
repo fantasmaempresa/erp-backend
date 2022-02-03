@@ -1,34 +1,36 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\ClientDocument\ClientDocumentController;
 use App\Http\Controllers\Concept\ConceptController;
-use App\Http\Controllers\ConceptProjectQuote\ConceptProjectQuoteController;
 use App\Http\Controllers\Deduction\DeductionController;
 use App\Http\Controllers\DetailProject\DetailProjectController;
 use App\Http\Controllers\DetailProjectProcessProject\DetailProjectProcessProjectController;
-use App\Http\Controllers\Disability\DisabilityController;
 use App\Http\Controllers\Document\DocumentController;
 use App\Http\Controllers\ExtraHour\ExtraHourController;
 use App\Http\Controllers\Notification\NotificationController;
+use App\Http\Controllers\Notification\NotificationFilterController;
 use App\Http\Controllers\Perception\PerceptionController;
 use App\Http\Controllers\PhasesProcess\PhasesProcessController;
 use App\Http\Controllers\Process\ProcessController;
 use App\Http\Controllers\ProcessProject\ProcessProjectController;
 use App\Http\Controllers\Project\ProjectController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteController;
-//use App\Http\Controllers\ProjectQuotes\ProjectQuotesController;
+use App\Http\Controllers\ProjectQuote\ProjectQuoteFilterController;
 use App\Http\Controllers\ProjectStaff\ProjectStaffController;
 use App\Http\Controllers\Role\RoleController;
 use App\Http\Controllers\Salary\SalaryController;
 use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\StatusQuote\StatusQuoteController;
 use App\Http\Controllers\TaxDatum\TaxDatumController;
+use App\Http\Controllers\TemplateQuotes\TemplateQuotesController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\UserLog\UserLogController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+//use App\Http\Controllers\ProjectQuotes\ProjectQuotesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,10 +89,22 @@ Route::resource('processProjects', ProcessProjectController::class, ['except' =>
 Route::resource('detailProjectProcessProjects', DetailProjectProcessProjectController::class, ['except' => ['create', 'edit']]);
 Route::resource('documents', DocumentController::class, ['except' => ['create', 'edit']]);
 Route::resource('clientDocuments', ClientDocumentController::class, ['except' => ['create', 'edit']]);
-Route::resource('projectQuotes', ProjectQuoteController::class, ['except' => ['create', 'edit']]);
-Route::resource('statusQuotes', StatusQuoteController::class, ['except' => ['create', 'edit']]);
 Route::resource('concepts', ConceptController::class, ['except' => ['create', 'edit']]);
-Route::resource('notifications', NotificationController::class, ['only' => ['index', 'show']]);
+Route::resource('statusQuotes', StatusQuoteController::class, ['except' => ['create', 'edit']]);
+
+//PROJECT QUOTES ROUTES
+Route::resource('projectQuotes', ProjectQuoteController::class, ['except' => ['create', 'edit']])->middleware('auth:api');
+Route::get('projectQuotes/filter/getQuotesStart', [ProjectQuoteFilterController::class, 'getQuotesStart'])->middleware('auth:api');
+Route::get('projectQuotes/filter/getQuotesReview', [ProjectQuoteFilterController::class, 'getQuotesReview'])->middleware('auth:api');
+Route::get('projectQuotes/filter/getQuotesApproved', [ProjectQuoteFilterController::class, 'getQuotesApproved'])->middleware('auth:api');
+Route::get('projectQuotes/filter/getQuotesFinish', [ProjectQuoteFilterController::class, 'getQuotesFinish'])->middleware('auth:api');
+Route::get('projectQuotes/filter/getQuotesByUser', [ProjectQuoteFilterController::class, 'getQuotesByUser'])->middleware('auth:api');
+
+//NOTIFICATIONS ROUTES
+Route::resource('notifications', NotificationController::class, ['only' => ['index', 'show', 'update']])->middleware('auth:api');
+Route::get('notifications/filter/getLastUserNotifications', [NotificationFilterController::class, 'getLastUserNotifications'])->middleware('auth:api');
+Route::get('notifications/filter/getUncheckUserNotifications', [NotificationFilterController::class, 'getUncheckUserNotifications'])->middleware('auth:api');
+Route::get('notifications/filter/getCheckUserNotifications', [NotificationFilterController::class, 'getCheckUserNotifications'])->middleware('auth:api');
 
 
 //ROUTES PAYROLL
@@ -102,4 +116,5 @@ Route::resource('extraHours', ExtraHourController::class, ['except' => ['create'
 //Route::resource('disabilities',DisabilityController::class, ['except' => ['create', 'edit']]);
 
 //ROUTES OAUTH
-Route::post('oauth/token', 'Laravel\Passport\Http\Controllers\AccessTokenController@issueToken');
+Route::post('oauth/token', [AuthController::class, 'issueToken']);
+Route::resource('templateQuotes', TemplateQuotesController::class, ['except' => ['create', 'edit']]);

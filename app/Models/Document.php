@@ -50,4 +50,17 @@ class Document extends Model
     {
         return $this->belongsToMany(Client::class);
     }
+
+    /**
+     * @param $query
+     * @param $search
+     *
+     * @return mixed
+     */
+    public function scopeSearch($query, $search): mixed
+    {
+        return $query->orWhere('name', 'like', "%$search%")
+            ->orWhere('description', 'like', "%$search%")
+            ->orWhere('quote', 'like', "%$search%");
+    }
 }

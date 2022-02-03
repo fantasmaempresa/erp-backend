@@ -110,4 +110,18 @@ class Staff extends Model
     {
         return $this->belongsToMany(Project::class);
     }
+
+    /**
+     * @param $query
+     * @param $search
+     *
+     * @return mixed
+     */
+    public function scopeSearch($query, $search): mixed
+    {
+        return $query->orWhere('name', 'like', "%$search%")
+            ->orWhere('phone', 'like', "%$search%")
+            ->orWhere('email', 'like', "%$search%")
+            ->orWhere('nickname', 'like', "%$search%");
+    }
 }

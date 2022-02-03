@@ -2,7 +2,7 @@
 
 /*
  * CODE
- * Notification Class Migration
+ * TemplateQuotes Class Migration
  */
 
 use Illuminate\Database\Migrations\Migration;
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Schema;
  *
  * @version 1.0
  */
-class CreateNotificationsTable extends Migration
+class CreateTemplateQuotesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -23,12 +23,10 @@ class CreateNotificationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('notifications', function (Blueprint $table) {
+        Schema::create('template_quotes', function (Blueprint $table) {
             $table->id();
-            $table->json('notification');
-            $table->boolean('check')->default(\App\Models\Notification::$UNCHECK);
-            $table->foreignId('user_id')->nullable()->constrained();
-            $table->foreignId('role_id')->nullable()->constrained();
+            $table->string('name');
+            $table->json('form');
             $table->timestamps();
         });
     }
@@ -40,6 +38,6 @@ class CreateNotificationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notifications');
+        Schema::dropIfExists('template_quotes');
     }
 }

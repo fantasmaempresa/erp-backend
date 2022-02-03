@@ -21,11 +21,21 @@ use Exception;
 class UserController extends ApiController
 {
     /**
+     * @param Request $request
+     *
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        return $this->showList(User::with('role')->paginate(env('NUMBER_PAGINATE')));
+        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+
+        if ($request->has('search')) {
+            $response = $this->showList(User::search($request->get('search'))->with('role')->paginate($paginate));
+        } else {
+            $response = $this->showList(User::with('role')->paginate($paginate));
+        }
+
+        return $response;
     }
 
     /**
@@ -60,7 +70,7 @@ class UserController extends ApiController
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param User    $user
+     * @param User $user
      *
      * @return JsonResponse
      *

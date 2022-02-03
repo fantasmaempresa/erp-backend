@@ -22,7 +22,6 @@ use Illuminate\Validation\ValidationException;
  */
 class ClientController extends ApiController
 {
-
     /**
      * @param Request $request
      *
@@ -31,7 +30,14 @@ class ClientController extends ApiController
     public function index(Request $request): JsonResponse
     {
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
-        return $this->showList(Client::with('user')->paginate($paginate));
+
+        if ($request->has('search')) {
+            $response = $this->showList(Client::search($request->get('search'))->with('user')->paginate($paginate));
+        } else {
+            $response = $this->showList(Client::with('user')->paginate($paginate));
+        }
+
+        return $response;
     }
 
     /**

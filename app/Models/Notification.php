@@ -29,6 +29,7 @@ class Notification extends Model
         'notification',
         'check',
         'user_id',
+        'role_id',
     ];
 
     /**

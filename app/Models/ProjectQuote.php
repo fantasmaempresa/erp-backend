@@ -28,7 +28,10 @@ class ProjectQuote extends Model
     protected $fillable = [
         'id',
         'name',
+        'quote',
         'description',
+        'observation',
+        'addressee',
         'date_end',
         'user_id',
         'project_id',
@@ -37,12 +40,24 @@ class ProjectQuote extends Model
     ];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'quote' => 'array',
+    ];
+
+    /**
      * @return string[]
      */
     #[ArrayShape(
         [
             'name' => "string",
+            'quote' => "array",
+            'addressee' => "string",
             'description' => "string",
+            'observation' => "string",
             'date_end' => "string",
             'project_id' => "string",
             'client_id' => "string",
@@ -52,7 +67,9 @@ class ProjectQuote extends Model
     {
         return [
             'name' => 'required|string',
+            'addressee' => 'required|string',
             'description' => 'required|string',
+            'observation' => 'nullable|string',
             'date_end' => 'required|date',
             'project_id' => 'nullable|int',
             'client_id' => 'nullable|int',
@@ -98,5 +115,37 @@ class ProjectQuote extends Model
     public function statusQuote(): BelongsTo
     {
         return $this->BelongsTo(StatusQuote::class);
+    }
+
+    /**
+     * @param int $statusNotify
+     *
+     * @return array
+     */
+    public static function getMessageNotify(int $statusNotify): array
+    {
+        $notifications = [
+            StatusQuote::$START => [
+                'message' => 'Nueva cotización creada',
+                'type' => StatusQuote::$START,
+            ],
+
+            StatusQuote::$REVIEW => [
+                'message' => 'La cotización fue puesta en estado de revisión',
+                'type' => StatusQuote::$REVIEW,
+            ],
+
+            StatusQuote::$APPROVED => [
+                'message' => '¡La cotización fue aprobada!',
+                'type' => StatusQuote::$APPROVED,
+            ],
+
+            StatusQuote::$FINISH => [
+                'message' => '¡La cotización fue finalizada!',
+                'type' => StatusQuote::$FINISH,
+            ],
+        ];
+
+        return $notifications[$statusNotify];
     }
 }

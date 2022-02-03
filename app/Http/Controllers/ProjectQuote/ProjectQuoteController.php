@@ -1,12 +1,15 @@
 <?php
-
 /*
  * CODE
  * ProjectQuote Controller
 */
-
 namespace App\Http\Controllers\ProjectQuote;
 
+use App\Events\QuoteEvent;
+use App\Models\Role;
+use App\Models\StatusQuote;
+use App\Models\User;
+use App\Notifications\QuoteNotification;
 use Exception;
 use App\Models\ProjectQuote;
 use Illuminate\Http\Request;
@@ -22,18 +25,22 @@ use Illuminate\Validation\ValidationException;
  */
 class ProjectQuoteController extends ApiController
 {
-
     /**
+     * @param Request $request
+     *
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
+        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+
         return $this->showList(
             ProjectQuote::with('user')
                 ->with('project')
                 ->with('client')
                 ->with('statusQuote')
-                ->paginate(env('NUMBER_PAGINATE'))
+                ->with('concept')
+                ->paginate($paginate)
         );
     }
 
@@ -47,10 +54,28 @@ class ProjectQuoteController extends ApiController
     public function store(Request $request): JsonResponse
     {
         $this->validate($request, ProjectQuote::rules());
-        $projectQuote = ProjectQuote::create($request->all());
+        $projectQuote = new ProjectQuote($request->all());
         // phpcs:ignore
-//        $projectQuote->user_id = Auth::id();
-//        $projectQuote->save();
+        $projectQuote->user_id = Auth::id();
+        // phpcs:ignore
+        $projectQuote->status_quote_id = StatusQuote::$START;
+
+        if ($projectQuote->save()) {
+            if ($request->has('concepts')) {
+                $concepts = $request->get('concepts');
+                foreach ($concepts as $concept) {
+                    $projectQuote->concept()->attach($concept['id']);
+                }
+            }
+            $notification = $this->createNotification(ProjectQuote::getMessageNotify(StatusQuote::$START), null, Role::$ADMIN);
+
+            $this->sendNotification(
+                $notification,
+                new QuoteNotification(User::findOrFail(Auth::id())),
+                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
+            );
+        }
+
 
         return $this->showOne($projectQuote);
     }
@@ -66,7 +91,7 @@ class ProjectQuoteController extends ApiController
     }
 
     /**
-     * @param Request      $request
+     * @param Request $request
      * @param ProjectQuote $projectQuote
      *
      * @return JsonResponse
@@ -82,6 +107,26 @@ class ProjectQuoteController extends ApiController
         }
 
         $projectQuote->save();
+
+        if ($request->has('concepts')) {
+            $concepts = $request->get('concepts');
+            $ids = [];
+            foreach ($concepts as $concept) {
+                $ids[] = $concept['id'];
+            }
+
+            $projectQuote->concept()->sync($ids);
+        }
+        $projectQuote->concept;
+
+        $notification = $this->createNotification(ProjectQuote::getMessageNotify($request->get('status_quote_id')), null, Role::$ADMIN);
+
+        $this->sendNotification(
+            $notification,
+            new QuoteNotification(User::findOrFail(Auth::id())),
+            new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
+        );
+
 
         return $this->showOne($projectQuote);
     }

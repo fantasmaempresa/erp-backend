@@ -23,7 +23,7 @@ class CreateConceptProjectQuotesTable extends Migration
      */
     public function up()
     {
-        Schema::create('concept_project_quotes', function (Blueprint $table) {
+        Schema::create('concept_project_quote', function (Blueprint $table) {
             $table->foreignId('project_quote_id')->constrained();
             $table->foreignId('concept_id')->constrained();
         });
@@ -36,6 +36,6 @@ class CreateConceptProjectQuotesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('concept_project_quotes');
+        Schema::dropIfExists('concept_project_quote');
     }
 }
