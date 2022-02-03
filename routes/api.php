@@ -24,6 +24,7 @@ use App\Http\Controllers\Salary\SalaryController;
 use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\StatusQuote\StatusQuoteController;
 use App\Http\Controllers\TaxDatum\TaxDatumController;
+use App\Http\Controllers\TemplateQuotes\TemplateQuotesController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\UserLog\UserLogController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
@@ -71,7 +72,7 @@ Route::get('projectQuotes/filter/getQuotesFinish', [ProjectQuoteFilterController
 Route::get('projectQuotes/filter/getQuotesByUser', [ProjectQuoteFilterController::class, 'getQuotesByUser'])->middleware('auth:api');
 
 //NOTIFICATIONS ROUTES
-Route::resource('notifications', NotificationController::class, ['only' => ['index', 'show']])->middleware('auth:api');
+Route::resource('notifications', NotificationController::class, ['only' => ['index', 'show', 'update']])->middleware('auth:api');
 Route::get('notifications/filter/getLastUserNotifications/{user}', [NotificationFilterController::class, 'getLastUserNotifications'])->middleware('auth:api');
 Route::get('notifications/filter/getUncheckUserNotifications/{user}', [NotificationFilterController::class, 'getUncheckUserNotifications'])->middleware('auth:api');
 Route::get('notifications/filter/getCheckUserNotifications/{user}', [NotificationFilterController::class, 'getCheckUserNotifications'])->middleware('auth:api');
@@ -87,4 +88,4 @@ Route::resource('extraHours', ExtraHourController::class, ['except' => ['create'
 
 //ROUTES OAUTH
 Route::post('oauth/token', [AuthController::class, 'issueToken']);
-Route::resource('templateQuotes', 'TemplateQuotes\TemplateQuotesController', ['except' => ['create', 'edit']]);
+Route::resource('templateQuotes', TemplateQuotesController::class, ['except' => ['create', 'edit']]);

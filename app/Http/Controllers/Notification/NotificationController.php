@@ -9,9 +9,11 @@ namespace App\Http\Controllers\Notification;
 
 use Exception;
 use App\Models\Notification;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\ApiController;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 /**
@@ -55,26 +57,36 @@ class NotificationController extends ApiController
 //        return $this->showOne($notification);
 //    }
 
-//    /**
-//     * @param Request $request
-//     * @param Notification $notification
-//     *
-//     * @return JsonResponse
-//     *
-//     * @throws ValidationException
-//     */
-//    public function update(Request $request, Notification $notification): JsonResponse
-//    {
-//        $this->validate($request, Notification::rules());
-//        $notification->fill($request->all());
-//        if ($notification->isClean()) {
-//            return $this->errorResponse('A different value must be specified to update', 422);
-//        }
-//
-//        $notification->save();
-//
-//        return $this->showOne($notification);
-//    }
+    /**
+     * @param Request $request
+     * @param mixed   $reference
+     *
+     * @return JsonResponse
+     *
+     * @throws ValidationException
+     */
+    public function update(Request $request, mixed $reference): JsonResponse
+    {
+        if ($request->has('notifications')) {
+            $notifications = $request->get('notifications');
+            DB::beginTransaction();
+            try {
+                foreach ($notifications as $notification) {
+                    $notificationGet = Notification::findOrFail($notification['id']);
+                    $notificationGet->check = Notification::$CHECK;
+                    $notificationGet->save();
+                }
+
+            } catch (ModelNotFoundException) {
+                DB::rollBack();
+
+                return $this->errorResponse('Record not found', 404);
+            }
+        }
+        DB::commit();
+
+        return $this->showMessage('Records update successful');
+    }
 
 //    /**
 //     * @param Notification $notification
