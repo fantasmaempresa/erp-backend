@@ -73,9 +73,9 @@ Route::get('projectQuotes/filter/getQuotesByUser', [ProjectQuoteFilterController
 
 //NOTIFICATIONS ROUTES
 Route::resource('notifications', NotificationController::class, ['only' => ['index', 'show', 'update']])->middleware('auth:api');
-Route::get('notifications/filter/getLastUserNotifications/{user}', [NotificationFilterController::class, 'getLastUserNotifications'])->middleware('auth:api');
-Route::get('notifications/filter/getUncheckUserNotifications/{user}', [NotificationFilterController::class, 'getUncheckUserNotifications'])->middleware('auth:api');
-Route::get('notifications/filter/getCheckUserNotifications/{user}', [NotificationFilterController::class, 'getCheckUserNotifications'])->middleware('auth:api');
+Route::get('notifications/filter/getLastUserNotifications', [NotificationFilterController::class, 'getLastUserNotifications'])->middleware('auth:api');
+Route::get('notifications/filter/getUncheckUserNotifications', [NotificationFilterController::class, 'getUncheckUserNotifications'])->middleware('auth:api');
+Route::get('notifications/filter/getCheckUserNotifications', [NotificationFilterController::class, 'getCheckUserNotifications'])->middleware('auth:api');
 
 
 //ROUTES PAYROLL
