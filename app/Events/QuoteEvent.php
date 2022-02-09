@@ -60,7 +60,7 @@ class QuoteEvent implements ShouldBroadcast
     public function broadcastWith(): array
     {
         return [
-            'notification' => $this->notification->notification,
+            'notification' => $this->notification,
             // phpcs:ignore
             'role_id' => $this->role_id,
             // phpcs:ignore
