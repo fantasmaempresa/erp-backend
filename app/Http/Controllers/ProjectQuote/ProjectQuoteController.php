@@ -74,6 +74,83 @@ class ProjectQuoteController extends ApiController
                 new QuoteNotification(User::findOrFail(Auth::id())),
                 new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
             );
+
+            $this->sendNotification(
+                $notification,
+                new QuoteNotification(User::findOrFail(Auth::id())),
+                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
+            );
+
+            $this->sendNotification(
+                $notification,
+                new QuoteNotification(User::findOrFail(Auth::id())),
+                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
+            );
+
+            $this->sendNotification(
+                $notification,
+                new QuoteNotification(User::findOrFail(Auth::id())),
+                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
+            );
+
+            $this->sendNotification(
+                $notification,
+                new QuoteNotification(User::findOrFail(Auth::id())),
+                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
+            );
+
+            $this->sendNotification(
+                $notification,
+                new QuoteNotification(User::findOrFail(Auth::id())),
+                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
+            );
+
+            $this->sendNotification(
+                $notification,
+                new QuoteNotification(User::findOrFail(Auth::id())),
+                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
+            );
+
+            $this->sendNotification(
+                $notification,
+                new QuoteNotification(User::findOrFail(Auth::id())),
+                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
+            );
+            $this->sendNotification(
+                $notification,
+                new QuoteNotification(User::findOrFail(Auth::id())),
+                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
+            );
+
+            $this->sendNotification(
+                $notification,
+                new QuoteNotification(User::findOrFail(Auth::id())),
+                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
+            );
+
+            $this->sendNotification(
+                $notification,
+                new QuoteNotification(User::findOrFail(Auth::id())),
+                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
+            );
+
+            $this->sendNotification(
+                $notification,
+                new QuoteNotification(User::findOrFail(Auth::id())),
+                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
+            );
+
+            $this->sendNotification(
+                $notification,
+                new QuoteNotification(User::findOrFail(Auth::id())),
+                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
+            );
+
+            $this->sendNotification(
+                $notification,
+                new QuoteNotification(User::findOrFail(Auth::id())),
+                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
+            );
         }
 
 
