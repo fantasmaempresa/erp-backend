@@ -44,7 +44,7 @@ class TemplateQuotes extends Model
     {
         return [
             'name' => 'required|string|max:250',
-            'form' => 'required|string',
+            'form' => 'required|array',
         ];
     }
 
