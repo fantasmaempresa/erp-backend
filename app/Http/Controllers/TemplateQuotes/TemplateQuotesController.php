@@ -56,46 +56,46 @@ class TemplateQuotesController extends ApiController
     }
 
     /**
-     * @param TemplateQuotes $templateQuotes
+     * @param TemplateQuotes $templateQuote
      *
      * @return JsonResponse
      */
-    public function show(TemplateQuotes $templateQuotes): JsonResponse
+    public function show(TemplateQuotes $templateQuote): JsonResponse
     {
-        return $this->showOne($templateQuotes);
+        return $this->showOne($templateQuote);
     }
 
     /**
      * @param Request        $request
-     * @param TemplateQuotes $templateQuotes
+     * @param TemplateQuotes $templateQuote
      *
      * @return JsonResponse
      *
      * @throws ValidationException
      */
-    public function update(Request $request, TemplateQuotes $templateQuotes): JsonResponse
+    public function update(Request $request, TemplateQuotes $templateQuote): JsonResponse
     {
         $this->validate($request, TemplateQuotes::rules());
-        $templateQuotes->fill($request->all());
-        if ($templateQuotes->isClean()) {
+        $templateQuote->fill($request->all());
+        if ($templateQuote->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);
         }
 
-        $templateQuotes->save();
+        $templateQuote->save();
 
-        return $this->showOne($templateQuotes);
+        return $this->showOne($templateQuote);
     }
 
     /**
-     * @param TemplateQuotes $templateQuotes
+     * @param TemplateQuotes $templateQuote
      *
      * @return JsonResponse
      *
      * @throws Exception
      */
-    public function destroy(TemplateQuotes $templateQuotes): JsonResponse
+    public function destroy(TemplateQuotes $templateQuote): JsonResponse
     {
-        $templateQuotes->delete();
+        $templateQuote->delete();
 
         return $this->showMessage('Record deleted successfully');
     }
