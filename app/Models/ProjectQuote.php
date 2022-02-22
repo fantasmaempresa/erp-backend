@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use JetBrains\PhpStorm\ArrayShape;
 
 /**
@@ -37,6 +38,7 @@ class ProjectQuote extends Model
         'project_id',
         'client_id',
         'status_quote_id',
+        'template_quote_id',
     ];
 
     /**
@@ -58,10 +60,11 @@ class ProjectQuote extends Model
             'addressee' => "string",
             'description' => "string",
             'observation' => "string",
-            'date_end' => "string",
-            'project_id' => "string",
-            'client_id' => "string",
-            'status_quote_id' => "string",
+            'date_end' => "date",
+            'project_id' => "int",
+            'client_id' => "int",
+            'status_quote_id' => "int",
+            'template_quote_id' => "int",
         ]
     )] public static function rules(): array
     {
@@ -74,6 +77,7 @@ class ProjectQuote extends Model
             'project_id' => 'nullable|int',
             'client_id' => 'nullable|int',
             'status_quote_id' => 'nullable|int',
+            'template_quote_id' => 'nullable|int',
         ];
     }
 
@@ -115,6 +119,14 @@ class ProjectQuote extends Model
     public function statusQuote(): BelongsTo
     {
         return $this->BelongsTo(StatusQuote::class);
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function templateQuote(): HasOne
+    {
+        return $this->hasOne(TemplateQuotes::class);
     }
 
     /**

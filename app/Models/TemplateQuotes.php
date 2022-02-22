@@ -8,6 +8,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @access  public
@@ -57,5 +58,13 @@ class TemplateQuotes extends Model
     public function scopeSearch($query, $search): mixed
     {
         return $query->where('name', 'like', "%$search%");
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function templateQuote(): BelongsTo
+    {
+        return $this->belongsTo(ProjectQuote::class);
     }
 }
