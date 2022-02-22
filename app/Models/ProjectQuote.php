@@ -118,30 +118,35 @@ class ProjectQuote extends Model
     }
 
     /**
-     * @param int $statusNotify
+     * @param int    $statusNotify
+     * @param string $name
      *
      * @return array
      */
-    public static function getMessageNotify(int $statusNotify): array
+    public static function getMessageNotify(int $statusNotify, string $name = ""): array
     {
         $notifications = [
             StatusQuote::$START => [
-                'message' => 'Nueva cotización creada',
+                'title' => 'Cotizaciones',
+                'message' => "Nueva cotización creada ($name)",
                 'type' => StatusQuote::$START,
             ],
 
             StatusQuote::$REVIEW => [
-                'message' => 'La cotización fue puesta en estado de revisión',
+                'title' => 'Cotizaciones',
+                'message' => "La cotización ($name) fue puesta en estado de revisión",
                 'type' => StatusQuote::$REVIEW,
             ],
 
             StatusQuote::$APPROVED => [
-                'message' => '¡La cotización fue aprobada!',
+                'title' => 'Cotizaciones',
+                'message' => "¡La cotización ($name) fue aprobada!",
                 'type' => StatusQuote::$APPROVED,
             ],
 
             StatusQuote::$FINISH => [
-                'message' => '¡La cotización fue finalizada!',
+                'title' => 'Cotizaciones',
+                'message' => "¡La cotización ($name) fue finalizada!",
                 'type' => StatusQuote::$FINISH,
             ],
         ];

@@ -5,6 +5,7 @@
 */
 namespace App\Http\Controllers\ProjectQuote;
 
+use App\Events\NotificationEvent;
 use App\Events\QuoteEvent;
 use App\Models\Role;
 use App\Models\StatusQuote;
@@ -67,89 +68,12 @@ class ProjectQuoteController extends ApiController
                     $projectQuote->concept()->attach($concept['id']);
                 }
             }
-            $notification = $this->createNotification(ProjectQuote::getMessageNotify(StatusQuote::$START), null, Role::$ADMIN);
+            $notification = $this->createNotification(ProjectQuote::getMessageNotify(StatusQuote::$START, $projectQuote->name), null, Role::$ADMIN);
 
             $this->sendNotification(
                 $notification,
                 new QuoteNotification(User::findOrFail(Auth::id())),
-                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
-            );
-
-            $this->sendNotification(
-                $notification,
-                new QuoteNotification(User::findOrFail(Auth::id())),
-                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
-            );
-
-            $this->sendNotification(
-                $notification,
-                new QuoteNotification(User::findOrFail(Auth::id())),
-                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
-            );
-
-            $this->sendNotification(
-                $notification,
-                new QuoteNotification(User::findOrFail(Auth::id())),
-                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
-            );
-
-            $this->sendNotification(
-                $notification,
-                new QuoteNotification(User::findOrFail(Auth::id())),
-                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
-            );
-
-            $this->sendNotification(
-                $notification,
-                new QuoteNotification(User::findOrFail(Auth::id())),
-                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
-            );
-
-            $this->sendNotification(
-                $notification,
-                new QuoteNotification(User::findOrFail(Auth::id())),
-                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
-            );
-
-            $this->sendNotification(
-                $notification,
-                new QuoteNotification(User::findOrFail(Auth::id())),
-                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
-            );
-            $this->sendNotification(
-                $notification,
-                new QuoteNotification(User::findOrFail(Auth::id())),
-                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
-            );
-
-            $this->sendNotification(
-                $notification,
-                new QuoteNotification(User::findOrFail(Auth::id())),
-                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
-            );
-
-            $this->sendNotification(
-                $notification,
-                new QuoteNotification(User::findOrFail(Auth::id())),
-                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
-            );
-
-            $this->sendNotification(
-                $notification,
-                new QuoteNotification(User::findOrFail(Auth::id())),
-                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
-            );
-
-            $this->sendNotification(
-                $notification,
-                new QuoteNotification(User::findOrFail(Auth::id())),
-                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
-            );
-
-            $this->sendNotification(
-                $notification,
-                new QuoteNotification(User::findOrFail(Auth::id())),
-                new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
+                new NotificationEvent($notification, 0, Role::$ADMIN, [])
             );
         }
 
@@ -168,7 +92,7 @@ class ProjectQuoteController extends ApiController
     }
 
     /**
-     * @param Request $request
+     * @param Request      $request
      * @param ProjectQuote $projectQuote
      *
      * @return JsonResponse
@@ -196,12 +120,12 @@ class ProjectQuoteController extends ApiController
         }
         $projectQuote->concept;
 
-        $notification = $this->createNotification(ProjectQuote::getMessageNotify($request->get('status_quote_id')), null, Role::$ADMIN);
+        $notification = $this->createNotification(ProjectQuote::getMessageNotify($request->get('status_quote_id'), $projectQuote->name), null, Role::$ADMIN);
 
         $this->sendNotification(
             $notification,
             new QuoteNotification(User::findOrFail(Auth::id())),
-            new QuoteEvent($notification, $projectQuote->id, 0, Role::$ADMIN)
+            new NotificationEvent($notification, 0, Role::$ADMIN, [])
         );
 
 

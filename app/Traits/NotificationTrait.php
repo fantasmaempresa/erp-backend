@@ -22,35 +22,6 @@ use Illuminate\Support\Facades\Notification as ViaNotification;
 trait NotificationTrait
 {
     /**
-     * @param Notification      $notification
-     * @param ?TypeNotification $typeNotification
-     * @param ?ShouldBroadcast  $broadcast
-     *
-     * @return bool
-     */
-    protected function sendNotification(Notification $notification, ?TypeNotification $typeNotification = null, ?ShouldBroadcast $broadcast = null): bool
-    {
-        // phpcs:ignore
-        if ($notification->user_id) {
-            // phpcs:ignore
-            $user = User::findOrFail($notification->user_id);
-            //TODO configurar el mail para que los correos puedan ser enviados
-//            $user->notify($typeNotification);
-        } else {
-            // phpcs:ignore
-            $users = User::where('role_id', '=', $notification->role_id)->get();
-//            ViaNotification::send($users, $typeNotification);
-        }
-
-        if ($broadcast) {
-            event($broadcast);
-        }
-
-        return true;
-    }
-
-
-    /**
      * @param array    $bodyNotification
      * @param int|null $user
      * @param int|null $role
@@ -71,4 +42,44 @@ trait NotificationTrait
         return $notification;
     }
 
+    /**
+     * @param Notification      $notification
+     * @param ?TypeNotification $typeNotification
+     * @param ?ShouldBroadcast  $broadcast
+     * @param ?bool             $pushNotification
+     *
+     * @return bool
+     */
+    protected function sendNotification(Notification $notification, ?TypeNotification $typeNotification = null, ?ShouldBroadcast $broadcast = null, ?bool $pushNotification = null): bool
+    {
+        // phpcs:ignore
+        if ($notification->user_id) {
+            // phpcs:ignore
+            $user = User::findOrFail($notification->user_id);
+            //TODO configurar el mail para que los correos puedan ser enviados
+            //$user->notify($typeNotification);
+        } else {
+            // phpcs:ignore
+            $users = User::where('role_id', '=', $notification->role_id)->get();
+            //ViaNotification::send($users, $typeNotification);
+        }
+
+        if ($broadcast) {
+            event($broadcast);
+        }
+
+        if ($pushNotification) {
+            $this->sendPushNotification();
+        }
+
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function sendPushNotification(): bool
+    {
+        return true;
+    }
 }

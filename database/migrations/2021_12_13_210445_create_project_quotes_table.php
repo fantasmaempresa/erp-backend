@@ -35,6 +35,7 @@ class CreateProjectQuotesTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('client_id')->nullable()->constrained();
             $table->foreignId('status_quote_id')->nullable()->constrained();
+            $table->foreignId('template_quote_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

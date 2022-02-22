@@ -19,9 +19,24 @@ use JetBrains\PhpStorm\ArrayShape;
  *
  * @version 1.0
  */
-class QuoteEvent implements ShouldBroadcast
+class NotificationEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+
+    /**
+     * Create a new event instance.
+     * @param Notification $notification
+     * @param int          $user_id
+     * @param int          $role_id
+     * @param array        $extra_info
+     *
+     * @return void
+     */
+    // phpcs:ignore
+    public function __construct(public Notification $notification, public int $user_id, public int $role_id, public array $extra_info)
+    {
+        //
+    }
 
     /**
      * Get the channels the event should broadcast on.
@@ -30,22 +45,7 @@ class QuoteEvent implements ShouldBroadcast
      */
     public function broadcastOn(): Channel
     {
-        return new Channel('quotes');
-    }
-
-    /**
-     * Create a new event instance.
-     * @param Notification $notification
-     * @param int          $user_id
-     * @param int          $role_id
-     * @param int          $quote_id
-     *
-     * @return void
-     */
-    // phpcs:ignore
-    public function __construct(public Notification $notification, public int $quote_id, public int $user_id, public int $role_id)
-    {
-        //
+        return new Channel('notification');
     }
 
     /**
@@ -55,18 +55,18 @@ class QuoteEvent implements ShouldBroadcast
         'notification' => "string",
         'role_id' => "int",
         'user_id' => "int",
-        'quote_id' => "int",
+        'extra_info' => "int",
     ])]
     public function broadcastWith(): array
     {
         return [
             'notification' => $this->notification,
             // phpcs:ignore
+            'extra_info' => $this->extra_info,
+            // phpcs:ignore
             'role_id' => $this->role_id,
             // phpcs:ignore
             'user_id' => $this->user_id,
-            // phpcs:ignore
-            'quote_id' => $this->quote_id,
         ];
     }
 }
