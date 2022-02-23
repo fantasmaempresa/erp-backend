@@ -14,7 +14,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 /**
- * @acc ess  public
+ * @access  public
  *
  * @version 1.0
  */

@@ -81,4 +81,29 @@ class Concept extends Model
             ->orWhere('formula', 'like', "%$search%")
             ->orWhere('amount', $search);
     }
+
+    /**
+     * @param array $formula
+     * @param int   $valueConcept
+     * @param int   $valueField
+     *
+     * @return int
+     */
+    public static function getOperation(array $formula, int $valueConcept, int $valueField): int
+    {
+        $total = 0;
+
+        if ($formula['percentage']) {
+            $total = round(($valueField * $formula['value']) / 100);
+        } else {
+            $total = $valueField;
+        }
+
+        return match (true) {
+            $formula['operation'] === '+' => $total + $valueConcept,
+            $formula['operation'] === '-' => $total - $valueConcept,
+            $formula['operation'] === '*' => $total * $valueConcept,
+            $formula['operation'] === '/' => $total / $valueConcept,
+        };
+    }
 }
