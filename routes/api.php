@@ -18,6 +18,7 @@ use App\Http\Controllers\ProcessProject\ProcessProjectController;
 use App\Http\Controllers\Project\ProjectController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteFilterController;
+use App\Http\Controllers\ProjectQuote\ProjectQuoteOperationsController;
 use App\Http\Controllers\ProjectStaff\ProjectStaffController;
 use App\Http\Controllers\Role\RoleController;
 use App\Http\Controllers\Salary\SalaryController;
@@ -76,6 +77,8 @@ Route::resource('notifications', NotificationController::class, ['only' => ['ind
 Route::get('notifications/filter/getLastUserNotifications', [NotificationFilterController::class, 'getLastUserNotifications'])->middleware('auth:api');
 Route::get('notifications/filter/getUncheckUserNotifications', [NotificationFilterController::class, 'getUncheckUserNotifications'])->middleware('auth:api');
 Route::get('notifications/filter/getCheckUserNotifications', [NotificationFilterController::class, 'getCheckUserNotifications'])->middleware('auth:api');
+Route::get('notifications/calculate/quote-reactive', [ProjectQuoteOperationsController::class, 'calculateReactiveProjectQuote'])->middleware('auth:api');
+//Route::get('notifications/filter/quote/{projectQuote}', [ProjectQuoteOperationsController::class, ''])->middleware('auth:api');
 
 
 //ROUTES PAYROLL

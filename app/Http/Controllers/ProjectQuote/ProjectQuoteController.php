@@ -3,6 +3,7 @@
  * CODE
  * ProjectQuote Controller
 */
+
 namespace App\Http\Controllers\ProjectQuote;
 
 use App\Events\NotificationEvent;
@@ -60,12 +61,19 @@ class ProjectQuoteController extends ApiController
         $projectQuote->user_id = Auth::id();
         // phpcs:ignore
         $projectQuote->status_quote_id = StatusQuote::$START;
+        // phpcs:ignore
+        $projectQuote->date_end = date("Y-m-d H:i:s", strtotime(request('date_end')));
 
         if ($projectQuote->save()) {
-            if ($request->has('concepts')) {
-                $concepts = $request->get('concepts');
-                foreach ($concepts as $concept) {
-                    $projectQuote->concept()->attach($concept['id']);
+            if ($request->has('quote') && !empty($request->get('quote'))) {
+                if (!empty($request->get('quote')['operations']['operation_fields'])) {
+                    foreach ($request->get('quote')['operations']['operation_fields'] as $field) {
+                        $projectQuote->concept()->attach($field["concept"]["id"]);
+                    }
+
+                    foreach ($request->get('quote')['operations']['operation_total'] as $field) {
+                        $projectQuote->concept()->attach($field["concept"]["id"]);
+                    }
                 }
             }
             $notification = $this->createNotification(ProjectQuote::getMessageNotify(StatusQuote::$START, $projectQuote->name), null, Role::$ADMIN);
@@ -77,6 +85,7 @@ class ProjectQuoteController extends ApiController
             );
         }
 
+        $projectQuote->concept;
 
         return $this->showOne($projectQuote);
     }
@@ -107,17 +116,26 @@ class ProjectQuoteController extends ApiController
             return $this->errorResponse('A different value must be specified to update', 422);
         }
 
+        // phpcs:ignore
+        $projectQuote->date_end = date("Y-m-d H:i:s", strtotime(request('date_end')));
         $projectQuote->save();
 
-        if ($request->has('concepts')) {
-            $concepts = $request->get('concepts');
-            $ids = [];
-            foreach ($concepts as $concept) {
-                $ids[] = $concept['id'];
-            }
+        if ($request->has('quote') && !empty($request->get('quote'))) {
+            if (!empty($request->get('quote')['operations']['operation_fields'])) {
+                $ids = [];
+                foreach ($request->get('quote')['operations']['operation_fields'] as $field) {
+                    $ids[] = $field["concept"]["id"];
+                }
+                $projectQuote->concept()->sync($ids);
 
-            $projectQuote->concept()->sync($ids);
+                $ids = [];
+                foreach ($request->get('quote')['operations']['operation_total'] as $field) {
+                    $ids[] = $field["concept"]["id"];
+                }
+                $projectQuote->concept()->sync($ids);
+            }
         }
+
         $projectQuote->concept;
 
         $notification = $this->createNotification(ProjectQuote::getMessageNotify($request->get('status_quote_id'), $projectQuote->name), null, Role::$ADMIN);

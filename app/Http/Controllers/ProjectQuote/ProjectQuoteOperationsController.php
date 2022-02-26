@@ -34,7 +34,7 @@ class ProjectQuoteOperationsController extends ApiController
         $opTotal = $request->get('operation_total');
 
 
-        return $this->showList([]);
+        return $this->showList($this->calculateProjectQuote());
     }
 
     /**
