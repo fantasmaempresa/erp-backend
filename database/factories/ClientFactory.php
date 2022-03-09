@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use JetBrains\PhpStorm\ArrayShape;
@@ -20,21 +19,23 @@ class ClientFactory extends Factory
      * @return array
      */
     #[ArrayShape([
-        'name'     => "\Illuminate\Support\HigherOrderCollectionProxy|mixed",
-        'email'    => "string",
-        'phone'    => "string",
+        'name' => "\Illuminate\Support\HigherOrderCollectionProxy|mixed",
+        'email' => "string",
+        'phone' => "string",
         'nickname' => "string",
-        'rfc'      => "string",
-        'user_id'  => "\Illuminate\Support\HigherOrderCollectionProxy|mixed",
+        'rfc' => "string",
+        'user_id' => "\Illuminate\Support\HigherOrderCollectionProxy|mixed",
+        'type' => "int",
     ])] public function definition(): array
     {
 
         return [
-            'name'     => $this->faker->name,
-            'email'    => $this->faker->companyEmail,
-            'phone'    => Str::random(10),
+            'name' => $this->faker->name,
+            'email' => $this->faker->companyEmail,
+            'phone' => Str::random(10),
             'nickname' => $this->faker->lastName,
-            'rfc'      => Str::random(13),
+            'rfc' => Str::random(13),
+            'type' => $this->faker->numberBetween(1, 2),
         ];
     }
 }

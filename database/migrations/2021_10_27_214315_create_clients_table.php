@@ -5,6 +5,7 @@
  * Clients Class Migration
  */
 
+use App\Models\Client;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -33,6 +34,7 @@ class CreateClientsTable extends Migration
             $table->string('rfc')->nullable()->unique();
             $table->string('profession')->nullable();
             $table->string('degree')->nullable();
+            $table->tinyInteger('type')->default(Client::PHYSICAL_PERSON);
             $table->json('extra_information')->nullable();
             $table->foreignId('user_id')->nullable()->constrained();
             $table->timestamps();

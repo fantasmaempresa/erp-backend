@@ -23,6 +23,9 @@ class Client extends Model
 {
     use HasFactory;
 
+    const MORAL_PERSON = 1;
+    const PHYSICAL_PERSON = 2;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -37,6 +40,7 @@ class Client extends Model
             'nickname',
             'address',
             'rfc',
+            'type',
             'profession',
             'degree',
             'extra_information',
@@ -68,6 +72,7 @@ class Client extends Model
             'rfc' => 'nullable|required|string|max:13|min:10|unique:clients',
             'extra_information' => 'nullable|array',
             'user_id' => 'nullable|int',
+            'type' => 'required|int',
         ];
 
         if ($id) {
