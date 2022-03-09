@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\ClientDocument\ClientDocumentController;
+use App\Http\Controllers\ClientLink\ClientLinkController;
 use App\Http\Controllers\Concept\ConceptController;
 use App\Http\Controllers\Deduction\DeductionController;
 use App\Http\Controllers\DetailProject\DetailProjectController;
@@ -63,6 +64,7 @@ Route::resource('documents', DocumentController::class, ['except' => ['create', 
 Route::resource('clientDocuments', ClientDocumentController::class, ['except' => ['create', 'edit']]);
 Route::resource('concepts', ConceptController::class, ['except' => ['create', 'edit']]);
 Route::resource('statusQuotes', StatusQuoteController::class, ['except' => ['create', 'edit']]);
+Route::resource('clientLinks', ClientLinkController::class, ['except' => 'create', 'edit']);
 
 //PROJECT QUOTES ROUTES
 Route::resource('projectQuotes', ProjectQuoteController::class, ['except' => ['create', 'edit']])->middleware('auth:api');
