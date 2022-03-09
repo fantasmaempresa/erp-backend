@@ -37,6 +37,8 @@ class Client extends Model
             'nickname',
             'address',
             'rfc',
+            'profession',
+            'degree',
             'extra_information',
             'user_id',
         ];
@@ -61,6 +63,8 @@ class Client extends Model
             'phone' => 'required|string|max:10|min:10|unique:clients',
             'nickname' => 'nullable|string',
             'address' => 'nullable|string',
+            'profession' => 'nullable|string',
+            'degree' => 'nullable|string',
             'rfc' => 'nullable|required|string|max:13|min:10|unique:clients',
             'extra_information' => 'nullable|array',
             'user_id' => 'nullable|int',

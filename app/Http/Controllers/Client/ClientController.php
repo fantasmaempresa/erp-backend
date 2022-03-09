@@ -70,9 +70,11 @@ class ClientController extends ApiController
 
     /**
      * @param Request $request
-     * @param Client $client
+     * @param Client  $client
      *
      * @return JsonResponse
+     *
+     * @throws ValidationException
      */
     public function update(Request $request, Client $client): JsonResponse
     {
