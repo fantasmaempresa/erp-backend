@@ -27,19 +27,23 @@ use Illuminate\Validation\ValidationException;
  */
 class ProjectQuoteController extends ApiController
 {
-	/**
-	 * @param Request $request
-	 *
-	 * @return JsonResponse
-	 * @throws ValidationException
-	 */
+    /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     *
+     * @throws ValidationException
+     */
     public function index(Request $request): JsonResponse
     {
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
         $projectQuotes = new ProjectQuote();
 
-		$this->validate($request, ['date1' => 'date', 'date2' => 'date|after_or_equal:date1',]);
+        $this->validate($request, [
+            'date1' => 'date',
+            'date2' => 'date|after_or_equal:date1',
+        ]);
 
         if ($request->has('client_id')) {
             $projectQuotes = $projectQuotes->where('client_id', $request->get('client_id'));
@@ -50,7 +54,10 @@ class ProjectQuoteController extends ApiController
         }
 
         if ($request->has('date1') && $request->has('date2')) {
-            $projectQuotes = $projectQuotes->whereBetween('created_at', [$request->get('date1').' 0:00:00', $request->get('date2').' 23:59:59']);
+            $projectQuotes = $projectQuotes->whereBetween(
+                'created_at',
+                [$request->get('date1').' 0:00:00', $request->get('date2').' 23:59:59']
+            );
         }
 
         return $this->showList(
@@ -78,8 +85,6 @@ class ProjectQuoteController extends ApiController
         $projectQuote->user_id = Auth::id();
         // phpcs:ignore
         $projectQuote->status_quote_id = StatusQuote::$START;
-        // phpcs:ignore
-        $projectQuote->date_end = date("Y-m-d H:i:s", strtotime(request('date_end')));
 
         if ($projectQuote->save()) {
             if ($request->has('quote') && !empty($request->get('quote'))) {
@@ -93,7 +98,11 @@ class ProjectQuoteController extends ApiController
                     }
                 }
             }
-            $notification = $this->createNotification(ProjectQuote::getMessageNotify(StatusQuote::$START, $projectQuote->name), null, Role::$ADMIN);
+            $notification = $this->createNotification(
+                ProjectQuote::getMessageNotify(StatusQuote::$START, $projectQuote->name),
+                null,
+                Role::$ADMIN
+            );
 
             $this->sendNotification(
                 $notification,
@@ -118,7 +127,8 @@ class ProjectQuoteController extends ApiController
     }
 
     /**
-     * @param Request $request
+     *
+     * @param Request      $request
      * @param ProjectQuote $projectQuote
      *
      * @return JsonResponse
@@ -134,7 +144,6 @@ class ProjectQuoteController extends ApiController
         }
 
         // phpcs:ignore
-        $projectQuote->date_end = date("Y-m-d H:i:s", strtotime(request('date_end')));
         $projectQuote->save();
 
         if ($request->has('quote') && !empty($request->get('quote'))) {
@@ -155,7 +164,11 @@ class ProjectQuoteController extends ApiController
 
         $projectQuote->concept;
 
-        $notification = $this->createNotification(ProjectQuote::getMessageNotify($request->get('status_quote_id'), $projectQuote->name), null, Role::$ADMIN);
+        $notification = $this->createNotification(
+            ProjectQuote::getMessageNotify($request->get('status_quote_id'), $projectQuote->name),
+            null,
+            Role::$ADMIN
+        );
 
         $this->sendNotification(
             $notification,
