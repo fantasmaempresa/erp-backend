@@ -73,6 +73,8 @@ Route::get('projectQuotes/filter/getQuotesReview', [ProjectQuoteFilterController
 Route::get('projectQuotes/filter/getQuotesApproved', [ProjectQuoteFilterController::class, 'getQuotesApproved'])->middleware('auth:api');
 Route::get('projectQuotes/filter/getQuotesFinish', [ProjectQuoteFilterController::class, 'getQuotesFinish'])->middleware('auth:api');
 Route::get('projectQuotes/filter/getQuotesByUser', [ProjectQuoteFilterController::class, 'getQuotesByUser'])->middleware('auth:api');
+Route::get('projectQuotes/filter/getQuotesUser', [ProjectQuoteFilterController::class, 'getQuotesUser'])->middleware('auth:api');
+Route::get('projectQuotes/filter/getQuotesByClient', [ProjectQuoteFilterController::class, 'getQuotesByClient'])->middleware('auth:api');
 
 //NOTIFICATIONS ROUTES
 Route::resource('notifications', NotificationController::class, ['only' => ['index', 'show', 'update']])->middleware('auth:api');
