@@ -13,6 +13,7 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use Psy\Util\Json;
 
 /**
@@ -117,6 +118,56 @@ class ProjectQuoteFilterController extends ApiController
 
         return $this->showList(
             ProjectQuote::where('user_id', Auth::id())
+                ->orderBy('id', 'DESC')
+                ->with('user')
+                ->with('project')
+                ->with('client')
+                ->with('statusQuote')
+                ->with('concept')
+                ->paginate($paginate)
+        );
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     *
+     * @throws ValidationException
+     */
+    public function getQuotesUser(Request $request): JsonResponse
+    {
+        $this->validate($request, ['user_id' => 'required']);
+
+        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+
+        return $this->showList(
+            ProjectQuote::where('user_id', $request->get('user_id'))
+                ->orderBy('id', 'DESC')
+                ->with('user')
+                ->with('project')
+                ->with('client')
+                ->with('statusQuote')
+                ->with('concept')
+                ->paginate($paginate)
+        );
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     *
+     * @throws ValidationException
+     */
+    public function getQuotesByClient(Request $request): JsonResponse
+    {
+        $this->validate($request, ['client_id' => 'required']);
+
+        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+
+        return $this->showList(
+            ProjectQuote::where('client_id', $request->get('client_id'))
                 ->orderBy('id', 'DESC')
                 ->with('user')
                 ->with('project')
