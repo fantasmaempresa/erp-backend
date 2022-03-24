@@ -27,6 +27,9 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public static int $ONLINE = 1;
+    public static int $OFFLINE = 0;
+
     /**
      * @var int
      */
@@ -43,6 +46,7 @@ class User extends Authenticatable implements MustVerifyEmail
             'password',
             'role_id',
             'config',
+            'online',
         ];
 
     /**
@@ -153,6 +157,14 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * @return HasMany
+     */
+    public function AauthAcessToken(): HasMany
+    {
+        return $this->hasMany(OauthAccessToken::class);
+    }
+
+    /**
      * @param $query
      * @param $search
      *
@@ -162,5 +174,30 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $query->orWhere('name', 'like', "%$search%")
             ->orWhere('email', 'like', "%$search%");
+    }
+
+    /**
+     * @param int    $statusNotify
+     * @param string $name
+     *
+     * @return array
+     */
+    public static function getMessageNotify(int $statusNotify, string $name = ""): array
+    {
+        $notifications = [
+            User::$ONLINE => [
+                'title' => '¡Usuario conectado!',
+                'message' => "El usuario ($name) acaba de iniciar sesion",
+                'type' => User::$ONLINE,
+            ],
+
+            User::$OFFLINE => [
+                'title' => '¡Usuario desconectado!',
+                'message' => "El usuario ($name) acaba de cerrar sesion",
+                'type' => User::$OFFLINE,
+            ],
+        ];
+
+        return $notifications[$statusNotify];
     }
 }

@@ -6,6 +6,7 @@
  */
 
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -31,6 +32,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->json('config')->nullable();
+            $table->tinyInteger('online')->default(User::$OFFLINE);
             $table->foreignId('role_id')->constrained();
             $table->rememberToken();
             $table->timestamps();

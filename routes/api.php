@@ -93,4 +93,8 @@ Route::resource('extraHours', ExtraHourController::class, ['except' => ['create'
 
 //ROUTES OAUTH
 Route::post('oauth/token', [AuthController::class, 'issueToken']);
+Route::get('oauth/logout', [AuthController::class, 'logoutApi'])->middleware('auth:api');
+Route::get('oauth/online', [AuthController::class, 'onlineUser'])->middleware('auth:api');
+Route::get('oauth/offline', [AuthController::class, 'offlineUser'])->middleware('auth:api');
+
 Route::resource('templateQuotes', TemplateQuotesController::class, ['except' => ['create', 'edit']]);
