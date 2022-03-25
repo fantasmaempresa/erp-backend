@@ -8,7 +8,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Events\NotificationEvent;
 use App\Events\RefreshDataEvent;
-use App\Models\ProjectQuote;
 use App\Models\Role;
 use App\Models\User;
 use App\Traits\ApiResponseTrait;
