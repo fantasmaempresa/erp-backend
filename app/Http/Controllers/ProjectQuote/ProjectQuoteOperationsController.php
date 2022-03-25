@@ -27,12 +27,17 @@ class ProjectQuoteOperationsController extends ApiController
      */
     public function calculateReactiveProjectQuote(Request $request): JsonResponse
     {
-        if (!($request->has('operation_fields') && $request->has('op_total'))) {
-            return $this->errorResponse("error: format request, field not found", 404);
+        $this->validate($request, [
+            'quote' => 'required',
+        ]);
+
+        if (!(
+            isset($request->all()['quote']['operations']['operation_fields']) &&
+            isset($request->all()['quote']['operations']['operation_total']) &&
+            isset($request->all()['quote']['form'])
+        )) {
+            return $this->errorResponse('fields not foutn', 404);
         }
-
-        $opTotal = $request->get('operation_total');
-
 
         return $this->showList($this->calculateProjectQuote());
     }
@@ -45,6 +50,7 @@ class ProjectQuoteOperationsController extends ApiController
     public function calculateProjectQuote(array $opField, array $opTotal, array $formQuote)
     {
         $result = [];
+
         foreach ($opField as $field) {
             $value = 0;
             $fieldResult = [];

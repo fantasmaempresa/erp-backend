@@ -58,7 +58,7 @@ class AuthController extends AccessTokenController
             $user->online = User::$ONLINE;
             $user->save();
 
-            $notification = $this->createNotification(ProjectQuote::getMessageNotify(User::$ONLINE, $user->name), null, Role::$ADMIN);
+            $notification = $this->createNotification(User::getMessageNotify(User::$ONLINE, $user->name), null, Role::$ADMIN);
 
             $this->sendNotification(
                 $notification,
