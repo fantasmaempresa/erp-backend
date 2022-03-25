@@ -30,6 +30,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public static int $ONLINE = 1;
     public static int $OFFLINE = 0;
 
+    //ACTIONS
+    public static int $LOGOUT = 1;
+    public static int $LOCKED = 1;
+    public static int $UNLOCKED = 0;
+
     /**
      * @var int
      */
@@ -47,6 +52,7 @@ class User extends Authenticatable implements MustVerifyEmail
             'role_id',
             'config',
             'online',
+            'locked',
         ];
 
     /**
@@ -177,7 +183,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * @param int    $statusNotify
+     * @param int $statusNotify
      * @param string $name
      *
      * @return array
@@ -199,5 +205,20 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
 
         return $notifications[$statusNotify];
+    }
+
+    /**
+     * @param int $action
+     *
+     * @return array
+     */
+    public static function getActionSystem(int $action): array
+    {
+        return [
+            User::$LOGOUT => [
+                'action' => 'logout',
+                'remove_session' => 'true',
+            ],
+        ];
     }
 }

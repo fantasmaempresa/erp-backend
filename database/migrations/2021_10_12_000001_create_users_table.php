@@ -33,6 +33,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->json('config')->nullable();
             $table->tinyInteger('online')->default(User::$OFFLINE);
+            $table->tinyInteger('locked')->default(User::$UNLOCKED);
             $table->foreignId('role_id')->constrained();
             $table->rememberToken();
             $table->timestamps();
