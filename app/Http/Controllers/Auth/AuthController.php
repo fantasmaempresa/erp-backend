@@ -136,6 +136,7 @@ class AuthController extends AccessTokenController
         $user->AauthAcessToken()->delete();
         $user->locked = User::$LOCKED;
         $user->save();
+        event(new RefreshDataEvent($user));
 
         return $this->successResponse('user locked!', 200);
     }
@@ -149,6 +150,7 @@ class AuthController extends AccessTokenController
     {
         $user->locked = User::$UNLOCKED;
         $user->save();
+        event(new RefreshDataEvent($user));
 
         return $this->successResponse('user unlocked!', 200);
     }

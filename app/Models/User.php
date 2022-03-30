@@ -214,11 +214,12 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public static function getActionSystem(int $action): array
     {
-        return [
+        $actions = [
             User::$LOGOUT => [
                 'action' => 'logout',
-                'remove_session' => 'true',
             ],
         ];
+
+        return $actions[$action];
     }
 }

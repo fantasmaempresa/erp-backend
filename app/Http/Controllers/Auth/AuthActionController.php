@@ -6,6 +6,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\RefreshDataEvent;
 use App\Events\SystemActionsEvent;
 use App\Http\Controllers\ApiController;
 use App\Models\User;
@@ -30,12 +31,13 @@ class AuthActionController extends ApiController
         $user->AauthAcessToken()->delete();
         $user->online = User::$OFFLINE;
         $user->save();
-        event(new SystemActionsEvent($user, User::getActionSystem(User::$LOGOUT)));
 
         if ($request->has('locked') && $request->get('locked')) {
             $user->locked = User::$LOCKED;
             $user->save();
         }
+        event(new SystemActionsEvent($user, User::getActionSystem(User::$LOGOUT)));
+        event(new RefreshDataEvent($user));
 
         return $this->successResponse('user logout!!', 200);
     }
