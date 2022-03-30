@@ -28,15 +28,15 @@ class AuthActionController extends ApiController
     public function logoutUser(Request $request, User $user): JsonResponse
     {
         $user->AauthAcessToken()->delete();
-        $user->online = User::$ONLINE;
+        $user->online = User::$OFFLINE;
         $user->save();
         event(new SystemActionsEvent($user, User::getActionSystem(User::$LOGOUT)));
 
-        if ($request->has('locked')) {
+        if ($request->has('locked') && $request->get('locked')) {
             $user->locked = User::$LOCKED;
             $user->save();
         }
 
-        return $this->successResponse('user logout!!');
+        return $this->successResponse('user logout!!', 200);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthActionController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\ClientDocument\ClientDocumentController;
@@ -31,9 +32,6 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\UserLog\UserLogController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
 use Illuminate\Support\Facades\Route;
-
-//use App\Http\Controllers\ProjectQuotes\ProjectQuotesController;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -93,9 +91,11 @@ Route::resource('deductions', DeductionController::class, ['except' => ['create'
 Route::resource('extraHours', ExtraHourController::class, ['except' => ['create', 'edit']]);
 //Route::resource('disabilities',DisabilityController::class, ['except' => ['create', 'edit']]);
 
-//ROUTES OAUTH
+//ROUTES OAUTH AND OPERATIONS LOGIN USERS
 Route::post('oauth/token', [AuthController::class, 'issueToken']);
 Route::get('oauth/logout', [AuthController::class, 'logoutApi'])->middleware('auth:api');
-Route::get('oauth/online', [AuthController::class, 'onlineUser'])->middleware('auth:api');
-Route::get('oauth/offline', [AuthController::class, 'offlineUser'])->middleware('auth:api');
-
+Route::get('oauth/user/online', [AuthController::class, 'onlineUser'])->middleware('auth:api');
+Route::get('oauth/user/offline', [AuthController::class, 'offlineUser'])->middleware('auth:api');
+Route::get('oauth/user/locked/{user}', [AuthController::class, 'lockUser'])->middleware('auth:api');
+Route::get('oauth/user/unlocked/{user}', [AuthController::class, 'unlockUser'])->middleware('auth:api');
+Route::post('oauth/user/closeSystem/{user}', [AuthActionController::class, 'logoutUser'])->middleware('auth:api');

@@ -33,5 +33,12 @@ class RoleSeeder extends Seeder
             'description' => 'Tiene control de la plataforma completa',
             'config' => null,
         ]);
+
+        DB::table('roles')->insert([
+            'id' => Role::$USER,
+            'name' => 'Usuario',
+            'description' => '',
+            'config' => null,
+        ]);
     }
 }

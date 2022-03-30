@@ -46,6 +46,10 @@ class AuthController extends AccessTokenController
             return $this->errorResponse('invalid credentials', 401);
         }
 
+        if ($user->locked === User::$LOCKED) {
+            return $this->errorResponse('user locked', 401);
+        }
+
         $user->role;
         $user->client;
         $user->staff;
@@ -92,7 +96,7 @@ class AuthController extends AccessTokenController
 
             event(new RefreshDataEvent(User::findOrFail(Auth::user()->id)));
 
-            return $this->successResponse('User logout!', 200);
+            return $this->successResponse('user logout!', 200);
         }
 
         return $this->errorResponse('error', 404);
@@ -120,5 +124,32 @@ class AuthController extends AccessTokenController
         event(new RefreshDataEvent(User::findOrFail(Auth::user()->id)));
 
         return $this->successResponse('user online', 200);
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return JsonResponse
+     */
+    public function lockUser(User $user): JsonResponse
+    {
+        $user->AauthAcessToken()->delete();
+        $user->locked = User::$LOCKED;
+        $user->save();
+
+        return $this->successResponse('user locked!', 200);
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return JsonResponse
+     */
+    public function unlockUser(User $user): JsonResponse
+    {
+        $user->locked = User::$UNLOCKED;
+        $user->save();
+
+        return $this->successResponse('user unlocked!', 200);
     }
 }

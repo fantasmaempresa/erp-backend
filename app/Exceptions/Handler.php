@@ -65,7 +65,7 @@ class Handler extends ExceptionHandler
     }
 
     /**
-     * @param Request             $request
+     * @param Request $request
      * @param Exception|Throwable $e
      *
      * @return Response|JsonResponse|\Symfony\Component\HttpFoundation\Response
@@ -74,7 +74,8 @@ class Handler extends ExceptionHandler
     public function render(
         $request,
         Exception|Throwable $e
-    ): Response|JsonResponse|\Symfony\Component\HttpFoundation\Response {
+    ): Response|JsonResponse|\Symfony\Component\HttpFoundation\Response
+    {
         if ($e instanceof ValidationException) {
             return $this->convertValidationExceptionToResponse($e, $request);
         }
@@ -155,7 +156,7 @@ class Handler extends ExceptionHandler
     /**
      * Convert an authentication exception into an unauthenticated response.
      *
-     * @param Request                 $request
+     * @param Request $request
      * @param AuthenticationException $e
      *
      * @return JsonResponse
@@ -163,20 +164,22 @@ class Handler extends ExceptionHandler
     protected function unauthenticated(
         $request,
         AuthenticationException $e
-    ): JsonResponse {
+    ): JsonResponse
+    {
         return $this->errorResponse('No autenticado.', 401);
     }
 
     /**
      * @param ValidationException $e
-     * @param Request             $request
+     * @param Request $request
      *
      * @return Response|JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
     protected function convertValidationExceptionToResponse(
         ValidationException $e,
-        $request
-    ): Response|JsonResponse|\Symfony\Component\HttpFoundation\Response {
+                            $request
+    ): Response|JsonResponse|\Symfony\Component\HttpFoundation\Response
+    {
         $errors = $e->validator->errors()->getMessages();
 
         return $this->errorResponse($errors, 422);

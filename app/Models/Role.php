@@ -23,6 +23,8 @@ class Role extends Model
     use HasFactory;
 
     public static int $ADMIN = 1;
+    public static int $USER = 2;
+
 
     /**
      * The attributes that are mass assignable.
