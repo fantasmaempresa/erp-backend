@@ -43,7 +43,7 @@ class RefreshDataEvent implements ShouldBroadcast
      */
     public function broadcastOn(): Channel
     {
-        return new PrivateChannel('refresh-users');
+        return new Channel('refresh-users');
     }
 
     /**
