@@ -89,12 +89,12 @@ class ProjectQuoteController extends ApiController
         if ($projectQuote->save()) {
             if ($request->has('quote') && !empty($request->get('quote'))) {
                 if (!empty($request->get('quote')['operations']['operation_fields'])) {
-                    foreach ($request->get('quote')['operations']['operation_fields'] as $field) {
-                        $projectQuote->concept()->attach($field["concept"]["id"]);
+                    foreach ($request->get('quote')['operations']['operation_fields']["concepts"] as $field) {
+                        $projectQuote->concept()->attach($field["id"]);
                     }
 
-                    foreach ($request->get('quote')['operations']['operation_total'] as $field) {
-                        $projectQuote->concept()->attach($field["concept"]["id"]);
+                    foreach ($request->get('quote')['operations']['operation_total']["concepts"] as $field) {
+                        $projectQuote->concept()->attach($field["id"]);
                     }
                 }
             }
@@ -149,14 +149,14 @@ class ProjectQuoteController extends ApiController
         if ($request->has('quote') && !empty($request->get('quote'))) {
             if (!empty($request->get('quote')['operations']['operation_fields'])) {
                 $ids = [];
-                foreach ($request->get('quote')['operations']['operation_fields'] as $field) {
-                    $ids[] = $field["concept"]["id"];
+                foreach ($request->get('quote')['operations']['operation_fields']['concepts'] as $field) {
+                    $ids[] = $field["id"];
                 }
                 $projectQuote->concept()->sync($ids);
 
                 $ids = [];
-                foreach ($request->get('quote')['operations']['operation_total'] as $field) {
-                    $ids[] = $field["concept"]["id"];
+                foreach ($request->get('quote')['operations']['operation_total']['concepts'] as $field) {
+                    $ids[] = $field["id"];
                 }
                 $projectQuote->concept()->sync($ids);
             }
