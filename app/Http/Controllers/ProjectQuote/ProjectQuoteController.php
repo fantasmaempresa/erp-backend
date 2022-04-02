@@ -89,12 +89,16 @@ class ProjectQuoteController extends ApiController
         if ($projectQuote->save()) {
             if ($request->has('quote') && !empty($request->get('quote'))) {
                 if (!empty($request->get('quote')['operations']['operation_fields'])) {
-                    foreach ($request->get('quote')['operations']['operation_fields']["concepts"] as $field) {
-                        $projectQuote->concept()->attach($field["id"]);
+                    foreach ($request->get('quote')['operations']['operation_fields'] as $fields) {
+                        foreach ($fields['concepts'] as $field) {
+                            $projectQuote->concept()->attach($field["id"]);
+                        }
                     }
 
-                    foreach ($request->get('quote')['operations']['operation_total']["concepts"] as $field) {
-                        $projectQuote->concept()->attach($field["id"]);
+                    foreach ($request->get('quote')['operations']['operation_total'] as $fields) {
+                        foreach ($fields['concepts'] as $field) {
+                            $projectQuote->concept()->attach($field["id"]);
+                        }
                     }
                 }
             }
@@ -128,7 +132,7 @@ class ProjectQuoteController extends ApiController
 
     /**
      *
-     * @param Request      $request
+     * @param Request $request
      * @param ProjectQuote $projectQuote
      *
      * @return JsonResponse
