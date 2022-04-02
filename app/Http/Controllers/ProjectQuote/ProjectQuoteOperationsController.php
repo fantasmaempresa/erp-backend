@@ -106,19 +106,33 @@ class ProjectQuoteOperationsController extends ApiController
             $total += $item['total'];
         }
 
-        foreach ($opTotal as $field) {
-            if (!isset($result['operation_total']['total'])) {
-                $result['operation_total']['total'] = $total;
-            }
+        if (empty($opTotal)) {
+            $result['operation_total']['total'] = $total;
+        } else {
+            foreach ($opTotal as $field) {
+                if (!isset($result['operation_total']['total'])) {
+                    $result['operation_total']['total'] = $total;
+                }
 
-            foreach ($field['concepts'] as $concept) {
-                $conceptB = Concept::findOrFail($concept['id']);
-                $result['operation_total']['description'][] = [
-                    'concept_id' => $conceptB->id,
-                    'value_concept' => $this->getValueConcept($conceptB->formula, $conceptB->amount, $total),
-                    'concept' => $conceptB,
-                    'value' => $total,
-                    'subtotal' => $this->executeOperationConcept(
+                foreach ($field['concepts'] as $concept) {
+                    $conceptB = Concept::findOrFail($concept['id']);
+                    $result['operation_total']['description'][] = [
+                        'concept_id' => $conceptB->id,
+                        'value_concept' => $this->getValueConcept($conceptB->formula, $conceptB->amount, $total),
+                        'concept' => $conceptB,
+                        'value' => $total,
+                        'subtotal' => $this->executeOperationConcept(
+                            $conceptB->formula['operation'],
+                            $this->getValueConcept(
+                                $conceptB->formula,
+                                $conceptB->amount,
+                                $total
+                            ),
+                            $total
+                        ),
+                        'operation' => $conceptB->formula['operation'],
+                    ];
+                    $result['operation_total']['total'] += $this->executeOperationConcept(
                         $conceptB->formula['operation'],
                         $this->getValueConcept(
                             $conceptB->formula,
@@ -126,18 +140,8 @@ class ProjectQuoteOperationsController extends ApiController
                             $total
                         ),
                         $total
-                    ),
-                    'operation' => $conceptB->formula['operation'],
-                ];
-                $result['operation_total']['total'] += $this->executeOperationConcept(
-                    $conceptB->formula['operation'],
-                    $this->getValueConcept(
-                        $conceptB->formula,
-                        $conceptB->amount,
-                        $total
-                    ),
-                    $total
-                );
+                    );
+                }
             }
         }
 
