@@ -23,6 +23,8 @@ class ConceptController extends ApiController
 {
 
     /**
+     * @param Request $request
+     *
      * @return JsonResponse
      */
     public function index(Request $request): JsonResponse
@@ -48,6 +50,10 @@ class ConceptController extends ApiController
     public function store(Request $request): JsonResponse
     {
         $this->validate($request, Concept::rules());
+        $verifyFormula = Concept::verifyFormula($request->all()["formula"]);
+        if ($verifyFormula) {
+            return $this->errorResponse($verifyFormula, 409);
+        }
         $concept = Concept::create($request->all());
 
         return $this->showOne($concept);
@@ -74,6 +80,10 @@ class ConceptController extends ApiController
     public function update(Request $request, Concept $concept): JsonResponse
     {
         $this->validate($request, Concept::rules());
+        $verifyFormula = Concept::verifyFormula($request->all()["formula"]);
+        if ($verifyFormula) {
+            return $this->errorResponse($verifyFormula, 409);
+        }
         $concept->fill($request->all());
         if ($concept->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);
