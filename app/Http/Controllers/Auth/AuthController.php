@@ -93,8 +93,10 @@ class AuthController extends AccessTokenController
                 null,
                 new NotificationEvent($notification, 0, Role::$ADMIN, [])
             );
+            $user = User::findOrFail(Auth::user()->id);
+            $user->role;
 
-            event(new RefreshDataEvent(User::findOrFail(Auth::user()->id)));
+            event(new RefreshDataEvent($user));
 
             return $this->successResponse('user logout!', 200);
         }
@@ -109,7 +111,10 @@ class AuthController extends AccessTokenController
     {
         Auth::user()->online = User::$ONLINE;
         Auth::user()->save();
-        event(new RefreshDataEvent(User::findOrFail(Auth::user()->id)));
+        $user = User::findOrFail(Auth::user()->id);
+        $user->role;
+
+        event(new RefreshDataEvent($user));
 
         return $this->successResponse('user online', 200);
     }
@@ -121,7 +126,9 @@ class AuthController extends AccessTokenController
     {
         Auth::user()->online = User::$OFFLINE;
         Auth::user()->save();
-        event(new RefreshDataEvent(User::findOrFail(Auth::user()->id)));
+        $user = User::findOrFail(Auth::user()->id);
+        $user->role;
+        event(new RefreshDataEvent($user));
 
         return $this->successResponse('user online', 200);
     }
@@ -136,6 +143,8 @@ class AuthController extends AccessTokenController
         $user->AauthAcessToken()->delete();
         $user->locked = User::$LOCKED;
         $user->save();
+        $user->role;
+
         event(new RefreshDataEvent($user));
 
         return $this->successResponse('user locked!', 200);
@@ -150,6 +159,7 @@ class AuthController extends AccessTokenController
     {
         $user->locked = User::$UNLOCKED;
         $user->save();
+        $user->role;
         event(new RefreshDataEvent($user));
 
         return $this->successResponse('user unlocked!', 200);

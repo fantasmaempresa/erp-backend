@@ -36,6 +36,8 @@ class AuthActionController extends ApiController
             $user->locked = User::$LOCKED;
             $user->save();
         }
+
+        $user->role;
         event(new SystemActionsEvent($user, User::getActionSystem(User::$LOGOUT)));
         event(new RefreshDataEvent($user));
 
