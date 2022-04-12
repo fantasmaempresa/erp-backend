@@ -70,7 +70,7 @@ class UserController extends ApiController
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param User $user
+     * @param User    $user
      *
      * @return JsonResponse
      *
@@ -103,6 +103,12 @@ class UserController extends ApiController
      */
     public function destroy(User $user): JsonResponse
     {
+        $user->client()->delete();
+        $user->staff()->delete();
+        $user->project()->delete();
+        $user->notification()->delete();
+        $user->AauthAcessToken()->delete();
+        $user->log()->delete();
         $user->delete();
 
         return $this->showMessage('Record deleted successfully');
