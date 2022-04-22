@@ -131,7 +131,8 @@ class ProjectQuoteOperationsController extends ApiController
                                     $conceptB->amount,
                                     $total
                                 ),
-                                $total
+                                $total,
+                                true
                             ),
                             'operation' => $conceptB->formula['operation'],
                         ];
@@ -142,7 +143,8 @@ class ProjectQuoteOperationsController extends ApiController
                                 $conceptB->amount,
                                 $total
                             ),
-                            $total
+                            $total,
+                            true
                         );
                     }
                 }
@@ -231,15 +233,16 @@ class ProjectQuoteOperationsController extends ApiController
      * @param array $formula
      * @param float $valueConcept
      * @param float $value
+     * @param ?bool $total
      *
      * @return float|int
      */
-    public function executeOperationConcept(array $formula, float $valueConcept, float $value): float|int
+    public function executeOperationConcept(array $formula, float $valueConcept, float $value, ?bool $total = false): float|int
     {
         return match (true) {
             $formula['validity']['apply'] => $valueConcept,
             $formula['operable'] && ($formula['operation'] === '+') => $value + $valueConcept,
-            $formula['operable'] && ($formula['operation'] === '-') => $value - $valueConcept,
+            $formula['operable'] && ($formula['operation'] === '-') => $total ? $valueConcept * -1 : $value - $valueConcept,
             $formula['operable'] && ($formula['operation'] === '+/') => $value + ($value ? 0 : ($value / $valueConcept)),
             $formula['operable'] && ($formula['operation'] === '+*') => $value + ($value * $valueConcept),
             $formula['operable'] && ($formula['operation'] === '-/') => $value - ($value ? 0 : ($value / $valueConcept)),
