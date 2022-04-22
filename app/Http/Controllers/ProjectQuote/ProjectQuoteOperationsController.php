@@ -41,7 +41,7 @@ class ProjectQuoteOperationsController extends ApiController
         )) {
             return $this->errorResponse('fields not found', 404);
         }
-        //TODO, validar que el value no venga vacio
+
         return $this->showList($this->calculateProjectQuote(
             $request->all()['quote']['operations']['operation_fields'],
             $request->all()['quote']['operations']['operation_total']
@@ -63,23 +63,19 @@ class ProjectQuoteOperationsController extends ApiController
             if ($field['value']) {
                 foreach ($field['concepts'] as $concept) {
                     $conceptB = Concept::findOrFail($concept['id']);
-                    if ($conceptB->formula['operation'] === '-') {
-                        $discount[$field['key']][] = $conceptB;
-                        continue;
-                    }
 
                     if (!isset($result['operation_fields'][$field['key']]['total'])) {
-                        $result['operation_fields'][$field['key']]['total'] = $field['value'];
+                        $result['operation_fields'][$field['key']]['total'] = 0;
                     }
 
                     $result['operation_fields'][$field['key']]['description'][] = [
                         'concept_id' => $conceptB->id,
                         'value_concept' => $this->getValueConcept($conceptB->formula, $conceptB->amount, $field['value']),
                         'value' => $field['value'],
-                        'concept' => $conceptB,
+//                        'concept' => $conceptB,
                         'operation' => $conceptB->formula['operation'],
                         'subtotal' => $this->executeOperationConcept(
-                            $conceptB->formula['operation'],
+                            $conceptB->formula,
                             $this->getValueConcept(
                                 $conceptB->formula,
                                 $conceptB->amount,
@@ -89,8 +85,9 @@ class ProjectQuoteOperationsController extends ApiController
                         ),
                     ];
 
+                    //aplicar operación
                     $result['operation_fields'][$field['key']]['total'] += $this->executeOperationConcept(
-                        $conceptB->formula['operation'],
+                        $conceptB->formula,
                         $this->getValueConcept(
                             $conceptB->formula,
                             $conceptB->amount,
@@ -105,14 +102,17 @@ class ProjectQuoteOperationsController extends ApiController
         }
 
         if (isset($result['operation_fields'])) {
-            foreach ($result['operation_fields'] as $key => $item) {
+            foreach ($result['operation_fields'] as $item) {
                 $total += $item['total'];
             }
 
             if (empty($opTotal)) {
+                $result['operation_total']['subtotal'] = $total;
                 $result['operation_total']['total'] = $total;
             } else {
+                $result['operation_total']['subtotal'] = $total;
                 foreach ($opTotal as $field) {
+                    $result['operation_total']['subtotal'] = $total;
                     if (!isset($result['operation_total']['total'])) {
                         $result['operation_total']['total'] = $total;
                     }
@@ -122,10 +122,10 @@ class ProjectQuoteOperationsController extends ApiController
                         $result['operation_total']['description'][] = [
                             'concept_id' => $conceptB->id,
                             'value_concept' => $this->getValueConcept($conceptB->formula, $conceptB->amount, $total),
-                            'concept' => $conceptB,
+//                            'concept' => $conceptB,
                             'value' => $total,
                             'subtotal' => $this->executeOperationConcept(
-                                $conceptB->formula['operation'],
+                                $conceptB->formula,
                                 $this->getValueConcept(
                                     $conceptB->formula,
                                     $conceptB->amount,
@@ -136,7 +136,7 @@ class ProjectQuoteOperationsController extends ApiController
                             'operation' => $conceptB->formula['operation'],
                         ];
                         $result['operation_total']['total'] += $this->executeOperationConcept(
-                            $conceptB->formula['operation'],
+                            $conceptB->formula,
                             $this->getValueConcept(
                                 $conceptB->formula,
                                 $conceptB->amount,
@@ -158,49 +158,95 @@ class ProjectQuoteOperationsController extends ApiController
      * @param float $amount
      * @param float $value
      *
-     * @return float|int
+     * @return mixed
      */
-    public function getValueConcept(array $formula, float $amount, float $value): float|int
+    public function getValueConcept(array $formula, float $amount, float $value): mixed
     {
-        $valueReturn = 0;
-        if ($formula['validity']['apply']) {
-            if ($formula['validity']['is_date']) {
-                $date = date("d-m-Y", strtotime(date("d-m-Y") . ' - ' . $formula['validity']['validity_year'] . ' year'));
-                $date = explode("-", $date);
-                if ($value < $date) {
-                    $valueReturn = $amount;
-                }
-            }
-
-            if ($formula['validity']['is_range']) {
-
-            }
-
-            return $valueReturn;
-        }
-
-        if (isset($formula['percentage']) && $formula['percentage']) {
-            $amount = ($amount * $value) / 100;
-        }
-
-        return $amount;
+        return match (true) {
+            $formula['validity']['apply'] => $this->calculateValidity($formula['validity'], $amount, $value),
+            $formula['range']['apply'] => $this->calculateRange($formula['range']['between'], $value),
+            $formula['percentage'] => $this->calculatePercentage($amount, $value),
+            default => $amount
+        };
     }
 
     /**
-     * @param string $operation
-     * @param float $amountConcept
+     * @param array $formula
+     * @param float $amount
+     * @param float $value
+     *
+     * @return mixed
+     */
+    public function calculateValidity(array $formula, float $amount, float $value): mixed
+    {
+        $valueReturn = 0;
+        if ($formula['is_date']) {
+            $date = date('d-m-Y', strtotime(date("d-m-Y") . ' - ' . $formula['validity_year'] . ' year'));
+            $date = explode("-", $date);
+            $date = $date[2] * 1;
+        } else {
+            $date = $formula['validity_year'];
+        }
+
+        if ($formula['is_range']) {
+            $valueReturn = $this->calculateRange($formula['between'], $date);
+        } else {
+            if ($value < $date) {
+                $valueReturn = $amount;
+            }
+        }
+
+        return $valueReturn;
+    }
+
+    /**
+     * @param array $between
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    public function calculateRange(array $between, mixed $value): mixed
+    {
+        foreach ($between as $item) {
+            if ($value >= $item['min'] && $value <= $item['max']) {
+                return $item['amount'];
+            }
+        }
+
+        return 0;
+    }
+
+    /**
+     * @param float $amount
+     * @param float $value
+     *
+     * @return float
+     */
+    public function calculatePercentage(float $amount, float $value): float
+    {
+        return ($amount * $value) / 100;
+    }
+
+    /**
+     * @param array $formula
+     * @param float $valueConcept
      * @param float $value
      *
      * @return float|int
      */
-    public function executeOperationConcept(string $operation, float $amountConcept, float $value): float|int
+    public function executeOperationConcept(array $formula, float $valueConcept, float $value): float|int
     {
-        return match ($operation) {
-            '+' => $value + $amountConcept,
-            '-' => $value - $amountConcept,
-            '/' => $value ? 0 : ($value / $amountConcept),
-            '*' => $value * $amountConcept,
-            default => 0
+        return match (true) {
+            $formula['validity']['apply'] => $valueConcept,
+            $formula['operable'] && ($formula['operation'] === '+') => $value + $valueConcept,
+            $formula['operable'] && ($formula['operation'] === '-') => $value - $valueConcept,
+            $formula['operable'] && ($formula['operation'] === '+/') => $value + ($value ? 0 : ($value / $valueConcept)),
+            $formula['operable'] && ($formula['operation'] === '+*') => $value + ($value * $valueConcept),
+            $formula['operable'] && ($formula['operation'] === '-/') => $value - ($value ? 0 : ($value / $valueConcept)),
+            $formula['operable'] && ($formula['operation'] === '-*') => $value - ($value * $valueConcept),
+            !$formula['operable'] && ($formula['operation'] === '/') => $value ? 0 : ($value / $valueConcept),
+            !$formula['operable'] && ($formula['operation'] === '*') => $value * $valueConcept,
+            default => $valueConcept
         };
     }
 }

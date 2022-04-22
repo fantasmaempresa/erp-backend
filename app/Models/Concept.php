@@ -95,13 +95,15 @@ class Concept extends Model
         // operable y validity[apply], ambos no pueden ser true
         // operable y range[apply], ambos no pueden ser true
         return match (true) {
-            !isset($formula['operation']) || !isset($formula['percentage']) || !isset($formula['operable']) || !isset($formula['validity']) || !isset($formula['range'])
+            !isset($formula['percentage']) || !isset($formula['operable']) ||
+            !isset($formula['validity']) || !isset($formula['range'])
             => ['error' => 'true', 'message' => 'field not found'],
             $formula['percentage'] && $formula['validity']['apply'] => ['error' => 'true', 'message' => '[formula[percentage] and [validity][apply]] == true'],
             $formula['range']['apply'] && $formula['validity']['apply'] => ['error' => 'true', 'message' => '[formula[range][apply] and formula[validity][apply]] == true'],
+            $formula['validity']['is_date'] && $formula['validity']['is_range'] => ['error' => 'true', 'message' => '[formula[validity][is_range] and formula[validity][is_date]] == true'],
             $formula['operable'] && $formula['validity']['apply'] => ['error' => 'true', 'message' => '[formula[operable] and formula[validity][apply]] == true'],
             $formula['operable'] && $formula['range']['apply'] => ['error' => 'true', 'message' => '[formula[operable] and formula[range][apply]] == true'],
-            $formula['validity']['is_date'] && $formula['validity']['is_range'] => ['error' => 'true', 'message' => '[formula[validity][is_range] and formula[validity][is_date]] == true'],
+            $formula['percentage'] && $formula['range']['apply'] => ['error' => 'true', 'message' => '[formula[percentage] and formula[range][apply]] == true'],
             default => false
         };
     }
