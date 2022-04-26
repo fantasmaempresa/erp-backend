@@ -56,7 +56,7 @@ class PhasesProcess extends Model
             'form' => 'required|array',
             'quotes' => 'nullable|array',
             'payments' => 'nullable|array',
-            'process_id' => 'required|int',
+            'process_id' => 'nullable|int',
         ];
     }
 
