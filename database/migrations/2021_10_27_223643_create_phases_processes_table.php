@@ -30,7 +30,7 @@ class CreatePhasesProcessesTable extends Migration
             $table->json('form');
             $table->json('quotes')->nullable();
             $table->json('payments')->nullable();
-            $table->foreignId('process_id')->nullable()->constrained();
+//            $table->foreignId('process_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

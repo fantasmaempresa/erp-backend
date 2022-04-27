@@ -9,6 +9,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Validation\Rule;
 
 /**
@@ -30,7 +31,6 @@ class PhasesProcess extends Model
         'form',
         'quotes',
         'payments',
-        'process_id',
     ];
 
     /**
@@ -56,15 +56,14 @@ class PhasesProcess extends Model
             'form' => 'required|array',
             'quotes' => 'nullable|array',
             'payments' => 'nullable|array',
-            'process_id' => 'nullable|int',
         ];
     }
 
     /**
-     * @return BelongsTo
+     * @return BelongsToMany
      */
-    public function process(): BelongsTo
+    public function process(): BelongsToMany
     {
-        return $this->belongsTo(Process::class);
+        return $this->belongsToMany(Process::class);
     }
 }

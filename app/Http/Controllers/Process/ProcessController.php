@@ -23,11 +23,21 @@ class ProcessController extends ApiController
 {
 
     /**
+     * @param Request $request
+     *
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        return $this->showList(Process::paginate(env('NUMBER_PAGINATE')));
+        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+
+        if ($request->has('search')) {
+            $response = $this->showList(Process::search($request->get('search'))->paginate($paginate));
+        } else {
+            $response = $this->showList(Process::paginate($paginate));
+        }
+
+        return $response;
     }
 
     /**
@@ -41,6 +51,14 @@ class ProcessController extends ApiController
     {
         $this->validate($request, Process::rules());
         $process = Process::create($request->all());
+
+        if ($request->has('phase_process')) {
+            foreach ($request->get('phase_process') as $phase) {
+                $process->phases()->attach($phase['id']);
+            }
+        }
+
+        $process->phases;
 
         return $this->showOne($process);
     }
@@ -59,9 +77,10 @@ class ProcessController extends ApiController
      * @param Request $request
      * @param Process $process
      *
-     *@throws ValidationException
-     *
      * @return JsonResponse
+     *
+     * @throws ValidationException
+     *
      */
     public function update(Request $request, Process $process): JsonResponse
     {
@@ -72,6 +91,16 @@ class ProcessController extends ApiController
         }
 
         $process->save();
+
+        $ids = [];
+        if ($request->has('phase_process')) {
+            foreach ($request->get('phase_process') as $phase) {
+                $ids = $phase['id'];
+            }
+        }
+
+        $process->phases()->sync($ids);
+        $process->phases;
 
         return $this->showOne($process);
     }

@@ -60,11 +60,22 @@ class Process extends Model
     }
 
     /**
-     * @return HasMany
+     * @param $query
+     * @param $search
+     *
+     * @return mixed
      */
-    public function phases(): HasMany
+    public function scopeSearch($query, $search): mixed
     {
-        return $this->hasMany(PhasesProcess::class);
+        return $query->orWhere('name', 'like', "%$search%");
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function phases(): BelongsToMany
+    {
+        return $this->belongsToMany(PhasesProcess::class);
     }
 
     /**
