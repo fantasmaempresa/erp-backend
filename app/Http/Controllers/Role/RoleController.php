@@ -67,7 +67,7 @@ class RoleController extends ApiController
 
     /**
      * @param Request $request
-     * @param Role $role
+     * @param Role    $role
      *
      * @return JsonResponse
      */

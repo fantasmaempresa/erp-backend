@@ -32,6 +32,7 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\UserLog\UserLogController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
 use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -83,7 +84,7 @@ Route::get('notifications/filter/getUncheckUserNotifications', [NotificationFilt
 Route::get('notifications/filter/getCheckUserNotifications', [NotificationFilterController::class, 'getCheckUserNotifications'])->middleware('auth:api');
 
 
-//ROUTES PAYROLL
+//ROUTES PAYROLL3
 Route::resource('salaries', SalaryController::class, ['except' => ['create', 'edit']]);
 Route::resource('taxData', TaxDatumController::class, ['except' => ['create', 'edit']]);
 Route::resource('perceptions', PerceptionController::class, ['except' => ['create', 'edit']]);

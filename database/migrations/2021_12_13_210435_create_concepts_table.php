@@ -28,7 +28,7 @@ class CreateConceptsTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->json('formula')->nullable();
-            $table->float('amount');
+            $table->float('amount')->nullable();
             $table->timestamps();
         });
     }

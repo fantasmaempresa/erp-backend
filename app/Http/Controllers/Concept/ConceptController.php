@@ -49,8 +49,9 @@ class ConceptController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
+        $concept = new Concept();
         $this->validate($request, Concept::rules());
-        $verifyFormula = Concept::verifyFormula($request->all()["formula"]);
+        $verifyFormula = $concept->verifyFormula($request->all()["formula"]);
         if ($verifyFormula) {
             return $this->errorResponse($verifyFormula, 409);
         }

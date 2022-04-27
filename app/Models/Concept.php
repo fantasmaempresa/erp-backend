@@ -87,13 +87,8 @@ class Concept extends Model
      *
      * @return array|bool
      */
-    public static function verifyFormula(array $formula): array|bool
+    public function verifyFormula(array $formula): array|bool
     {
-        //FORMAT DE FORMULA,
-        // NOTES: percentage y validity[apply], ambos no pueden ser true
-        // validity[apply] y range[apply], ambos no pueden ser true
-        // operable y validity[apply], ambos no pueden ser true
-        // operable y range[apply], ambos no pueden ser true
         return match (true) {
             !isset($formula['percentage']) || !isset($formula['operable']) ||
             !isset($formula['validity']) || !isset($formula['range'])
@@ -102,9 +97,28 @@ class Concept extends Model
             $formula['validity']['is_date'] && $formula['validity']['is_range'] => ['error' => 'true', 'message' => '[formula[validity][is_range] and formula[validity][is_date]] == true'],
             $formula['operable'] && $formula['validity']['apply'] => ['error' => 'true', 'message' => '[formula[operable] and formula[validity][apply]] == true'],
             $formula['operable'] && $formula['range']['apply'] => ['error' => 'true', 'message' => '[formula[operable] and formula[range][apply]] == true'],
+            $formula['operable'] && empty($formula['operation']) => ['error' => 'true', 'message' => '[formula[operable] and empty formula[operation]] == true'],
             $formula['percentage'] && $formula['validity']['apply'] => ['error' => 'true', 'message' => '[formula[percentage] and [validity][apply]] == true'],
             $formula['percentage'] && $formula['range']['apply'] => ['error' => 'true', 'message' => '[formula[percentage] and formula[range][apply]] == true'],
+            $formula['range']['apply'] => $this->verifyBetween($formula['range']['between']),
+            $formula['validity']['apply'] && $formula['validity']['is_range']  => $this->verifyBetween($formula['validity']['between']),
             default => false
         };
+    }
+
+    /**
+     * @param $between
+     *
+     * @return array|bool
+     */
+    public function verifyBetween($between): array|bool
+    {
+        foreach ($between as $item) {
+            if (empty($item['min']) || empty($item['max']) || empty($item['amount'])) {
+                return ['error' => 'true', 'message' => '[formulas[between] some empty data]'];
+            }
+        }
+
+        return false;
     }
 }
