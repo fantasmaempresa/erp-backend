@@ -50,6 +50,11 @@ class RoleController extends ApiController
     public function store(Request $request): JsonResponse
     {
         $this->validate($request, Role::rules());
+        $role = new Role();
+        $verifyConfig = $role->verifyConfig($request->get('config'));
+        if ($verifyConfig) {
+            return $this->errorResponse($verifyConfig, 409);
+        }
         $role = Role::create($request->all());
 
         return $this->showOne($role);
@@ -67,7 +72,7 @@ class RoleController extends ApiController
 
     /**
      * @param Request $request
-     * @param Role    $role
+     * @param Role $role
      *
      * @return JsonResponse
      */

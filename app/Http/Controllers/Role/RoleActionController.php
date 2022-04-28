@@ -28,7 +28,7 @@ use Illuminate\Http\JsonResponse;
  */
 class RoleActionController extends ApiController
 {
-    public $startMenu = [
+    public static $startMenu = [
         [
             'label' => 'Clientes',
             'route' => './clients',
@@ -127,23 +127,39 @@ class RoleActionController extends ApiController
     ];
 
     /**
+     * @return JsonResponse
+     */
+    public function getModules(): JsonResponse
+    {
+        $modules = [];
+        foreach ($this->startMenu as $menu) {
+            $modules[] = ['name' => $menu['label']];
+        }
+
+        return $this->showList([$modules]);
+    }
+
+    /**
      * @param Role $role
      *
      * @return JsonResponse
      */
     public function constructMenu(Role $role): JsonResponse
     {
+        $menus = [
+            'menuName' => 'Menu',
+            'submenus' => [],
+        ];
+
+        foreach ($role->config['modules'] as $module) {
+            foreach (self::$startMenu as $menu) {
+                if ($module['name'] === $menu['label']) {
+                    $menus['submenus'][] = $menu;
+                }
+            }
+        }
 
 
-        return $this->showList([]);
-    }
-
-    /**
-     * @return JsonResponse
-     */
-    public function getModules(): JsonResponse
-    {
-
-        return $this->showList([]);
+        return $this->showList([$menus]);
     }
 }

@@ -62,8 +62,40 @@ class Role extends Model
         return [
             'name' => 'required|string',
             'description' => 'nullable|required|string',
-            'config' => 'nullable|required|array',
+            'config' => 'required|required|array',
         ];
+    }
+
+    /**
+     * @param array $config
+     *
+     * @return array|bool
+     */
+    public function verifyConfig(array $config): array|bool
+    {
+        return match (true) {
+            empty($config['modules']) => ['error' => true, 'message' => 'modules not found'],
+            !isset($config['view_mode']) => ['error' => true, 'message' => 'view_mode not found'],
+            !empty($config['modules']) => $this->verifyModules($config['modules']),
+            default => false
+
+        };
+    }
+
+    /**
+     * @param $modules
+     *
+     * @return array|bool
+     */
+    public function verifyModules($modules): array|bool
+    {
+        foreach ($modules as $module) {
+            if (empty($module['name'])) {
+                return ['error' => true, 'message' => 'module name not fount'];
+            }
+        };
+
+        return false;
     }
 
     /**
