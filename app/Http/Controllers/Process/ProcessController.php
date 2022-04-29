@@ -50,7 +50,12 @@ class ProcessController extends ApiController
     public function store(Request $request): JsonResponse
     {
         $this->validate($request, Process::rules());
-        $process = Process::create($request->all());
+        $process = new Process($request->all());
+        $validityConfig = $process->verifyConfig($request->get('config'));
+        if ($validityConfig) {
+            return $this->errorResponse($validityConfig, 409);
+        }
+        $process->save();
 
         if ($request->has('phase_process')) {
             foreach ($request->get('phase_process') as $phase) {
@@ -85,6 +90,10 @@ class ProcessController extends ApiController
     public function update(Request $request, Process $process): JsonResponse
     {
         $this->validate($request, Process::rules());
+        $validityConfig = $process->verifyConfig($request->get('config'));
+        if ($validityConfig) {
+            return $this->errorResponse($validityConfig, 409);
+        }
         $process->fill($request->all());
         if ($process->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);

@@ -38,8 +38,9 @@ class PhasesProcess extends Model
         'name',
         'description',
         'form',
-        'quotes',
         'payments',
+        'notification',
+        'supervision',
     ];
 
     /**
@@ -49,8 +50,6 @@ class PhasesProcess extends Model
      */
     protected $casts = [
         'form'     => 'array',
-        'quotes'   => 'array',
-        'payments' => 'array',
     ];
     /**
      * Function to return array rules in method create and update
@@ -63,8 +62,9 @@ class PhasesProcess extends Model
             'name' => 'required|string',
             'description' => 'nullable|string',
             'form' => 'required|array',
-            'quotes' => 'nullable|array',
-            'payments' => 'nullable|array',
+            'payments' => 'nullable|bool',
+            'notification' => 'nullable|bool',
+            'supervision' => 'nullable|bool',
         ];
     }
 
