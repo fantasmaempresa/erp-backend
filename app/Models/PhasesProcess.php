@@ -19,6 +19,15 @@ use Illuminate\Validation\Rule;
  */
 class PhasesProcess extends Model
 {
+    public static bool $notification  = true;
+    public static bool $noNotification = false;
+
+    public static bool $supervision  = true;
+    public static bool $noSupervision = false;
+
+    public static bool $payment  = true;
+    public static bool $noPayment = false;
+
     /**
      * The attributes that are mass assignable.
      *

@@ -28,9 +28,10 @@ class CreatePhasesProcessesTable extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->json('form');
-            $table->json('quotes')->nullable();
-            $table->json('payments')->nullable();
-//            $table->foreignId('process_id')->nullable()->constrained();
+            $table->boolean('payments')->default(\App\Models\PhasesProcess::$noPayment);
+            $table->boolean('notification')->default(\App\Models\PhasesProcess::$noNotification);
+            $table->boolean('supervision')->default(\App\Models\PhasesProcess::$noSupervision);
+
             $table->timestamps();
         });
     }

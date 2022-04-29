@@ -96,14 +96,16 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
 //Route::resource('disabilities',DisabilityController::class, ['except' => ['create', 'edit']]);
 });
 
-//ROUTES PROJECTS CRUD'S
 
+Route::group(['middleware' => ['auth:api']], function () {
+    Route::get('oauth/logout', [AuthController::class, 'logoutApi']);
+    Route::get('oauth/user/online', [AuthController::class, 'onlineUser']);
+    Route::get('oauth/user/offline', [AuthController::class, 'offlineUser']);
+    Route::get('oauth/user/locked/{user}', [AuthController::class, 'lockUser']);
+    Route::get('oauth/user/unlocked/{user}', [AuthController::class, 'unlockUser']);
+    Route::post('oauth/user/closeSystem/{user}', [AuthActionController::class, 'logoutUser']);
+});
 
 //ROUTES OAUTH AND OPERATIONS LOGIN USERS
 Route::post('oauth/token', [AuthController::class, 'issueToken']);
-Route::get('oauth/logout', [AuthController::class, 'logoutApi'])->middleware('auth:api');
-Route::get('oauth/user/online', [AuthController::class, 'onlineUser'])->middleware('auth:api');
-Route::get('oauth/user/offline', [AuthController::class, 'offlineUser'])->middleware('auth:api');
-Route::get('oauth/user/locked/{user}', [AuthController::class, 'lockUser'])->middleware('auth:api');
-Route::get('oauth/user/unlocked/{user}', [AuthController::class, 'unlockUser'])->middleware('auth:api');
-Route::post('oauth/user/closeSystem/{user}', [AuthActionController::class, 'logoutUser'])->middleware('auth:api');
+
