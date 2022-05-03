@@ -17,6 +17,7 @@ use App\Http\Controllers\Perception\PerceptionController;
 use App\Http\Controllers\PhasesProcess\PhasesProcessController;
 use App\Http\Controllers\Process\ProcessController;
 use App\Http\Controllers\ProcessProject\ProcessProjectController;
+use App\Http\Controllers\Project\ProjectActionController;
 use App\Http\Controllers\Project\ProjectController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteFilterController;
@@ -53,23 +54,30 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('users', UserController::class, ['except' => ['create', 'edit']]);
     Route::resource('userLogs', UserLogController::class, ['except' => ['create', 'edit']]);
     Route::resource('staff', StaffController::class, ['except' => ['create', 'edit']]);
-    Route::resource('workAreas', WorkAreaController::class, ['except' => ['create', 'edit']])->middleware(['auth:api', 'permission']);
+    Route::resource('workAreas', WorkAreaController::class, ['except' => ['create', 'edit']]);
     Route::resource('clients', ClientController::class, ['except' => ['create', 'edit']]);
     Route::resource('phasesProcesses', PhasesProcessController::class, ['except' => ['create', 'edit']]);
-    Route::resource('processes', ProcessController::class, ['except' => ['create', 'edit']]);
-    Route::resource('projects', ProjectController::class, ['except' => ['create', 'edit']]);
-    Route::resource('detailProject', DetailProjectController::class, ['except' => ['create', 'edit']]);
     Route::resource('projectStaffs', ProjectStaffController::class, ['except' => ['create', 'edit']]);
     Route::resource('processProjects', ProcessProjectController::class, ['except' => ['create', 'edit']]);
-    Route::resource('detailProjectProcessProjects', DetailProjectProcessProjectController::class, ['except' => ['create', 'edit']]);
     Route::resource('documents', DocumentController::class, ['except' => ['create', 'edit']]);
     Route::resource('clientDocuments', ClientDocumentController::class, ['except' => ['create', 'edit']]);
     Route::resource('concepts', ConceptController::class, ['except' => ['create', 'edit']]);
     Route::resource('statusQuotes', StatusQuoteController::class, ['except' => ['create', 'edit']]);
     Route::resource('clientLinks', ClientLinkController::class, ['except' => 'create', 'edit']);
     Route::resource('templateQuotes', TemplateQuotesController::class, ['except' => ['create', 'edit']]);
+    Route::resource('processes', ProcessController::class, ['except' => ['create', 'edit']]);
+    Route::resource('detailProject', DetailProjectController::class, ['except' => ['create', 'edit']]);
 
-//PROJECT QUOTES ROUTES
+
+    //PROJECT PROJECTS ROUTES
+    Route::resource('projects', ProjectController::class, ['except' => ['create', 'edit']]);
+    Route::post('projects/action/start/project/{project}/process/{process}', [ProjectActionController::class, 'startProject']);
+    Route::post('projects/action/next/project/{project}/process/{process}', [ProjectActionController::class, 'nextPhaseProcess']);
+    Route::post('projects/action/previous/project/{project}/process/{process}', [ProjectActionController::class, 'previousPhaseProcess']);
+    Route::get('projects/action/current/project/{project}/process/{process}', [ProjectActionController::class, 'getCurrentPhaseForm']);
+
+
+    //PROJECT QUOTES ROUTES
     Route::resource('projectQuotes', ProjectQuoteController::class, ['except' => ['create', 'edit']]);
     Route::get('projectQuotes/filter/getQuotesStart', [ProjectQuoteFilterController::class, 'getQuotesStart']);
     Route::get('projectQuotes/filter/getQuotesReview', [ProjectQuoteFilterController::class, 'getQuotesReview']);
@@ -80,20 +88,21 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::get('projectQuotes/filter/getQuotesByClient', [ProjectQuoteFilterController::class, 'getQuotesByClient']);
     Route::post('projectQuotes/calculate/reactive', [ProjectQuoteOperationsController::class, 'calculateReactiveProjectQuote']);
 
-//NOTIFICATIONS ROUTES
+
+    //NOTIFICATIONS ROUTES
     Route::resource('notifications', NotificationController::class, ['only' => ['index', 'show', 'update']]);
     Route::get('notifications/filter/getLastUserNotifications', [NotificationFilterController::class, 'getLastUserNotifications']);
     Route::get('notifications/filter/getUncheckUserNotifications', [NotificationFilterController::class, 'getUncheckUserNotifications']);
     Route::get('notifications/filter/getCheckUserNotifications', [NotificationFilterController::class, 'getCheckUserNotifications']);
 
 
-//ROUTES PAYROLL3
+    //ROUTES PAYROLL3
     Route::resource('salaries', SalaryController::class, ['except' => ['create', 'edit']]);
     Route::resource('taxData', TaxDatumController::class, ['except' => ['create', 'edit']]);
     Route::resource('perceptions', PerceptionController::class, ['except' => ['create', 'edit']]);
     Route::resource('deductions', DeductionController::class, ['except' => ['create', 'edit']]);
     Route::resource('extraHours', ExtraHourController::class, ['except' => ['create', 'edit']]);
-//Route::resource('disabilities',DisabilityController::class, ['except' => ['create', 'edit']]);
+    //Route::resource('disabilities',DisabilityController::class, ['except' => ['create', 'edit']]);
 });
 
 

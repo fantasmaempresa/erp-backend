@@ -28,11 +28,11 @@ class CreateProjectsTable extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->date('estimate_end_date')->nullable();
-            $table->json('quotes')->nullable();
             $table->string('folio')->nullable();
             $table->boolean('finished')->default(\App\Models\Project::$UNFINISHED);
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained(); //Usuario quien inicio el proyecto
             $table->foreignId('client_id')->nullable()->constrained();
+            $table->foreignId('project_quote_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

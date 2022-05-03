@@ -34,7 +34,6 @@ class ProjectQuote extends Model
         'observation',
         'addressee',
         'user_id',
-        'project_id',
         'client_id',
         'status_quote_id',
         'template_quote_id',
@@ -59,7 +58,6 @@ class ProjectQuote extends Model
             'addressee' => "string",
             'description' => "string",
             'observation' => "string",
-            'project_id' => "int",
             'client_id' => "int",
             'status_quote_id' => "int",
             'template_quote_id' => "int",
@@ -71,7 +69,6 @@ class ProjectQuote extends Model
             'addressee' => 'required|string',
             'description' => 'required|string',
             'observation' => 'nullable|string',
-            'project_id' => 'nullable|int',
             'client_id' => 'nullable|int',
             'status_quote_id' => 'nullable|int',
             'template_quote_id' => 'nullable|int',
@@ -103,11 +100,11 @@ class ProjectQuote extends Model
     }
 
     /**
-     * @return BelongsTo
+     * @return HasMany
      */
-    public function project(): BelongsTo
+    public function project(): HasMany
     {
-        return $this->BelongsTo(Project::class);
+        return $this->hasMany(Project::class);
     }
 
     /**

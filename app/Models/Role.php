@@ -9,6 +9,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Validation\Rule;
 use JetBrains\PhpStorm\ArrayShape;
@@ -116,6 +117,14 @@ class Role extends Model
     {
         return $query->orWhere('name', 'like', "%$search%")
             ->orWhere('description', 'like', "%$search%");
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function phasesProcess(): BelongsToMany
+    {
+        return $this->belongsToMany(PhasesProcess::class);
     }
 }
 

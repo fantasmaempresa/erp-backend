@@ -12,6 +12,7 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\ApiController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 /**
@@ -23,11 +24,21 @@ class ProjectController extends ApiController
 {
 
     /**
+     * @param Request $request
+     *
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        return $this->showList(Project::paginate(env('NUMBER_PAGINATE')));
+        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+
+        if ($request->has('search')) {
+            $response = $this->showList(Project::search($request->get('search'))->paginate($paginate));
+        } else {
+            $response = $this->showList(Project::paginate($paginate));
+        }
+
+        return $response;
     }
 
     /**
@@ -40,7 +51,18 @@ class ProjectController extends ApiController
     public function store(Request $request): JsonResponse
     {
         $this->validate($request, Project::rules());
-        $project = Project::create($request->all());
+        $project = new Project($request->all());
+        // phpcs:ignore
+        $project->user_id = Auth::id();
+        $project->save();
+
+        if ($request->has('processes')) {
+            foreach ($request->get('processes') as $process) {
+                $project->process()->attach($process['id']);
+            }
+        }
+
+        $project->process;
 
         return $this->showOne($project);
     }
@@ -52,6 +74,8 @@ class ProjectController extends ApiController
      */
     public function show(Project $project): JsonResponse
     {
+        $project->process;
+
         return $this->showOne($project);
     }
 
@@ -72,6 +96,16 @@ class ProjectController extends ApiController
         }
 
         $project->save();
+
+        $ids = [];
+        if ($request->has('processes')) {
+            foreach ($request->get('processes') as $process) {
+                $ids[] = $process['id'];
+            }
+        }
+
+        $project->process()->sync($ids);
+        $project->process;
 
         return $this->showOne($project);
     }

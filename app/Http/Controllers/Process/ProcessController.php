@@ -49,6 +49,7 @@ class ProcessController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
+        //TODO validar que no asigne dos veces el mismo proceso al projecto
         $this->validate($request, Process::rules());
         $process = new Process($request->all());
         $validityConfig = $process->verifyConfig($request->get('config'));
@@ -104,7 +105,7 @@ class ProcessController extends ApiController
         $ids = [];
         if ($request->has('phase_process')) {
             foreach ($request->get('phase_process') as $phase) {
-                $ids = $phase['id'];
+                $ids[] = $phase['id'];
             }
         }
 

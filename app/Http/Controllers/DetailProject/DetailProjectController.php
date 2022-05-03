@@ -25,11 +25,17 @@ class DetailProjectController extends ApiController
     /**
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $detailProcesses = DetailProject::all();
+        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
-        return $this->showAll($detailProcesses);
+        if ($request->has('search')) {
+            $response = $this->showList(DetailProject::search($request->get('search'))->paginate($paginate));
+        } else {
+            $response = $this->showList(DetailProject::paginate($paginate));
+        }
+
+        return $this->showList($response);
     }
 
     /**
@@ -41,53 +47,53 @@ class DetailProjectController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $rules = [];
+        $this->validate($request, DetailProject::rules());
+        $detailProject = DetailProject::create($request->all());
+        $detailProject->phase;
 
-        $this->validate($request, $rules);
-        $detailProcess = DetailProject::create($request->all());
-
-        return $this->showOne($detailProcess);
+        return $this->showOne($detailProject);
     }
 
     /**
-     * @param DetailProject $detailProcess
+     * @param DetailProject $detailProject
      *
      * @return JsonResponse
      */
-    public function show(DetailProject $detailProcess): JsonResponse
+    public function show(DetailProject $detailProject): JsonResponse
     {
-        return $this->showOne($detailProcess);
+        return $this->showOne($detailProject);
     }
 
     /**
-     * @param Request $request
-     * @param DetailProject $detailProcess
+     * @param Request       $request
+     * @param DetailProject $detailProject
      *
      * @return JsonResponse
      */
-    public function update(Request $request, DetailProject $detailProcess): JsonResponse
+    public function update(Request $request, DetailProject $detailProject): JsonResponse
     {
-        $detailProcess->fill($request->all());
-        if ($detailProcess->isClean()) {
+        $this->validate($request, DetailProject::rules());
+        $detailProject->fill($request->all());
+        if ($detailProject->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);
         }
 
-        $detailProcess->save();
+        $detailProject->save();
 
-        return $this->showOne($detailProcess);
+        return $this->showOne($detailProject);
     }
 
     /**
-     * @param DetailProject $detailProcess
+     * @param DetailProject $detailProject
      *
      * @return JsonResponse
      *
      * @throws Exception
      */
-    public function destroy(DetailProject $detailProcess): JsonResponse
-    {
-        $detailProcess->delete();
-
-        return $this->showMessage('Record deleted successfully');
-    }
+//    public function destroy(DetailProject $detailProject): JsonResponse
+//    {
+//        $detailProject->delete();
+//
+//        return $this->showMessage('Record deleted successfully');
+//    }
 }

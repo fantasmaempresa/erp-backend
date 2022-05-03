@@ -79,6 +79,7 @@ class ProjectQuoteController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
+        //TODO crear validación para ver si los conceptos existen y pueda generar el error controlado y no la excepción de base de datos
         $this->validate($request, ProjectQuote::rules());
         $projectQuote = new ProjectQuote($request->all());
         // phpcs:ignore

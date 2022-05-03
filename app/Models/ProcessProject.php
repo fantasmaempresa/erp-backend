@@ -10,6 +10,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
 /**
  * @access  public
@@ -18,6 +19,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class ProcessProject extends Model
 {
+    protected $table = 'process_project';
+    public $incrementing = true;
     /**
      * The attributes that are mass assignable.
      *

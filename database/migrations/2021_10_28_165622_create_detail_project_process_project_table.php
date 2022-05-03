@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Schema;
  *
  * @version 1.0
  */
-class CreateDetailProjectProcessProjectsTable extends Migration
+class CreateDetailProjectProcessProjectTable extends Migration
 {
     /**
      * Run the migrations.
@@ -23,10 +23,10 @@ class CreateDetailProjectProcessProjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('detail_project_process_projects', function (Blueprint $table) {
+        Schema::create('detail_project_process_project', function (Blueprint $table) {
             $table->id();
             $table->foreignId('detail_project_id')->constrained();
-            $table->foreignId('process_project_id')->constrained();
+            $table->foreignId('process_project_id')->constrained('process_project');
             $table->timestamps();
         });
     }
@@ -38,6 +38,6 @@ class CreateDetailProjectProcessProjectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detail_project_process_projects');
+        Schema::dropIfExists('detail_project_process_project');
     }
 }

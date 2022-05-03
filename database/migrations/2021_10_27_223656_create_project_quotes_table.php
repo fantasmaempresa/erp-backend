@@ -30,7 +30,6 @@ class CreateProjectQuotesTable extends Migration
             $table->text('observation')->nullable();
             $table->text('addressee');
             $table->json('quote')->nullable();
-            $table->foreignId('project_id')->nullable()->constrained();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('client_id')->nullable()->constrained();
             $table->foreignId('status_quote_id')->nullable()->constrained();

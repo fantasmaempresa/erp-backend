@@ -10,6 +10,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 /**
  * @access  public
@@ -37,6 +38,7 @@ class Project extends Model
         'quotes',
         'folio',
         'user_id',
+        'project_quote_id',
         'client_id',
     ];
     /**
@@ -44,9 +46,9 @@ class Project extends Model
      *
      * @var array
      */
-    protected $casts = [
-        'quotes' => 'array',
-    ];
+//    protected $casts = [
+//        'quotes' => 'array',
+//    ];
 
     /**
      * Function to return array rules in method create and update
@@ -61,7 +63,8 @@ class Project extends Model
             'estimate_end_date' => 'nullable|date',
             'quotes' => 'nullable|array',
             'folio' => 'nullable|string',
-            'user_id' => 'required|int',
+            'project_quote_id' => 'nullable|int',
+//            'user_id' => 'required|int',
             'client_id' => 'nullable|int',
         ];
     }
@@ -77,6 +80,14 @@ class Project extends Model
     /**
      * @return BelongsTo
      */
+    public function projectQuote(): BelongsTo
+    {
+        return $this->belongsTo(ProjectQuote::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -87,7 +98,7 @@ class Project extends Model
      */
     public function process(): BelongsToMany
     {
-        return $this->belongsToMany(Process::class);
+        return $this->belongsToMany(Process::class)->withPivot('id');
     }
 
     /**
@@ -96,5 +107,13 @@ class Project extends Model
     public function staff(): BelongsToMany
     {
         return $this->belongsToMany(Staff::class);
+    }
+
+    /**
+     * @return HasManyThrough
+     */
+    public function processProject(): HasManyThrough
+    {
+        return $this->hasManyThrough(ProcessProject::class, DetailProjectProcessProject::class);
     }
 }

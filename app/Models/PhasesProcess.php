@@ -19,13 +19,13 @@ use Illuminate\Validation\Rule;
  */
 class PhasesProcess extends Model
 {
-    public static bool $notification  = true;
+    public static bool $notification = true;
     public static bool $noNotification = false;
 
-    public static bool $supervision  = true;
+    public static bool $supervision = true;
     public static bool $noSupervision = false;
 
-    public static bool $payment  = true;
+    public static bool $payment = true;
     public static bool $noPayment = false;
 
     /**
@@ -49,8 +49,9 @@ class PhasesProcess extends Model
      * @var array
      */
     protected $casts = [
-        'form'     => 'array',
+        'form' => 'array',
     ];
+
     /**
      * Function to return array rules in method create and update
      *
@@ -75,4 +76,13 @@ class PhasesProcess extends Model
     {
         return $this->belongsToMany(Process::class);
     }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
 }
