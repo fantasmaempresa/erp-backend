@@ -27,6 +27,7 @@ class CreateTemplateQuotesTable extends Migration
             $table->id();
             $table->string('name');
             $table->json('form');
+            $table->json('operations')->nullable();
             $table->timestamps();
         });
     }

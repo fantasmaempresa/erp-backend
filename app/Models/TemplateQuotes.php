@@ -25,6 +25,7 @@ class TemplateQuotes extends Model
     protected $fillable = [
         'name',
         'form',
+        'operations',
     ];
 
     /**
@@ -34,6 +35,7 @@ class TemplateQuotes extends Model
      */
     protected $casts = [
         'form' => 'array',
+        'operations' => 'array',
     ];
 
     /**
@@ -46,6 +48,7 @@ class TemplateQuotes extends Model
         return [
             'name' => 'required|string|max:250',
             'form' => 'required|array',
+            'operations' => 'nullable|array',
         ];
     }
 

@@ -88,12 +88,43 @@ class ProjectActionController extends ApiController
      * @param Process $process
      *
      * @return JsonResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function nextPhaseProcess(Request $request, Project $project, Process $process): JsonResponse
     {
+        //aqui mandaría la información del formulario anterior para guardarlo y marcarlo como completa y poner la siguiente fase
+        //en ejecución.
+
         $this->validate($request, [
             'form' => 'required|array',
         ]);
+
+        $continue = false;
+        $currentProcess = [];
+        foreach ($project->process as $processes) {
+            if ($processes['id'] === $process->id) {
+                $currentProcess = $processes;
+                $continue = true;
+            }
+        }
+
+        if (!$continue) {
+            // phpcs:ignore
+            return $this->errorResponse('El proceso [' . $process->name . '] no se encuenta asiganado a este proyecto [' . $project->name . ']', 409);
+        }
+
+        $detailProjectProcess = DetailProjectProcessProject::where('process_project_id', $currentProcess->pivot->id)->get();
+        $currentDetail = [];
+        foreach ($detailProjectProcess as $detail) {
+            if ($detail->detailProject->finished === DetailProject::$CURRENT) {
+                $currentDetail = $detail->detailProject;
+                break;
+            }
+        }
+
+
+
 
         return $this->showList([]);
     }
