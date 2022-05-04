@@ -47,6 +47,12 @@ class ProjectActionController extends ApiController
                 $continue = true;
             }
         }
+        $detailProcesses = DetailProjectProcessProject::where('process_project_id', $currentProcess->pivot->id)->first();
+
+        if (!empty($detailProcesses)) {
+            // phpcs:ignore
+            return $this->errorResponse('El proceso [' . $process->name . '] del proyecto [' . $project->name . '] ya esta iniciado consulte el formulario en curso', 409);
+        }
 
         if (!$continue) {
             // phpcs:ignore
@@ -58,12 +64,11 @@ class ProjectActionController extends ApiController
                 $currentPhase = $phase;
             }
         }
-
         $detailProject = new DetailProject();
         $detailProject->comments = $request->get('comments');
         $detailProject->finished = DetailProject::$CURRENT;
         // phpcs:ignore
-        $detailProject->phases_process_id = $phase['phase']['id'];
+        $detailProject->phases_process_id = $currentPhase['phase']['id'];
         // phpcs:ignore
         $detailProject->form_data = ['phase_init' => true];
         $detailProject->save();
@@ -99,6 +104,7 @@ class ProjectActionController extends ApiController
         $this->validate($request, [
             'form' => 'required|array',
             'comments' => 'required|string',
+            'next' => 'required|bool',
         ]);
 
         $continue = false;
@@ -127,34 +133,29 @@ class ProjectActionController extends ApiController
         $currentDetail->finished = DetailProject::$FINISHED;
         // phpcs:ignore
         $currentDetail->form_data = $request->get('form');
-//        $currentDetail->save();
+        $currentDetail->save();
 
         $currentPhaseConfig = [];
         foreach ($currentProcess->config['order_phases'] as $config) {
             // phpcs:ignore
-            dd($config);
             if ($config['phase']['id'] === $currentDetail->phases_process_id) {
                 $currentPhaseConfig = $config;
             }
         }
         $nextPhase = [];
+        $currentPhaseConfig = $request->get('next')
+            ? $currentPhaseConfig['next']
+            : $currentPhaseConfig['previous'];
 
-        if (empty($currentPhaseConfig['next'])) {
+        if (empty($currentPhaseConfig)) {
             return $this->errorResponse('this phase empty next', 409);
-        }
-
-        foreach ($currentProcess->config as $config) {
-            // phpcs:ignore
-            if ($currentPhaseConfig['next']['phase']['id'] === $config['phase']['id']) {
-                $nextPhase = $config;
-            }
         }
 
         $detailProject = new DetailProject();
         $detailProject->comments = $request->get('comments');
         $detailProject->finished = DetailProject::$CURRENT;
         // phpcs:ignore
-        $detailProject->phases_process_id = $nextPhase['phase']['id'];
+        $detailProject->phases_process_id = $currentPhaseConfig['phase']['id'];
         // phpcs:ignore
         $detailProject->form_data = ['phase_init' => true];
         $detailProject->save();
@@ -170,7 +171,7 @@ class ProjectActionController extends ApiController
             $process->detailProcess = $detailProcesses;
         }
 
-        return $this->showList($process);
+        return $this->showList($project);
     }
 
     /**
