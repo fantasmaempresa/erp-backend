@@ -98,6 +98,7 @@ class ProjectActionController extends ApiController
 
         $this->validate($request, [
             'form' => 'required|array',
+            'comments' => 'required|string',
         ]);
 
         $continue = false;
@@ -123,10 +124,53 @@ class ProjectActionController extends ApiController
             }
         }
 
+        $currentDetail->finished = DetailProject::$FINISHED;
+        // phpcs:ignore
+        $currentDetail->form_data = $request->get('form');
+//        $currentDetail->save();
 
+        $currentPhaseConfig = [];
+        foreach ($currentProcess->config['order_phases'] as $config) {
+            // phpcs:ignore
+            dd($config);
+            if ($config['phase']['id'] === $currentDetail->phases_process_id) {
+                $currentPhaseConfig = $config;
+            }
+        }
+        $nextPhase = [];
 
+        if (empty($currentPhaseConfig['next'])) {
+            return $this->errorResponse('this phase empty next', 409);
+        }
 
-        return $this->showList([]);
+        foreach ($currentProcess->config as $config) {
+            // phpcs:ignore
+            if ($currentPhaseConfig['next']['phase']['id'] === $config['phase']['id']) {
+                $nextPhase = $config;
+            }
+        }
+
+        $detailProject = new DetailProject();
+        $detailProject->comments = $request->get('comments');
+        $detailProject->finished = DetailProject::$CURRENT;
+        // phpcs:ignore
+        $detailProject->phases_process_id = $nextPhase['phase']['id'];
+        // phpcs:ignore
+        $detailProject->form_data = ['phase_init' => true];
+        $detailProject->save();
+
+        $detailProject->processProject()->attach($currentProcess->pivot->id);
+
+        foreach ($project->process as $process) {
+            //TODO verificar la relación para acceder a través de los modelos
+            $detailProcesses = DetailProjectProcessProject::where('process_project_id', $process->pivot->id)->get();
+            foreach ($detailProcesses as $dProcess) {
+                $dProcess->detailProject;
+            }
+            $process->detailProcess = $detailProcesses;
+        }
+
+        return $this->showList($process);
     }
 
     /**

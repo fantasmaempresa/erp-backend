@@ -35,11 +35,11 @@ class Project extends Model
         'name',
         'description',
         'estimate_end_date',
-        'quotes',
         'folio',
+        'finished',
         'user_id',
-        'project_quote_id',
         'client_id',
+        'project_quote_id',
     ];
     /**
      * The attributes that should be cast.
