@@ -72,7 +72,7 @@ class ProjectQuoteOperationsController extends ApiController
                         'concept_id' => $conceptB->id,
                         'value_concept' => $this->getValueConcept($conceptB->formula, $conceptB->amount, $field['value']),
                         'value' => $field['value'],
-//                        'concept' => $conceptB,
+                        'concept' => $conceptB,
                         'operation' => $conceptB->formula['operation'],
                         'subtotal' => $this->executeOperationConcept(
                             $conceptB->formula,
@@ -122,7 +122,7 @@ class ProjectQuoteOperationsController extends ApiController
                         $result['operation_total']['description'][] = [
                             'concept_id' => $conceptB->id,
                             'value_concept' => $this->getValueConcept($conceptB->formula, $conceptB->amount, $total),
-//                            'concept' => $conceptB,
+                            'concept' => $conceptB,
                             'value' => $total,
                             'subtotal' => $this->executeOperationConcept(
                                 $conceptB->formula,

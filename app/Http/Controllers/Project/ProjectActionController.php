@@ -133,7 +133,7 @@ class ProjectActionController extends ApiController
         $currentDetail->finished = DetailProject::$FINISHED;
         // phpcs:ignore
         $currentDetail->form_data = $request->get('form');
-        $currentDetail->save();
+//        $currentDetail->save();
 
         $currentPhaseConfig = [];
         foreach ($currentProcess->config['order_phases'] as $config) {
@@ -143,9 +143,10 @@ class ProjectActionController extends ApiController
             }
         }
         $nextPhase = [];
+        dd($currentPhaseConfig);
         $currentPhaseConfig = $request->get('next')
             ? $currentPhaseConfig['next']
-            : $currentPhaseConfig['previous'];
+            : $currentPhaseConfig['previous']
 
         if (empty($currentPhaseConfig)) {
             return $this->errorResponse('this phase empty next', 409);
