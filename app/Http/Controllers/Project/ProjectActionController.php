@@ -146,7 +146,7 @@ class ProjectActionController extends ApiController
         dd($currentPhaseConfig);
         $currentPhaseConfig = $request->get('next')
             ? $currentPhaseConfig['next']
-            : $currentPhaseConfig['previous']
+            : $currentPhaseConfig['previous'];
 
         if (empty($currentPhaseConfig)) {
             return $this->errorResponse('this phase empty next', 409);

@@ -1,20 +1,10 @@
 <?php
 
-/*
- * CODE
- * TemplateQuotes Class Migration
- */
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-/**
- * @access  public
- *
- * @version 1.0
- */
-class CreateTemplateQuotesTable extends Migration
+class CreateFormStructuresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -23,11 +13,11 @@ class CreateTemplateQuotesTable extends Migration
      */
     public function up()
     {
-        Schema::create('template_quotes', function (Blueprint $table) {
+        Schema::create('form_structures', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->json('form');
-            $table->string('description')->nullable();
+            $table->string('description');
             $table->timestamps();
         });
     }
@@ -39,6 +29,6 @@ class CreateTemplateQuotesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('template_quotes');
+        Schema::dropIfExists('form_structures');
     }
 }

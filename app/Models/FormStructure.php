@@ -1,22 +1,14 @@
 <?php
 
-/*
- * CODE
- * TemplateQuotes Model Class
- */
-
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-/**
- * @access  public
- *
- * @version 1.0
- */
-class TemplateQuotes extends Model
+class FormStructure extends Model
 {
+    use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -25,7 +17,7 @@ class TemplateQuotes extends Model
     protected $fillable = [
         'name',
         'form',
-        'description',
+        'operations',
     ];
 
     /**
@@ -47,7 +39,7 @@ class TemplateQuotes extends Model
         return [
             'name' => 'required|string|max:250',
             'form' => 'required|array',
-            'description' => 'nullable|string|max:250',
+            'operations' => 'nullable|array',
         ];
     }
 
@@ -60,13 +52,5 @@ class TemplateQuotes extends Model
     public function scopeSearch($query, $search): mixed
     {
         return $query->where('name', 'like', "%$search%");
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function templateQuote(): BelongsTo
-    {
-        return $this->belongsTo(ProjectQuote::class);
     }
 }

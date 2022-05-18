@@ -11,6 +11,7 @@ use App\Http\Controllers\DetailProject\DetailProjectController;
 use App\Http\Controllers\DetailProjectProcessProject\DetailProjectProcessProjectController;
 use App\Http\Controllers\Document\DocumentController;
 use App\Http\Controllers\ExtraHour\ExtraHourController;
+use App\Http\Controllers\FormStructure\FromStructureController;
 use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\Notification\NotificationFilterController;
 use App\Http\Controllers\Perception\PerceptionController;
@@ -67,6 +68,7 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('templateQuotes', TemplateQuotesController::class, ['except' => ['create', 'edit']]);
     Route::resource('processes', ProcessController::class, ['except' => ['create', 'edit']]);
     Route::resource('detailProject', DetailProjectController::class, ['except' => ['create', 'edit']]);
+    Route::resource('formStructure', FromStructureController::class, ['except' => ['create', 'edit']]);
 
 
     //PROJECT PROJECTS ROUTES
