@@ -61,7 +61,7 @@ class ProjectQuoteOperationsController extends ApiController
         $discount = [];
         foreach ($opField as $field) {
             if ($field['value']) {
-                if (empty($field['concepts'])) {
+                if (!empty($field['concepts'])) {
                     foreach ($field['concepts'] as $concept) {
                         $conceptB = Concept::findOrFail($concept['id']);
 
