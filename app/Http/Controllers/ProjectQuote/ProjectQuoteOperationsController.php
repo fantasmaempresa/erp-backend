@@ -61,20 +61,33 @@ class ProjectQuoteOperationsController extends ApiController
         $discount = [];
         foreach ($opField as $field) {
             if ($field['value']) {
-                foreach ($field['concepts'] as $concept) {
-                    $conceptB = Concept::findOrFail($concept['id']);
+                if (empty($field['concepts'])) {
+                    foreach ($field['concepts'] as $concept) {
+                        $conceptB = Concept::findOrFail($concept['id']);
 
-                    if (!isset($result['operation_fields'][$field['key']]['total'])) {
-                        $result['operation_fields'][$field['key']]['total'] = 0;
-                    }
+                        if (!isset($result['operation_fields'][$field['key']]['total'])) {
+                            $result['operation_fields'][$field['key']]['total'] = 0;
+                        }
+                        $result['operation_fields'][$field['key']]['original_value'] = $field['value'];
+                        $result['operation_fields'][$field['key']]['description'][] = [
+                            'concept_id' => $conceptB->id,
+                            'value_concept' => $this->getValueConcept($conceptB->formula, $conceptB->amount, $field['value']),
+                            'value' => $field['value'],
+                            'concept' => $conceptB,
+                            'operation' => $conceptB->formula['operation'],
+                            'subtotal' => $this->executeOperationConcept(
+                                $conceptB->formula,
+                                $this->getValueConcept(
+                                    $conceptB->formula,
+                                    $conceptB->amount,
+                                    $field['value']
+                                ),
+                                $field['value']
+                            ),
+                        ];
 
-                    $result['operation_fields'][$field['key']]['description'][] = [
-                        'concept_id' => $conceptB->id,
-                        'value_concept' => $this->getValueConcept($conceptB->formula, $conceptB->amount, $field['value']),
-                        'value' => $field['value'],
-                        'concept' => $conceptB,
-                        'operation' => $conceptB->formula['operation'],
-                        'subtotal' => $this->executeOperationConcept(
+                        //aplicar operación
+                        $result['operation_fields'][$field['key']]['total'] += $this->executeOperationConcept(
                             $conceptB->formula,
                             $this->getValueConcept(
                                 $conceptB->formula,
@@ -82,22 +95,17 @@ class ProjectQuoteOperationsController extends ApiController
                                 $field['value']
                             ),
                             $field['value']
-                        ),
-                    ];
+                        );
+                    }
 
-                    //aplicar operación
-                    $result['operation_fields'][$field['key']]['total'] += $this->executeOperationConcept(
-                        $conceptB->formula,
-                        $this->getValueConcept(
-                            $conceptB->formula,
-                            $conceptB->amount,
-                            $field['value']
-                        ),
-                        $field['value']
-                    );
+                } else {
+                    $result['operation_fields'][$field['key']]['total'] = $field['value'];
+                    $result['operation_fields'][$field['key']]['original_value'] = $field['value'];
                 }
             } else {
-                $result['operation_fields'][$field['key']]['total'] += 0;
+                $result['operation_fields'][$field['key']]['total'] = 0;
+                $result['operation_fields'][$field['key']]['original_value'] = 0;
+
             }
         }
 
