@@ -30,8 +30,6 @@ class CreatePhasesProcessesTable extends Migration
             $table->json('form');
             $table->boolean('payments')->default(\App\Models\PhasesProcess::$noPayment);
             $table->boolean('notification')->default(\App\Models\PhasesProcess::$noNotification);
-            $table->boolean('supervision')->default(\App\Models\PhasesProcess::$noSupervision);
-
             $table->timestamps();
         });
     }

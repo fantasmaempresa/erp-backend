@@ -1,10 +1,13 @@
 <?php
-
+/*
+ */
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ */
 class FormStructure extends Model
 {
     use HasFactory;
@@ -17,7 +20,7 @@ class FormStructure extends Model
     protected $fillable = [
         'name',
         'form',
-        'operations',
+        'description',
     ];
 
     /**
@@ -39,7 +42,7 @@ class FormStructure extends Model
         return [
             'name' => 'required|string|max:250',
             'form' => 'required|array',
-            'operations' => 'nullable|array',
+            'description' => 'required|string',
         ];
     }
 

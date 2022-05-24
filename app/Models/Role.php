@@ -118,13 +118,5 @@ class Role extends Model
         return $query->orWhere('name', 'like', "%$search%")
             ->orWhere('description', 'like', "%$search%");
     }
-
-    /**
-     * @return BelongsToMany
-     */
-    public function phasesProcess(): BelongsToMany
-    {
-        return $this->belongsToMany(PhasesProcess::class);
-    }
 }
 

@@ -42,13 +42,13 @@ class PhasesProcessController extends ApiController
         $this->validate($request, PhasesProcess::rules());
         $phasesProcess = PhasesProcess::create($request->all());
 
-        if ($request->has('roles')) {
-            foreach ($request->get('roles') as $roles) {
-                $phasesProcess->roles()->attach($roles['id']);
-            }
-        }
-
-        $phasesProcess->roles;
+//        if ($request->has('roles')) {
+//            foreach ($request->get('roles') as $roles) {
+//                $phasesProcess->roles()->attach($roles['id']);
+//            }
+//        }
+//
+//        $phasesProcess->roles;
 
         return $this->showOne($phasesProcess);
     }
@@ -60,7 +60,7 @@ class PhasesProcessController extends ApiController
      */
     public function show(PhasesProcess $phasesProcess): JsonResponse
     {
-        $phasesProcess->roles;
+//        $phasesProcess->roles;
 
         return $this->showOne($phasesProcess);
     }
@@ -84,15 +84,15 @@ class PhasesProcessController extends ApiController
 
         $phasesProcess->save();
 
-        $ids = [];
-        if ($request->has('roles')) {
-            foreach ($request->get('roles') as $roles) {
-                $ids[] = $roles['id'];
-            }
-        }
-
-        $phasesProcess->roles()->sync($ids);
-        $phasesProcess->roles;
+//        $ids = [];
+//        if ($request->has('roles')) {
+//            foreach ($request->get('roles') as $roles) {
+//                $ids[] = $roles['id'];
+//            }
+//        }
+//
+//        $phasesProcess->roles()->sync($ids);
+//        $phasesProcess->roles;
 
         return $this->showOne($phasesProcess);
     }

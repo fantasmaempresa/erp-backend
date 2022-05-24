@@ -22,8 +22,8 @@ class PhasesProcess extends Model
     public static bool $notification = true;
     public static bool $noNotification = false;
 
-    public static bool $supervision = true;
-    public static bool $noSupervision = false;
+//    public static bool $supervision = true;
+//    public static bool $noSupervision = false;
 
     public static bool $payment = true;
     public static bool $noPayment = false;
@@ -65,7 +65,7 @@ class PhasesProcess extends Model
             'form' => 'required|array',
             'payments' => 'nullable|bool',
             'notification' => 'nullable|bool',
-            'supervision' => 'nullable|bool',
+//            'supervision' => 'nullable|bool',
         ];
     }
 
@@ -80,9 +80,9 @@ class PhasesProcess extends Model
     /**
      * @return BelongsToMany
      */
-    public function roles(): BelongsToMany
-    {
-        return $this->belongsToMany(Role::class);
-    }
+//    public function roles(): BelongsToMany
+//    {
+//        return $this->belongsToMany(Role::class);
+//    }
 
 }

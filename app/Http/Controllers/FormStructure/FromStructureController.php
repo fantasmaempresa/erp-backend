@@ -70,7 +70,7 @@ class FromStructureController extends ApiController
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param Request       $request
      * @param FormStructure $formStructure
      *
      * @return JsonResponse
