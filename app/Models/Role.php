@@ -108,6 +108,14 @@ class Role extends Model
     }
 
     /**
+     * @return BelongsToMany
+     */
+    public function process(): BelongsToMany
+    {
+        return $this->belongsToMany(Process::class);
+    }
+
+    /**
      * @param $query
      * @param $search
      *

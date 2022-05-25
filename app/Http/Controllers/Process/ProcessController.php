@@ -49,7 +49,6 @@ class ProcessController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        //TODO validar que no asigne dos veces el mismo proceso al projecto
         $this->validate($request, Process::rules());
         $process = new Process($request->all());
         $validityConfig = $process->verifyConfig($request->get('config'));
@@ -57,13 +56,17 @@ class ProcessController extends ApiController
             return $this->errorResponse($validityConfig, 409);
         }
         $process->save();
+        $rolesAndPhases = $process->getPhasesAndRoles($request->get('config'));
 
-        if ($request->has('phase_process')) {
-            foreach ($request->get('phase_process') as $phase) {
-                $process->phases()->attach($phase['id']);
-            }
+        foreach ($rolesAndPhases['roles'] as $roleId) {
+            $process->roles()->attach($roleId);
         }
 
+        foreach ($rolesAndPhases['phases'] as $phaseId) {
+            $process->phases()->attach($phaseId);
+        }
+
+        $process->roles;
         $process->phases;
 
         return $this->showOne($process);
@@ -101,16 +104,11 @@ class ProcessController extends ApiController
         }
 
         $process->save();
-
-        $ids = [];
-        if ($request->has('phase_process')) {
-            foreach ($request->get('phase_process') as $phase) {
-                $ids[] = $phase['id'];
-            }
-        }
-
-        $process->phases()->sync($ids);
+        $rolesAndPhases = $process->getPhasesAndRoles($request->get('config'));
+        $process->phases()->sync($rolesAndPhases['phases']);
+        $process->roles()->sync($rolesAndPhases['roles']);
         $process->phases;
+        $process->roles;
 
         return $this->showOne($process);
     }

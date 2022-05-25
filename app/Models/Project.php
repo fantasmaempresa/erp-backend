@@ -36,6 +36,7 @@ class Project extends Model
         'description',
         'estimate_end_date',
         'folio',
+        'config',
         'finished',
         'user_id',
         'client_id',
@@ -46,9 +47,9 @@ class Project extends Model
      *
      * @var array
      */
-//    protected $casts = [
-//        'quotes' => 'array',
-//    ];
+    protected $casts = [
+        'config' => 'array',
+    ];
 
     /**
      * Function to return array rules in method create and update
@@ -64,6 +65,7 @@ class Project extends Model
             'quotes' => 'nullable|array',
             'folio' => 'nullable|string',
             'project_quote_id' => 'nullable|int',
+            'config' => 'required|array',
 //            'user_id' => 'required|int',
             'client_id' => 'nullable|int',
         ];
