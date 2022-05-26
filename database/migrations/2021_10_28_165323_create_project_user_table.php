@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Schema;
  *
  * @version 1.0
  */
-class CreateProjectStaffsTable extends Migration
+class CreateProjectUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -23,9 +23,9 @@ class CreateProjectStaffsTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_staffs', function (Blueprint $table) {
+        Schema::create('project_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('staff_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->foreignId('project_id')->constrained();
             $table->timestamps();
         });
@@ -38,6 +38,6 @@ class CreateProjectStaffsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_staffs');
+        Schema::dropIfExists('project_user');
     }
 }
