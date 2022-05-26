@@ -168,11 +168,22 @@ class ProjectQuoteController extends ApiController
                 $projectQuote->concept()->sync($ids);
 
                 $ids = [];
-                foreach ($request->get('quote')['operations']['operation_total']['concepts'] as $fields) {
-                    foreach ($fields['concepts'] as $field) {
-                        $ids[] = $field["id"];
+                if ($request->has('quote') && !empty($request->get('quote'))) {
+                    if (!empty($request->get('quote')['operations']['operation_fields'])) {
+                        foreach ($request->get('quote')['operations']['operation_fields'] as $fields) {
+                            foreach ($fields['concepts'] as $field) {
+                                $ids[$field["id"]] = $field["id"];
+                            }
+                        }
+
+                        foreach ($request->get('quote')['operations']['operation_total'] as $fields) {
+                            foreach ($fields['concepts'] as $field) {
+                                $ids[$field["id"]] = $field["id"];
+                            }
+                        }
                     }
                 }
+
                 $projectQuote->concept()->sync($ids);
             }
         }
