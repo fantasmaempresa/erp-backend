@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use JetBrains\PhpStorm\ArrayShape;
+use function PHPUnit\Framework\isEmpty;
 use function Psy\debug;
 
 /**
@@ -25,7 +26,6 @@ class Process extends Model
      */
     public static int $FINISHED = 1;
     public static int $UNFINISHED = 0;
-    private array $phases = [];
 
     /**
      * The attributes that are mass assignable.
@@ -108,44 +108,12 @@ class Process extends Model
      */
     public function verifyConfig(array $config): array|bool
     {
-        if (!isset($config['order_phases']) || !isset($config['involved'])) {
-            return ['error' => true, 'message' => 'not found involved or order_phases'];
+        if (!isset($config['order_phases'])) {
+            return ['error' => true, 'message' => 'not found order_phases'];
         }
 
         if ($this->verifyOrderPhases($config['order_phases'])) {
             return $this->verifyOrderPhases($config['order_phases']);
-        }
-
-        if ($this->verifyInvolved($config['involved'])) {
-            return $this->verifyInvolved($config['involved']);
-        }
-
-        return false;
-    }
-
-    /**
-     * @param array $involved
-     *
-     * @return array|bool
-     */
-    public function verifyInvolved(array $involved): array|bool
-    {
-        foreach ($involved as $field) {
-            if (!isset($field['phase']) ||
-                !isset($this->phases[$field['phase']['id']]) ||
-                !isset($field['supervisor']) ||
-                !isset($field['work_group'])
-            ) {
-                return ['error' => true, 'message' => 'involved: error in structure'];
-            }
-
-            foreach ($field['supervisor'] as $role) {
-                $check = Role::findOrFail($role['id']);
-            }
-
-            foreach ($field['work_group'] as $role) {
-                $check = Role::findOrFail($role['id']);
-            }
         }
 
         return false;
@@ -159,12 +127,13 @@ class Process extends Model
     public function verifyOrderPhases(array $orderPhases): array|bool
     {
         $orderPhase = [];
+        $idPhases = [];
         foreach ($orderPhases as $phase) {
             if (!(isset($phase['phase']['id']) || isset($phase['previous']) || isset($phase['end_process']) || isset($phase['order']))) {
                 return ['error' => true, 'message' => 'order_phases: error in the structure'];
             } else {
                 $check = PhasesProcess::findOrFail($phase['phase']['id']);
-                $this->phases[$check->id] = $check->id;
+                $idPhases[$check->id] = $check->id;
                 if (!isset($phase['order'])) {
                     return ['error' => true, 'message' => 'order_phases: order not found'];
                 }
@@ -173,8 +142,23 @@ class Process extends Model
                 if ($phase['order'] > 1) {
                     if (isset($phase['previous']['phase']['id'])) {
                         $check = PhasesProcess::findOrFail($phase['previous']['phase']['id']);
-                        //TODO verificar si la phase es anterior.
+                        if (!isset($idPhases[$check->id])) {
+                            return ['error' => true, 'message' => 'order_phases: previous phase not found in order phases'];
+                        }
                     }
+                }
+                if (!isset($phase['involved']['supervisor']) ||
+                    !isset($phase['involved']['work_group'])
+                ) {
+                    return ['error' => true, 'message' => 'involved: error in structure'];
+                }
+
+                foreach ($phase['involved']['supervisor'] as $role) {
+                    $check = Role::findOrFail($role['id']);
+                }
+
+                foreach ($phase['involved']['work_group'] as $role) {
+                    $check = Role::findOrFail($role['id']);
                 }
             }
         }
@@ -201,14 +185,12 @@ class Process extends Model
         $phasesAndRoles = [];
         foreach ($config['order_phases'] as $phase) {
             $phasesAndRoles['phases'][$phase['phase']['id']] = $phase['phase']['id'];
-        }
 
-        foreach ($config['involved'] as $roles) {
-            foreach ($roles['supervisor'] as $role) {
+            foreach ($phase['involved']['supervisor'] as $role) {
                 $phasesAndRoles['roles'][$role['id']] = $role['id'];
             }
 
-            foreach ($roles['work_group'] as $role) {
+            foreach ($phase['involved']['work_group'] as $role) {
                 $phasesAndRoles['roles'][$role['id']] = $role['id'];
             }
         }

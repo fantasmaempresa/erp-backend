@@ -118,4 +118,44 @@ class Project extends Model
     {
         return $this->hasManyThrough(ProcessProject::class, DetailProjectProcessProject::class);
     }
+
+    /**
+     * @param array $config
+     *
+     * @return array|bool
+     */
+    public function verifyConfig(array $config): array|bool
+    {
+        $error = false;
+        foreach ($config as $field) {
+            if (!isset($field['process']['id']) || !isset($field['phases'])) {
+                $error = ['error' => true, 'message' => 'config: error in structure'];
+            }
+
+            $process = Process::findOrFail($field['process']['id']);
+            $phaseProcess = $process->getPhasesAndRoles($process->config);
+
+
+            foreach ($field['phases'] as $phase) {
+                if (!isset($phaseProcess['phases'][$phase['phase']['id']])) {
+                    $error = ['error' => true, 'message' => 'config: error, phase not fount in process ' . $phase['phase']['id']];
+                    break 2;
+                }
+
+                foreach ($phase['involved']['supervisor'] as $supervisor) {
+                    if (!$supervisor['user'] && !isset($phaseProcess['roles'][$supervisor['id']])) {
+                        $error = ['error' => true, 'message' => 'config: error, role not fount in process ' . $supervisor['id']];
+                        break 3;
+                    }
+                    
+                    if (!isset($supervisor['mandatory_supervision'])) {
+                        $error = ['error' => true, 'message' => 'config: error in structure mandatory_supervision not fount'];
+                        break 3;
+                    }
+                }
+            }
+        }
+
+        return $error;
+    }
 }

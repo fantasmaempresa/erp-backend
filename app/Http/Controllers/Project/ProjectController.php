@@ -52,6 +52,10 @@ class ProjectController extends ApiController
     {
         $this->validate($request, Project::rules());
         $project = new Project($request->all());
+        $validityConfig = $project->verifyConfig($request->get('config'));
+        if ($validityConfig) {
+            return $this->errorResponse($validityConfig, 409);
+        }
         // phpcs:ignore
         $project->user_id = Auth::id();
         $project->save();
