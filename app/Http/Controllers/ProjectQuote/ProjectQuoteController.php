@@ -56,7 +56,7 @@ class ProjectQuoteController extends ApiController
         if ($request->has('date1') && $request->has('date2')) {
             $projectQuotes = $projectQuotes->whereBetween(
                 'created_at',
-                [$request->get('date1').' 0:00:00', $request->get('date2').' 23:59:59']
+                [$request->get('date1') . ' 0:00:00', $request->get('date2') . ' 23:59:59']
             );
         }
 
@@ -128,6 +128,12 @@ class ProjectQuoteController extends ApiController
      */
     public function show(ProjectQuote $projectQuote): JsonResponse
     {
+        $projectQuote->user;
+        $projectQuote->project;
+        $projectQuote->client;
+        $projectQuote->statusQuote;
+        $projectQuote->concept;
+
         return $this->showOne($projectQuote);
     }
 
