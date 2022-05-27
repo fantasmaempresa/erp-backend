@@ -104,14 +104,6 @@ class Staff extends Model
     }
 
     /**
-     * @return BelongsToMany
-     */
-    public function project(): BelongsToMany
-    {
-        return $this->belongsToMany(Project::class);
-    }
-
-    /**
      * @param $query
      * @param $search
      *

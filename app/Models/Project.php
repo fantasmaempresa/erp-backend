@@ -106,9 +106,9 @@ class Project extends Model
     /**
      * @return BelongsToMany
      */
-    public function staff(): BelongsToMany
+    public function users(): BelongsToMany
     {
-        return $this->belongsToMany(Staff::class);
+        return $this->belongsToMany(User::class);
     }
 
     /**
@@ -147,9 +147,21 @@ class Project extends Model
                         $error = ['error' => true, 'message' => 'config: error, role not fount in process ' . $supervisor['id']];
                         break 3;
                     }
-                    
+
                     if (!isset($supervisor['mandatory_supervision'])) {
                         $error = ['error' => true, 'message' => 'config: error in structure mandatory_supervision not fount'];
+                        break 3;
+                    }
+                }
+
+                foreach ($phase['involved']['work_group'] as $workGroup) {
+                    if (!$workGroup['user'] && !isset($phaseProcess['roles'][$workGroup['id']])) {
+                        $error = ['error' => true, 'message' => 'config: error, role not fount in process ' . $workGroup['id']];
+                        break 3;
+                    }
+
+                    if (!isset($workGroup['mandatory_work'])) {
+                        $error = ['error' => true, 'message' => 'config: error in structure mandatory_work not fount'];
                         break 3;
                     }
                 }
@@ -157,5 +169,35 @@ class Project extends Model
         }
 
         return $error;
+    }
+
+    /**
+     * @param array $config
+     *
+     * @return array
+     */
+    public function getUsersAndProcess(array $config): array
+    {
+        $processUsers = [];
+
+        foreach ($config as $field) {
+            $processUsers['process'][$field['process']['id']] = $field['process']['id'];
+
+            foreach ($field['phases'] as $phase) {
+                foreach ($phase['involved']['supervisor'] as $supervisor) {
+                    if ($supervisor['user']) {
+                        $processUsers['users'][$supervisor['id']] = $supervisor['id'];
+                    }
+                }
+
+                foreach ($phase['involved']['work_group'] as $workGroup) {
+                    if ($workGroup['user']) {
+                        $processUsers['users'][$workGroup['id']] = $workGroup['id'];
+                    }
+                }
+            }
+        }
+
+        return $processUsers;
     }
 }

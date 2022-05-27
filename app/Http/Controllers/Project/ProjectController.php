@@ -60,13 +60,21 @@ class ProjectController extends ApiController
         $project->user_id = Auth::id();
         $project->save();
 
-        if ($request->has('processes')) {
-            foreach ($request->get('processes') as $process) {
-                $project->process()->attach($process['id']);
-            }
+        $processAndUsers = $project->getUsersAndProcess($request->get('config'));
+
+        foreach ($processAndUsers['process'] as $process) {
+            $project->process()->attach($process);
+        }
+
+        foreach ($processAndUsers['users'] as $user) {
+            $project->users()->attach($user);
         }
 
         $project->process;
+        $project->users;
+        $project->user;
+        $project->client;
+        $project->projectQuote;
 
         return $this->showOne($project);
     }
@@ -79,6 +87,10 @@ class ProjectController extends ApiController
     public function show(Project $project): JsonResponse
     {
         $project->process;
+        $project->users;
+        $project->user;
+        $project->client;
+        $project->projectQuote;
 
         return $this->showOne($project);
     }
