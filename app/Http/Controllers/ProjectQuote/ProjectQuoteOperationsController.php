@@ -117,6 +117,7 @@ class ProjectQuoteOperationsController extends ApiController
             if (empty($opTotal)) {
                 $result['operation_total']['subtotal'] = $total;
                 $result['operation_total']['total'] = $total;
+                $result['operation_total']['description'][] = [];
             } else {
                 $result['operation_total']['subtotal'] = $total;
                 foreach ($opTotal as $field) {
@@ -124,7 +125,6 @@ class ProjectQuoteOperationsController extends ApiController
                     if (!isset($result['operation_total']['total'])) {
                         $result['operation_total']['total'] = $total;
                     }
-                    dd($field['concepts']);
                     if (empty($field['concepts'])) {
                         $result['operation_total']['description'][] = [];
                     } else {
