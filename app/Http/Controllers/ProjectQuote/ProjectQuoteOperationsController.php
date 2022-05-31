@@ -125,9 +125,9 @@ class ProjectQuoteOperationsController extends ApiController
                         $result['operation_total']['total'] = $total;
                     }
 
-                    if(empty($field['concepts'])){
-                        $result['operation_total']['description'][] = [];
-                    }else{
+                    if (empty($field['concepts'])) {
+                        $result['operation_total']['description'][] = ['hola' => 'hola'];
+                    } else {
                         foreach ($field['concepts'] as $concept) {
                             $result['operation_total']['description'][] = [
                                 'concept_id' => $conceptB->id,
