@@ -67,6 +67,7 @@ class RoleController extends ApiController
      */
     public function show(Role $role): JsonResponse
     {
+        $role->user;
         return $this->showOne($role);
     }
 
