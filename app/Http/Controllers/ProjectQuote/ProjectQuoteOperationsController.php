@@ -126,7 +126,11 @@ class ProjectQuoteOperationsController extends ApiController
                     }
 
                     foreach ($field['concepts'] as $concept) {
-                        $conceptB = Concept::findOrFail($concept['id']);
+                        $conceptB = [];
+                        if (!empty($concept['id'])) {
+                            $conceptB = Concept::findOrFail($concept['id']);
+                        }
+
                         $result['operation_total']['description'][] = [
                             'concept_id' => $conceptB->id,
                             'value_concept' => $this->getValueConcept($conceptB->formula, $conceptB->amount, $total),
