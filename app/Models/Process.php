@@ -24,8 +24,6 @@ class Process extends Model
     /**
      * @var int
      */
-    public static int $FINISHED = 1;
-    public static int $UNFINISHED = 0;
 
     /**
      * The attributes that are mass assignable.

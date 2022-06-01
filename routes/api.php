@@ -76,7 +76,7 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::post('projects/action/start/project/{project}/process/{process}', [ProjectActionController::class, 'startProject']);
     Route::post('projects/action/next/project/{project}/process/{process}', [ProjectActionController::class, 'nextPhaseProcess']);
     Route::post('projects/action/previous/project/{project}/process/{process}', [ProjectActionController::class, 'previousPhaseProcess']);
-    Route::get('projects/action/current/project/{project}/process/{process}', [ProjectActionController::class, 'getCurrentPhaseForm']);
+    Route::post('projects/action/supervision/project/{project}/process/{process}', [ProjectActionController::class, 'supervisionPhase']);
 
 
     //PROJECT QUOTES ROUTES

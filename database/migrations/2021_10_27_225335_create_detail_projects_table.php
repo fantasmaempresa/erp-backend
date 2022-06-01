@@ -25,7 +25,7 @@ class CreateDetailProjectsTable extends Migration
     {
         Schema::create('detail_projects', function (Blueprint $table) {
             $table->id();
-            $table->text('comments');
+            $table->text('comments')->nullable();
             $table->json('form_data');
             $table->boolean('finished')->default(\App\Models\DetailProject::$UNFINISHED);
             $table->foreignId('phases_process_id')->constrained();

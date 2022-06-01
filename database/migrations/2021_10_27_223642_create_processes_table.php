@@ -28,7 +28,6 @@ class CreateProcessesTable extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->json('config')->nullable();
-            $table->boolean('finished')->default(\App\Models\Process::$UNFINISHED);
             $table->timestamps();
         });
     }
