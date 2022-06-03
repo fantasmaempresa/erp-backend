@@ -112,7 +112,6 @@ class ProjectActionController extends ApiController
     public function nextPhaseProcess(Request $request, Project $project, Process $process): JsonResponse
     {
         $this->validate($request, [
-            'form' => 'required|array',
             'comments' => 'nullable|string',
         ]);
 
@@ -132,8 +131,6 @@ class ProjectActionController extends ApiController
 
         $currentDetail->finished = DetailProject::$FINISHED;
         $currentDetail->comments = $request->get('comments');
-        // phpcs:ignore
-        $currentDetail->form_data = $request->get('form');
 
         $currentPhaseConfig = [];
         foreach ($currentProcess->config['order_phases'] as $config) {
@@ -229,7 +226,7 @@ class ProjectActionController extends ApiController
 
         // phpcs:ignore
         if (count($currentDetail->form_data['rules']['supervisor']) === $countSupervisors) {
-            return $this->errorResponse('Esta fase ya fue revisada por todos sus supervisores', 409);
+            return $this->errorResponse('Esta fase ya fue revisada por todos sus supervisores', 401);
         }
 
         $user = User::findOrFail(Auth::id());
@@ -279,7 +276,76 @@ class ProjectActionController extends ApiController
      */
     public function saveDataFormPhase(Request $request, Project $project, Process $process): JsonResponse
     {
-        return $this->showList([]);
+        $this->validate($request, [
+            'form' => 'required|array',
+            'comments' => 'nullable|string',
+        ]);
+
+        $currentProcess = $this->getCurrentProcess($project, $process);
+        if (is_bool($currentProcess)) {
+            // phpcs:ignore
+            return $this->errorResponse('El proceso [' . $process->name . '] no se encuenta asiganado a este proyecto [' . $project->name . ']', 409);
+        }
+
+        $currentDetail = $this->getCurrentProcessDetail($currentProcess);
+        if (is_bool($currentDetail)) {
+            return $this->errorResponse('El proceso finalizo o aún no se encuentra iniciado', 409);
+        }
+
+        // phpcs:ignore
+        if (!isset($currentDetail->form_data['rules']['work_group'])) {
+            return $this->errorResponse('Aún no esta iniciado este proceso', 409);
+        }
+
+        $countWorkGroup = 0;
+        // phpcs:ignore
+        foreach ($currentDetail->form_data['rules']['work_group'] as $workGroup) {
+            if (isset($workGroup['supervision'])) {
+                $countWorkGroup++;
+            }
+        }
+        // phpcs:ignore
+        if ($countWorkGroup === count($currentDetail->form_data['rules']['work_group'])) {
+            return $this->errorResponse('Esta fase ya fue atendida por todo el equipo de trabajo', 401);
+        }
+
+        $user = User::findOrFail(Auth::id());
+        $workGroups = [];
+        $continue = false;
+        // phpcs:ignore
+        foreach ($currentDetail->form_data['rules']['work_group'] as $workGroup) {
+            if (($workGroup['user'] && $workGroup['id'] === $user->id) || (!$workGroup['user'] && $workGroup['id'] === $user->role->id)) {
+                $workGroup['supervision'] = [
+                    'supervision' => true,
+                    'datetime' => date('d-m-y h:i:s'),
+                    'user' => $user,
+                ];
+                $continue = true;
+            }
+
+            $workGroups[] = $workGroup;
+        }
+
+        if ($continue) {
+            // phpcs:ignore
+            $currentDetail = $this->getCurrentProcessDetail(
+                $currentProcess,
+                true,
+                [
+                    // phpcs:ignore
+                    'form' => $request->get('form'),
+                    'rules' => [
+                        // phpcs:ignore
+                        'supervisor' => $currentDetail->form_data['rules']['supervisor'],
+                        'work_group' => $workGroups,
+                    ],
+                ]
+            );
+        } else {
+            return $this->errorResponse('Este usuario no puede contribuir en esta fase', 401);
+        }
+
+        return $this->successResponse('Formulario guardado con éxito', 200);
     }
 
     /**

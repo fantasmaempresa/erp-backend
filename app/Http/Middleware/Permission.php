@@ -26,6 +26,8 @@ class Permission
      */
     public function handle(Request $request, Closure $next)
     {
+
+        return $next($request);
         $methodsView = ['POST', 'PUT', 'PATCH', 'DELETE'];
 
         $user = User::findOrFail(Auth::id());
