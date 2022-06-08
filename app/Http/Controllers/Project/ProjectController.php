@@ -66,9 +66,12 @@ class ProjectController extends ApiController
             $project->process()->attach($process);
         }
 
-        foreach ($processAndUsers['users'] as $user) {
-            $project->users()->attach($user);
+        if (!empty($processAndUsers['users'])) {
+            foreach ($processAndUsers['users'] as $user) {
+                $project->users()->attach($user);
+            }
         }
+
 
         $project->process;
         $project->users;
