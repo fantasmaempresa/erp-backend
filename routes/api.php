@@ -20,6 +20,7 @@ use App\Http\Controllers\Process\ProcessController;
 use App\Http\Controllers\ProcessProject\ProcessProjectController;
 use App\Http\Controllers\Project\ProjectActionController;
 use App\Http\Controllers\Project\ProjectController;
+use App\Http\Controllers\Project\ProjectFilterController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteFilterController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteOperationsController;
@@ -78,6 +79,8 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::post('projects/action/previous/project/{project}/process/{process}', [ProjectActionController::class, 'previousPhaseProcess']);
     Route::post('projects/action/supervision/project/{project}/process/{process}', [ProjectActionController::class, 'supervisionPhase']);
     Route::post('projects/action/saveForm/project/{project}/process/{process}', [ProjectActionController::class, 'saveDataFormPhase']);
+
+    Route::get('projects/filter/currentForm/project/{project}/process/{process}', [ProjectFilterController::class, 'getCurrentPhaseForm']);
 
 
     //PROJECT QUOTES ROUTES

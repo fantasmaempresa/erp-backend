@@ -44,6 +44,7 @@ class ProjectActionController extends ApiController
         if ($project->user_id !== Auth::id()) {
             return $this->errorResponse('this user not create project', 409);
         }
+
         $currentProcess = $this->getCurrentProcess($project, $process);
 
         if (is_bool($currentProcess)) {
