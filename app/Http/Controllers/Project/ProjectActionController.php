@@ -13,9 +13,11 @@ use App\Models\PhasesProcess;
 use App\Models\Process;
 use App\Models\Project;
 use App\Models\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @access  public
@@ -65,6 +67,8 @@ class ProjectActionController extends ApiController
                 $currentPhase = $phase;
             }
         }
+
+        $phase = PhasesProcess::findOrFail($currentPhase['phase']['id']);
         $currentInvolved = [];
         foreach ($project->config as $config) {
             if ($config['process']['id'] === $currentProcess->id) {
@@ -76,7 +80,6 @@ class ProjectActionController extends ApiController
             }
         }
 
-        $phase = PhasesProcess::findOrFail($currentPhase['phase']['id']);
 
         $detailProject = new DetailProject();
         $detailProject->comments = $request->get('comments');
@@ -89,13 +92,13 @@ class ProjectActionController extends ApiController
 
 
         $detailProject->processProject()->attach($currentProcess->pivot->id);
-        foreach ($project->process as $process) {
+        foreach ($project->process as $processes) {
             //TODO verificar la relación para acceder a través de los modelos
-            $detailProcesses = DetailProjectProcessProject::where('process_project_id', $process->pivot->id)->get();
+            $detailProcesses = DetailProjectProcessProject::where('process_project_id', $processes->pivot->id)->get();
             foreach ($detailProcesses as $dProcess) {
                 $dProcess->detailProject;
             }
-            $process->detailProcess = $detailProcesses;
+            $processes->detailProcess = $detailProcesses;
         }
 
         return $this->showList($project);
@@ -116,62 +119,20 @@ class ProjectActionController extends ApiController
             'comments' => 'nullable|string',
         ]);
 
-        $currentProcess = $this->getCurrentProcess($project, $process);
-        if (is_bool($currentProcess)) {
+        if ($this->validProjectProcess($project, $process)) {
             // phpcs:ignore
-            return $this->errorResponse('El proceso [' . $process->name . '] no se encuenta asiganado a este proyecto [' . $project->name . ']', 409);
-        }
-
-        $user = Auth::user();
-        //TODO resivar las reglas de los usuarios para que se pueda pasar a la siguiente fase, también ver si ya hicieron la supervisión
-        $currentDetail = $this->getCurrentProcessDetail($currentProcess);
-
-        if (is_bool($currentDetail)) {
-            return $this->errorResponse('the process finish', 409);
-        }
-
-        $currentDetail->finished = DetailProject::$FINISHED;
-        $currentDetail->comments = $request->get('comments');
-
-        $currentPhaseConfig = [];
-        foreach ($currentProcess->config['order_phases'] as $config) {
-            // phpcs:ignore
-            if ($config['phase']['id'] === $currentDetail->phases_process_id) {
-                $currentPhaseConfig = $config;
-            }
-        }
-        $nextPhase = [];
-        foreach ($currentProcess->config['order_phases'] as $config) {
-            if ($config['order'] === ($currentPhaseConfig['order'] + 1)) {
-                $nextPhase = $config;
-            }
+            return $this->errorResponse($this->validProjectProcess($project, $process), 409);
         }
 
 
-        if (!empty($nextPhase)) {
-            $currentDetail->save();
-            $detailProject = new DetailProject();
-            $detailProject->comments = 'test';
-            $detailProject->finished = DetailProject::$CURRENT;
-            // phpcs:ignore
-            $detailProject->phases_process_id = $nextPhase['phase']['id'];
-            // phpcs:ignore
-            $detailProject->form_data = ['form' => [], 'rules' => []];;
-            $detailProject->save();
-            $detailProject->processProject()->attach($currentProcess->pivot->id);
+        if ($this->newDetailPhaseProcess($project, $process, $request->get('comments'))) {
 
-            foreach ($project->process as $process) {
-                $detailProcesses = DetailProjectProcessProject::where('process_project_id', $process->pivot->id)->get();
-                foreach ($detailProcesses as $dProcess) {
-                    $dProcess->detailProject;
-                }
-                $process->detailProcess = $detailProcesses;
-            }
+            return $this->showList($project);
         } else {
+
             return $this->errorResponse('this phase not have next', 409);
         }
 
-        return $this->showList($project);
     }
 
     /**
@@ -374,7 +335,7 @@ class ProjectActionController extends ApiController
      *
      * @return mixed
      */
-    public function getCurrentProcessDetail(mixed $currentProcess, ?bool $update = false, ?array $formData = []): mixed
+    public function getCurrentDetailProcessProject(mixed $currentProcess, ?bool $update = false, ?array $formData = []): mixed
     {
         $detailProjectProcess = DetailProjectProcessProject::where('process_project_id', $currentProcess->pivot->id)->get();
         $currentDetail = false;
@@ -390,6 +351,98 @@ class ProjectActionController extends ApiController
         }
 
         return $currentDetail;
+    }
+
+    /**
+     * @param Project $project
+     * @param Process $process
+     *
+     * @return bool
+     */
+    public function newDetailPhaseProcess(Project $project, Process $process, string $comments): bool
+    {
+        $currentProcess = $this->getCurrentProcess($project, $process);
+        $currentDetailProcessProject = $this->getCurrentDetailProcessProject($this->getCurrentProcess($project, $process));
+        $currentDetailProcessProject->finished = DetailProject::$FINISHED;
+        $currentDetailProcessProject->comments = $comments;
+
+        $currentPhaseConfig = [];
+        $nextPhase = [];
+        foreach ($currentProcess->config['order_phases'] as $config) {
+            // phpcs:ignore
+            if ($config['phase']['id'] === $currentDetailProcessProject->phases_process_id) {
+                $currentPhaseConfig = $config;
+            }
+        }
+
+        foreach ($currentProcess->config['order_phases'] as $config) {
+            //TODO validar si salto o previo de fase para sumar o checar
+            if ($config['order'] === ($currentPhaseConfig['order'] + 1)) {
+                $nextPhase = $config;
+            }
+        }
+        $currentInvolved = [];
+        foreach ($project->config as $projectConfig) {
+            if ($projectConfig['process']['id'] === $currentProcess->id) {
+                foreach ($projectConfig['phases'] as $phase) {
+                    if ($phase['phase']['id'] === $nextPhase['id']) {
+                        $currentInvolved = $phase['involved'];
+                    }
+                }
+            }
+        }
+
+        if (!empty($nextPhase)) {
+            DB::beginTransaction();
+            try {
+                $currentDetailProcessProject->save();
+
+                $detailProject = new DetailProject();
+                $detailProject->comments = 'Phase in progress';
+                $detailProject->finished = DetailProject::$CURRENT;
+                // phpcs:ignore
+                $detailProject->phases_process_id = $nextPhase['phase']['id'];
+                // phpcs:ignore
+                $detailProject->form_data = ['form' => $nextPhase['phase']['form'], 'rules' => $currentInvolved];
+                $detailProject->save();
+                $detailProject->processProject()->attach($currentProcess->pivot->id);
+                DB::commit();
+//                foreach ($project->process as $pProcess) {
+//                    $detailProcesses = DetailProjectProcessProject::where('process_project_id', $pProcess->pivot->id)->get();
+//                    foreach ($detailProcesses as $dProcess) {
+//                        $dProcess->detailProject;
+//                    }
+//                    $pProcess->detailProcess = $detailProcesses;
+//                }
+            } catch (QueryException $e) {
+                DB::rollBack();
+
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @param Project $project
+     * @param Process $process
+     *
+     * @return bool|array
+     */
+    public function validProjectProcess(Project $project, Process $process): bool|array
+    {
+        $message = false;
+
+        if (is_bool($this->getCurrentProcess($project, $process))) {
+            $message = 'El proceso [' . $process->name . '] no se encuenta asiganado a este proyecto [' . $project->name . ']';
+        }
+
+        if (is_bool($this->getCurrentDetailProcessProject($this->getCurrentProcess($project, $process)))) {
+            $message = 'the process finish';
+        }
+
+        return $message;
     }
 
 }
