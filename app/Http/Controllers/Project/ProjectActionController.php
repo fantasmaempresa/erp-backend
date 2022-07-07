@@ -48,14 +48,12 @@ class ProjectActionController extends ApiController
         }
 
         $currentProcess = $this->getCurrentProcess($project, $process);
-
         if (is_bool($currentProcess)) {
             // phpcs:ignore
             return $this->errorResponse('El proceso [' . $process->name . '] no se encuenta asiganado a este proyecto [' . $project->name . ']', 409);
         }
 
         $detailProcesses = DetailProjectProcessProject::where('process_project_id', $currentProcess->pivot->id)->first();
-
         if (!empty($detailProcesses)) {
             // phpcs:ignore
             return $this->errorResponse('El proceso [' . $process->name . '] del proyecto [' . $project->name . '] ya esta iniciado consulte el formulario en curso', 409);
@@ -64,44 +62,22 @@ class ProjectActionController extends ApiController
         $currentPhase = [];
         foreach ($process->config['order_phases'] as $phase) {
             if ($phase['order'] === 1) {
-                $currentPhase = $phase;
+                $currentPhase = PhasesProcess::findOrFail($phase['phase']['id']);
             }
         }
 
-        $phase = PhasesProcess::findOrFail($currentPhase['phase']['id']);
         $currentInvolved = [];
         foreach ($project->config as $config) {
             if ($config['process']['id'] === $currentProcess->id) {
                 foreach ($config['phases'] as $phase) {
-                    if ($phase['phase']['id'] === $currentPhase['phase']['id']) {
+                    if ($phase['phase']['id'] === $currentPhase->id) {
                         $currentInvolved = $phase['involved'];
                     }
                 }
             }
         }
 
-
-        $detailProject = new DetailProject();
-        $detailProject->comments = $request->get('comments');
-        $detailProject->finished = DetailProject::$CURRENT;
-        // phpcs:ignore
-        $detailProject->phases_process_id = $phase->id;
-        // phpcs:ignore
-        $detailProject->form_data = ['form' => $phase->form, 'rules' => $currentInvolved];
-        $detailProject->save();
-
-
-        $detailProject->processProject()->attach($currentProcess->pivot->id);
-        foreach ($project->process as $processes) {
-            //TODO verificar la relación para acceder a través de los modelos
-            $detailProcesses = DetailProjectProcessProject::where('process_project_id', $processes->pivot->id)->get();
-            foreach ($detailProcesses as $dProcess) {
-                $dProcess->detailProject;
-            }
-            $processes->detailProcess = $detailProcesses;
-        }
-
-        return $this->showList($project);
+        return $this->showList($this->newDetailProject($project, $currentProcess, $currentPhase, $currentInvolved));
     }
 
     /**
@@ -117,6 +93,7 @@ class ProjectActionController extends ApiController
     {
         $this->validate($request, [
             'comments' => 'nullable|string',
+            'prev' => 'required|bool',
         ]);
 
         if ($this->validProjectProcess($project, $process)) {
@@ -124,27 +101,17 @@ class ProjectActionController extends ApiController
             return $this->errorResponse($this->validProjectProcess($project, $process), 409);
         }
 
+        $currentDetail = $this->getCurrentDetailProcessProject($this->getCurrentProcess($project, $process));
 
-        if ($this->newDetailPhaseProcess($project, $process, $request->get('comments'))) {
 
-            return $this->showList($project);
+        $response = $this->newDetailProjectProcess($project, $process, $request->get('comments'), $request->get('prev'));
+        if ($response) {
+            $response = $this->showList($response);
         } else {
-
-            return $this->errorResponse('this phase not have next', 409);
+            $response = $this->errorResponse('this phase not have next or previous', 409);
         }
 
-    }
-
-    /**
-     * @param Request $request
-     * @param Project $project
-     * @param Process $process
-     *
-     * @return JsonResponse
-     */
-    public function previousPhaseProcess(Request $request, Project $project, Process $process): JsonResponse
-    {
-        return $this->showList([]);
+        return $response;
     }
 
     /**
@@ -162,17 +129,13 @@ class ProjectActionController extends ApiController
             'comments' => 'nullable|string',
         ]);
 
-        $currentProcess = $this->getCurrentProcess($project, $process);
-        if (is_bool($currentProcess)) {
+        if ($this->validProjectProcess($project, $process)) {
             // phpcs:ignore
-            return $this->errorResponse('El proceso [' . $process->name . '] no se encuenta asiganado a este proyecto [' . $project->name . ']', 409);
+            return $this->errorResponse($this->validProjectProcess($project, $process), 409);
         }
 
-        $currentDetail = $this->getCurrentProcessDetail($currentProcess);
-        if (is_bool($currentDetail)) {
-            return $this->errorResponse('El proceso finalizo o aún no se encuentra iniciado', 409);
-        }
-
+        $currentProcess = $this->getCurrentProcess($project, $process);
+        $currentDetail = $this->getCurrentDetailProcessProject($currentProcess);
         // phpcs:ignore
         if (!isset($currentDetail->form_data['rules']['supervisor'])) {
             return $this->errorResponse('Aún no esta iniciado este proceso', 409);
@@ -209,7 +172,7 @@ class ProjectActionController extends ApiController
         }
         if ($continue) {
             // phpcs:ignore
-            $currentDetail = $this->getCurrentProcessDetail(
+            $currentDetail = $this->getCurrentDetailProcessProject(
                 $currentProcess,
                 true,
                 [
@@ -227,6 +190,28 @@ class ProjectActionController extends ApiController
         }
 
         return $this->successResponse('supervisado con éxito', 200);
+    }
+
+    /**
+     * @param array $rules
+     *
+     * @return bool
+     */
+    public function checkSupervisionPhaseProcess(array $rules): bool
+    {
+        $countSupervision = 0;
+        // phpcs:ignore
+        foreach ($rules as $supervision) {
+            if (isset($supervision['supervision'])) {
+                $countSupervision++;
+            }
+        }
+        // phpcs:ignore
+        if ($countSupervision === count($rules)) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -249,7 +234,7 @@ class ProjectActionController extends ApiController
             return $this->errorResponse('El proceso [' . $process->name . '] no se encuenta asiganado a este proyecto [' . $project->name . ']', 409);
         }
 
-        $currentDetail = $this->getCurrentProcessDetail($currentProcess);
+        $currentDetail = $this->getCurrentDetailProcessProject($currentProcess);
         if (is_bool($currentDetail)) {
             return $this->errorResponse('El proceso finalizo o aún no se encuentra iniciado', 409);
         }
@@ -290,7 +275,7 @@ class ProjectActionController extends ApiController
 
         if ($continue) {
             // phpcs:ignore
-            $currentDetail = $this->getCurrentProcessDetail(
+            $currentDetail = $this->getCurrentDetailProcessProject(
                 $currentProcess,
                 true,
                 [
@@ -356,10 +341,11 @@ class ProjectActionController extends ApiController
     /**
      * @param Project $project
      * @param Process $process
+     * @param string $comments
      *
-     * @return bool
+     * @return bool|Project
      */
-    public function newDetailPhaseProcess(Project $project, Process $process, string $comments): bool
+    public function newDetailProjectProcess(Project $project, Process $process, string $comments, ?bool $prev = false): bool|Project
     {
         $currentProcess = $this->getCurrentProcess($project, $process);
         $currentDetailProcessProject = $this->getCurrentDetailProcessProject($this->getCurrentProcess($project, $process));
@@ -368,24 +354,34 @@ class ProjectActionController extends ApiController
 
         $currentPhaseConfig = [];
         $nextPhase = [];
+        $lastOrder = 0;
         foreach ($currentProcess->config['order_phases'] as $config) {
             // phpcs:ignore
             if ($config['phase']['id'] === $currentDetailProcessProject->phases_process_id) {
                 $currentPhaseConfig = $config;
             }
+            if ($lastOrder < $config['order']) {
+                $lastOrder = $config['order'];
+            }
+        }
+
+        if (($prev && $currentPhaseConfig['order'] === 1) || (!$prev && $currentPhaseConfig['order'] === $lastOrder)) {
+            return false;
         }
 
         foreach ($currentProcess->config['order_phases'] as $config) {
-            //TODO validar si salto o previo de fase para sumar o checar
-            if ($config['order'] === ($currentPhaseConfig['order'] + 1)) {
-                $nextPhase = $config;
+            if ($prev && $config['order'] === $currentPhaseConfig['order']) {
+                $nextPhase = PhasesProcess::findOrFail($config['previous']['phase']['id']);
+            } elseif ($config['order'] === ($currentPhaseConfig['order'] + 1)) {
+                $nextPhase = PhasesProcess::findOrFail($config['phase']['id']);
             }
         }
+
         $currentInvolved = [];
         foreach ($project->config as $projectConfig) {
             if ($projectConfig['process']['id'] === $currentProcess->id) {
                 foreach ($projectConfig['phases'] as $phase) {
-                    if ($phase['phase']['id'] === $nextPhase['id']) {
+                    if ($phase['phase']['id'] === $nextPhase->id) {
                         $currentInvolved = $phase['involved'];
                     }
                 }
@@ -396,24 +392,9 @@ class ProjectActionController extends ApiController
             DB::beginTransaction();
             try {
                 $currentDetailProcessProject->save();
-
-                $detailProject = new DetailProject();
-                $detailProject->comments = 'Phase in progress';
-                $detailProject->finished = DetailProject::$CURRENT;
-                // phpcs:ignore
-                $detailProject->phases_process_id = $nextPhase['phase']['id'];
-                // phpcs:ignore
-                $detailProject->form_data = ['form' => $nextPhase['phase']['form'], 'rules' => $currentInvolved];
-                $detailProject->save();
-                $detailProject->processProject()->attach($currentProcess->pivot->id);
+                $project = $this->newDetailProject($project, $currentProcess, $nextPhase, $currentInvolved);
                 DB::commit();
-//                foreach ($project->process as $pProcess) {
-//                    $detailProcesses = DetailProjectProcessProject::where('process_project_id', $pProcess->pivot->id)->get();
-//                    foreach ($detailProcesses as $dProcess) {
-//                        $dProcess->detailProject;
-//                    }
-//                    $pProcess->detailProcess = $detailProcesses;
-//                }
+
             } catch (QueryException $e) {
                 DB::rollBack();
 
@@ -421,16 +402,46 @@ class ProjectActionController extends ApiController
             }
         }
 
-        return true;
+        return $project;
+    }
+
+    /**
+     * @param Project $project
+     * @param mixed $currentProcess
+     * @param PhasesProcess $phasesProcess
+     * @param array $currentInvolved
+     *
+     * @return Project
+     */
+    public function newDetailProject(Project $project, mixed $currentProcess, PhasesProcess $phasesProcess, array $currentInvolved): Project
+    {
+        $detailProject = new DetailProject();
+        $detailProject->comments = 'Phase in progress';
+        $detailProject->finished = DetailProject::$CURRENT;
+        // phpcs:ignore
+        $detailProject->phases_process_id = $phasesProcess->id;
+        // phpcs:ignore
+        $detailProject->form_data = ['form' => $phasesProcess->form, 'rules' => $currentInvolved];
+        $detailProject->save();
+        $detailProject->processProject()->attach($currentProcess->pivot->id);
+        foreach ($project->process as $pProcess) {
+            $detailProcesses = DetailProjectProcessProject::where('process_project_id', $pProcess->pivot->id)->get();
+            foreach ($detailProcesses as $dProcess) {
+                $dProcess->detailProject;
+            }
+            $pProcess->detailProcess = $detailProcesses;
+        }
+
+        return $project;
     }
 
     /**
      * @param Project $project
      * @param Process $process
      *
-     * @return bool|array
+     * @return bool|string
      */
-    public function validProjectProcess(Project $project, Process $process): bool|array
+    public function validProjectProcess(Project $project, Process $process): bool|string
     {
         $message = false;
 
@@ -439,7 +450,7 @@ class ProjectActionController extends ApiController
         }
 
         if (is_bool($this->getCurrentDetailProcessProject($this->getCurrentProcess($project, $process)))) {
-            $message = 'the process finish';
+            $message = 'the process finish or not init';
         }
 
         return $message;
