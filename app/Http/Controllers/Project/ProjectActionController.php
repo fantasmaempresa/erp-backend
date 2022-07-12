@@ -141,36 +141,10 @@ class ProjectActionController extends ApiController
             return $this->errorResponse('Aún no esta iniciado este proceso', 409);
         }
 
-        $countSupervisors = 0;
-        // phpcs:ignore
-        foreach ($currentDetail->form_data['rules']['supervisor'] as $supervisor) {
-            if (isset($supervisor['supervision'])) {
-                $countSupervisors++;
-            }
-        }
-
-        // phpcs:ignore
-        if (count($currentDetail->form_data['rules']['supervisor']) === $countSupervisors) {
-            return $this->errorResponse('Esta fase ya fue revisada por todos sus supervisores', 401);
-        }
-
         $user = User::findOrFail(Auth::id());
-        $supervisors = [];
-        $continue = false;
         // phpcs:ignore
-        foreach ($currentDetail->form_data['rules']['supervisor'] as $supervisor) {
-            if (($supervisor['user'] && $supervisor['id'] === $user->id) || (!$supervisor['user'] && $supervisor['id'] === $user->role->id)) {
-                $supervisor['supervision'] = [
-                    'supervision' => true,
-                    'datetime' => date('d-m-y h:i:s'),
-                    'user' => $user,
-                ];
-                $continue = true;
-            }
-
-            $supervisors[] = $supervisor;
-        }
-        if ($continue) {
+        $supervisors = $this->checkSupervisionPhaseProcess($currentDetail->form_data['rules']['supervisor'], $user);
+        if ($supervisors) {
             // phpcs:ignore
             $currentDetail = $this->getCurrentDetailProcessProject(
                 $currentProcess,
@@ -193,87 +167,31 @@ class ProjectActionController extends ApiController
     }
 
     /**
-     * @param array $rules
-     *
-     * @return bool
-     */
-    public function checkSupervisionPhaseProcess(array $rules): bool
-    {
-        $countSupervision = 0;
-        // phpcs:ignore
-        foreach ($rules as $supervision) {
-            if (isset($supervision['supervision'])) {
-                $countSupervision++;
-            }
-        }
-        // phpcs:ignore
-        if ($countSupervision === count($rules)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
      * @param Request $request
      * @param Project $project
      * @param Process $process
      *
      * @return JsonResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function saveDataFormPhase(Request $request, Project $project, Process $process): JsonResponse
     {
         $this->validate($request, [
             'form' => 'required|array',
-            'comments' => 'nullable|string',
         ]);
 
-        $currentProcess = $this->getCurrentProcess($project, $process);
-        if (is_bool($currentProcess)) {
+        if ($this->validProjectProcess($project, $process)) {
             // phpcs:ignore
-            return $this->errorResponse('El proceso [' . $process->name . '] no se encuenta asiganado a este proyecto [' . $project->name . ']', 409);
+            return $this->errorResponse($this->validProjectProcess($project, $process), 409);
         }
 
+        $currentProcess = $this->getCurrentProcess($project, $process);
         $currentDetail = $this->getCurrentDetailProcessProject($currentProcess);
-        if (is_bool($currentDetail)) {
-            return $this->errorResponse('El proceso finalizo o aún no se encuentra iniciado', 409);
-        }
-
-        // phpcs:ignore
-        if (!isset($currentDetail->form_data['rules']['work_group'])) {
-            return $this->errorResponse('Aún no esta iniciado este proceso', 409);
-        }
-
-        $countWorkGroup = 0;
-        // phpcs:ignore
-        foreach ($currentDetail->form_data['rules']['work_group'] as $workGroup) {
-            if (isset($workGroup['supervision'])) {
-                $countWorkGroup++;
-            }
-        }
-        // phpcs:ignore
-        if ($countWorkGroup === count($currentDetail->form_data['rules']['work_group'])) {
-            return $this->errorResponse('Esta fase ya fue atendida por todo el equipo de trabajo', 401);
-        }
-
         $user = User::findOrFail(Auth::id());
-        $workGroups = [];
-        $continue = false;
         // phpcs:ignore
-        foreach ($currentDetail->form_data['rules']['work_group'] as $workGroup) {
-            if (($workGroup['user'] && $workGroup['id'] === $user->id) || (!$workGroup['user'] && $workGroup['id'] === $user->role->id)) {
-                $workGroup['supervision'] = [
-                    'supervision' => true,
-                    'datetime' => date('d-m-y h:i:s'),
-                    'user' => $user,
-                ];
-                $continue = true;
-            }
-
-            $workGroups[] = $workGroup;
-        }
-
-        if ($continue) {
+        $workGroups = $this->checkSupervisionPhaseProcess($currentDetail->form_data['rules']['work_group'], $user);
+        if ($workGroups) {
             // phpcs:ignore
             $currentDetail = $this->getCurrentDetailProcessProject(
                 $currentProcess,
@@ -293,6 +211,48 @@ class ProjectActionController extends ApiController
         }
 
         return $this->successResponse('Formulario guardado con éxito', 200);
+    }
+
+    /**
+     * @param array $rules
+     * @param User  $user
+     *
+     * @return bool|array
+     */
+    public function checkSupervisionPhaseProcess(array $rules, User $user): bool|array
+    {
+        //TODO validar que no supervise varías veces la misma persona
+        $countSupervision = 0;
+        foreach ($rules as $supervision) {
+            if (isset($supervision['supervision'])) {
+                $countSupervision++;
+            }
+        }
+
+        if (count($rules) === $countSupervision) {
+            return false;
+        }
+
+        $supervisors['continue'] = false;
+        foreach ($rules as $supervisor) {
+            if (($supervisor['user'] && $supervisor['id'] === $user->id) || (!$supervisor['user'] && $supervisor['id'] === $user->role->id)) {
+                $supervisor['supervision'] = [
+                    'supervision' => true,
+                    'datetime' => date('d-m-y h:i:s'),
+                    'user' => $user,
+                ];
+                $supervisors['continue'] = true;
+            }
+            $supervisors[] = $supervisor;
+        }
+
+        if ($supervisors['continue']) {
+            unset($supervisors['continue']);
+
+            return $supervisors;
+        }
+
+        return false;
     }
 
     /**
@@ -342,6 +302,7 @@ class ProjectActionController extends ApiController
      * @param Project $project
      * @param Process $process
      * @param string $comments
+     * @param bool|null $prev
      *
      * @return bool|Project
      */
