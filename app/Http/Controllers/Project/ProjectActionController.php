@@ -18,6 +18,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use phpseclib3\Crypt\EC\Curves\brainpoolP160r1;
 
 /**
  * @access  public
@@ -102,7 +103,18 @@ class ProjectActionController extends ApiController
         }
 
         $currentDetail = $this->getCurrentDetailProcessProject($this->getCurrentProcess($project, $process));
-
+        // phpcs:ignore
+        if (!isset($currentDetail->form_data['rules']['supervisor']) && !isset($currentDetail->form_data['rules']['work_group'])) {
+            return $this->errorResponse('Aún no esta iniciado este proceso', 409);
+        }
+        $user = User::findOrFail(Auth::id());
+        // phpcs:ignore
+        $workGroups = $this->checkContinueNextPhase($currentDetail->form_data['rules']['work_group'], $user);
+        // phpcs:ignore
+        $supervisors = $this->checkContinueNextPhase($currentDetail->form_data['rules']['supervisor'], $user);
+        if (!$workGroups && !$supervisors) {
+            return $this->errorResponse('Aún no se puede pasar a la siguiente fase', 409);
+        }
 
         $response = $this->newDetailProjectProcess($project, $process, $request->get('comments'), $request->get('prev'));
         if ($response) {
@@ -214,8 +226,38 @@ class ProjectActionController extends ApiController
     }
 
     /**
+     * @param $rules
+     * @param User $user
+     *
+     * @return bool
+     */
+    public function checkContinueNextPhase($rules, User $user): bool
+    {
+        $countSupervision = 0;
+        foreach ($rules as $supervision) {
+            if (isset($supervision['supervision'])) {
+                $countSupervision++;
+            }
+        }
+
+        if (count($rules) !== $countSupervision) {
+            return false;
+        }
+
+        $continue = false;
+        foreach ($rules as $supervisor) {
+            if (($supervisor['user'] && $supervisor['id'] === $user->id) || (!$supervisor['user'] && $supervisor['id'] === $user->role->id)) {
+                $continue = true;
+                break;
+            }
+        }
+
+        return $continue;
+    }
+
+    /**
      * @param array $rules
-     * @param User  $user
+     * @param User $user
      *
      * @return bool|array
      */

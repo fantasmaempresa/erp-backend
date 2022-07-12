@@ -22,6 +22,18 @@ use Illuminate\Support\Facades\Auth;
  */
 class ProjectFilterController extends ApiController
 {
+
+    /**
+     * @return JsonResponse
+     */
+    public function getMyProjects(): JsonResponse
+    {
+        $user = User::findOrFail(Auth::id());
+        $projects = $user->project()->where('finished', Project::$UNFINISHED)->get();
+
+        return $this->showList($projects);
+    }
+
     /**
      * @param Project $project
      * @param Process $process
@@ -46,36 +58,21 @@ class ProjectFilterController extends ApiController
             return $this->errorResponse('El proceso finalizo o aún no ha inicado', 409);
         }
 
-        $response = false;
+        $response = $this->errorResponse('este usuario no tiene persmisos para ver el formulario actual');
 
         // phpcs:ignore
         if (isset($currentDetail->form_data['rules'])) {
             // phpcs:ignore
             foreach ($currentDetail->form_data['rules']['supervisor'] as $supervisor) {
                 // phpcs:ignore
-                if ($supervisor['user'] && $user->id === $supervisor['id']) {
+                if ($supervisor['user'] && $user->id === $supervisor['id'] || $user->role->id === $supervisor['id']) {
                     // phpcs:ignore
-                    $response = $currentDetail->form_data['form'];
-                } elseif ($user->role->id === $supervisor['id']) {
-                    // phpcs:ignore
-                    $response = $currentDetail->form_data['form'];
+                    $response = $this->showList($currentDetail->form_data['form']);
                 }
             }
         }
 
-        if ($response) {
-            return $this->showList($response);
-        } else {
-            return $this->errorResponse('este usuario no tiene persmisos para ver el formulario actual');
-        }
-    }
-
-    /**
-     * @return JsonResponse
-     */
-    public function getMyProjects(): JsonResponse
-    {
-
+        return $response;
     }
 
     /**
