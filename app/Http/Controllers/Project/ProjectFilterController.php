@@ -12,6 +12,7 @@ use App\Models\DetailProjectProcessProject;
 use App\Models\Process;
 use App\Models\Project;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,12 +25,16 @@ class ProjectFilterController extends ApiController
 {
 
     /**
+     * @param Request $request
+     *
      * @return JsonResponse
      */
-    public function getMyProjects(): JsonResponse
+    public function getMyProjects(Request $request): JsonResponse
     {
+        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+
         $user = User::findOrFail(Auth::id());
-        $projects = $user->project()->where('finished', Project::$UNFINISHED)->get();
+        $projects = $user->project()->where('finished', Project::$UNFINISHED)->with('process')->paginate($paginate);
 
         return $this->showList($projects);
     }

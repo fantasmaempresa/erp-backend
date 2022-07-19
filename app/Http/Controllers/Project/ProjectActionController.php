@@ -442,6 +442,7 @@ class ProjectActionController extends ApiController
      * @param Project $project
      * @param Process $process
      *
+     *
      * @return bool|string
      */
     public function validProjectProcess(Project $project, Process $process): bool|string
