@@ -63,7 +63,7 @@ class ProjectFilterController extends ApiController
             return $this->errorResponse('El proceso finalizo o aún no ha inicado', 409);
         }
 
-        $response = $this->errorResponse('este usuario no tiene persmisos para ver el formulario actual');
+        $response = $this->errorResponse('este usuario no tiene persmisos para ver el formulario actual', 401);
 
         // phpcs:ignore
         if (isset($currentDetail->form_data['rules'])) {
