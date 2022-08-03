@@ -219,7 +219,7 @@ class ProjectActionController extends ApiController
                 ]
             );
         } else {
-            return $this->errorResponse('Este usuario no puede contribuir en esta fase', 401);
+            return $this->errorResponse('Este usuario no puede contribuir en esta fase', 409);
         }
 
         return $this->successResponse('Formulario guardado con éxito', 200);
