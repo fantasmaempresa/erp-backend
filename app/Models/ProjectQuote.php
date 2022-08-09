@@ -124,7 +124,31 @@ class ProjectQuote extends Model
     }
 
     /**
-     * @param int    $statusNotify
+     * @param $query
+     * @param string $field
+     * @param mixed $value
+     * @param string $order
+     *
+     * @return mixed
+     */
+    public function scopeFilter($query, string $field, mixed $value, User $user): mixed
+    {
+        $queryW[] = [$field, $value];
+        if ($user->role_id !== Role::$ADMIN) {
+            $queryW[] = ['user_id', $user->id];
+        }
+
+        return $query->where($queryW)
+            ->orderBy('id', 'DESC')
+            ->with('user')
+            ->with('project')
+            ->with('client')
+            ->with('statusQuote')
+            ->with('concept');
+    }
+
+    /**
+     * @param int $statusNotify
      * @param string $name
      *
      * @return array

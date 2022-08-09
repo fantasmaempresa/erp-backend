@@ -30,17 +30,11 @@ class ProjectQuoteFilterController extends ApiController
      */
     public function getQuotesStart(Request $request): JsonResponse
     {
-        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+        $user = User::findOrFail(Auth::id());
 
         return $this->showList(
-            ProjectQuote::where('status_quote_id', StatusQuote::$START)
-                ->orderBy('id', 'DESC')
-                ->with('user')
-                ->with('project')
-                ->with('client')
-                ->with('statusQuote')
-                ->with('concept')
-                ->paginate($paginate)
+            ProjectQuote::filter('status_quote_id', StatusQuote::$START, $user)
+                ->paginate(empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate'))
         );
     }
 
@@ -51,17 +45,11 @@ class ProjectQuoteFilterController extends ApiController
      */
     public function getQuotesReview(Request $request): JsonResponse
     {
-        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+        $user = User::findOrFail(Auth::id());
 
         return $this->showList(
-            ProjectQuote::where('status_quote_id', StatusQuote::$REVIEW)
-                ->orderBy('id', 'DESC')
-                ->with('user')
-                ->with('project')
-                ->with('client')
-                ->with('statusQuote')
-                ->with('concept')
-                ->paginate($paginate)
+            ProjectQuote::filter('status_quote_id', StatusQuote::$REVIEW, $user)
+                ->paginate(empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate'))
         );
     }
 
@@ -72,17 +60,11 @@ class ProjectQuoteFilterController extends ApiController
      */
     public function getQuotesApproved(Request $request): JsonResponse
     {
-        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+        $user = User::findOrFail(Auth::id());
 
         return $this->showList(
-            ProjectQuote::where('status_quote_id', StatusQuote::$APPROVED)
-                ->orderBy('id', 'DESC')
-                ->with('user')
-                ->with('project')
-                ->with('client')
-                ->with('statusQuote')
-                ->with('concept')
-                ->paginate($paginate)
+            ProjectQuote::filter('status_quote_id', StatusQuote::$APPROVED, $user)
+                ->paginate(empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate'))
         );
     }
 
@@ -93,17 +75,11 @@ class ProjectQuoteFilterController extends ApiController
      */
     public function getQuotesFinish(Request $request): JsonResponse
     {
-        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+        $user = User::findOrFail(Auth::id());
 
         return $this->showList(
-            ProjectQuote::where('status_quote_id', StatusQuote::$FINISH)
-                ->orderBy('id', 'DESC')
-                ->with('user')
-                ->with('project')
-                ->with('client')
-                ->with('statusQuote')
-                ->with('concept')
-                ->paginate($paginate)
+            ProjectQuote::filter('status_quote_id', StatusQuote::$FINISH, $user)
+                ->paginate(empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate'))
         );
     }
 
@@ -114,17 +90,11 @@ class ProjectQuoteFilterController extends ApiController
      */
     public function getQuotesByUser(Request $request): JsonResponse
     {
-        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+        $user = User::findOrFail(Auth::id());
 
         return $this->showList(
-            ProjectQuote::where('user_id', Auth::id())
-                ->orderBy('id', 'DESC')
-                ->with('user')
-                ->with('project')
-                ->with('client')
-                ->with('statusQuote')
-                ->with('concept')
-                ->paginate($paginate)
+            ProjectQuote::filter('user_id', Auth::id(), $user)
+                ->paginate(empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate'))
         );
     }
 
@@ -138,18 +108,11 @@ class ProjectQuoteFilterController extends ApiController
     public function getQuotesUser(Request $request): JsonResponse
     {
         $this->validate($request, ['user_id' => 'required']);
-
-        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+        $user = User::findOrFail(Auth::id());
 
         return $this->showList(
-            ProjectQuote::where('user_id', $request->get('user_id'))
-                ->orderBy('id', 'DESC')
-                ->with('user')
-                ->with('project')
-                ->with('client')
-                ->with('statusQuote')
-                ->with('concept')
-                ->paginate($paginate)
+            ProjectQuote::filter('user_id', $request->get('user_id'), $user)
+                ->paginate(empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate'))
         );
     }
 
@@ -163,18 +126,11 @@ class ProjectQuoteFilterController extends ApiController
     public function getQuotesByClient(Request $request): JsonResponse
     {
         $this->validate($request, ['client_id' => 'required']);
-
-        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+        $user = User::findOrFail(Auth::id());
 
         return $this->showList(
-            ProjectQuote::where('client_id', $request->get('client_id'))
-                ->orderBy('id', 'DESC')
-                ->with('user')
-                ->with('project')
-                ->with('client')
-                ->with('statusQuote')
-                ->with('concept')
-                ->paginate($paginate)
+            ProjectQuote::filter('client_id', $request->get('client_id'), $user)
+                ->paginate(empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate'))
         );
     }
 }
