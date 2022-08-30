@@ -119,14 +119,14 @@ class Handler extends ExceptionHandler
         }
 
         if ($e instanceof QueryException) {
-            $code = $e->errorInfo[1];
+            return $this->errorResponse($e->getMessage(), $e->getSattusCode());
 
-            if (1451 === $code) {
-                return $this->errorResponse(
-                    'No se puede elminar de forma permanente el recurso por que esta relacionado con otro',
-                    409
-                );
-            }
+//            if (1451 === $code) {
+//                return $this->errorResponse(
+//                    'No se puede elminar de forma permanente el recurso por que esta relacionado con otro',
+//                    409
+//                );
+//            }
         }
 
         if ($e instanceof InvalidArgumentException) {
