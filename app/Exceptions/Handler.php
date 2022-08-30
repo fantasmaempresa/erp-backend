@@ -119,7 +119,7 @@ class Handler extends ExceptionHandler
         }
 
         if ($e instanceof QueryException) {
-            return $this->errorResponse($e->getMessage(), $e->getCode());
+            return $this->errorResponse($e->getMessage(), 500);
 
 //            if (1451 === $code) {
 //                return $this->errorResponse(
