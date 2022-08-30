@@ -129,10 +129,10 @@ class Handler extends ExceptionHandler
 //            }
         }
 
-        if ($e instanceof InvalidArgumentException) {
-            return $this->errorResponse($e->getMessage(), $e->getCode());
+//        if ($e instanceof InvalidArgumentException) {
+//            return $this->errorResponse($e->getMessage(), $e->getCode());
 //            return $this->errorResponse('No autenticado.', 401);
-        }
+//        }
 
         if (config('app.debug')) {
             return parent::render($request, $e);
