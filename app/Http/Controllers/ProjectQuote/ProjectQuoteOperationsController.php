@@ -161,8 +161,7 @@ class ProjectQuoteOperationsController extends ApiController
                 }
             }
         }
-
-
+        
         return $result;
     }
 
