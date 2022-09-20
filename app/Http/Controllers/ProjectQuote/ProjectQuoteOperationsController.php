@@ -60,14 +60,19 @@ class ProjectQuoteOperationsController extends ApiController
         $total = 0;
         $discount = [];
         foreach ($opField as $field) {
+
             if ($field['value']) {
+
                 if (!empty($field['concepts'])) {
+
                     foreach ($field['concepts'] as $concept) {
+
                         $conceptB = Concept::findOrFail($concept['id']);
 
                         if (!isset($result['operation_fields'][$field['key']]['total'])) {
                             $result['operation_fields'][$field['key']]['total'] = 0;
                         }
+
                         $result['operation_fields'][$field['key']]['original_value'] = $field['value'];
                         $result['operation_fields'][$field['key']]['description'][] = [
                             'concept_id' => $conceptB->id,
@@ -172,7 +177,7 @@ class ProjectQuoteOperationsController extends ApiController
      *
      * @return mixed
      */
-    public function getValueConcept(array $formula, float $amount, float $value): mixed
+    public function getValueConcept(array $formula, mixed $amount, float $value): mixed
     {
         return match (true) {
             $formula['validity']['apply'] => $this->calculateValidity($formula['validity'], $amount, $value),
