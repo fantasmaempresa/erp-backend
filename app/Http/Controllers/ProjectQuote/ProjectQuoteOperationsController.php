@@ -60,19 +60,13 @@ class ProjectQuoteOperationsController extends ApiController
         $total = 0;
         $discount = [];
         foreach ($opField as $field) {
-
             if ($field['value']) {
-
                 if (!empty($field['concepts'])) {
-
                     foreach ($field['concepts'] as $concept) {
-
                         $conceptB = Concept::findOrFail($concept['id']);
-
                         if (!isset($result['operation_fields'][$field['key']]['total'])) {
                             $result['operation_fields'][$field['key']]['total'] = 0;
                         }
-
                         $result['operation_fields'][$field['key']]['original_value'] = $field['value'];
                         $result['operation_fields'][$field['key']]['description'][] = [
                             'concept_id' => $conceptB->id,
@@ -90,7 +84,6 @@ class ProjectQuoteOperationsController extends ApiController
                                 $field['value']
                             ),
                         ];
-
                         //aplicar operación
                         $result['operation_fields'][$field['key']]['total'] += $this->executeOperationConcept(
                             $conceptB->formula,
@@ -134,6 +127,8 @@ class ProjectQuoteOperationsController extends ApiController
                         $result['operation_total']['description'][] = null;
                     } else {
                         foreach ($field['concepts'] as $concept) {
+                            $conceptB = Concept::findOrFail($concept['id']);
+
                             $result['operation_total']['description'][] = [
                                 'concept_id' => $conceptB->id,
                                 'value_concept' => $this->getValueConcept($conceptB->formula, $conceptB->amount, $total),
