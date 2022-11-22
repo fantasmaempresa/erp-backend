@@ -135,7 +135,7 @@ class RoleActionController extends ApiController
     {
         $modules = [];
         foreach (self::$startMenu as $menu) {
-            $modules[] = ['name' => $menu['label'], 'route' => $menu['route']];
+            $modules[] = ['name' => $menu['label']];
         }
 
         return $this->showList($modules);
