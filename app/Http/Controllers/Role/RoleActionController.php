@@ -65,6 +65,7 @@ class RoleActionController extends ApiController
         ],
         [
             'label' => 'Cotizaciones',
+            'route' => './quotes',
             'icon' => 'rule_folder',
             'dropdowns' => [
                 [
@@ -89,6 +90,7 @@ class RoleActionController extends ApiController
         [
             'label' => 'Trámites',
             'icon' => 'description',
+            'route' => './procedures',
             'dropdowns' => [
                 [
                     'label' => 'Pendientes',
@@ -109,6 +111,7 @@ class RoleActionController extends ApiController
         [
             'label' => 'Configuración',
             'icon' => 'settings',
+            'route' => './settings',
             'dropdowns' => [
                 [
                     'label' => 'Usuarios',
@@ -135,7 +138,7 @@ class RoleActionController extends ApiController
     {
         $modules = [];
         foreach (self::$startMenu as $menu) {
-            $modules[] = ['name' => $menu['label']];
+            $modules[] = ['name' => $menu['label'], 'route' => $menu['route']];
         }
 
         return $this->showList($modules);
