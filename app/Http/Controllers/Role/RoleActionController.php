@@ -135,10 +135,10 @@ class RoleActionController extends ApiController
     {
         $modules = [];
         foreach (self::$startMenu as $menu) {
-            $modules[] = ['name' => $menu['label']];
+            $modules[] = ['name' => $menu['label'], 'route' => $menu['route']];
         }
 
-        return $this->showList([$modules]);
+        return $this->showList($modules);
     }
 
     /**
@@ -170,6 +170,6 @@ class RoleActionController extends ApiController
 
         }
 
-        return $this->showList([$menus]);
+        return $this->showList($menus);
     }
 }
