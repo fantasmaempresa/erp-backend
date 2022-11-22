@@ -132,7 +132,7 @@ class RoleActionController extends ApiController
     public function getModules(): JsonResponse
     {
         $modules = [];
-        foreach ($this->startMenu as $menu) {
+        foreach (self::$startMenu as $menu) {
             $modules[] = ['name' => $menu['label']];
         }
 

@@ -10,9 +10,7 @@ namespace Database\Seeders;
 use App\Models\Client;
 use App\Models\Role;
 use App\Models\Staff;
-use App\Models\StatusQuote;
 use App\Models\User;
-use App\Models\WorkArea;
 use Illuminate\Database\Seeder;
 
 /**
