@@ -153,21 +153,22 @@ class RoleActionController extends ApiController
 
         $user = User::findOrFail(Auth::id());
 
-        foreach ($user->role->config['modules'] as $module) {
+        if ($user->role_id === Role::$ADMIN) {
             foreach (self::$startMenu as $menu) {
                 unset($menu['controllers']);
-
-                if ($user->role_id === Role::$ADMIN) {
-                    $menus['submenus'][] = $menu;
-                    continue;
-                }
-
-                if ($module['name'] === $menu['label']) {
-                    $menus['submenus'][] = $menu;
+                $menus['submenus'][] = $menu;
+            }
+        } else {
+            foreach ($user->role->config['modules'] as $module) {
+                foreach (self::$startMenu as $menu) {
+                    if ($module['name'] === $menu['label']) {
+                        unset($menu['controllers']);
+                        $menus['submenus'][] = $menu;
+                    }
                 }
             }
-        }
 
+        }
 
         return $this->showList([$menus]);
     }
