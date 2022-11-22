@@ -19,7 +19,9 @@ use App\Http\Controllers\TemplateQuotes\TemplateQuotesController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * @access  public
@@ -140,19 +142,26 @@ class RoleActionController extends ApiController
     }
 
     /**
-     * @param Role $role
-     *
      * @return JsonResponse
      */
-    public function constructMenu(Role $role): JsonResponse
+    public function constructMenu(): JsonResponse
     {
         $menus = [
             'menuName' => 'Menu',
             'submenus' => [],
         ];
 
-        foreach ($role->config['modules'] as $module) {
+        $user = User::findOrFail(Auth::id());
+
+        foreach ($user->role->config['modules'] as $module) {
             foreach (self::$startMenu as $menu) {
+                unset($menu['controllers']);
+
+                if ($user->role_id === Role::$ADMIN) {
+                    $menus['submenus'][] = $menu;
+                    continue;
+                }
+
                 if ($module['name'] === $menu['label']) {
                     $menus['submenus'][] = $menu;
                 }
