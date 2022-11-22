@@ -51,7 +51,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('roles', RoleController::class, ['except' => ['create', 'edit']]);
     Route::get('roles/modules/get', [RoleActionController::class, 'getModules']);
-    Route::get('roles/modules/construct/{role}', [RoleActionController::class, 'constructMenu']);
+    Route::get('roles/modules/construct', [RoleActionController::class, 'constructMenu']);
 
     Route::resource('users', UserController::class, ['except' => ['create', 'edit']]);
     Route::resource('userLogs', UserLogController::class, ['except' => ['create', 'edit']]);
