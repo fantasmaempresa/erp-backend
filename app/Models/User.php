@@ -97,7 +97,7 @@ class User extends Authenticatable implements MustVerifyEmail
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:6',
             'role_id' => 'required|int',
-            'config' => 'nullable|required|array',
+            'config' => 'nullable|array',
         ];
 
         if ($id) {
