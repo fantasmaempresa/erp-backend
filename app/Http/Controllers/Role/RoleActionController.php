@@ -162,6 +162,7 @@ class RoleActionController extends ApiController
                 $menus['submenus'][] = $menu;
             }
         } else {
+            dd($user->role);
             foreach ($user->role->config['modules'] as $module) {
                 foreach (self::$startMenu as $menu) {
                     if ($module['name'] === $menu['label']) {
