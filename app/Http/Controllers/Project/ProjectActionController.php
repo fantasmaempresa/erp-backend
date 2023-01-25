@@ -12,6 +12,7 @@ use App\Models\DetailProjectProcessProject;
 use App\Models\PhasesProcess;
 use App\Models\Process;
 use App\Models\Project;
+use App\Models\ProjectQuote;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
@@ -460,4 +461,23 @@ class ProjectActionController extends ApiController
         return $message;
     }
 
+    /**
+     * @param Project $project
+     * @param ProjectQuote $projectQuote
+     *
+     * @return JsonResponses
+     */
+    public function assignQuoteProject(Project $project, ProjectQuote $projectQuote): JsonResponse
+    {
+        if (!empty($project->project_quote_id)) {
+
+            return $this->errorResponse('this project already have quote', 409);
+        }
+
+        $project->project_quote_id = $projectQuote->id;
+        $project->save();
+
+        return $this->showOne($project);
+
+    }
 }
