@@ -56,7 +56,7 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('userLogs', UserLogController::class, ['except' => ['create', 'edit']]);
     Route::resource('staff', StaffController::class, ['except' => ['create', 'edit']]);
     Route::resource('workAreas', WorkAreaController::class, ['except' => ['create', 'edit']]);
-//    Route::resource('clients', ClientController::class, ['except' => ['create', 'edit']]);
+    Route::resource('clients', ClientController::class, ['except' => ['create', 'edit']]);
     Route::resource('phasesProcesses', PhasesProcessController::class, ['except' => ['create', 'edit']]);
     Route::resource('projectStaffs', ProjectStaffController::class, ['except' => ['create', 'edit']]);
     Route::resource('processProjects', ProcessProjectController::class, ['except' => ['create', 'edit']]);
@@ -124,6 +124,6 @@ Route::group(['middleware' => ['auth:api']], function () {
 
 //ROUTES OAUTH AND OPERATIONS LOGIN USERS
 Route::post('oauth/token', [AuthController::class, 'issueToken']);
-Route::resource('clients', ClientController::class, ['except' => ['create', 'edit']]);
+//Route::resource('clients', ClientController::class, ['except' => ['create', 'edit']]);
 
 
