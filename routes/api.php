@@ -96,13 +96,6 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::post('projectQuotes/calculate/reactive', [ProjectQuoteOperationsController::class, 'calculateReactiveProjectQuote']);
 
 
-    //NOTIFICATIONS ROUTES
-    Route::resource('notifications', NotificationController::class, ['only' => ['index', 'show', 'update']]);
-    Route::get('notifications/filter/getLastUserNotifications', [NotificationFilterController::class, 'getLastUserNotifications']);
-    Route::get('notifications/filter/getUncheckUserNotifications', [NotificationFilterController::class, 'getUncheckUserNotifications']);
-    Route::get('notifications/filter/getCheckUserNotifications', [NotificationFilterController::class, 'getCheckUserNotifications']);
-
-
     //ROUTES PAYROLL3
     Route::resource('salaries', SalaryController::class, ['except' => ['create', 'edit']]);
     Route::resource('taxData', TaxDatumController::class, ['except' => ['create', 'edit']]);
@@ -120,6 +113,13 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('oauth/user/locked/{user}', [AuthController::class, 'lockUser']);
     Route::get('oauth/user/unlocked/{user}', [AuthController::class, 'unlockUser']);
     Route::post('oauth/user/closeSystem/{user}', [AuthActionController::class, 'logoutUser']);
+
+
+    //NOTIFICATIONS ROUTES
+    Route::resource('notifications', NotificationController::class, ['only' => ['index', 'show', 'update']]);
+    Route::get('notifications/filter/getLastUserNotifications', [NotificationFilterController::class, 'getLastUserNotifications']);
+    Route::get('notifications/filter/getUncheckUserNotifications', [NotificationFilterController::class, 'getUncheckUserNotifications']);
+    Route::get('notifications/filter/getCheckUserNotifications', [NotificationFilterController::class, 'getCheckUserNotifications']);
 });
 
 //ROUTES OAUTH AND OPERATIONS LOGIN USERS
