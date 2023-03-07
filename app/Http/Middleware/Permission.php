@@ -47,6 +47,9 @@ class Permission
                 if ($module['name'] === $menu['label']) {
                     foreach ($menu['controllers'] as $controllerMenu) {
                         if ($controller === $controllerMenu) {
+                            print_r($controller);
+                            print_r($controllerMenu);
+                            print_r($module['name'], $menu['label']);
                             return $next($request);
                         }
                     }
