@@ -37,7 +37,7 @@ trait ApiResponseTrait
      */
     protected function errorResponse($message, $code): JsonResponse
     {
-        return response()->json(['error' => $message, 'code' => $code], $code);
+        return response()->json($message, $code);
     }
 
     /**
