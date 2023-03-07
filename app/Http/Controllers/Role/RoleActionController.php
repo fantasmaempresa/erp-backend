@@ -10,7 +10,9 @@ use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Concept\ConceptController;
 use App\Http\Controllers\PhasesProcess\PhasesProcessController;
+use App\Http\Controllers\Project\ProjectActionController;
 use App\Http\Controllers\Project\ProjectController;
+use App\Http\Controllers\Project\ProjectFilterController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteFilterController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteOperationsController;
@@ -69,6 +71,11 @@ class RoleActionController extends ApiController
             'icon' => 'rule_folder',
             'dropdowns' => [
                 [
+                    'label' => 'Nueva Cotización',
+                    'route' => './project-quote/new',
+                    'icon' => 'add_circle',
+                ],
+                [
                     'label' => 'Lista de cotizaciones',
                     'route' => './project-quote',
                     'icon' => 'group_work',
@@ -76,6 +83,11 @@ class RoleActionController extends ApiController
                 [
                     'label' => 'Estados de la cotización',
                     'route' => './quote-statuses',
+                    'icon' => 'group_work',
+                ],
+                [
+                    'label' => 'Plantillas',
+                    'route' => './project-quote-template',
                     'icon' => 'group_work',
                 ],
             ],
@@ -87,6 +99,39 @@ class RoleActionController extends ApiController
                 ConceptController::class,
             ],
         ],
+        [
+            'label' => 'Proyectos',
+            'icon' => 'rule_folder',
+            'route' => './projects',
+            'dropdowns' => [
+                [
+                    'label' => 'Fases',
+                    'route' => './process-phase',
+                    'icon' => 'timeline',
+                ],
+                [
+                    'label' => 'Procesos',
+                    'route' => './process',
+                    'icon' => 'pending_actions',
+                ],
+                [
+                    'label' => 'Proyectos',
+                    'route' => './project',
+                    'icon' => 'hub',
+                ],
+                [
+                    'label' => 'Comenzar Proyecto',
+                    'route' => './project-start',
+                    'icon' => 'hub',
+                ],
+            ],
+            'controllers' => [
+                ProjectController::class,
+                ProjectActionController::class,
+                ProjectFilterController::class,
+            ],
+        ],
+
         [
             'label' => 'Trámites',
             'icon' => 'description',

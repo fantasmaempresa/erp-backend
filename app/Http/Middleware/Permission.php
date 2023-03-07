@@ -27,15 +27,15 @@ class Permission
     public function handle(Request $request, Closure $next)
     {
 
-        return $next($request);
-        $methodsView = ['POST', 'PUT', 'PATCH', 'DELETE'];
+//        return $next($request);
+        $methodsNotView = ['POST', 'PUT', 'PATCH', 'DELETE'];
 
         $user = User::findOrFail(Auth::id());
         if ($user->role_id === Role::$ADMIN) {
             return $next($request);
         }
 
-        if ($user->role->config['view_mode'] && in_array($request->getMethod(), $methodsView)) {
+        if ($user->role->config['view_mode'] && in_array($request->getMethod(), $methodsNotView)) {
             return $this->errorResponse('you do not have permissions to enter this route', 401);
         }
 

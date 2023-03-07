@@ -8,7 +8,6 @@ use App\Http\Controllers\ClientLink\ClientLinkController;
 use App\Http\Controllers\Concept\ConceptController;
 use App\Http\Controllers\Deduction\DeductionController;
 use App\Http\Controllers\DetailProject\DetailProjectController;
-use App\Http\Controllers\DetailProjectProcessProject\DetailProjectProcessProjectController;
 use App\Http\Controllers\Document\DocumentController;
 use App\Http\Controllers\ExtraHour\ExtraHourController;
 use App\Http\Controllers\FormStructure\FromStructureController;
