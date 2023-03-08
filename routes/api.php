@@ -50,7 +50,6 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('roles', RoleController::class, ['except' => ['create', 'edit']]);
     Route::get('roles/modules/get', [RoleActionController::class, 'getModules']);
-    Route::get('roles/modules/construct', [RoleActionController::class, 'constructMenu']);
 
     Route::resource('users', UserController::class, ['except' => ['create', 'edit']]);
     Route::resource('userLogs', UserLogController::class, ['except' => ['create', 'edit']]);
@@ -120,6 +119,8 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('notifications/filter/getLastUserNotifications', [NotificationFilterController::class, 'getLastUserNotifications']);
     Route::get('notifications/filter/getUncheckUserNotifications', [NotificationFilterController::class, 'getUncheckUserNotifications']);
     Route::get('notifications/filter/getCheckUserNotifications', [NotificationFilterController::class, 'getCheckUserNotifications']);
+
+    Route::get('roles/modules/construct', [RoleActionController::class, 'constructMenu']);
 });
 
 //ROUTES OAUTH AND OPERATIONS LOGIN USERS
