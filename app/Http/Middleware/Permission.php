@@ -36,7 +36,7 @@ class Permission
         }
 
         if (isset($user->role->config['view_mode']) && $user->role->config['view_mode'] && in_array($request->getMethod(), $methodsNotView)) {
-            return $this->errorResponse('you do not have permissions to enter this route', 401);
+            return $this->errorResponse('you do not have permissions to enter this route', 405);
         }
 
         $controller = Route::currentRouteAction();
@@ -54,7 +54,7 @@ class Permission
             }
         }
 
-        return $this->errorResponse('you do not have permissions to enter this route', 401);
+        return $this->errorResponse('you do not have permissions to enter this route', 405);
     }
 }
 
