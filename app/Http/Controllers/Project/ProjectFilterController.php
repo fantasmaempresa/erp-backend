@@ -12,8 +12,8 @@ use App\Models\DetailProjectProcessProject;
 use App\Models\Process;
 use App\Models\Project;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -32,9 +32,27 @@ class ProjectFilterController extends ApiController
     public function getMyProjects(Request $request): JsonResponse
     {
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
-
         $user = User::findOrFail(Auth::id());
-        $projects = $user->project()->where('finished', Project::$UNFINISHED)->with('process')->paginate($paginate);
+        $projects = $user->projects()->where('finished', Project::$UNFINISHED)->with('process')->paginate($paginate);
+
+        if (empty($projects['data'])) {
+            $role = $user->role;
+            $projectsAux = Project::where('finished', Project::$UNFINISHED)->get();
+            $resultProjectsID = [];
+            foreach ($projectsAux as $project) {
+                foreach ($project->process as $process) {
+                    foreach ($process->roles as $role) {
+                        if ($user->role->id === $role->id) {
+                            $resultProjectsID[] = $project->id;
+                        }
+                    }
+                }
+            }
+
+            if (!empty($resultProjectsID)) {
+                $projects = Project::whereIn('id', $resultProjectsID)->paginate($paginate);
+            }
+        }
 
         return $this->showList($projects);
     }

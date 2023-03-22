@@ -32,77 +32,8 @@ use Illuminate\Support\Facades\Auth;
  */
 class RoleActionController extends ApiController
 {
-    /*
-        {
-          label: 'Cotizaciones',
-          icon: 'rule_folder',
-          isOpen: false,
-          dropdowns: [
-            {
-              label: 'Nueva Cotización',
-              route: './project-quote/new',
-              icon: 'add_circle',
-            },
-            {
-              label: 'Lista de cotizaciones',
-              route: './project-quote',
-              icon: 'group_work',
-            },
-            {
-              label: 'Estados de la cotización',
-              route: './quote-statuses',
-              icon: 'group_work',
-            },
-            {
-              label: 'Plantillas',
-              route: './project-quote-template',
-              icon: 'group_work',
-            },
-          ],
-        },
-        {
-          label: 'Proyectos',
-          icon: 'rule_folder',
-          isOpen: false,
-          dropdowns: [
-            { label: 'Fases', route: './process-phase', icon: 'timeline' },
-            { label: 'Procesos', route: './process', icon: 'pending_actions' },
-            { label: 'Proyectos', route: './project', icon: 'hub' },
-            {
-              label: 'Comenzar Proyecto',
-              route: './project-start',
-              icon: 'hub',
-            },
-          ],
-        },
-        {
-          label: 'Trámites',
-          icon: 'description',
-          isOpen: false,
-          dropdowns: [
-            {
-              label: 'Pendientes',
-              route: './pending_procedures',
-              icon: 'pause',
-            },
-            {
-              label: 'En Curso',
-              route: './ongoing_procedure',
-              icon: 'play_arrow',
-            },
-          ],
-        },
-        {
-          label: 'Configuración',
-          icon: 'settings',
-          isOpen: false,
-          dropdowns: [
-            { label: 'Usuarios', route: './users', icon: 'person' },
-            { label: 'Roles', route: './roles', icon: 'verified_user' },
-          ],
-        },
-      ],
-    }
+    /**
+     * @var array[]
      */
     public static $startMenu = [
         [
@@ -192,7 +123,7 @@ class RoleActionController extends ApiController
                     'icon' => 'hub',
                 ],
                 [
-                    'label' => 'Comenzar Proyecto',
+                    'label' => 'Proyectos en curso',
                     'route' => './project-start',
                     'icon' => 'hub',
                 ],

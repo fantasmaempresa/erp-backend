@@ -123,6 +123,7 @@ class ProjectController extends ApiController
             }
         }
 
+        //TODO agregar modificación en los permisos de usuarios
         $project->process()->sync($ids);
         $project->process;
 
@@ -138,6 +139,7 @@ class ProjectController extends ApiController
      */
     public function destroy(Project $project): JsonResponse
     {
+        //TODO agregar logica para eliminar el proyecto sin eliminar los procesos ni las fases
         $project->delete();
 
         return $this->showMessage('Record deleted successfully');
