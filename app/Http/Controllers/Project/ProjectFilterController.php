@@ -35,9 +35,8 @@ class ProjectFilterController extends ApiController
         $user = User::findOrFail(Auth::id());
         $projects = $user->projects()->where('finished', Project::$UNFINISHED)->with('process')->paginate($paginate);
 
-        dd($projects, count($projects));
 
-        if (empty($projects['data'])) {
+        if (count($projects) <= 0) {
             $role = $user->role;
             $projectsAux = Project::where('finished', Project::$UNFINISHED)->get();
             $resultProjectsID = [];
