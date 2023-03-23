@@ -35,6 +35,8 @@ class ProjectFilterController extends ApiController
         $user = User::findOrFail(Auth::id());
         $projects = $user->projects()->where('finished', Project::$UNFINISHED)->with('process')->paginate($paginate);
 
+        dd($projects);
+
         if (empty($projects['data'])) {
             $role = $user->role;
             $projectsAux = Project::where('finished', Project::$UNFINISHED)->get();
@@ -50,7 +52,7 @@ class ProjectFilterController extends ApiController
             }
 
             if (!empty($resultProjectsID)) {
-                $projects = Project::whereIn('id', $resultProjectsID)->paginate($paginate);
+                $projects = Project::whereIn('id', $resultProjectsID)->with('process')->paginate($paginate);
             }
         }
 
