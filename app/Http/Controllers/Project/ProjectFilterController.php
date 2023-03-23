@@ -92,18 +92,19 @@ class ProjectFilterController extends ApiController
 
                     // phpcs:ignore
 //                    $response = $this->showList($currentDetail->form_data['form']);
+                    $phaseR = [];
                     // phpcs:ignore
-                    $response['form'] = $currentDetail->form_data['form'];
-                    $response['controls'] = ['next' => true, 'prev' => true];
+                    $phaseR['form'] = $currentDetail->form_data['form'];
+                    $phaseR['controls'] = ['next' => true, 'prev' => true];
 
                     // phpcs:ignore
                     $workGroups = $this->checkContinueNextPhase($currentDetail->form_data['rules']['work_group'], $user);
                     // phpcs:ignore
                     $supervisors = $this->checkContinueNextPhase($currentDetail->form_data['rules']['supervisor'], $user);
                     if (!$workGroups && !$supervisors) {
-                        $response['controls'] = ['next' => false, 'prev' => false];
+                        $phaseR['controls'] = ['next' => false, 'prev' => false];
                     }
-                    $response = $this->showList($response);
+                    $response = $this->showList($phaseR);
                 }
             }
         }
