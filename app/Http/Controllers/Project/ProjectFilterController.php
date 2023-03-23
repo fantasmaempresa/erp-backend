@@ -89,8 +89,21 @@ class ProjectFilterController extends ApiController
             foreach ($currentDetail->form_data['rules']['supervisor'] as $supervisor) {
                 // phpcs:ignore
                 if ($supervisor['user'] && $user->id === $supervisor['id'] || $user->role->id === $supervisor['id']) {
+
                     // phpcs:ignore
-                    $response = $this->showList($currentDetail->form_data['form']);
+//                    $response = $this->showList($currentDetail->form_data['form']);
+                    // phpcs:ignore
+                    $response['form'] = $currentDetail->form_data['form'];
+                    $response['controls'] = ['next' => true, 'prev' => true];
+
+                    // phpcs:ignore
+                    $workGroups = $this->checkContinueNextPhase($currentDetail->form_data['rules']['work_group'], $user);
+                    // phpcs:ignore
+                    $supervisors = $this->checkContinueNextPhase($currentDetail->form_data['rules']['supervisor'], $user);
+                    if (!$workGroups && !$supervisors) {
+                        $response['controls'] = ['next' => false, 'prev' => false];
+                    }
+                    $response = $this->showList($response);
                 }
             }
         }
@@ -133,5 +146,35 @@ class ProjectFilterController extends ApiController
         }
 
         return $currentDetail;
+    }
+
+    /**
+     * @param $rules
+     * @param User $user
+     *
+     * @return bool
+     */
+    public function checkContinueNextPhase($rules, User $user): bool
+    {
+        $countSupervision = 0;
+        foreach ($rules as $supervision) {
+            if (isset($supervision['supervision'])) {
+                $countSupervision++;
+            }
+        }
+
+        if (count($rules) !== $countSupervision) {
+            return false;
+        }
+
+        $continue = false;
+        foreach ($rules as $supervisor) {
+            if (($supervisor['user'] && $supervisor['id'] === $user->id) || (!$supervisor['user'] && $supervisor['id'] === $user->role->id)) {
+                $continue = true;
+                break;
+            }
+        }
+
+        return $continue;
     }
 }
