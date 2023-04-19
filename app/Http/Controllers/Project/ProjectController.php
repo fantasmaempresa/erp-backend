@@ -7,12 +7,16 @@
 
 namespace App\Http\Controllers\Project;
 
+use App\Models\Role;
+use App\Models\User;
 use Exception;
 use App\Models\Project;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 /**
@@ -58,6 +62,7 @@ class ProjectController extends ApiController
         }
         // phpcs:ignore
         $project->user_id = Auth::id();
+        $project->finished = Project::$NOSTART;
         $project->save();
 
         $processAndUsers = $project->getUsersAndProcess($request->get('config'));
@@ -95,6 +100,34 @@ class ProjectController extends ApiController
         $project->client;
         $project->projectQuote;
 
+        $configs = $project->config;
+        foreach ($configs as &$config) {
+            foreach ($config['phases'] as &$phase) {
+                foreach ($phase['involved']['supervisor'] as &$supervisor) {
+                    $data = null;
+                    if ($supervisor['user']) {
+                        $data = User::findOrFail($supervisor['id']);
+                    } else {
+                        $data = Role::findOrFail($supervisor['id']);
+                    }
+                    $modify = &$supervisor;
+                    $modify['data_involved'] = $data;
+                }
+
+                foreach ($phase['involved']['work_group'] as &$work_group) {
+                    $data = null;
+                    if ($work_group['user']) {
+                        $data = User::findOrFail($work_group['id']);
+                    } else {
+                        $data = Role::findOrFail($work_group['id']);
+                    }
+                    $modify = &$work_group;
+                    $modify['data_involved'] = $data;
+                }
+            }
+        }
+        $project->config = $configs;
+        unset($configs);
         return $this->showOne($project);
     }
 
@@ -109,6 +142,7 @@ class ProjectController extends ApiController
     public function update(Request $request, Project $project): JsonResponse
     {
         $this->validate($request, Project::rules());
+        $project->verifyConfig($project->config);
         $project->fill($request->all());
         if ($project->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);
@@ -123,7 +157,6 @@ class ProjectController extends ApiController
             }
         }
 
-        //TODO agregar modificación en los permisos de usuarios
         $project->process()->sync($ids);
         $project->process;
 
@@ -139,8 +172,20 @@ class ProjectController extends ApiController
      */
     public function destroy(Project $project): JsonResponse
     {
-        //TODO agregar logica para eliminar el proyecto sin eliminar los procesos ni las fases
-        $project->delete();
+        DB::beginTransaction();
+        try {
+
+            foreach ($project->processProject as $detail){
+                $detail->detailProject()->detach();
+            }
+
+            $project->process()->detach();
+            $project->users()->detach();
+            $project->delete();
+        } catch (ModelNotFoundException) {
+            DB::rollBack();
+        }
+        DB::commit();
 
         return $this->showMessage('Record deleted successfully');
     }

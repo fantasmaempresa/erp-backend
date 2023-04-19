@@ -10,6 +10,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use JetBrains\PhpStorm\ArrayShape;
 use function PHPUnit\Framework\isEmpty;
 use function Psy\debug;
@@ -89,6 +90,14 @@ class Process extends Model
     public function projects(): BelongsToMany
     {
         return $this->belongsToMany(Project::class);
+    }
+
+    /**
+     * @return HasManyThrough
+     */
+    public function processProject(): HasManyThrough
+    {
+        return $this->hasManyThrough(DetailProjectProcessProject::class, ProcessProject::class);
     }
 
     /**

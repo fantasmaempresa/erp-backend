@@ -10,6 +10,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 /**
@@ -24,6 +25,8 @@ class Project extends Model
      */
     public static int $FINISHED = 1;
     public static int $UNFINISHED = 0;
+    public static int $INPROGRESS = 2;
+    public static int $NOSTART = 3;
 
 
     /**
@@ -115,10 +118,20 @@ class Project extends Model
     /**
      * @return HasManyThrough
      */
-    public function processProject(): HasManyThrough
+    public function processProjectThrough(): HasManyThrough
     {
-        return $this->hasManyThrough(ProcessProject::class, DetailProjectProcessProject::class);
+        return $this->hasManyThrough(DetailProjectProcessProject::class, ProcessProject::class)->with('detailProject');
     }
+
+    /**
+     * @return HasMany
+     */
+    public function processProject(): HasMany
+    {
+//        return $this->hasManyThrough(DetailProjectProcessProject::class, ProcessProject::class);
+        return $this->hasMany(ProcessProject::class);
+    }
+
 
     /**
      * @param array $config

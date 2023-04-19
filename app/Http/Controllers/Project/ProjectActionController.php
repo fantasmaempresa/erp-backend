@@ -78,6 +78,8 @@ class ProjectActionController extends ApiController
                 }
             }
         }
+        $process->finished = Project::$INPROGRESS;
+        $process->save();
 
         return $this->showList($this->newDetailProject($project, $currentProcess, $currentPhase, $currentInvolved));
     }

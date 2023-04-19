@@ -11,6 +11,7 @@ use App\Models\DetailProject;
 use App\Models\DetailProjectProcessProject;
 use App\Models\Process;
 use App\Models\Project;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -33,25 +34,36 @@ class ProjectFilterController extends ApiController
     {
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
         $user = User::findOrFail(Auth::id());
-        $projects = $user->projects()->where('finished', Project::$UNFINISHED)->with('process')->paginate($paginate);
 
+        // phpcs:ignore
+        if ($user->role_id == Role::$ADMIN) {
+            $projects = Project::where('finished', '<>', Project::$FINISHED)
+                ->with('process')
+                ->with('processProjectThrough')
+                ->paginate($paginate);
+        } else {
+            $projects = $user->projects()->where('finished', Project::$UNFINISHED)->with('process')->with('processProjectThrough')
+                ->paginate($paginate);
 
-        if (count($projects) <= 0) {
-            $role = $user->role;
-            $projectsAux = Project::where('finished', Project::$UNFINISHED)->get();
-            $resultProjectsID = [];
-            foreach ($projectsAux as $project) {
-                foreach ($project->process as $process) {
-                    foreach ($process->roles as $role) {
-                        if ($user->role->id === $role->id) {
-                            $resultProjectsID[] = $project->id;
+            if (count($projects) <= 0) {
+                $projectsAux = Project::where('finished', Project::$UNFINISHED)->get();
+                $resultProjectsID = [];
+                foreach ($projectsAux as $project) {
+                    foreach ($project->process as $process) {
+                        foreach ($process->roles as $role) {
+                            if ($user->role->id === $role->id) {
+                                $resultProjectsID[] = $project->id;
+                            }
                         }
                     }
                 }
-            }
 
-            if (!empty($resultProjectsID)) {
-                $projects = Project::whereIn('id', $resultProjectsID)->with('process')->paginate($paginate);
+                if (!empty($resultProjectsID)) {
+                    $projects = Project::whereIn('id', $resultProjectsID)
+                        ->with('process')
+                        ->with('processProjectThrough')
+                        ->paginate($paginate);
+                }
             }
         }
 

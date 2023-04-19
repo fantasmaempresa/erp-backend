@@ -113,6 +113,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('oauth/user/unlocked/{user}', [AuthController::class, 'unlockUser']);
     Route::post('oauth/user/closeSystem/{user}', [AuthActionController::class, 'logoutUser']);
 
+    Route::get('roles/modules/construct', [RoleActionController::class, 'constructMenu']);
 
     //NOTIFICATIONS ROUTES
     Route::resource('notifications', NotificationController::class, ['only' => ['index', 'show', 'update']]);
@@ -120,7 +121,6 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('notifications/filter/getUncheckUserNotifications', [NotificationFilterController::class, 'getUncheckUserNotifications']);
     Route::get('notifications/filter/getCheckUserNotifications', [NotificationFilterController::class, 'getCheckUserNotifications']);
 
-    Route::get('roles/modules/construct', [RoleActionController::class, 'constructMenu']);
 });
 
 //ROUTES OAUTH AND OPERATIONS LOGIN USERS
