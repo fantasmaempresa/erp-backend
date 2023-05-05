@@ -80,6 +80,8 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::post('projects/action/assign/project/{project}/projectQuote/{projectQuote}', [ProjectActionController::class, 'assignQuoteProject']);
 
     Route::get('projects/filter/myProjects', [ProjectFilterController::class, 'getMyProjects']);
+    //TODO agregar más datos de configuración para el front, por si debe de poner el formulario para solo vista o dejar
+    // que ingrese los datos
     Route::get('projects/filter/currentForm/project/{project}/process/{process}', [ProjectFilterController::class, 'getCurrentPhaseForm']);
 
 
