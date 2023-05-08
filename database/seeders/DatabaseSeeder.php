@@ -27,13 +27,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Role::factory()->count(5)->has(
-            User::factory()->count(3)->has(Staff::factory())
-        )->create();
-
-        Role::factory()->count(5)->has(
-            User::factory()->count(3)->has(Client::factory())
-        )->create();
+//        Role::factory()->count(5)->has(
+//            User::factory()->count(3)->has(Staff::factory())
+//        )->create();
+//
+//        Role::factory()->count(5)->has(
+//            User::factory()->count(3)->has(Client::factory())
+//        )->create();
 
         $this->call(
             [
