@@ -46,6 +46,8 @@ class Project extends Model
         'client_id',
         'project_quote_id',
     ];
+
+
     /**
      * The attributes that should be cast.
      *
@@ -104,7 +106,7 @@ class Project extends Model
      */
     public function process(): BelongsToMany
     {
-        return $this->belongsToMany(Process::class)->withPivot('id');
+        return $this->belongsToMany(Process::class)->withPivot('id')->with('phases');
     }
 
     /**

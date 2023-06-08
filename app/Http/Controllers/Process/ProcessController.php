@@ -32,9 +32,9 @@ class ProcessController extends ApiController
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
         if ($request->has('search')) {
-            $response = $this->showList(Process::search($request->get('search'))->paginate($paginate));
+            $response = $this->showList(Process::search($request->get('search')->with('phases')->paginate($paginate)));
         } else {
-            $response = $this->showList(Process::paginate($paginate));
+            $response = $this->showList(Process::with('phases')->with('roles')->paginate($paginate));
         }
 
         return $response;
@@ -79,6 +79,9 @@ class ProcessController extends ApiController
      */
     public function show(Process $process): JsonResponse
     {
+        $process->roles;
+        $process->phases;
+
         return $this->showOne($process);
     }
 

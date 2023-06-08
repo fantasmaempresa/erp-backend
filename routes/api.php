@@ -9,6 +9,7 @@ use App\Http\Controllers\Concept\ConceptController;
 use App\Http\Controllers\Deduction\DeductionController;
 use App\Http\Controllers\DetailProject\DetailProjectController;
 use App\Http\Controllers\Document\DocumentController;
+use App\Http\Controllers\Document\DocumentLinkController;
 use App\Http\Controllers\ExtraHour\ExtraHourController;
 use App\Http\Controllers\FormStructure\FromStructureController;
 use App\Http\Controllers\Notification\NotificationController;
@@ -61,6 +62,7 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('processProjects', ProcessProjectController::class, ['except' => ['create', 'edit']]);
     Route::resource('documents', DocumentController::class, ['except' => ['create', 'edit']]);
     Route::resource('clientDocuments', ClientDocumentController::class, ['except' => ['create', 'edit']]);
+    Route::resource('documentLink', DocumentLinkController::class, ['except' => ['create', 'edit']]);
     Route::resource('concepts', ConceptController::class, ['except' => ['create', 'edit']]);
     Route::resource('statusQuotes', StatusQuoteController::class, ['except' => ['create', 'edit']]);
     Route::resource('clientLinks', ClientLinkController::class, ['except' => 'create', 'edit']);

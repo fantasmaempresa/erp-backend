@@ -23,7 +23,7 @@ class CreateClientDocumentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('client_documents', function (Blueprint $table) {
+        Schema::create('client_document', function (Blueprint $table) {
             $table->id();
             $table->foreignId('client_id')->constrained();
             $table->foreignId('document_id')->constrained();
@@ -39,6 +39,6 @@ class CreateClientDocumentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('client_documents');
+        Schema::dropIfExists('client_document');
     }
 }

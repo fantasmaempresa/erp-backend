@@ -120,7 +120,7 @@ class Client extends Model
     /**
      * @return BelongsToMany
      */
-    public function clientDocument(): BelongsToMany
+    public function documents(): BelongsToMany
     {
         return $this->belongsToMany(Document::class);
     }

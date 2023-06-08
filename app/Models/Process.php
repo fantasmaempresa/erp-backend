@@ -47,6 +47,9 @@ class Process extends Model
         'config' => 'array',
     ];
 
+    protected $with = ['roles.user'];
+
+
     /**
      * Function to return array rules in method create and update
      *

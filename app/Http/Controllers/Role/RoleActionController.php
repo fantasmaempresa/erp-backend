@@ -8,7 +8,10 @@ namespace App\Http\Controllers\Role;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Client\ClientController;
+use App\Http\Controllers\ClientLink\ClientLinkController;
 use App\Http\Controllers\Concept\ConceptController;
+use App\Http\Controllers\Document\DocumentController;
+use App\Http\Controllers\Document\DocumentLinkController;
 use App\Http\Controllers\PhasesProcess\PhasesProcessController;
 use App\Http\Controllers\Project\ProjectActionController;
 use App\Http\Controllers\Project\ProjectController;
@@ -42,6 +45,8 @@ class RoleActionController extends ApiController
             'icon' => 'people',
             'controllers' => [
                 ClientController::class,
+                DocumentLinkController::class,
+                ClientLinkController::class,
             ],
         ],
         [
@@ -58,6 +63,14 @@ class RoleActionController extends ApiController
             'icon' => 'group_work',
             'controllers' => [
                 WorkAreaController::class,
+            ],
+        ],
+        [
+            'label' => 'Documentos',
+            'route' => './documents',
+            'icon' => 'document_scanner',
+            'controllers' => [
+                DocumentController::class,
             ],
         ],
         [

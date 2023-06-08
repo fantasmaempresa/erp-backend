@@ -99,6 +99,7 @@ class ProjectController extends ApiController
         $project->user;
         $project->client;
         $project->projectQuote;
+        $roles = [];
 
         $configs = $project->config;
         foreach ($configs as &$config) {
@@ -108,7 +109,8 @@ class ProjectController extends ApiController
                     if ($supervisor['user']) {
                         $data = User::findOrFail($supervisor['id']);
                     } else {
-                        $data = Role::findOrFail($supervisor['id']);
+                        $data = Role::with('user')->findOrFail($supervisor['id']);
+                        $roles[] = $data;
                     }
                     $modify = &$supervisor;
                     $modify['data_involved'] = $data;
@@ -119,7 +121,8 @@ class ProjectController extends ApiController
                     if ($work_group['user']) {
                         $data = User::findOrFail($work_group['id']);
                     } else {
-                        $data = Role::findOrFail($work_group['id']);
+                        $data = Role::with('user')->findOrFail($work_group['id']);
+                        $roles[] = $data;
                     }
                     $modify = &$work_group;
                     $modify['data_involved'] = $data;
@@ -128,6 +131,7 @@ class ProjectController extends ApiController
         }
         $project->config = $configs;
         unset($configs);
+        $project->roles = $roles;
         return $this->showOne($project);
     }
 
