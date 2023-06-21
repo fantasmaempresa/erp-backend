@@ -133,6 +133,8 @@ class UserController extends ApiController
         }
 
 
+
+
         if ($request->get('view') == 'staff') {
             $entity = Staff::findOrFail($request->get('entity_id'));
 
