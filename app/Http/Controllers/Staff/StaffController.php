@@ -73,7 +73,6 @@ class StaffController extends ApiController
      */
     public function update(Request $request, Staff $staff): JsonResponse
     {
-//        dd($staff->id, Staff::rules($staff->id));
         $this->validate($request, Staff::rules($staff->id));
         $staff->fill($request->all());
         if ($staff->isClean()) {

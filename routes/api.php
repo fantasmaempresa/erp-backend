@@ -53,6 +53,8 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::get('roles/modules/get', [RoleActionController::class, 'getModules']);
 
     Route::resource('users', UserController::class, ['except' => ['create', 'edit']]);
+    Route::post('user/assign', [UserController::class, 'assignUserToEntity']);
+
     Route::resource('userLogs', UserLogController::class, ['except' => ['create', 'edit']]);
     Route::resource('staff', StaffController::class, ['except' => ['create', 'edit']]);
     Route::resource('workAreas', WorkAreaController::class, ['except' => ['create', 'edit']]);

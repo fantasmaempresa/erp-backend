@@ -6,6 +6,8 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\Client;
+use App\Models\Staff;
 use App\Models\User;
 use App\Http\Controllers\ApiController;
 use Illuminate\Http\JsonResponse;
@@ -32,7 +34,7 @@ class UserController extends ApiController
         if ($request->has('search')) {
             $response = $this->showList(User::search($request->get('search'))->with('role')->paginate($paginate));
         } else {
-            $response = $this->showList(User::with('role')->paginate($paginate));
+            $response = $this->showList(User::with('role')->with('staff')->paginate($paginate));
         }
 
         return $response;
@@ -70,7 +72,7 @@ class UserController extends ApiController
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param User    $user
+     * @param User $user
      *
      * @return JsonResponse
      *
@@ -112,5 +114,40 @@ class UserController extends ApiController
         $user->delete();
 
         return $this->showMessage('Record deleted successfully');
+    }
+
+    public function assignUserToEntity(Request $request)
+    {
+        $this->validate($request, [
+            'view' => 'required|string',
+            'user_id' => 'required|int',
+            'entity_id' => 'required|int',
+        ]);
+
+        $user = User::findOrFail($request->get('user_id'));
+        $user->staff;
+
+        if(!empty($user->staff)){
+            print_r($user->staff);
+            return $this->errorResponse('this user as already have client or staff', 406);
+        }
+
+
+        if ($request->get('view') == 'staff') {
+            $entity = Staff::findOrFail($request->get('entity_id'));
+
+
+//        } elseif ($request->get('view') == 'client') {
+//            $entity = Client::findOrFail($request->get('entity_id'));
+//
+        }
+        else {
+            return $this->errorResponse('not correct value view',406);
+        }
+
+        $entity->user_id = $user->id;
+        $entity->save();
+
+
     }
 }

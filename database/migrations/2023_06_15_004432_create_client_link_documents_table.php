@@ -1,20 +1,10 @@
 <?php
 
-/*
- * CODE
- * ClientDocument Class Migration
- */
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-/**
- * @access  public
- *
- * @version 1.0
- */
-class CreateClientDocumentTable extends Migration
+class CreateClientLinkDocumentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -23,9 +13,9 @@ class CreateClientDocumentTable extends Migration
      */
     public function up()
     {
-        Schema::create('client_document', function (Blueprint $table) {
+        Schema::create('client_link_document', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('client_id')->constrained();
+            $table->foreignId('client_link_id')->constrained();
             $table->foreignId('document_id')->constrained();
             $table->string('file');
             $table->timestamps();
@@ -39,6 +29,6 @@ class CreateClientDocumentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('client_document');
+        Schema::dropIfExists('client_link_document');
     }
 }

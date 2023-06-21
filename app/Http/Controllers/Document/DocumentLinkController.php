@@ -9,12 +9,14 @@ namespace App\Http\Controllers\Document;
 
 use App\Http\Controllers\ApiController;
 use App\Models\Client;
-use App\Models\ClientDocument;
+use App\Models\ClientLink;
 use App\Models\Document;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
-use Psy\Util\Json;
+use PHPUnit\Exception;
 
 /**
  * @access  public
@@ -23,19 +25,53 @@ use Psy\Util\Json;
  */
 class DocumentLinkController extends ApiController
 {
-
-    public function index(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function index(Request $request): JsonResponse
     {
         $this->validate($request, [
-            'client_id' => 'required|int'
+            'client_id' => 'required|int',
+            'view' => 'required|string'
         ]);
 
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
-        $client = Client::findOrFail($request->get('client_id'));
-        $expedient = $client->documents()->paginate();
 
-        return $this->showList($expedient);
+        if ($request->get('view') == 'client') {
+            $client = Client::findOrFail($request->get('client_id'));
+
+            $documents = $client->documents()->withPivot('file')->get();
+            $expedient = $documents->map(function ($document) use ($client) {
+                $document->url = url('storage/app/clients/' . $client->id . '/expedient/' . $document->pivot->file);
+                return $document;
+            });
+        } elseif ($request->get('view') == 'client_link') {
+            $client = ClientLink::findOrFail($request->get('client_id'));
+
+            $documents = $client->documents()->withPivot('file')->get();
+            $expedient = $documents->map(function ($document) use ($client) {
+                $document->url = url('storage/app/clients_link/' . $client->id . '/expedient/' . $document->pivot->file);
+                return $document;
+            });
+        } else {
+            return $this->errorResponse('value view not correct', 409);
+        }
+
+
+        $currentPage = Paginator::resolveCurrentPage('page');
+        $paginatedExpedient = new LengthAwarePaginator(
+            $expedient->forPage($currentPage, $paginate),
+            $expedient->count(),
+            $paginate,
+            $currentPage,
+            ['path' => Paginator::resolveCurrentPath()]
+        );
+
+        return $this->showList($paginatedExpedient);
     }
 
 
@@ -50,20 +86,30 @@ class DocumentLinkController extends ApiController
         $this->validate($request, [
             'client_id' => 'required|int',
             'document_id' => 'required|int',
+            'view' => 'required|string',
             'file' => 'required|file|max:20048'
         ]);
 
+        if ($request->get('view') == 'client') {
+            $client = Client::findOrFail($request->get('client_id'));
+            $path = 'clients/' . $client->id . '/expedient/';
+
+        } elseif ($request->get('view') == 'client_link') {
+            $client = ClientLink::findOrFail($request->get('client_id'));
+            $path = 'clients_link/' . $client->id . '/expedient/';
+
+        } else {
+            return $this->errorResponse('value view not correct', 409);
+        }
+
         DB::beginTransaction();
         try {
-            $client = Client::findOrFail($request->get('client_id'));
             $document = Document::findOrFail($request->get('document_id'));
-            $client->clientDocument()->attach($document->id);
             $file = $request->file('file');
             $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('clients/' . $client->id . '/expedient/', $fileName);
-            $documentLink = ClientDocument::where('client_id', $client->id)->where('document_id', $request->get('document_id'))->first();
-            $documentLink->file = $fileName;
-            $documentLink->save();
+            $file->storeAs($path, $fileName);
+            $client->documents()->attach($document->id, ['file' => $fileName]);
+
             DB::commit();
 
             return $this->showOne($client);
@@ -71,7 +117,7 @@ class DocumentLinkController extends ApiController
         } catch (\Exception $e) {
             DB::rollBack();
 
-            return $this->errorResponse('Ocurrio un error inesperado');
+            return $this->errorResponse('error --> ' . $e->getMessage(), 409);
         }
 
     }
@@ -86,7 +132,6 @@ class DocumentLinkController extends ApiController
     public function show(Client $client): JsonResponse
     {
         $client->clientDocument;
-
         return $this->showOne($client);
     }
 
@@ -109,8 +154,36 @@ class DocumentLinkController extends ApiController
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $this->validate($request,
+            [
+                'view' => 'required|string',
+                'document_id' => 'required|int',
+
+            ]
+        );
+
+        if ($request->get('view') == 'client') {
+            $client = Client::findOrFail($id);
+            $path = 'clients/' . $client->id . '/expedient/';
+
+        } elseif ($request->get('view') == 'client_link') {
+            $client = ClientLink::findOrFail($id);
+            $path = 'clients_link/' . $client->id . '/expedient/';
+
+        } else {
+            return $this->errorResponse('value view not correct', 409);
+        }
+
+        DB::beginTransaction();
+        try {
+
+            $client->documents()->detach();
+        }catch (Exception $e){
+            DB::rollBack();
+
+            return $this->errorResponse('error --> ' . $e->getMessage(), 409);
+        }
     }
 }
