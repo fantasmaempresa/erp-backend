@@ -36,13 +36,13 @@ return [
             'secret' => env('PUSHER_APP_SECRET'),
             'app_id' => env('PUSHER_APP_ID'),
             'options' => [
-//                'useTLS' => true,
+                'useTLS' => true,
                 'cluster' => env('PUSHER_APP_CLUSTER'),
-                'encrypted' => false,
-                'host' => '127.0.0.1',
-//                'host' => 'notaria4puebla.com.mx',
+                'encrypted' => true,
+//                'host' => '127.0.0.1',
+                'host' => 'notaria4puebla.com.mx',
                 'port' => 6003,
-                'scheme' => 'http'
+                'scheme' => 'https'
             ],
         ],
 

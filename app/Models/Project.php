@@ -70,7 +70,7 @@ class Project extends Model
             'estimate_end_date' => 'nullable|date',
             'quotes' => 'nullable|array',
             'folio' => 'nullable|string',
-            'project_quote_id' => 'nullable|int',
+            'project_quote_id' => 'required|int',
             'config' => 'required|array',
 //            'user_id' => 'required|int',
             'client_id' => 'nullable|int',
