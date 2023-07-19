@@ -39,7 +39,11 @@ class DatabaseSeeder extends Seeder
             [
                 RoleSeeder::class,
                 UserSeeder::class,
+                NotarySeeder::class,
                 StatusQuoteSeeder::class,
+                DocumentSeeder::class,
+                OperationSedeer::class,
+                ShapeSedeer::class
             ]
         );
     }

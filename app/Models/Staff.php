@@ -31,6 +31,8 @@ class Staff extends Model
         = [
             'id',
             'name',
+            'last_name',
+            'mother_last_name',
             'email',
             'phone',
             'nickname',
@@ -59,13 +61,15 @@ class Staff extends Model
     public static function rules($id = null): array
     {
         $rule = [
-            'name'              => 'required|string',
-            'email'             => 'required|email|unique:staff',
-            'phone'             => 'string|max:10|min:10|unique:staff',
-            'nickname'          => 'nullable|string',
+            'name' => 'required|string',
+            'last_name' => 'required|string',
+            'mother_last_name' => 'required|string',
+            'email' => 'required|email|unique:staff',
+            'phone' => 'string|max:10|min:10|unique:staff',
+            'nickname' => 'nullable|string',
             'extra_information' => 'nullable',
-            'work_area_id'      => 'int',
-            'user_id'           => 'nullable|int',
+            'work_area_id' => 'int',
+            'user_id' => 'nullable|int',
         ];
 
         if ($id) {

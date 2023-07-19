@@ -35,6 +35,8 @@ class Client extends Model
         = [
             'id',
             'name',
+            'last_name',
+            'mother_last_name',
             'email',
             'phone',
             'nickname',
@@ -63,6 +65,8 @@ class Client extends Model
     {
         $rule = [
             'name' => 'required|string',
+            'last_name' => 'required|string',
+            'mother_last_name' => 'required|string',
             'email' => 'required|email|unique:clients',
             'phone' => 'required|string|max:10|min:10|unique:clients',
             'nickname' => 'nullable|string',

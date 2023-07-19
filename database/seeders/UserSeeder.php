@@ -30,6 +30,7 @@ class UserSeeder extends Seeder
         DB::table('users')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         DB::table('users')->insert([
+            'id' => 1,
             'name' => 'admin',
             'email' => 'admin@admin.com',
             'password' => bcrypt('secret'),
@@ -37,6 +38,23 @@ class UserSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
+            'id' => 2,
+            'name' => 'Norma Romero Cortes',
+            'email' => 'norma@admin.com',
+            'password' => bcrypt('secret'),
+            'role_id' => Role::$ADMIN,
+        ]);
+
+        DB::table('users')->insert([
+            'id' => 3,
+            'name' => 'Norma Alma Cortes Caballero',
+            'email' => 'normac@admin.com',
+            'password' => bcrypt('secret'),
+            'role_id' => Role::$ADMIN,
+        ]);
+
+        DB::table('users')->insert([
+            'id' => 4,
             'name' => 'alex',
             'email' => 'metalico900@gmail.com',
             'password' => bcrypt('secret'),
@@ -44,6 +62,7 @@ class UserSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
+            'id' => 5,
             'name' => 'test',
             'email' => 'test@test.com',
             'password' => bcrypt('secret'),

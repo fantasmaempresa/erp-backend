@@ -26,6 +26,8 @@ class ClientLink extends Model
     protected $fillable = [
         'id',
         'name',
+        'last_name',
+        'mother_last_name',
         'email',
         'phone',
         'nickname',

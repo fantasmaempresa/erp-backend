@@ -14,6 +14,7 @@ use App\Http\Controllers\ExtraHour\ExtraHourController;
 use App\Http\Controllers\FormStructure\FromStructureController;
 use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\Notification\NotificationFilterController;
+use App\Http\Controllers\Operation\OperationController;
 use App\Http\Controllers\Perception\PerceptionController;
 use App\Http\Controllers\PhasesProcess\PhasesProcessController;
 use App\Http\Controllers\Process\ProcessController;
@@ -28,6 +29,7 @@ use App\Http\Controllers\ProjectStaff\ProjectStaffController;
 use App\Http\Controllers\Role\RoleActionController;
 use App\Http\Controllers\Role\RoleController;
 use App\Http\Controllers\Salary\SalaryController;
+use App\Http\Controllers\Shape\ShapeController;
 use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\StatusQuote\StatusQuoteController;
 use App\Http\Controllers\TaxDatum\TaxDatumController;
@@ -108,6 +110,10 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('deductions', DeductionController::class, ['except' => ['create', 'edit']]);
     Route::resource('extraHours', ExtraHourController::class, ['except' => ['create', 'edit']]);
     //Route::resource('disabilities',DisabilityController::class, ['except' => ['create', 'edit']]);
+
+    //ROUTE NOTARY
+    Route::resource('shape', ShapeController::class, ['except' => ['create', 'edit']]);
+    Route::resource('operations', OperationController::class, ['except' => ['create', 'edit']]);
 });
 
 

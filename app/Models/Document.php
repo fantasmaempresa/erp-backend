@@ -54,6 +54,14 @@ class Document extends Model
     /**
      * @return BelongsToMany
      */
+    public function operations(): BelongsToMany
+    {
+        return $this->belongsToMany(Operation::class);
+    }
+
+    /**
+     * @return BelongsToMany
+     */
     public function clientLink(): BelongsToMany
     {
         return $this->belongsToMany(ClientLink::class);
