@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Shape;
 
 use App\Http\Controllers\ApiController;
 use App\Models\Shape;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -19,9 +20,9 @@ class ShapeController extends ApiController
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
         if ($request->has('search')) {
-            $response = $this->showList(Shape::search($request->get('search')->paginate($paginate)));
+            $response = $this->showList(shape::search($request->get('search')->paginate($paginate)));
         } else {
-            $response = $this->showList(Shape::paginate($paginate));
+            $response = $this->showList(shape::paginate($paginate));
         }
 
         return $response;
@@ -29,11 +30,11 @@ class ShapeController extends ApiController
 
 
     /**
-     * Store a newly created resource in storage.
-     *
      * @param Request $request
      *
      * @return JsonResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
     {
@@ -41,10 +42,12 @@ class ShapeController extends ApiController
 
         $shape = new Shape($request->all());
 
-        if (!$shape->verifyForm()) {
-            return $this->errorResponse('this form format not valid', 422);
-        }
+        //TODO verificar que el fomulario que viene sea el mismo que el de la plantilla
+//        if (!$shape->verifyForm()) {
+//            return $this->errorResponse('this form format not valid', 422);
+//        }
 
+        $shape->signature_date = Carbon::parse($shape->signature_date);
         $shape->save();
 
         return $this->showOne($shape);
@@ -79,9 +82,9 @@ class ShapeController extends ApiController
             return $this->errorResponse('A different value must be specified to update', 422);
         }
 
-        if (!$shape->verifyForm()) {
-            $this->errorResponse('this form format not valid', 422);
-        }
+//        if (!$shape->verifyForm()) {
+//            $this->errorResponse('this form format not valid', 422);
+//        }
 
         $shape->save();
 

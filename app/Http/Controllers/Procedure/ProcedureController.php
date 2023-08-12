@@ -2,85 +2,129 @@
 
 namespace App\Http\Controllers\Procedure;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 use App\Models\Procedure;
+use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
-class ProcedureController extends Controller
+class ProcedureController extends ApiController
+
 {
     /**
-     * Display a listing of the resource.
+     * @param Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function index()
+    public function index(Request $request): JsonResponse
     {
-        //
+        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+
+        if ($request->has('search')) {
+            $response = $this->showList(Procedure::search($request->get('search')->with('grantors')->with('documents')->paginate($paginate)));
+        } else {
+            $response = $this->showList(Procedure::with('grantors')->with('documents')->paginate($paginate));
+        }
+
+        return $response;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     *
+     * @return JsonResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        //
+
+        $this->validate($request, Procedure::rules());
+        $procedure = new Procedure($request->all());
+
+        DB::begintransaction();
+
+        try {
+            $procedure->date_proceedings = Carbon::parse($procedure->date_proceedings);
+            $procedure->date = Carbon::parse($procedure->date);
+            $procedure->user_id = Auth::id();
+            $procedure->save();
+
+            //Agregar otrogantes
+            foreach ($request->get('grantors') as $grantor) {
+                $procedure->grantors()->attach($grantor['id']);
+            }
+
+            foreach ($request->get('documents') as $grantor) {
+                $procedure->documents()->attach($grantor['id']);
+            }
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+        }
+
+
+        $procedure->grantors;
+        $procedure->documents;
+
+        return $this->showOne($procedure);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Procedure  $procedure
-     * @return \Illuminate\Http\Response
+     * @param Procedure $procedure
+     *
+     * @return JsonResponse
      */
     public function show(Procedure $procedure)
     {
-        //
+        $procedure->grantors;
+        $procedure->documents;
+
+        return $this->showOne($procedure);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Procedure  $procedure
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Procedure $procedure)
-    {
-        //
-    }
 
     /**
-     * Update the specified resource in storage.
+     * @param Request $request
+     * @param Procedure $procedure
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Procedure  $procedure
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request, Procedure $procedure)
+    public function update(Request $request, Procedure $procedure): JsonResponse
     {
-        //
+
+        $this->validate($request, Procedure::rules());
+        $procedure->fill($request->all());
+        if ($procedure->isClean()) {
+            return $this->errorResponse('A different value must be specified to update', 422);
+        }
+
+        $procedure->save();
+
+        return $this->showOne($procedure);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Procedure  $procedure
-     * @return \Illuminate\Http\Response
+     * @param Procedure $procedure
+     *
+     * @return JsonResponse
      */
     public function destroy(Procedure $procedure)
     {
-        //
+        $procedure->delete();
+
+        return $this->showMessage('Se elimino con éxito');
     }
 }

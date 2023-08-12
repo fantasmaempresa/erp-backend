@@ -31,6 +31,7 @@ class CreateProjectsTable extends Migration
             $table->string('folio')->nullable();
             $table->json('config');
             $table->boolean('finished')->default(\App\Models\Project::$UNFINISHED);
+            $table->foreignId('procedure_id')->constrained(); //trámite
             $table->foreignId('user_id')->constrained(); //Usuario quien inicio el proyecto
             $table->foreignId('client_id')->nullable()->constrained();
             $table->foreignId('project_quote_id')->nullable()->constrained();

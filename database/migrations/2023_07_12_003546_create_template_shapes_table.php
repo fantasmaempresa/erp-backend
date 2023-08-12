@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFormStructuresTable extends Migration
+class CreateTemplateShapesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateFormStructuresTable extends Migration
      */
     public function up()
     {
-        Schema::create('form_structures', function (Blueprint $table) {
+        Schema::create('template_shapes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('file')->nullable();
             $table->json('form');
-            $table->string('description');
-            $table->string('template')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateFormStructuresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('form_structures');
+        Schema::dropIfExists('template_shapes');
     }
 }

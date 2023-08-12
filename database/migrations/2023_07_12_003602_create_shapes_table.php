@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProceduresTable extends Migration
+class CreateShapesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateProceduresTable extends Migration
      */
     public function up()
     {
-        Schema::create('procedures', function (Blueprint $table) {
+        Schema::create('shapes', function (Blueprint $table) {
             $table->id();
-            $table->string('proceedings'); //Expediente
             $table->string('folio'); //folio
             $table->string('notary'); //notario --- este podría ser el id del staff 1 u 2
             $table->string('scriptures'); //Escritura
@@ -40,12 +39,10 @@ class CreateProceduresTable extends Migration
             $table->string('acquirer_name'); //Nombre Adquiriente
             $table->text('description'); //Descripcion
             $table->string('total'); //Total
-            $table->json('extra_information'); //Tipo de de trámite
-            $table->foreignId('operation_id')->constrained(); //Operacion
-            $table->foreignId('user_id')->constrained(); //Elaboro
-            $table->foreignId('staff_id')->constrained(); //Gestor
-            $table->foreignId('shape_id')->constrained(); //Tipo de de trámite
+            $table->json('data_form'); //Tipo de de trámite
 
+            $table->foreignId('template_shape_id')->constrained(); //Tipo de de trámite
+            $table->foreignId('procedure_id')->constrained(); // trámite al que pertenece esta forma
             $table->timestamps();
         });
     }
@@ -57,6 +54,6 @@ class CreateProceduresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('procedures');
+        Schema::dropIfExists('shapes');
     }
 }

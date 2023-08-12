@@ -16,7 +16,8 @@ use Illuminate\Validation\Rule;
  *
  * @version 1.0
  */
-class Document extends Model
+class
+Document extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -54,9 +55,9 @@ class Document extends Model
     /**
      * @return BelongsToMany
      */
-    public function operations(): BelongsToMany
+    public function procedures(): BelongsToMany
     {
-        return $this->belongsToMany(Operation::class);
+        return $this->belongsToMany(Procedure::class);
     }
 
     /**

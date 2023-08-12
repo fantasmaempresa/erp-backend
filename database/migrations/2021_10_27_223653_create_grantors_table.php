@@ -1,10 +1,11 @@
 <?php
 
+use App\Models\Grantor;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFormStructuresTable extends Migration
+class CreateGrantorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +14,14 @@ class CreateFormStructuresTable extends Migration
      */
     public function up()
     {
-        Schema::create('form_structures', function (Blueprint $table) {
+        Schema::create('grantors', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->json('form');
-            $table->string('description');
-            $table->string('template')->nullable();
+            $table->string('father_last_name')->nullable();
+            $table->string('mother_last_name')->nullable();
+            $table->string('type');
+            $table->string('stake');
+            $table->boolean('beneficiary')->default(Grantor::NO_BENEFICIARY);
             $table->timestamps();
         });
     }
@@ -30,6 +33,6 @@ class CreateFormStructuresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('form_structures');
+        Schema::dropIfExists('grantors');
     }
 }

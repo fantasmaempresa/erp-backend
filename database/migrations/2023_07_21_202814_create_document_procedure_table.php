@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDocumentOperationTable extends Migration
+class CreateDocumentProcedureTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateDocumentOperationTable extends Migration
      */
     public function up()
     {
-        Schema::create('document_operation', function (Blueprint $table) {
+        Schema::create('document_procedure', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('operation_id')->constrained();
             $table->foreignId('document_id')->constrained();
+            $table->foreignId('procedure_id')->constrained();
             $table->string('file');
             $table->timestamps();
         });
@@ -29,6 +29,6 @@ class CreateDocumentOperationTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('document_operation');
+        Schema::dropIfExists('document_procedure');
     }
 }

@@ -11,6 +11,7 @@ use App\Http\Controllers\ApiController;
 use App\Models\Client;
 use App\Models\ClientLink;
 use App\Models\Document;
+use App\Models\Procedure;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -27,6 +28,7 @@ class DocumentLinkController extends ApiController
 {
     /**
      * @param Request $request
+     *
      * @return JsonResponse
      *
      * @throws \Illuminate\Validation\ValidationException
@@ -34,7 +36,7 @@ class DocumentLinkController extends ApiController
     public function index(Request $request): JsonResponse
     {
         $this->validate($request, [
-            'client_id' => 'required|int',
+            'client_id' => 'required|int', // Cuando el view es procedure, el cliente_id es el id del proceso ligado
             'view' => 'required|string'
         ]);
 
@@ -55,6 +57,14 @@ class DocumentLinkController extends ApiController
             $documents = $client->documents()->withPivot('file')->get();
             $expedient = $documents->map(function ($document) use ($client) {
                 $document->url = url('storage/app/clients_link/' . $client->id . '/expedient/' . $document->pivot->file);
+                return $document;
+            });
+        } elseif ($request->get('view') == 'procedures') {
+            $procedure = Procedure::findOrFail($request->get('client_id'));
+
+            $documents = $procedure->documents()->withPivot('file')->get();
+            $expedient = $documents->map(function ($document) use ($procedure) {
+                $document->url = url('storage/app/procedures/' . $procedure->id . '/expedient/' . $document->pivot->file);
                 return $document;
             });
         } else {
@@ -79,6 +89,7 @@ class DocumentLinkController extends ApiController
      * Store a newly created resource in storage.
      *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function store(Request $request)
@@ -90,6 +101,7 @@ class DocumentLinkController extends ApiController
             'file' => 'required|file|max:20048'
         ]);
 
+
         if ($request->get('view') == 'client') {
             $client = Client::findOrFail($request->get('client_id'));
             $path = 'clients/' . $client->id . '/expedient/';
@@ -97,6 +109,10 @@ class DocumentLinkController extends ApiController
         } elseif ($request->get('view') == 'client_link') {
             $client = ClientLink::findOrFail($request->get('client_id'));
             $path = 'clients_link/' . $client->id . '/expedient/';
+
+        } elseif ($request->get('view') == 'procedures') {
+            $client = Procedure::findOrFail($request->get('client_id'));
+            $path = 'procedures/' . $client->id . '/expedient/';
 
         } else {
             return $this->errorResponse('value view not correct', 409);
@@ -132,6 +148,7 @@ class DocumentLinkController extends ApiController
     public function show(Client $client): JsonResponse
     {
         $client->clientDocument;
+
         return $this->showOne($client);
     }
 
@@ -152,6 +169,7 @@ class DocumentLinkController extends ApiController
      * Remove the specified resource from storage.
      *
      * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, $id)
@@ -172,6 +190,10 @@ class DocumentLinkController extends ApiController
             $client = ClientLink::findOrFail($id);
             $path = 'clients_link/' . $client->id . '/expedient/';
 
+        } elseif ($request->get('view') == 'procedure') {
+            $client = Procedure::findOrFail($id);
+            $path = 'procedures/' . $client->id . '/expedient/';
+
         } else {
             return $this->errorResponse('value view not correct', 409);
         }
@@ -180,7 +202,7 @@ class DocumentLinkController extends ApiController
         try {
 
             $client->documents()->detach();
-        }catch (Exception $e){
+        } catch (Exception $e) {
             DB::rollBack();
 
             return $this->errorResponse('error --> ' . $e->getMessage(), 409);

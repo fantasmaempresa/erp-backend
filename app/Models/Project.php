@@ -44,6 +44,7 @@ class Project extends Model
         'finished',
         'user_id',
         'client_id',
+        'procedure_id',
         'project_quote_id',
     ];
 
@@ -74,6 +75,7 @@ class Project extends Model
             'config' => 'required|array',
 //            'user_id' => 'required|int',
             'client_id' => 'nullable|int',
+            'procedure_id' => 'required|int',
         ];
     }
 
@@ -83,6 +85,14 @@ class Project extends Model
     public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function procedure(): BelongsTo
+    {
+        return $this->belongsTo(Procedure::class);
     }
 
     /**

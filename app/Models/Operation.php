@@ -32,13 +32,6 @@ class Operation extends Model
         return $query->orWhere('name', 'like', "%$search%");
     }
 
-    /**
-     * @return BelongsToMany
-     */
-    public function document(): BelongsToMany
-    {
-        return $this->belongsToMany(Document::class);
-    }
 
     /**
      * @return HasMany

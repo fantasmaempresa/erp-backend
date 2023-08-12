@@ -82,6 +82,7 @@ class ProjectController extends ApiController
         $project->users;
         $project->user;
         $project->client;
+        $project->procedure;
         $project->projectQuote;
 
         return $this->showOne($project);
@@ -98,6 +99,7 @@ class ProjectController extends ApiController
         $project->users;
         $project->user;
         $project->client;
+        $project->procedure;
         $project->projectQuote;
         $roles = [];
 

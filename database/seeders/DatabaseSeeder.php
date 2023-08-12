@@ -7,10 +7,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Client;
-use App\Models\Role;
-use App\Models\Staff;
-use App\Models\User;
 use Illuminate\Database\Seeder;
 
 /**
@@ -43,7 +39,8 @@ class DatabaseSeeder extends Seeder
                 StatusQuoteSeeder::class,
                 DocumentSeeder::class,
                 OperationSedeer::class,
-                ShapeSedeer::class
+                TemplateShapeSeeder::class,
+                PlaceSeeder::class,
             ]
         );
     }

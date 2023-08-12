@@ -12,15 +12,21 @@ use App\Http\Controllers\ClientLink\ClientLinkController;
 use App\Http\Controllers\Concept\ConceptController;
 use App\Http\Controllers\Document\DocumentController;
 use App\Http\Controllers\Document\DocumentLinkController;
+use App\Http\Controllers\Grantor\GrantorController;
+use App\Http\Controllers\Operation\OperationController;
 use App\Http\Controllers\PhasesProcess\PhasesProcessController;
+use App\Http\Controllers\Place\PlaceController;
+use App\Http\Controllers\Procedure\ProcedureController;
 use App\Http\Controllers\Project\ProjectActionController;
 use App\Http\Controllers\Project\ProjectController;
 use App\Http\Controllers\Project\ProjectFilterController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteFilterController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteOperationsController;
+use App\Http\Controllers\Shape\ShapeController;
 use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\TemplateQuotes\TemplateQuotesController;
+use App\Http\Controllers\TemplateShape\TemplateShapeController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
 use App\Models\Role;
@@ -167,6 +173,46 @@ class RoleActionController extends ApiController
             'controllers' => [
                 PhasesProcessController::class,
                 ProjectController::class,
+            ],
+        ],
+        [
+            'label' => 'Notarial',
+            'icon' => 'balance',
+            'route' => './notary',
+            'dropdowns' => [
+                [
+                    'label' => 'Operaciones',
+                    'route' => './operations',
+                    'icon' => 'play_arrow',
+                ],
+                [
+                    'label' => 'Otorgantes',
+                    'route' => './grantors',
+                    'icon' => 'play_arrow',
+                ],
+                [
+                    'label' => 'Lugares',
+                    'route' => './places',
+                    'icon' => 'play_arrow',
+                ],
+                [
+                    'label' => 'Formas',
+                    'route' => './shapes',
+                    'icon' => 'play_arrow',
+                ],
+                [
+                    'label' => 'Trámites',
+                    'route' => './procedures',
+                    'icon' => 'play_arrow',
+                ],
+            ],
+            'controllers' => [
+                ShapeController::class,
+                TemplateShapeController::class,
+                OperationController::class,
+                ProcedureController::class,
+                PlaceController::class,
+                GrantorController::class,
             ],
         ],
         [

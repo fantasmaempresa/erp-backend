@@ -3,10 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models\Shape;
+use App\Models\TemplateShape;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ShapeSedeer extends Seeder
+class TemplateShapeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,7 +17,7 @@ class ShapeSedeer extends Seeder
     public function run()
     {
 
-        $shapes = [
+        $templateShapes = [
             [
                 'id' => 1,
                 'name' => 'Forma-01',
@@ -98,39 +99,38 @@ class ShapeSedeer extends Seeder
                     ['name' => 'fourth_amount', 'type' => 'text', 'label' => 'Importe4'],
                 ]
             ],
-            [
-                'id' => 3,
-                'name' => 'Trámite',
-                'form' => json_encode(
-                    [
-                        ['name' => 'expedient', 'type' => 'text', 'label' => 'expediente'],
-                        ['name' => 'date_expedient', 'type' => 'date', 'label' => 'Fecha de expediente'],
-                        ['name' => 'name', 'type' => 'text', 'label' => 'Nombre'],
-                        ['name' => 'group', 'type' => 'text', 'label' => 'Grupo'],
-                        ['name' => 'place', 'type' => 'text', 'label' => 'Lugar'],
-//En la tabla pincipal existe un campo de personal responsable ['name' => '', 'type' => 'text', 'label' => 'Responsable'],
-//                        ['name' => '', 'type' => 'text', 'label' => 'Secretaria'],
-                        ['name' => 'instrument', 'type' => 'text', 'label' => 'Instrumento'],
-                        ['name' => 'date', 'type' => 'text', 'label' => 'Fecha'],
-                        ['name' => 'volume', 'type' => 'text', 'label' => 'Volumen'],
-                        ['name' => 'folio', 'type' => 'text', 'label' => 'Folio1'],
-                        ['name' => 'second_folio', 'type' => 'text', 'label' => 'Folio2'],
-                        ['name' => 'credit', 'type' => 'text', 'label' => 'Credito'],
-                    ]
-                )
-            ]
+//            [
+//                'id' => 3,
+//                'name' => 'Trámite',
+//                'form' => json_encode(
+//                    [
+//                        ['name' => 'expedient', 'type' => 'text', 'label' => 'expediente'],
+//                        ['name' => 'date_expedient', 'type' => 'date', 'label' => 'Fecha de expediente'],
+//                        ['name' => 'name', 'type' => 'text', 'label' => 'Nombre'],
+//                        ['name' => 'group', 'type' => 'text', 'label' => 'Grupo'],
+//                        ['name' => 'place', 'type' => 'text', 'label' => 'Lugar'],
+////En la tabla pincipal existe un campo de personal responsable ['name' => '', 'type' => 'text', 'label' => 'Responsable'],
+////                        ['name' => '', 'type' => 'text', 'label' => 'Secretaria'],
+//                        ['name' => 'instrument', 'type' => 'text', 'label' => 'Instrumento'],
+//                        ['name' => 'date', 'type' => 'text', 'label' => 'Fecha'],
+//                        ['name' => 'volume', 'type' => 'text', 'label' => 'Volumen'],
+//                        ['name' => 'folio', 'type' => 'text', 'label' => 'Folio1'],
+//                        ['name' => 'second_folio', 'type' => 'text', 'label' => 'Folio2'],
+//                        ['name' => 'credit', 'type' => 'text', 'label' => 'Credito'],
+//                    ]
+//                )
+//            ]
         ];
 
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        DB::table('shapes')->truncate();
+        DB::table('template_shapes')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
-        foreach ($shapes as $shape) {
-            print_r('Creando Operación');
-            print_r($shape);
+        foreach ($templateShapes as $templateShape) {
+            print_r('Creando plantilla de forma');
+            print_r($templateShape);
             print_r("--- \n");
-            Shape::create($shape);
+            TemplateShape::create($templateShape);
         }
-
     }
 }

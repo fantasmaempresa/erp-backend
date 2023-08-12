@@ -8,8 +8,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use phpseclib3\Crypt\EC\Curves\brainpoolP160r1;
 
 /**
  * Model shape
@@ -18,26 +16,63 @@ class Shape extends Model
 {
     use HasFactory;
 
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'id',
-        'name',
-        'form',
+        'folio',
+        'notary',
+        'scriptures',
+        'property_account',
+        'signature_date',
+        'departure',
+        'inscription',
+        'sheets',
+        'took',
+        'book',
+        'operation_value',
+        'alienating_name',
+        'alienating_street',
+        'alienating_outdoor_number',
+        'alienating_interior_number',
+        'alienating_colony',
+        'alienating_locality',
+        'alienating_municipality',
+        'alienating_entity',
+        'alienating_zipcode',
+        'alienating_phone',
+        'acquirer_name',
+        'description',
+        'total',
+        'data_form',
+        'template_shape_id',
+        'procedure_id',
     ];
 
     /**
      * @var string[]
      */
     protected $casts = [
-        'form' => 'array'
+        'data_form' => 'array'
     ];
 
     /**
-     * @return HasMany
+     * @return BelongsTo
      */
-    public function procedures(): HasMany
+    public function template_shape(): BelongsTo
     {
-        return $this->hasMany(Procedure::class);
+        return $this->belongsTo(TemplateShape::class);
     }
+
+    /**
+     * @return BelongsTo
+     */
+    public function procedure(): BelongsTo
+    {
+        return $this->belongsTo(Procedure::class);
+    }
+
 
     /**
      * @param $query
@@ -47,53 +82,53 @@ class Shape extends Model
      */
     public function scopeSearch($query, $search): mixed
     {
-        return $query->orWhere('name', 'like', "%$search%");
+        return $query
+            ->orWhere('folio', 'like', "%$search%")
+            ->orWhere('notary', 'like', "%$search%")
+            ->orWhere('scriptures', 'like', "%$search%")
+            ->orWhere('property_account', 'like', "%$search%")
+            ->orWhere('departure', 'like', "%$search%")
+            ->orWhere('inscription', 'like', "%$search%")
+            ->orWhere('sheets', 'like', "%$search%")
+            ->orWhere('took', 'like', "%$search%")
+            ->orWhere('book', 'like', "%$search%");
     }
 
     /**
      * @return string[]
      */
-    public static function rules()
+    public static function rules(): array
     {
+
         return [
-            'name' => 'required|string',
-            'form' => 'required|array',
+            'folio' => 'required|string',
+            'notary' => 'required|string',
+            'scriptures' => 'required|string',
+            'property_account' => 'required|string',
+            'signature_date' => 'required|date',
+            'departure' => 'required|string',
+            'inscription' => 'required|string',
+            'sheets' => 'required|string',
+            'took' => 'required|string',
+            'book' => 'required|string',
+            'operation_value' => 'required|string',
+            'alienating_name' => 'required|string',
+            'alienating_street' => 'required|string',
+            'alienating_outdoor_number' => 'required|string',
+            'alienating_interior_number' => 'required|string',
+            'alienating_colony' => 'required|string',
+            'alienating_locality' => 'required|string',
+            'alienating_municipality' => 'required|string',
+            'alienating_entity' => 'required|string',
+            'alienating_zipcode' => 'required|string',
+            'alienating_phone' => 'required|string',
+            'acquirer_name' => 'required|string',
+            'description' => 'required|string',
+            'total' => 'required|string',
+            'data_form' => 'required|array',
+            'template_shape_id' => 'required|exists:template_shapes,id',
+            'procedure_id' => 'required|exists:procedures,id',
         ];
-    }
-
-    /**
-     * @return bool
-     */
-    public function verifyForm(): bool
-    {
-        $form = $this->getAttribute('form');
-
-        $types = [
-            'text',
-            'number',
-            'date',
-        ];
-
-        $keys = [
-            'name',
-            'type',
-            'label',
-        ];
-
-        $flag = true;
-        foreach ($form as $field) {
-            if (!empty(array_diff($keys, array_keys($field)))) {
-                $flag = false;
-                break;
-            }
-
-            if (!in_array($field['type'], $types)) {
-                $flag = false;
-                break;
-            }
-        }
-
-        return $flag;
     }
 
 

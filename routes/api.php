@@ -12,11 +12,15 @@ use App\Http\Controllers\Document\DocumentController;
 use App\Http\Controllers\Document\DocumentLinkController;
 use App\Http\Controllers\ExtraHour\ExtraHourController;
 use App\Http\Controllers\FormStructure\FromStructureController;
+use App\Http\Controllers\Grantor\GrantorController;
 use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\Notification\NotificationFilterController;
 use App\Http\Controllers\Operation\OperationController;
 use App\Http\Controllers\Perception\PerceptionController;
 use App\Http\Controllers\PhasesProcess\PhasesProcessController;
+use App\Http\Controllers\Place\PlaceController;
+use App\Http\Controllers\Procedure\ProcedureController;
+use App\Http\Controllers\Procedure\ProcedureValidatorsController;
 use App\Http\Controllers\Process\ProcessController;
 use App\Http\Controllers\ProcessProject\ProcessProjectController;
 use App\Http\Controllers\Project\ProjectActionController;
@@ -34,6 +38,7 @@ use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\StatusQuote\StatusQuoteController;
 use App\Http\Controllers\TaxDatum\TaxDatumController;
 use App\Http\Controllers\TemplateQuotes\TemplateQuotesController;
+use App\Http\Controllers\TemplateShape\TemplateShapeController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\UserLog\UserLogController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
@@ -64,6 +69,7 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('phasesProcesses', PhasesProcessController::class, ['except' => ['create', 'edit']]);
     Route::resource('projectStaffs', ProjectStaffController::class, ['except' => ['create', 'edit']]);
     Route::resource('processProjects', ProcessProjectController::class, ['except' => ['create', 'edit']]);
+    Route::resource('documents', DocumentController::class, ['except' => ['create', 'edit']]);
     Route::resource('documents', DocumentController::class, ['except' => ['create', 'edit']]);
     Route::resource('clientDocuments', ClientDocumentController::class, ['except' => ['create', 'edit']]);
     Route::resource('documentLink', DocumentLinkController::class, ['except' => ['create', 'edit']]);
@@ -113,7 +119,18 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
 
     //ROUTE NOTARY
     Route::resource('shape', ShapeController::class, ['except' => ['create', 'edit']]);
+    Route::resource('templateShape', TemplateShapeController::class, ['except' => ['create', 'edit']]);
     Route::resource('operations', OperationController::class, ['except' => ['create', 'edit']]);
+    Route::resource('procedures', ProcedureController::class, ['except' => ['create', 'edit']]);
+    Route::resource('places', PlaceController::class, ['except' => ['create', 'edit']]);
+    Route::resource('grantors', GrantorController::class, ['except' => ['create', 'edit']]);
+    //ROUTE NOTARY VALIDATORS
+    Route::get('procedure/validator/uniqueValue/{name}', [ProcedureValidatorsController::class, 'uniqueValueValidator']);
+    Route::get('procedure/validator/uniqueFolioValue/{folio}', [ProcedureValidatorsController::class, 'uniqueFolioValueValidator']);
+
+
+    Route::resource('clients', ClientController::class, ['except' => ['create', 'edit']]);
+
 });
 
 
@@ -137,6 +154,5 @@ Route::group(['middleware' => ['auth:api']], function () {
 
 //ROUTES OAUTH AND OPERATIONS LOGIN USERS
 Route::post('oauth/token', [AuthController::class, 'issueToken']);
-Route::resource('clients', ClientController::class, ['except' => ['create', 'edit']]);
 
 
