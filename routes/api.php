@@ -33,6 +33,7 @@ use App\Http\Controllers\ProjectStaff\ProjectStaffController;
 use App\Http\Controllers\Role\RoleActionController;
 use App\Http\Controllers\Role\RoleController;
 use App\Http\Controllers\Salary\SalaryController;
+use App\Http\Controllers\Shape\ShapeActionController;
 use App\Http\Controllers\Shape\ShapeController;
 use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\StatusQuote\StatusQuoteController;
@@ -127,8 +128,8 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('grantors', GrantorController::class, ['except' => ['create', 'edit']]);
     Route::resource('places', PlaceController::class, ['except' => ['create', 'edit']]);
     //GENERATOR REPORTS
-    Route::post('shape/generator/01', []);
-    Route::post('shape/generator/02', []);
+    Route::post('shape/generator/01', [ShapeActionController::class, 'generateShape']);
+    Route::post('shape/generator/02', [ShapeActionController::class, 'generateShape']);
     //ROUTE NOTARY VALIDATORS
     Route::get('procedure/validator/uniqueValue/{name}', [ProcedureValidatorsController::class, 'uniqueValueValidator']);
     Route::get('procedure/validator/uniqueFolioValue/{folio}', [ProcedureValidatorsController::class, 'uniqueFolioValueValidator']);
