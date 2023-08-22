@@ -54,12 +54,17 @@ class AuthController extends AccessTokenController
         $user->client;
         $user->staff;
 
+
         return $this->withErrorHandling(function () use ($request, $user) {
             $content = $this->convertResponse($this->server->respondToAccessTokenRequest($request, new Psr7Response()));
             $content = json_decode($content->getContent());
-            $content->user = $user;
             $user->online = User::$ONLINE;
             $user->save();
+            $content->user = $user;
+            $content->user->url = null;
+            if (isset($user->config['profile']['image'])) {
+                $content->user->url = url('storage/app/users/profile/' . $user->config['profile']['image']);
+            }
 
             $notification = $this->createNotification(User::getMessageNotify(User::$ONLINE, $user->name), null, Role::$ADMIN);
 

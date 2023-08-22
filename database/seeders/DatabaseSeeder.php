@@ -33,14 +33,14 @@ class DatabaseSeeder extends Seeder
 
         $this->call(
             [
-                RoleSeeder::class,
+//                RoleSeeder::class,
                 UserSeeder::class,
-                NotarySeeder::class,
-                StatusQuoteSeeder::class,
-                DocumentSeeder::class,
-                OperationSedeer::class,
-                TemplateShapeSeeder::class,
-                PlaceSeeder::class,
+//                NotarySeeder::class,
+//                StatusQuoteSeeder::class,
+//                DocumentSeeder::class,
+//                OperationSedeer::class,
+//                TemplateShapeSeeder::class,
+//                PlaceSeeder::class,
             ]
         );
     }

@@ -3,12 +3,13 @@
  * CODE
  * User Filter Controller
 */
+
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\ApiController;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * @access  public
@@ -32,5 +33,6 @@ class UserFilterController extends ApiController
     {
         return $this->showList(User::where('online', User::$OFFLINE)->get());
     }
+
 
 }

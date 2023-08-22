@@ -39,6 +39,7 @@ use App\Http\Controllers\StatusQuote\StatusQuoteController;
 use App\Http\Controllers\TaxDatum\TaxDatumController;
 use App\Http\Controllers\TemplateQuotes\TemplateQuotesController;
 use App\Http\Controllers\TemplateShape\TemplateShapeController;
+use App\Http\Controllers\User\UserActionController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\UserLog\UserLogController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
@@ -61,6 +62,7 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
 
     Route::resource('users', UserController::class, ['except' => ['create', 'edit']]);
     Route::post('user/assign', [UserController::class, 'assignUserToEntity']);
+    Route::post('user/updateMyInfo', [UserActionController::class, 'updateMyInfoUser']);
 
     Route::resource('userLogs', UserLogController::class, ['except' => ['create', 'edit']]);
     Route::resource('staff', StaffController::class, ['except' => ['create', 'edit']]);
@@ -122,8 +124,11 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('templateShape', TemplateShapeController::class, ['except' => ['create', 'edit']]);
     Route::resource('operations', OperationController::class, ['except' => ['create', 'edit']]);
     Route::resource('procedures', ProcedureController::class, ['except' => ['create', 'edit']]);
-    Route::resource('places', PlaceController::class, ['except' => ['create', 'edit']]);
     Route::resource('grantors', GrantorController::class, ['except' => ['create', 'edit']]);
+    Route::resource('places', PlaceController::class, ['except' => ['create', 'edit']]);
+    //GENERATOR REPORTS
+    Route::post('shape/generator/01', []);
+    Route::post('shape/generator/02', []);
     //ROUTE NOTARY VALIDATORS
     Route::get('procedure/validator/uniqueValue/{name}', [ProcedureValidatorsController::class, 'uniqueValueValidator']);
     Route::get('procedure/validator/uniqueFolioValue/{folio}', [ProcedureValidatorsController::class, 'uniqueFolioValueValidator']);

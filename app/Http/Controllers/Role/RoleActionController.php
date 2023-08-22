@@ -28,6 +28,7 @@ use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\TemplateQuotes\TemplateQuotesController;
 use App\Http\Controllers\TemplateShape\TemplateShapeController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\User\UserFilterController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
 use App\Models\Role;
 use App\Models\User;
@@ -45,6 +46,14 @@ class RoleActionController extends ApiController
      * @var array[]
      */
     public static $startMenu = [
+        [
+            'label' => 'Perfil',
+            'route' => './profile',
+            'icon' => 'account_circle',
+            'controllers' => [
+                UserFilterController::class,
+            ],
+        ],
         [
             'label' => 'Clientes',
             'route' => './clients',
