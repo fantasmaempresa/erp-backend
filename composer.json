@@ -15,6 +15,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
+        "open2code/pdf": "^1.0",
         "pusher/pusher-php-server": "~4.0",
         "squizlabs/php_codesniffer": "3.*"
     },

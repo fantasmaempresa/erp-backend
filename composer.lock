@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "26a20ed1958a572c5d236979f5bdba8e",
+    "content-hash": "e79c917f881dfb38ac9f5fbe23325840",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3314,6 +3314,50 @@
                 }
             ],
             "time": "2022-06-22T07:13:36+00:00"
+        },
+        {
+            "name": "open2code/pdf",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ErickNavarrete/open2code-pdf.git",
+                "reference": "6a8b36ce94133642a9a71435dd237dbd21778147"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ErickNavarrete/open2code-pdf/zipball/6a8b36ce94133642a9a71435dd237dbd21778147",
+                "reference": "6a8b36ce94133642a9a71435dd237dbd21778147",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^7.0|^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Open2code\\Pdf\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Erick Navarrete",
+                    "email": "ericknavarrete55@gmail.com"
+                }
+            ],
+            "description": "PDF Generator with Jasper",
+            "support": {
+                "issues": "https://github.com/ErickNavarrete/open2code-pdf/issues",
+                "source": "https://github.com/ErickNavarrete/open2code-pdf/tree/v1.0.0"
+            },
+            "time": "2023-02-13T18:22:19+00:00"
         },
         {
             "name": "opis/closure",

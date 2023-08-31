@@ -111,6 +111,14 @@ class Procedure extends Model
             ->orWhere('credit', 'like', "%$search%");
     }
 
+    /**
+     * @return HasMany
+     */
+    public function shapes(): HasMany
+    {
+        return $this->hasMany(Shape::class);
+    }
+
 
     /**
      * @return string[]

@@ -10,6 +10,7 @@ namespace App\Traits;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  * @access  public
@@ -140,5 +141,14 @@ trait ApiResponseTrait
     protected function showList($instance, int $code = 200): JsonResponse
     {
         return $this->successResponse($instance, $code);
+    }
+
+    /**
+     * @param    $file
+     * @return BinaryFileResponse
+     */
+    protected function downloadFile($file): BinaryFileResponse
+    {
+        return response()->download($file);
     }
 }
