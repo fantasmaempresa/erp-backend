@@ -25,7 +25,15 @@ class ShapeActionController extends ApiController
         $procedure->shape = $procedure->shapes()->where('template_shape_id', 1)->first();
 
         $outputPath = Storage::path('reports/format_1/FORMAT1.pdf');
-        $pdf = new Report($procedure,[],Storage::path('reports/format_1/FORMAT1.jasper'), $outputPath);
+        $imageAsset = Storage::path('assets/LogoFinanzas.png');
+
+        $pdf = new Report(
+            $procedure,
+            ['imageSF' => $imageAsset],
+            Storage::path('reports/format_1/FORMAT1.jasper'),
+            $outputPath
+        );
+
         $result = $pdf->generateReport();
 
         if ($result['success']) {
