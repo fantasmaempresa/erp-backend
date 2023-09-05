@@ -1,30 +1,48 @@
 <?php
 
+/*
+ * OPEN2CODE 2023
+ */
 namespace App\Http\Controllers\Shape;
 
 use App\Http\Controllers\ApiController;
 use App\Models\Procedure;
+use App\Models\Shape;
+use DateTime;
+use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Date;
+use JetBrains\PhpStorm\ArrayShape;
 use Open2code\Pdf\jasper\Report;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
+/**
+ * SHAPE CONTROLLER
+ */
 class ShapeActionController extends ApiController
 {
 
     /**
-     * @param Procedure $procedure
-     * @return JsonResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
+     * @param   Procedure $procedure
+     * @param   Shape $shape
+     * @return  BinaryFileResponse|JsonResponse
+     * @throws  Exception
      */
-    public function generateShape(Procedure $procedure)
+    public function generateShape(Procedure $procedure, Shape $shape): BinaryFileResponse|JsonResponse
     {
+        $shape = $procedure->shapes()->where('id', $shape->id)->first();
+
+        if (is_null($shape)) {
+            return $this->errorResponse('Report not found', 404);
+        }
+
         $procedure->user;
         $procedure->place;
         $procedure->client;
         $procedure->staff;
         $procedure->operation;
-        $procedure->shape = $procedure->shapes()->where('template_shape_id', 1)->first();
-        $procedure->shape->signature_date_s = $this->separateDate(new \DateTime($procedure->shape->signature_date));
+        $procedure->shape = $shape;
+        $procedure->shape->signature_date_s = $this->separateDate(new DateTime($procedure->shape->signature_date));
 
         $procedure->shape->alien_rfc_s = $this->splitString($procedure->shape->data_form['alienating_rfc'], 13, 'al_rfc');
         $procedure->shape->alien_curp_s = $this->splitString($procedure->shape->data_form['alienating_crup'], 18, 'al_curp');
@@ -44,14 +62,15 @@ class ShapeActionController extends ApiController
 
         $result = $pdf->generateReport();
 
-        if ($result['success']) {
-            return $this->downloadFile($outputPath);
-        } else {
-            return $this->errorResponse($result['message'], 500);
-        }
+        return $result['success'] ? $this->downloadFile($outputPath) : $this->errorResponse($result['message'], 500);
     }
 
-    private function separateDate(\DateTime $date)
+    /**
+     * @param DateTime $date
+     * @return array
+     */
+    #[ArrayShape(['year' => "string", 'month' => "string", 'day' => "string"])]
+    private function separateDate(DateTime $date): array
     {
         return [
             'year' => $date->format("Y"),
@@ -60,13 +79,19 @@ class ShapeActionController extends ApiController
         ];
     }
 
-    private function splitString($input, $length, $prefix)
+    /**
+     * @param $input
+     * @param $length
+     * @param $prefix
+     * @return array
+     */
+    private function splitString($input, $length, $prefix): array
     {
-        $input_split = is_null($input) ? array_fill(0, $length, '') : str_split($input);
+        $inputSplit = is_null($input) ? array_fill(0, $length, '') : str_split($input);
 
         $result = [];
         for ($i = 0; $i < $length; $i++) {
-            $result[$prefix . $i] = isset($input_split[$i]) ? $input_split[$i] : '';
+            $result[$prefix.$i] = $inputSplit[$i] ?? '';
         }
 
         return $result;
