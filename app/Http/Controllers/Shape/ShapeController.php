@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Shape;
 
 use App\Http\Controllers\ApiController;
+use App\Models\Procedure;
 use App\Models\Shape;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 
 class ShapeController extends ApiController
 {
@@ -21,6 +24,18 @@ class ShapeController extends ApiController
 
         if ($request->has('search')) {
             $response = $this->showList(shape::search($request->get('search')->paginate($paginate)));
+        }
+        if ($request->has('procedure_id')) {
+            $procedure = Procedure::findOrFail($request->get('procedure_id'));
+            $shapes = $procedure->shapes;
+            $currentPage = Paginator::resolveCurrentPage('page');
+            $response = $this->showList(new LengthAwarePaginator(
+                $shapes->forPage($currentPage, $paginate),
+                $shapes->count(),
+                $paginate,
+                $currentPage,
+                ['path' => Paginator::resolveCurrentPath()]
+            ));
         } else {
             $response = $this->showList(shape::paginate($paginate));
         }
