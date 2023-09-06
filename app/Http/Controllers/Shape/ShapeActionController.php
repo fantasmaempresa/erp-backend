@@ -44,19 +44,29 @@ class ShapeActionController extends ApiController
         $procedure->shape = $shape;
         $procedure->shape->signature_date_s = $this->separateDate(new DateTime($procedure->shape->signature_date));
 
-        $procedure->shape->alien_rfc_s = $this->splitString($procedure->shape->data_form['alienating_rfc'], 13, 'al_rfc');
-        $procedure->shape->alien_curp_s = $this->splitString($procedure->shape->data_form['alienating_crup'], 18, 'al_curp');
-        $procedure->shape->acq_rfc_s = $this->splitString($procedure->shape->data_form['acquirer_rfc'], 13, 'ac_rfc');
-        $procedure->shape->acq_curp_s = $this->splitString($procedure->shape->data_form['acquirer_curp'], 18, 'ac_curp');
+        if($shape->template_shape->id == 1){
+            $procedure->shape->alien_rfc_s = $this->splitString($procedure->shape->data_form['alienating_rfc'], 13, 'al_rfc');
+            $procedure->shape->alien_curp_s = $this->splitString($procedure->shape->data_form['alienating_crup'], 18, 'al_curp');
+            $procedure->shape->acq_rfc_s = $this->splitString($procedure->shape->data_form['acquirer_rfc'], 13, 'ac_rfc');
+            $procedure->shape->acq_curp_s = $this->splitString($procedure->shape->data_form['acquirer_curp'], 18, 'ac_curp');
 
+            return $this->showList($procedure);
+            $jasperPath = Storage::path('reports/format_1/FORMAT1.jasper');
+            $outputPath = Storage::path('reports/format_1/FORMAT1.pdf');
+        }else{
+            $procedure->shape->rfc = $this->splitString($procedure->shape->data_form['rfc'], 13, 'rfc');
+            $procedure->shape->curp = $this->splitString($procedure->shape->data_form['curp'], 18, 'curp');
 
-        $outputPath = Storage::path('reports/format_1/FORMAT1.pdf');
+            $jasperPath = Storage::path('reports/format_2/FORMAT2.jasper');
+            $outputPath = Storage::path('reports/format_2/FORMAT2.pdf');
+        }
+
         $imageAsset = Storage::path('assets/LogoFinanzas.png');
 
         $pdf = new Report(
             $procedure,
             ['imageSF' => $imageAsset],
-            Storage::path('reports/format_1/FORMAT1.jasper'),
+            $jasperPath,
             $outputPath
         );
 
