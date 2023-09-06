@@ -55,6 +55,9 @@ class ShapeActionController extends ApiController
             $outputPath = Storage::path('reports/format_2/FORMAT2.pdf');
         }
 
+        unset($procedure->shape['template_shape']);
+        unset($procedure->shape['procedure']);
+
         $imageAsset = Storage::path('assets/LogoFinanzas.png');
 
         $pdf = new Report(
