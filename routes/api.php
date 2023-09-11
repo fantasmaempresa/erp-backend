@@ -128,8 +128,7 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('grantors', GrantorController::class, ['except' => ['create', 'edit']]);
     Route::resource('places', PlaceController::class, ['except' => ['create', 'edit']]);
     //GENERATOR REPORTS
-    Route::get('shape/generator/01/{procedure}', [ShapeActionController::class, 'generateShape']);
-    Route::post('shape/generator/02', [ShapeActionController::class, 'generateShape']);
+    Route::get('report/generator/procedure/shape/{shape}', [ShapeActionController::class, 'generateShape']);
     //ROUTE NOTARY VALIDATORS
     Route::get('procedure/validator/uniqueValue/{name}', [ProcedureValidatorsController::class, 'uniqueValueValidator']);
     Route::get('procedure/validator/uniqueFolioValue/{folio}', [ProcedureValidatorsController::class, 'uniqueFolioValueValidator']);
