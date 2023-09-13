@@ -2,7 +2,7 @@
 <!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="COTIZACION" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fc97a963-c0b6-4c19-a348-7e2773e092a3">
 	<property name="template.engine" value="tabular_template"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="JSON COT.xml"/>
 	<style name="Table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -18,9 +18,30 @@
 			<![CDATA[]]>
 		</queryString>
 	</subDataset>
-	<queryString>
+	<parameter name="subReportPath" class="java.lang.String"/>
+	<queryString language="JSON">
 		<![CDATA[]]>
 	</queryString>
+	<field name="name" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="name"/>
+		<fieldDescription><![CDATA[name]]></fieldDescription>
+	</field>
+	<field name="description" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="description"/>
+		<fieldDescription><![CDATA[description]]></fieldDescription>
+	</field>
+	<field name="client_name" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="client.name"/>
+		<fieldDescription><![CDATA[client.name]]></fieldDescription>
+	</field>
+	<field name="client_last_name" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="client.last_name"/>
+		<fieldDescription><![CDATA[client.last_name]]></fieldDescription>
+	</field>
+	<field name="client_mother_last_name" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="client.mother_last_name"/>
+		<fieldDescription><![CDATA[client.mother_last_name]]></fieldDescription>
+	</field>
 	<title>
 		<band height="79" splitType="Stretch">
 			<staticText>
@@ -54,7 +75,7 @@
 		</band>
 	</title>
 	<summary>
-		<band height="641" splitType="Stretch">
+		<band height="802" splitType="Stretch">
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<staticText>
 				<reportElement mode="Opaque" x="0" y="0" width="554" height="20" backcolor="#92CDDC" uuid="868ee571-7662-4776-8d4f-362716d25f14">
@@ -78,15 +99,8 @@
 				</textElement>
 				<text><![CDATA[A quien corresponda:]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="0" y="39" width="554" height="30" uuid="abc86c39-02b7-4459-9bd6-edc6b9149e0e"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="Arial" size="10"/>
-				</textElement>
-				<text><![CDATA[Por medio de la presente, le proporciono a Usted la cotización relativa a los gastos, impuestos, derechos y honorarios que se generarán por la escritura de COMPRA-VENTA; de conformidad con los siguientes datos:]]></text>
-			</staticText>
 			<rectangle>
-				<reportElement x="130" y="74" width="424" height="50" uuid="efaf7a20-88e9-464c-a3ad-ed961e43a98c"/>
+				<reportElement x="130" y="75" width="424" height="50" uuid="efaf7a20-88e9-464c-a3ad-ed961e43a98c"/>
 			</rectangle>
 			<staticText>
 				<reportElement x="0" y="85" width="120" height="30" uuid="73ddc73b-befe-4aab-b414-108cbf6ec545"/>
@@ -149,7 +163,7 @@
 				<text><![CDATA[Por la Compra-venta:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="284" width="554" height="20" backcolor="#92CDDC" uuid="a3754a5d-7fea-4f88-8966-c359dc904a2b">
+				<reportElement mode="Opaque" x="0" y="334" width="554" height="20" backcolor="#92CDDC" uuid="a3754a5d-7fea-4f88-8966-c359dc904a2b">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
@@ -164,7 +178,7 @@
 				<text><![CDATA[REQUISITOS:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="500" width="554" height="20" backcolor="#92CDDC" uuid="e27a2a6a-8105-478b-95d2-ca31749b2628">
+				<reportElement mode="Opaque" x="0" y="550" width="554" height="20" backcolor="#92CDDC" uuid="e27a2a6a-8105-478b-95d2-ca31749b2628">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
@@ -179,7 +193,7 @@
 				<text><![CDATA[OBSERVACIONES:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="303" width="554" height="20" uuid="b26e5fbd-c759-4c01-a50c-21e6a10deb30"/>
+				<reportElement x="0" y="353" width="554" height="20" uuid="b26e5fbd-c759-4c01-a50c-21e6a10deb30"/>
 				<box leftPadding="4">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -192,7 +206,7 @@
 				<text><![CDATA[1.- Escritura del inmueble.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="323" width="554" height="20" uuid="057934c5-67f8-44a0-9a15-a36bac17684f"/>
+				<reportElement x="0" y="373" width="554" height="20" uuid="057934c5-67f8-44a0-9a15-a36bac17684f"/>
 				<box leftPadding="4">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -205,7 +219,7 @@
 				<text><![CDATA[2.- Boleta predial y limpia 2023.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="343" width="554" height="20" uuid="47b38c90-a2ab-4eb8-a2cb-15555847e663"/>
+				<reportElement x="0" y="393" width="554" height="20" uuid="47b38c90-a2ab-4eb8-a2cb-15555847e663"/>
 				<box leftPadding="4">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -218,7 +232,7 @@
 				<text><![CDATA[3.- Constancia de No adeudo del servicio de agua o Factibilidad de Servicio de agua (vigente) 2023.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="363" width="554" height="56" uuid="12bc9e3d-f3b6-417b-8193-9cfd37eae62f"/>
+				<reportElement x="0" y="413" width="554" height="56" uuid="12bc9e3d-f3b6-417b-8193-9cfd37eae62f"/>
 				<box leftPadding="4">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -228,10 +242,11 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>
-				<text><![CDATA[4.- En caso de que la parte enajenante, no haya exentado alguna otra venta de casa habitación los últimos 3 años, ésta podrá exentar el I.S.R., presentando "comprobantes fiscales" de servicio de energía eléctrica, de telefonía fija, tiendas departamentales a nombre del enajenante o familiares en línea recta, de 3 años a la fecha (sólo uno por año); o en su caso con su identificación oficial que presente su domicilio en el inmueble en venta.]]></text>
+				<text><![CDATA[4.- En caso de que la parte enajenante, no haya exentado alguna otra venta de casa habitación los últimos 3 años, ésta podrá exentar el I.S.R., presentando "comprobantes fiscales" de servicio de energía eléctrica, de telefonía fija, tiendas departamentales a nombre del enajenante o familiares en línea recta, de 3 años a la fecha (sólo uno por año); o en su caso con su identificación oficial que presente su domicilio en el inmueble en venta.
+]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="448" width="554" height="42" uuid="c3aa765d-deb8-4019-9214-c2bb5cde5a72"/>
+				<reportElement x="0" y="498" width="554" height="42" uuid="c3aa765d-deb8-4019-9214-c2bb5cde5a72"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -244,7 +259,7 @@
 				<text><![CDATA[TODOS Y CADA UNO DE ESTOS DOCUMENTOS LOS DEBERÁN HACER LLEGAR PREVIAMENTE EN COPIAS SIMPLES PARA LA ELABORACIÓN DEL PROYECTO; AL MOMENTO DE LA FIRMA DE LA ESCRITURA DEBERÁN PRESENTAR TODOS Y CADA UNO DE LOS "ORIGINALES".]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="420" width="554" height="28" uuid="c353db82-9d87-4174-a67d-995938999536"/>
+				<reportElement x="0" y="470" width="554" height="28" uuid="c353db82-9d87-4174-a67d-995938999536"/>
 				<box leftPadding="4">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -257,7 +272,7 @@
 				<text><![CDATA[5.- De todos los intervinientes: identificaciones oficiales vigentes, CURP, actas de nacimiento, actas de matrimonio y cédulas de RFC.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="520" width="554" height="40" uuid="9dbdaa8d-5715-48bb-95e9-b450aec6014f"/>
+				<reportElement x="0" y="570" width="554" height="40" uuid="9dbdaa8d-5715-48bb-95e9-b450aec6014f"/>
 				<box leftPadding="4">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -272,7 +287,7 @@ Autoridades Municipales correspondientes, será cubierta por los propios adquire
 responsabilidad por este concepto.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="572" width="554" height="22" uuid="f4ca89ce-7e20-4f20-8d20-15b9c094d74d"/>
+				<reportElement x="0" y="622" width="554" height="22" uuid="f4ca89ce-7e20-4f20-8d20-15b9c094d74d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
 					<font fontName="Arial"/>
 					<paragraph lineSpacing="Single"/>
@@ -280,7 +295,7 @@ responsabilidad por este concepto.]]></text>
 				<text><![CDATA[A t e n t a m e n t e:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="593" width="554" height="36" uuid="40dc1213-4833-4cc8-8b35-bfd582f53022"/>
+				<reportElement x="0" y="643" width="554" height="36" uuid="40dc1213-4833-4cc8-8b35-bfd582f53022"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
 					<font fontName="Arial" isBold="true"/>
 					<paragraph lineSpacing="Single"/>
@@ -289,6 +304,31 @@ responsabilidad por este concepto.]]></text>
 Notario Público Titular
 Número 4.]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="0" y="39" width="554" height="30" uuid="7481d39d-c1f4-4e5b-a7c1-2f823c71e2eb"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Por medio de la presente, le proporciono a Usted la cotización relativa a los gastos, impuestos, derechos y honorarios que se generarán por la escritura de " + $F{name} + "; de conformidad con los siguientes datos:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="75" width="424" height="50" uuid="23609081-7c3e-4c96-a1d6-a7164bfcea4e">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="170" width="424" height="26" uuid="b4ff1c07-0a10-434a-be27-55a1f9257676"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{client_name} + " " + $F{client_last_name} + " " + $F{client_mother_last_name}]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>
