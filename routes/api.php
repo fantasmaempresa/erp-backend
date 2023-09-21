@@ -29,6 +29,7 @@ use App\Http\Controllers\Project\ProjectFilterController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteFilterController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteOperationsController;
+use App\Http\Controllers\ProjectQuote\ProjectQuoteReportController;
 use App\Http\Controllers\ProjectStaff\ProjectStaffController;
 use App\Http\Controllers\Role\RoleActionController;
 use App\Http\Controllers\Role\RoleController;
@@ -110,6 +111,7 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::get('projectQuotes/filter/getQuotesUser', [ProjectQuoteFilterController::class, 'getQuotesUser']);
     Route::get('projectQuotes/filter/getQuotesByClient', [ProjectQuoteFilterController::class, 'getQuotesByClient']);
     Route::post('projectQuotes/calculate/reactive', [ProjectQuoteOperationsController::class, 'calculateReactiveProjectQuote']);
+    Route::get('projectQuote/getReport', [ProjectQuoteReportController::class, 'makePDF']);
 
 
     //ROUTES PAYROLL3
