@@ -93,7 +93,7 @@
 		</band>
 	</title>
 	<detail>
-		<band height="355">
+		<band height="304">
 			<staticText>
 				<reportElement mode="Opaque" x="2" y="2" width="578" height="20" backcolor="#92CDDC" uuid="f35158b2-3e1e-4296-90e9-3fd21dc7ade6">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -205,9 +205,25 @@
 				<textFieldExpression><![CDATA[$F{client_name} + " " + $F{client_last_name} + " " + $F{client_mother_last_name}]]></textFieldExpression>
 			</textField>
 			<subreport>
-				<reportElement x="144" y="272" width="335" height="80" uuid="e2d67d50-53d0-40c5-b748-2df26a418944"/>
+				<reportElement x="144" y="272" width="335" height="30" uuid="e2d67d50-53d0-40c5-b748-2df26a418944"/>
 				<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("quote.form")]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{subReportPath}+"COT_DETAIL.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="30">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<subreport>
+				<reportElement x="144" y="0" width="335" height="30" uuid="c2ed4412-29fc-4194-8ce5-beeb07938674"/>
+				<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("quote.operations.operation_fields")]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{subReportPath}+"OPERATION_FIELDS.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="30">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<subreport>
+				<reportElement x="144" y="0" width="335" height="30" uuid="e7ded27d-35c1-43b5-bb20-c3ed43de91c7"/>
+				<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("quote.result.operation_fields")]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{subReportPath}+"RESULT_FIELDS.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>

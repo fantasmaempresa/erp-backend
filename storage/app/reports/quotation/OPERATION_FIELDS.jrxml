@@ -1,41 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="COT_DETAIL" pageWidth="335" pageHeight="400" columnWidth="335" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="89e5b99d-272e-4324-81e1-b2e55ceb425a">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="OPERATION_FIELDS" pageWidth="335" pageHeight="842" columnWidth="335" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="c72c424e-ad6b-4ec9-bf03-ed388f216d50">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="JSON COT.xml"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<queryString language="json">
-		<![CDATA[quote.form]]>
+		<![CDATA[quote.operations.operation_fields]]>
 	</queryString>
-	<field name="id" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="id"/>
-		<fieldDescription><![CDATA[id]]></fieldDescription>
-	</field>
-	<field name="controlType" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="controlType"/>
-		<fieldDescription><![CDATA[controlType]]></fieldDescription>
-	</field>
-	<field name="key" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="key"/>
-		<fieldDescription><![CDATA[key]]></fieldDescription>
-	</field>
 	<field name="label" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="label"/>
 		<fieldDescription><![CDATA[label]]></fieldDescription>
-	</field>
-	<field name="required" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="required"/>
-		<fieldDescription><![CDATA[required]]></fieldDescription>
-	</field>
-	<field name="options" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="options"/>
-		<fieldDescription><![CDATA[options]]></fieldDescription>
 	</field>
 	<field name="value" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="value"/>
 		<fieldDescription><![CDATA[value]]></fieldDescription>
 	</field>
-	<field name="order" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="order"/>
-		<fieldDescription><![CDATA[order]]></fieldDescription>
+	<field name="key" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="key"/>
+		<fieldDescription><![CDATA[key]]></fieldDescription>
+	</field>
+	<field name="conceptCtrl" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="conceptCtrl"/>
+		<fieldDescription><![CDATA[conceptCtrl]]></fieldDescription>
+	</field>
+	<field name="concepts" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="concepts"/>
+		<fieldDescription><![CDATA[concepts]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -44,10 +41,9 @@
 		<band height="24" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement x="0" y="0" width="224" height="24" uuid="eac0bdc5-3e9f-4901-bd5a-b209ce8f77b2">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="536dd802-bd94-4d52-a60c-e1e45cec08f9"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<reportElement x="0" y="0" width="224" height="24" uuid="59afdc2d-1841-4c1c-af01-50cbae0546bd">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -61,9 +57,9 @@
 				<textFieldExpression><![CDATA[$F{label}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="224" y="0" width="111" height="24" uuid="564dbc01-14e7-473a-a106-b40ffa952174">
+				<reportElement x="224" y="0" width="111" height="24" uuid="2c5d2669-b483-496b-b08c-5cf7a84b3f27">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
