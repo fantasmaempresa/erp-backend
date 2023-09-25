@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="COTIZACION" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fc97a963-c0b6-4c19-a348-7e2773e092a3">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="COTIZACION" pageWidth="623" pageHeight="936" whenNoDataType="AllSectionsNoDetail" columnWidth="583" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fc97a963-c0b6-4c19-a348-7e2773e092a3">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="JSON COT.xml"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<style name="Table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -19,6 +28,7 @@
 		</queryString>
 	</subDataset>
 	<parameter name="subReportPath" class="java.lang.String"/>
+	<parameter name="Logo" class="java.lang.String"/>
 	<queryString language="JSON">
 		<![CDATA[]]>
 	</queryString>
@@ -42,43 +52,50 @@
 		<property name="net.sf.jasperreports.json.field.expression" value="client.mother_last_name"/>
 		<fieldDescription><![CDATA[client.mother_last_name]]></fieldDescription>
 	</field>
+	<field name="label" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="quote.form.label"/>
+		<fieldDescription><![CDATA[quote.form.label]]></fieldDescription>
+	</field>
 	<title>
 		<band height="79" splitType="Stretch">
 			<staticText>
-				<reportElement x="360" y="1" width="194" height="18" forecolor="#000080" uuid="480b6e9f-8f7e-42f3-8b83-094fc2c82962"/>
+				<reportElement x="386" y="1" width="194" height="18" forecolor="#000080" uuid="480b6e9f-8f7e-42f3-8b83-094fc2c82962"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Dra. Norma Romero Cortés.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="360" y="19" width="194" height="18" forecolor="#000080" uuid="e8e570e1-ebca-41f2-9edf-01bead6bf54d"/>
+				<reportElement x="386" y="19" width="194" height="18" forecolor="#000080" uuid="e8e570e1-ebca-41f2-9edf-01bead6bf54d"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Arial" size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Notario Titular]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="360" y="37" width="194" height="18" forecolor="#000080" uuid="037edfa3-4abd-4ef3-8c87-53329f3f5110"/>
+				<reportElement x="386" y="37" width="194" height="18" forecolor="#000080" uuid="037edfa3-4abd-4ef3-8c87-53329f3f5110"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Lic. Norma Alma Cortés Caballero]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="360" y="55" width="194" height="18" forecolor="#000080" uuid="33bc6f9b-6cde-4980-836c-dbd27ee4e0cc"/>
+				<reportElement x="386" y="55" width="194" height="18" forecolor="#000080" uuid="33bc6f9b-6cde-4980-836c-dbd27ee4e0cc"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<text><![CDATA[Notario Auxiliar]]></text>
 			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="90" height="73" uuid="c8a01759-b85d-4cce-a0f7-fa4d58977697"/>
+				<imageExpression><![CDATA[$P{Logo}]]></imageExpression>
+			</image>
 		</band>
 	</title>
-	<summary>
-		<band height="802" splitType="Stretch">
-			<property name="local_mesure_unitheight" value="pixel"/>
+	<detail>
+		<band height="304">
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="0" width="554" height="20" backcolor="#92CDDC" uuid="868ee571-7662-4776-8d4f-362716d25f14">
+				<reportElement mode="Opaque" x="2" y="2" width="578" height="20" backcolor="#92CDDC" uuid="f35158b2-3e1e-4296-90e9-3fd21dc7ade6">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
@@ -93,64 +110,64 @@
 				<text><![CDATA[COTIZACIÓN NOTARIAL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="20" width="554" height="20" uuid="b260942f-b5bb-4914-9744-9f4e34bb2a79"/>
+				<reportElement x="2" y="22" width="578" height="20" uuid="6b960e95-6362-490a-8e0f-2f55f1a4d700"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<text><![CDATA[A quien corresponda:]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="130" y="75" width="424" height="50" uuid="efaf7a20-88e9-464c-a3ad-ed961e43a98c"/>
+				<reportElement x="142" y="77" width="438" height="50" uuid="a8776a2d-310b-4ff4-8673-3ba454923609"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="0" y="85" width="120" height="30" uuid="73ddc73b-befe-4aab-b414-108cbf6ec545"/>
+				<reportElement x="2" y="87" width="130" height="30" uuid="2b7211bf-4612-4b62-bbc6-9d921fa9b92e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[DESCRIPCIÓN DEL INMUEBLE]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="130" y="134" width="424" height="26" uuid="1483f047-a6e3-443a-94c2-65910c02b157"/>
+				<reportElement x="142" y="136" width="438" height="26" uuid="e8cfe5ab-478a-4436-a17f-c65c22abcd69"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="2" y="134" width="120" height="26" uuid="25e24890-c35b-4a78-a5b4-5d843b6309d1"/>
+				<reportElement x="4" y="136" width="130" height="26" uuid="fc317f79-f1bd-441a-a589-5cb47161a755"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[VENDEDORES]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="130" y="170" width="424" height="26" uuid="b9450262-37da-4c59-a1c0-c734ee6f9931"/>
+				<reportElement x="142" y="172" width="438" height="26" uuid="44f33291-2b60-41a5-a54a-195ff0af1899"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="2" y="170" width="120" height="26" uuid="a74a81fe-be45-4f34-986f-fb3edf78a2f8"/>
+				<reportElement x="4" y="172" width="130" height="26" uuid="6c9c023e-cbb5-45ba-8c7d-84d58ddfa6d6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[COMPRADOR]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="2" y="210" width="120" height="26" uuid="3dac4eb8-c49c-48f3-ac76-bada99c6fb76"/>
+				<reportElement x="4" y="212" width="130" height="26" uuid="83d3e224-8deb-45d6-8c75-78a50aa2697c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[VALOR DE OPERACIÓN:]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="130" y="210" width="110" height="26" backcolor="#92CDDC" uuid="9fb0014d-8f08-4ca6-876d-44af14f60b6b"/>
+				<reportElement x="144" y="212" width="110" height="26" backcolor="#92CDDC" uuid="1e6abcee-2623-4825-a195-9e1ba2e7212e"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="355" y="210" width="110" height="26" backcolor="#92CDDC" uuid="2d723561-c0fe-4094-9d5b-bdcf56b8c7e6"/>
+				<reportElement x="369" y="212" width="110" height="26" backcolor="#92CDDC" uuid="406813cc-9b14-49cf-a409-b327dd0c4c1c"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="252" y="210" width="88" height="26" uuid="98964d68-372a-4a66-bdf7-efc1725a08c8"/>
+				<reportElement x="266" y="212" width="88" height="26" uuid="5861beaf-f0ab-4451-8643-add9217d42b8"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[VALOR CATASTRAL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="130" y="244" width="335" height="26" uuid="ef1bab81-a995-424c-a482-0d37c83a3d61"/>
+				<reportElement x="144" y="246" width="335" height="26" uuid="a4eca919-42de-4999-814f-a94727883311"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -162,8 +179,59 @@
 				</textElement>
 				<text><![CDATA[Por la Compra-venta:]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="2" y="41" width="578" height="30" uuid="6f6b96e6-1d6d-4514-814c-243b60628167"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Por medio de la presente, le proporciono a Usted la cotización relativa a los gastos, impuestos, derechos y honorarios que se generarán por la escritura de " + $F{name} + "; de conformidad con los siguientes datos:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="142" y="77" width="438" height="50" uuid="f1b6ab8e-8f19-44e7-8880-0dcb3c0b78a5">
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="142" y="172" width="438" height="26" uuid="74eddb5f-6a94-4e3d-a61f-fd3097eb4e99"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{client_name} + " " + $F{client_last_name} + " " + $F{client_mother_last_name}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="144" y="272" width="335" height="30" uuid="e2d67d50-53d0-40c5-b748-2df26a418944"/>
+				<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("quote.form")]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{subReportPath}+"COT_DETAIL.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="30">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<subreport>
+				<reportElement x="144" y="0" width="335" height="30" uuid="c2ed4412-29fc-4194-8ce5-beeb07938674"/>
+				<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("quote.operations.operation_fields")]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{subReportPath}+"OPERATION_FIELDS.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="30">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<subreport>
+				<reportElement x="144" y="0" width="335" height="30" uuid="e7ded27d-35c1-43b5-bb20-c3ed43de91c7"/>
+				<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("quote.result.operation_fields")]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{subReportPath}+"RESULT_FIELDS.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<summary>
+		<band height="355" splitType="Stretch">
+			<property name="local_mesure_unitheight" value="pixel"/>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="334" width="554" height="20" backcolor="#92CDDC" uuid="a3754a5d-7fea-4f88-8966-c359dc904a2b">
+				<reportElement mode="Opaque" x="0" y="4" width="580" height="20" backcolor="#92CDDC" uuid="339e9922-486c-4998-ac61-d2e101ce78a6">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
@@ -178,7 +246,7 @@
 				<text><![CDATA[REQUISITOS:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="550" width="554" height="20" backcolor="#92CDDC" uuid="e27a2a6a-8105-478b-95d2-ca31749b2628">
+				<reportElement mode="Opaque" x="0" y="220" width="580" height="20" backcolor="#92CDDC" uuid="d0532911-89d5-4e5b-a4a4-ebd1f992bde1">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
@@ -193,7 +261,7 @@
 				<text><![CDATA[OBSERVACIONES:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="353" width="554" height="20" uuid="b26e5fbd-c759-4c01-a50c-21e6a10deb30"/>
+				<reportElement x="0" y="23" width="580" height="20" uuid="9cd79824-eef0-4dec-a487-043eb7d440f6"/>
 				<box leftPadding="4">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -206,7 +274,7 @@
 				<text><![CDATA[1.- Escritura del inmueble.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="373" width="554" height="20" uuid="057934c5-67f8-44a0-9a15-a36bac17684f"/>
+				<reportElement x="0" y="43" width="580" height="20" uuid="e680480c-d336-4333-b378-567b41171e8b"/>
 				<box leftPadding="4">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -219,7 +287,7 @@
 				<text><![CDATA[2.- Boleta predial y limpia 2023.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="393" width="554" height="20" uuid="47b38c90-a2ab-4eb8-a2cb-15555847e663"/>
+				<reportElement x="0" y="63" width="580" height="20" uuid="04a5a8b6-96c9-4a42-b0c2-c9363b1c5880"/>
 				<box leftPadding="4">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -232,7 +300,7 @@
 				<text><![CDATA[3.- Constancia de No adeudo del servicio de agua o Factibilidad de Servicio de agua (vigente) 2023.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="413" width="554" height="56" uuid="12bc9e3d-f3b6-417b-8193-9cfd37eae62f"/>
+				<reportElement x="0" y="83" width="580" height="56" uuid="083b2e41-32fe-4f88-bdea-1ea78f855e70"/>
 				<box leftPadding="4">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -246,7 +314,7 @@
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="498" width="554" height="42" uuid="c3aa765d-deb8-4019-9214-c2bb5cde5a72"/>
+				<reportElement x="0" y="168" width="580" height="42" uuid="a225a666-5a69-4af4-875d-4e03393faf53"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -259,7 +327,7 @@
 				<text><![CDATA[TODOS Y CADA UNO DE ESTOS DOCUMENTOS LOS DEBERÁN HACER LLEGAR PREVIAMENTE EN COPIAS SIMPLES PARA LA ELABORACIÓN DEL PROYECTO; AL MOMENTO DE LA FIRMA DE LA ESCRITURA DEBERÁN PRESENTAR TODOS Y CADA UNO DE LOS "ORIGINALES".]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="470" width="554" height="28" uuid="c353db82-9d87-4174-a67d-995938999536"/>
+				<reportElement x="0" y="140" width="580" height="28" uuid="11fd0c7c-05d0-410d-971e-3ecf5b2de882"/>
 				<box leftPadding="4">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -272,7 +340,7 @@
 				<text><![CDATA[5.- De todos los intervinientes: identificaciones oficiales vigentes, CURP, actas de nacimiento, actas de matrimonio y cédulas de RFC.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="570" width="554" height="40" uuid="9dbdaa8d-5715-48bb-95e9-b450aec6014f"/>
+				<reportElement x="0" y="240" width="580" height="40" uuid="28609d64-d9c3-486b-8739-2360bb730ec3"/>
 				<box leftPadding="4">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -287,7 +355,7 @@ Autoridades Municipales correspondientes, será cubierta por los propios adquire
 responsabilidad por este concepto.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="622" width="554" height="22" uuid="f4ca89ce-7e20-4f20-8d20-15b9c094d74d"/>
+				<reportElement x="0" y="292" width="580" height="22" uuid="d9be1da8-e3a4-4dd0-8d09-912e427e1d5b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
 					<font fontName="Arial"/>
 					<paragraph lineSpacing="Single"/>
@@ -295,7 +363,7 @@ responsabilidad por este concepto.]]></text>
 				<text><![CDATA[A t e n t a m e n t e:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="643" width="554" height="36" uuid="40dc1213-4833-4cc8-8b35-bfd582f53022"/>
+				<reportElement x="0" y="313" width="580" height="36" uuid="771ba21c-1967-4d87-a6bf-1a62be73a19b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
 					<font fontName="Arial" isBold="true"/>
 					<paragraph lineSpacing="Single"/>
@@ -304,31 +372,6 @@ responsabilidad por este concepto.]]></text>
 Notario Público Titular
 Número 4.]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="0" y="39" width="554" height="30" uuid="7481d39d-c1f4-4e5b-a7c1-2f823c71e2eb"/>
-				<textElement>
-					<font fontName="Arial"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Por medio de la presente, le proporciono a Usted la cotización relativa a los gastos, impuestos, derechos y honorarios que se generarán por la escritura de " + $F{name} + "; de conformidad con los siguientes datos:"]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="130" y="75" width="424" height="50" uuid="23609081-7c3e-4c96-a1d6-a7164bfcea4e">
-					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-					<paragraph leftIndent="5" rightIndent="5"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="130" y="170" width="424" height="26" uuid="b4ff1c07-0a10-434a-be27-55a1f9257676"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{client_name} + " " + $F{client_last_name} + " " + $F{client_mother_last_name}]]></textFieldExpression>
-			</textField>
 		</band>
 	</summary>
 </jasperReport>

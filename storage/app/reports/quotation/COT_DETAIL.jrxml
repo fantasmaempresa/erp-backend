@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="COT_DETAIL" pageWidth="335" pageHeight="400" columnWidth="335" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="89e5b99d-272e-4324-81e1-b2e55ceb425a">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="JSON COT.xml"/>
+	<queryString language="json">
+		<![CDATA[quote.form]]>
+	</queryString>
+	<field name="id" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="id"/>
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="controlType" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="controlType"/>
+		<fieldDescription><![CDATA[controlType]]></fieldDescription>
+	</field>
+	<field name="key" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="key"/>
+		<fieldDescription><![CDATA[key]]></fieldDescription>
+	</field>
+	<field name="label" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="label"/>
+		<fieldDescription><![CDATA[label]]></fieldDescription>
+	</field>
+	<field name="required" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="required"/>
+		<fieldDescription><![CDATA[required]]></fieldDescription>
+	</field>
+	<field name="options" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="options"/>
+		<fieldDescription><![CDATA[options]]></fieldDescription>
+	</field>
+	<field name="value" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="value"/>
+		<fieldDescription><![CDATA[value]]></fieldDescription>
+	</field>
+	<field name="order" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="order"/>
+		<fieldDescription><![CDATA[order]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="0" y="0" width="224" height="24" uuid="eac0bdc5-3e9f-4901-bd5a-b209ce8f77b2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="536dd802-bd94-4d52-a60c-e1e45cec08f9"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{label}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="224" y="0" width="111" height="24" uuid="564dbc01-14e7-473a-a106-b40ffa952174">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
