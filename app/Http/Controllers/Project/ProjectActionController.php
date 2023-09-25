@@ -78,7 +78,11 @@ class ProjectActionController extends ApiController
                 }
             }
         }
-        $process->finished = Project::$INPROGRESS;
+
+
+
+//        $process->finished = Project::$INPROGRESS;
+        $project->process()->updateExistingPivot($process->id, ['status' => Process::$START]);
         $process->save();
 
         return $this->showList($this->newDetailProject($project, $currentProcess, $currentPhase, $currentInvolved));
@@ -485,5 +489,5 @@ class ProjectActionController extends ApiController
 
 
 
-    
+
 }

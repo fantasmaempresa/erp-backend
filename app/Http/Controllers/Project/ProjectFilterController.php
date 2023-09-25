@@ -72,6 +72,20 @@ class ProjectFilterController extends ApiController
 
     /**
      * @param Project $project
+     *
+     * @return JsonResponse
+     */
+    public function getResumeProject(Project $project, Process $process): JsonResponse
+    {
+        $currentProcess = $this->getCurrentProcess($project, $process);
+        $detailProjectProcess = DetailProjectProcessProject::where('process_project_id', $currentProcess->pivot->id)->get();
+
+
+        return $this->showList($detailProjectProcess);
+    }
+
+    /**
+     * @param Project $project
      * @param Process $process
      *
      * @return JsonResponse
@@ -142,6 +156,7 @@ class ProjectFilterController extends ApiController
 
         return $currentProcess;
     }
+
 
     /**
      * @param mixed $currentProcess

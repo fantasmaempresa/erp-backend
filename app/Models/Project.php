@@ -116,7 +116,7 @@ class Project extends Model
      */
     public function process(): BelongsToMany
     {
-        return $this->belongsToMany(Process::class)->withPivot('id')->with('phases');
+        return $this->belongsToMany(Process::class)->withPivot(['id', 'status'])->with('phases');
     }
 
     /**

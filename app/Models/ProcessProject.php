@@ -19,6 +19,8 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  */
 class ProcessProject extends Model
 {
+
+
     protected $table = 'process_project';
     public $incrementing = true;
     /**
@@ -30,6 +32,7 @@ class ProcessProject extends Model
         'id',
         'project_id',
         'process_id',
+        'status',
     ];
 
     /**

@@ -25,6 +25,17 @@ class Process extends Model
     /**
      * @var int
      */
+    public static int $NO_START = 0;
+
+    /**
+     * @var int
+     */
+    public static int $START = 1;
+
+    /**
+     * @var int
+     */
+    public static int $FINISHED = 2;
 
     /**
      * The attributes that are mass assignable.

@@ -5,6 +5,7 @@
  * ProcessProject Class Migration
  */
 
+use App\Models\Process;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -27,6 +28,7 @@ class CreateProcessProjectTable extends Migration
             $table->id();
             $table->foreignId('project_id')->constrained();
             $table->foreignId('process_id')->constrained();
+            $table->tinyInteger('status')->default(Process::$NO_START);
             $table->timestamps();
         });
     }
