@@ -17,7 +17,7 @@ class CreateDocumentProcedureTable extends Migration
             $table->id();
             $table->foreignId('document_id')->constrained();
             $table->foreignId('procedure_id')->constrained();
-            $table->string('file');
+            $table->string('file')->default('');
             $table->timestamps();
         });
     }

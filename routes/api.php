@@ -111,7 +111,7 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::get('projectQuotes/filter/getQuotesUser', [ProjectQuoteFilterController::class, 'getQuotesUser']);
     Route::get('projectQuotes/filter/getQuotesByClient', [ProjectQuoteFilterController::class, 'getQuotesByClient']);
     Route::post('projectQuotes/calculate/reactive', [ProjectQuoteOperationsController::class, 'calculateReactiveProjectQuote']);
-    Route::get('projectQuote/getReport', [ProjectQuoteReportController::class, 'makePDF']);
+    Route::post('projectQuote/getReport', [ProjectQuoteReportController::class, 'makePDF']);
 
 
     //ROUTES PAYROLL3

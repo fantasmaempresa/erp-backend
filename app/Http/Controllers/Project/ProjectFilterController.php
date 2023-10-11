@@ -42,23 +42,41 @@ class ProjectFilterController extends ApiController
                 ->with('processProjectThrough')
                 ->paginate($paginate);
         } else {
-            $projects = $user->projects()->where('finished', Project::$UNFINISHED)->with('process')->with('processProjectThrough')
+            $projects = $user->projects()->where('finished', '<>', Project::$FINISHED)->with('process')->with('processProjectThrough')
                 ->paginate($paginate);
 
-            if (count($projects) <= 0) {
-                $projectsAux = Project::where('finished', Project::$UNFINISHED)->get();
+            if (count($projects) == 0) {
+                $projectsAux = Project::where('finished', '<>', Project::$FINISHED)->get();
+
                 $resultProjectsID = [];
+
                 foreach ($projectsAux as $project) {
-                    foreach ($project->process as $process) {
-                        foreach ($process->roles as $role) {
-                            if ($user->role->id === $role->id) {
-                                $resultProjectsID[] = $project->id;
+                    foreach ($project->config as $config) {
+                        foreach ($config['phases'] as $phase) {
+                            foreach ($phase['involved']['supervisor'] as $supervisor) {
+                                if (($supervisor['user'] && $supervisor['id'] == $user->id) ||
+                                    (!$supervisor['user'] &&
+                                        $supervisor['id'] == $user->role->id)
+                                ) {
+                                    $resultProjectsID[] = $project->id;
+                                    continue(4);
+                                }
+                            }
+
+                            foreach ($phase['involved']['work_group'] as $work_group) {
+                                if (($work_group['user'] && $work_group['id'] == $user->id) ||
+                                    (!$work_group['user'] &&
+                                        $work_group['id'] == $user->role->id)
+                                ) {
+                                    $resultProjectsID[] = $project->id;
+                                    continue(4);
+                                }
                             }
                         }
                     }
                 }
 
-                if (!empty($resultProjectsID)) {
+                if (count($resultProjectsID) > 0) {
                     $projects = Project::whereIn('id', $resultProjectsID)
                         ->with('process')
                         ->with('processProjectThrough')
@@ -108,32 +126,64 @@ class ProjectFilterController extends ApiController
             return $this->errorResponse('El proceso finalizo o aún no ha inicado', 409);
         }
 
-        $response = $this->errorResponse('este usuario no tiene persmisos para ver el formulario actual', 409);
+        $response = $this->errorResponse('este usuario no tiene permisos para ver el formulario actual', 409);
 
         // phpcs:ignore
         if (isset($currentDetail->form_data['rules'])) {
+            // phpcs:ignore]
+            $phaseR['form'] = $currentDetail->form_data['form'];
+            $phaseR['controls'] = ['next' => false, 'prev' => false, 'supervision' => false, 'saveData' => false];
+
             // phpcs:ignore
             foreach ($currentDetail->form_data['rules']['supervisor'] as $supervisor) {
                 // phpcs:ignore
-                if ($supervisor['user'] && $user->id === $supervisor['id'] || $user->role->id === $supervisor['id']) {
-
+                if (($supervisor['user'] && $user->id === $supervisor['id']) ||
                     // phpcs:ignore
-//                    $response = $this->showList($currentDetail->form_data['form']);
-                    $phaseR = [];
+                    (!$supervisor['user'] && $user->role->id === $supervisor['id'])) {
                     // phpcs:ignore
                     $phaseR['form'] = $currentDetail->form_data['form'];
-                    $phaseR['controls'] = ['next' => true, 'prev' => true, 'supervision' => false];
 
-                    // phpcs:ignore
-                    $workGroups = $this->checkContinueNextPhase($currentDetail->form_data['rules']['work_group'], $user);
-                    // phpcs:ignore
-                    $supervisors = $this->checkContinueNextPhase($currentDetail->form_data['rules']['supervisor'], $user);
-                    if (!$workGroups && !$supervisors) {
+                    foreach ($phaseR['form'] as $field) {
+                        if($field){
+                            continue;
+                        }
+                    }
+
+                    if (isset($supervisor['supervision']) && $supervisor['supervision']['supervision']) {
+                        $phaseR['controls']['supervision'] = false;
+                    } else {
                         $phaseR['controls'] = ['next' => false, 'prev' => false, 'supervision' => true];
                     }
-                    $response = $this->showList($phaseR);
+                    break;
                 }
             }
+
+            // phpcs:ignore
+            foreach ($currentDetail->form_data['rules']['work_group'] as $supervisor) {
+                // phpcs:ignore
+                if (($supervisor['user'] && $user->id === $supervisor['id']) ||
+                    // phpcs:ignore
+                    (!$supervisor['user'] && $user->role->id === $supervisor['id'])) {
+                    // phpcs:ignore
+                    $phaseR['form'] = $currentDetail->form_data['form'];
+                    if (isset($supervisor['supervision']) && $supervisor['supervision']['supervision']) {
+                        $phaseR['controls']['supervision'] = false;
+                    } else {
+                        $phaseR['controls'] = ['next' => false, 'prev' => false, 'supervision' => false];
+                    }
+                    break;
+                }
+            }
+
+
+            // phpcs:ignore
+            $workGroups = $this->checkContinueNextPhase($currentDetail->form_data['rules']['work_group'], $user);
+            // phpcs:ignore
+            $supervisors = $this->checkContinueNextPhase($currentDetail->form_data['rules']['supervisor'], $user);
+            if (!$workGroups && !$supervisors) {
+                $phaseR['controls']['next'] = true;
+            }
+            $response = $this->showList($phaseR);
         }
 
         return $response;

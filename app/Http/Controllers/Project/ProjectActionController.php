@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use phpseclib3\Crypt\EC\Curves\brainpoolP160r1;
+use function Symfony\Component\String\s;
 
 /**
  * @access  public
@@ -78,7 +79,6 @@ class ProjectActionController extends ApiController
                 }
             }
         }
-
 
 
 //        $process->finished = Project::$INPROGRESS;
@@ -144,6 +144,7 @@ class ProjectActionController extends ApiController
      */
     public function supervisionPhase(Request $request, Project $project, Process $process): JsonResponse
     {
+        //TODO: regresar controles
         $this->validate($request, [
             'comments' => 'nullable|string',
         ]);
@@ -196,6 +197,8 @@ class ProjectActionController extends ApiController
      */
     public function saveDataFormPhase(Request $request, Project $project, Process $process): JsonResponse
     {
+        //TODO: regresar controles
+
         $this->validate($request, [
             'form' => 'required|array',
         ]);
@@ -208,6 +211,30 @@ class ProjectActionController extends ApiController
         $currentProcess = $this->getCurrentProcess($project, $process);
         $currentDetail = $this->getCurrentDetailProcessProject($currentProcess);
         $user = User::findOrFail(Auth::id());
+
+//        valido el formulario
+
+        if (count($request->get('form')) != count($currentDetail->form_data['form'])) {
+            return $this->errorResponse('la cantidad de campos no concide', 409);
+        }
+
+        $countEqualsFields = 0;
+        $form = $currentDetail->form_data['form'];
+        foreach ($request->get('form') as $key => $value) {
+            // phpcs:ignore
+            foreach ( $currentDetail->form_data['form'] as $_key => $field) {
+                if ($field['key'] == $key) {
+                    $form[$_key]['value'] = $value;
+                    $countEqualsFields++;
+                    continue(2);
+                }
+            }
+        }
+
+        if ($countEqualsFields != count($currentDetail->form_data['form'])){
+            return $this->errorResponse('falta un campo o un dato del formulario');
+        }
+
         // phpcs:ignore
         $workGroups = $this->checkSupervisionPhaseProcess($currentDetail->form_data['rules']['work_group'], $user);
         if ($workGroups) {
@@ -217,7 +244,8 @@ class ProjectActionController extends ApiController
                 true,
                 [
                     // phpcs:ignore
-                    'form' => $request->get('form'),
+                    //'form' => $request->get('form'),
+                    'form' => $form,
                     'rules' => [
                         // phpcs:ignore
                         'supervisor' => $currentDetail->form_data['rules']['supervisor'],
@@ -486,8 +514,6 @@ class ProjectActionController extends ApiController
         return $this->showOne($project);
 
     }
-
-
 
 
 }

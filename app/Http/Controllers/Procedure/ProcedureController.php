@@ -67,6 +67,7 @@ class ProcedureController extends ApiController
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
+            return $this->errorResponse('error al almacenar información --> ' . $e->getMessage(),409);
         }
 
 
