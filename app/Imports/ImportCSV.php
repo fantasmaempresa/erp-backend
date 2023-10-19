@@ -41,9 +41,16 @@ class ImportCSV
         $reader->open($this->path);
 
         $data = [];
+        $first = true;
+        $keys = [];
         foreach ($reader->getSheetIterator() as $sheet) {
             foreach ($sheet->getRowIterator() as $row) {
-                $data[] = collect($row->toArray());
+                if ($first) {
+                    $keys = $row->toArray();
+                    $first = false;
+                } else {
+                    $data[] = array_combine($keys, $row->toArray());
+                }
             }
         }
 

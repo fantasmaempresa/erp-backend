@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class NationalConsumerPriceIndex extends Model
 {
+    public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *
