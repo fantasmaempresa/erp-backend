@@ -41,6 +41,8 @@ class DatabaseSeeder extends Seeder
                 OperationSedeer::class,
                 TemplateShapeSeeder::class,
                 PlaceSeeder::class,
+                NCPISeeder::class,
+                InversionUnitSeeder::class,
             ]
         );
     }
