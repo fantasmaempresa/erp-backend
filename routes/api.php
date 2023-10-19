@@ -13,6 +13,7 @@ use App\Http\Controllers\Document\DocumentLinkController;
 use App\Http\Controllers\ExtraHour\ExtraHourController;
 use App\Http\Controllers\FormStructure\FromStructureController;
 use App\Http\Controllers\Grantor\GrantorController;
+use App\Http\Controllers\NationalConsumerPriceIndex\NationalConsumerPriceIndexController;
 use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\Notification\NotificationFilterController;
 use App\Http\Controllers\Operation\OperationController;
@@ -137,6 +138,9 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
 
 
     Route::resource('clients', ClientController::class, ['except' => ['create', 'edit']]);
+
+    //NATIONAL CONSUMER PRICE INDEX
+    Route::resource('nationalConsumerPriceIndex', NationalConsumerPriceIndexController::class, ['only' => ['index', 'show']]);
 
 });
 
