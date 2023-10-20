@@ -43,6 +43,7 @@ class DatabaseSeeder extends Seeder
                 PlaceSeeder::class,
                 NCPISeeder::class,
                 InversionUnitSeeder::class,
+                AppendantSeeder::class,
             ]
         );
     }

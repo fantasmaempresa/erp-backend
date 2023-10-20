@@ -1,12 +1,13 @@
 <?php
 
 /*
- * OPEN 2 CODE
- * INVERSION UNIT SEEDER
+ * OPEN2CODE
+ * Appendant Seder
  */
 namespace Database\Seeders;
 
 use App\Imports\ImportCSV;
+use App\Models\Appendant;
 use App\Models\InversionUnit;
 use Box\Spout\Common\Exception\IOException;
 use Box\Spout\Reader\Exception\ReaderNotOpenedException;
@@ -16,11 +17,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 /**
- * @access  public
- *
- * @version 1.0
+ * @version1
  */
-class InversionUnitSeeder extends Seeder
+class AppendantSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -30,18 +29,16 @@ class InversionUnitSeeder extends Seeder
     public function run()
     {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
-        DB::table('inversion_units')->truncate();
+        DB::table('appendants')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
 
-        $import = new ImportCSV(Storage::path('catalogs/UDIS.csv'), delimeter: '|');
+        $import = new ImportCSV(Storage::path('catalogs/Appendant9.csv'), delimeter: '|');
 
         try {
             $catalogs = $import->readFile();
 
             foreach ($catalogs as $catalog) {
-                $date = Carbon::createFromFormat('d/m/Y', $catalog['date'])->format('Y-m-d');
-                $catalog['date'] = $date;
-                InversionUnit::create($catalog);
+                Appendant::create($catalog);
             }
         } catch (IOException|ReaderNotOpenedException $e) {
         }
