@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Acquirer\AcquirerController;
+use App\Http\Controllers\Alienating\AlienatingController;
+use App\Http\Controllers\Appendant\AppendantController;
 use App\Http\Controllers\Auth\AuthActionController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Client\ClientController;
@@ -13,6 +16,8 @@ use App\Http\Controllers\Document\DocumentLinkController;
 use App\Http\Controllers\ExtraHour\ExtraHourController;
 use App\Http\Controllers\FormStructure\FromStructureController;
 use App\Http\Controllers\Grantor\GrantorController;
+use App\Http\Controllers\InversionUnit\InversionUnitController;
+use App\Http\Controllers\NationalConsumerPriceIndex\NationalConsumerPriceIndexController;
 use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\Notification\NotificationFilterController;
 use App\Http\Controllers\Operation\OperationController;
@@ -139,6 +144,20 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
 
     Route::resource('clients', ClientController::class, ['except' => ['create', 'edit']]);
 
+    //NATIONAL CONSUMER PRICE INDEX
+    Route::resource('nationalConsumerPriceIndex', NationalConsumerPriceIndexController::class, ['only' => ['index', 'show']]);
+
+    //INVERSION UNIT
+    Route::resource('inversionUnit', InversionUnitController::class, ['only' => ['index', 'show']]);
+
+    //APPENDANT 9
+    Route::resource('appendant', AppendantController::class, ['only' => ['index', 'show']]);
+
+    //ALIENATING
+    Route::resource('alienating', AlienatingController::class, ['except' => ['create', 'edit']]);
+
+    //ACQUIRER
+    Route::resource('acquirer', AcquirerController::class, ['except' => ['create', 'edit']]);
 });
 
 
