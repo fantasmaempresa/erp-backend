@@ -19,8 +19,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use phpseclib3\Crypt\EC\Curves\brainpoolP160r1;
-use function Symfony\Component\String\s;
 
 /**
  * @access  public
@@ -89,6 +87,28 @@ class ProjectActionController extends ApiController
     }
 
     /**
+     * @param Project $project
+     *
+     * @return JsonResponse
+     */
+    public function finishProject(Project $project): JsonResponse
+    {
+        DB::beginTransaction();
+
+        try {
+            $project->finished = Project::$FINISHED;
+            $project->save();
+            DB::commit();
+        } catch (QueryException $exception) {
+            DB::rollBack();
+            return $this->errorResponse($exception->getMessage(), 409);
+        }
+
+
+        return $this->successResponse('Project finished');
+    }
+
+    /**
      * @param Request $request
      * @param Project $project
      * @param Process $process
@@ -119,15 +139,30 @@ class ProjectActionController extends ApiController
         $workGroups = $this->checkContinueNextPhase($currentDetail->form_data['rules']['work_group'], $user);
         // phpcs:ignore
         $supervisors = $this->checkContinueNextPhase($currentDetail->form_data['rules']['supervisor'], $user);
+
+        //Revisa que si exista una siguiente phase
+        foreach ($project->config as $config) {
+            if ($config['process']['id'] == $process->id) {
+                foreach ($config['phases'] as $key => $phase) {
+                    if ($currentDetail->phases_process_id == $phase['phase']['id']) {
+                        if ($key == (count($config['phases']) - 1)) {
+                            return $this->errorResponse('No existe una fase siguiente', 409);
+                        }
+                    }
+                }
+            }
+        }
+
+
         if (!$workGroups && !$supervisors) {
             return $this->errorResponse('Aún no se puede pasar a la siguiente fase', 409);
         }
 
-        $response = $this->newDetailProjectProcess($project, $process, $request->get('comments'), $request->get('prev'));
+        $response = $this->newDetailProjectProcess($project, $process, $request->get('comment'), $request->get('prev'));
         if ($response) {
             $response = $this->showList($response);
         } else {
-            $response = $this->errorResponse('this phase not have next or previous', 409);
+            $response = $this->errorResponse('No existe una previa o siguiente fase', 409);
         }
 
         return $response;
@@ -144,7 +179,6 @@ class ProjectActionController extends ApiController
      */
     public function supervisionPhase(Request $request, Project $project, Process $process): JsonResponse
     {
-        //TODO: regresar controles
         $this->validate($request, [
             'comments' => 'nullable|string',
         ]);
@@ -186,6 +220,43 @@ class ProjectActionController extends ApiController
         return $this->successResponse('supervisado con éxito', 200);
     }
 
+
+    /**
+     * @param Project $project
+     * @param Process $process
+     *
+     * @return JsonResponse
+     */
+    public function completeProcessProject(Project $project, Process $process): JsonResponse
+    {
+        if ($this->validProjectProcess($project, $process)) {
+            // phpcs:ignore
+            return $this->errorResponse($this->validProjectProcess($project, $process), 409);
+        }
+
+        $currentProcess = $this->getCurrentProcess($project, $process);
+        $currentDetail = $this->getCurrentDetailProcessProject($currentProcess);
+        $user = User::findOrFail(Auth::id());
+
+        // phpcs:ignore
+        $workGroups = $this->checkContinueNextPhase($currentDetail->form_data['rules']['work_group'], $user);
+        // phpcs:ignore
+        $supervisors = $this->checkContinueNextPhase($currentDetail->form_data['rules']['supervisor'], $user);
+
+        if (!$workGroups && !$supervisors) {
+            return $this->errorResponse('Aún no participan todos los involucrados', 409);
+        }
+
+        $currentDetailProcessProject = $this->getCurrentDetailProcessProject($this->getCurrentProcess($project, $process));
+        $currentDetailProcessProject->finished = DetailProject::$FINISHED;
+        $currentDetailProcessProject->comments = 'phase finished process';
+        $currentDetailProcessProject->save();
+        $project->process()->updateExistingPivot($process->id, ['status' => Process::$FINISHED]);
+        $process->save();
+
+        return $this->showMessage('termino proceso exitosamente');
+    }
+
     /**
      * @param Request $request
      * @param Project $project
@@ -197,7 +268,6 @@ class ProjectActionController extends ApiController
      */
     public function saveDataFormPhase(Request $request, Project $project, Process $process): JsonResponse
     {
-        //TODO: regresar controles
 
         $this->validate($request, [
             'form' => 'required|array',
@@ -212,17 +282,18 @@ class ProjectActionController extends ApiController
         $currentDetail = $this->getCurrentDetailProcessProject($currentProcess);
         $user = User::findOrFail(Auth::id());
 
-//        valido el formulario
 
+        // phpcs:ignore
         if (count($request->get('form')) != count($currentDetail->form_data['form'])) {
             return $this->errorResponse('la cantidad de campos no concide', 409);
         }
 
         $countEqualsFields = 0;
+        // phpcs:ignore
         $form = $currentDetail->form_data['form'];
         foreach ($request->get('form') as $key => $value) {
             // phpcs:ignore
-            foreach ( $currentDetail->form_data['form'] as $_key => $field) {
+            foreach ($currentDetail->form_data['form'] as $_key => $field) {
                 if ($field['key'] == $key) {
                     $form[$_key]['value'] = $value;
                     $countEqualsFields++;
@@ -231,7 +302,8 @@ class ProjectActionController extends ApiController
             }
         }
 
-        if ($countEqualsFields != count($currentDetail->form_data['form'])){
+        // phpcs:ignore
+        if ($countEqualsFields != count($currentDetail->form_data['form'])) {
             return $this->errorResponse('falta un campo o un dato del formulario');
         }
 
@@ -298,7 +370,6 @@ class ProjectActionController extends ApiController
      */
     public function checkSupervisionPhaseProcess(array $rules, User $user): bool|array
     {
-        //TODO validar que no supervise varías veces la misma persona
         $countSupervision = 0;
         foreach ($rules as $supervision) {
             if (isset($supervision['supervision'])) {

@@ -25,7 +25,7 @@ trait ApiResponseTrait
      *
      * @return JsonResponse
      */
-    protected function successResponse($data, $code): JsonResponse
+    protected function successResponse($data, $code = 200): JsonResponse
     {
         return response()->json($data, $code);
     }

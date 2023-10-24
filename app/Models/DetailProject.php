@@ -84,7 +84,7 @@ class DetailProject extends Model
      */
     public function phase(): BelongsTo
     {
-        return $this->belongsTo(PhasesProcess::class);
+        return $this->belongsTo(PhasesProcess::class, 'phases_process_id');
     }
 
     /**
@@ -95,8 +95,4 @@ class DetailProject extends Model
         return $this->belongsToMany(ProcessProject::class);
     }
 
-    public function projects()
-    {
-        return $this->hasManyThrough();
-    }
 }

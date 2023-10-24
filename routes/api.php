@@ -85,15 +85,16 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('detailProject', DetailProjectController::class, ['except' => ['create', 'edit']]);
     Route::resource('formStructure', FromStructureController::class, ['except' => ['create', 'edit']]);
 
-
     //PROJECT PROJECTS ROUTES
     Route::resource('projects', ProjectController::class, ['except' => ['create', 'edit']]);
     Route::post('projects/action/start/project/{project}/process/{process}', [ProjectActionController::class, 'startProject']);
+    Route::get('projects/action/complete/project/{project}/process/{process}', [ProjectActionController::class, 'completeProcessProject']);
     Route::post('projects/action/next/project/{project}/process/{process}', [ProjectActionController::class, 'nextPhaseProcess']);
     Route::post('projects/action/previous/project/{project}/process/{process}', [ProjectActionController::class, 'previousPhaseProcess']);
     Route::post('projects/action/supervision/project/{project}/process/{process}', [ProjectActionController::class, 'supervisionPhase']);
     Route::post('projects/action/saveForm/project/{project}/process/{process}', [ProjectActionController::class, 'saveDataFormPhase']);
     Route::post('projects/action/assign/project/{project}/projectQuote/{projectQuote}', [ProjectActionController::class, 'assignQuoteProject']);
+    Route::get('projects/action/finish/project/{project}', [ProjectActionController::class, 'finishProject']);
 
     Route::get('projects/filter/myProjects', [ProjectFilterController::class, 'getMyProjects']);
     //zTODO agregar más datos de configuración para el front, por si debe de poner el formulario para solo vista o dejar
