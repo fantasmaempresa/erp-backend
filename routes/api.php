@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Acquirer\AcquirerController;
+use App\Http\Controllers\Alienating\AlienatingController;
 use App\Http\Controllers\Appendant\AppendantController;
 use App\Http\Controllers\Auth\AuthActionController;
 use App\Http\Controllers\Auth\AuthController;
@@ -149,6 +151,12 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
 
     //APPENDANT 9
     Route::resource('appendant', AppendantController::class, ['only' => ['index', 'show']]);
+
+    //ALIENATING
+    Route::resource('alienating', AlienatingController::class, ['except' => ['create', 'edit']]);
+
+    //ACQUIRER
+    Route::resource('acquirer', AcquirerController::class, ['except' => ['create', 'edit']]);
 });
 
 
