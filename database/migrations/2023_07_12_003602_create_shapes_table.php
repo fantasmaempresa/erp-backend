@@ -40,6 +40,7 @@ class CreateShapesTable extends Migration
             $table->text('description'); //Descripcion
             $table->string('total'); //Total
             $table->json('data_form'); //Tipo de de trámite
+            $table->text('reverse')->nullable(); //Reverso
 
             $table->foreignId('template_shape_id')->constrained(); //Tipo de de trámite
             $table->foreignId('procedure_id')->constrained(); // trámite al que pertenece esta forma

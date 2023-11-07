@@ -47,6 +47,7 @@ class Shape extends Model
         'description',
         'total',
         'data_form',
+        'reverse',
         'template_shape_id',
         'procedure_id',
     ];
@@ -55,7 +56,7 @@ class Shape extends Model
      * @var string[]
      */
     protected $casts = [
-        'data_form' => 'array'
+        'data_form' => 'array',
     ];
 
     /**

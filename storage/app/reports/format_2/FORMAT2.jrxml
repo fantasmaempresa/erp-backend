@@ -205,8 +205,8 @@
 		<fieldDescription><![CDATA[shape.curp.curp17]]></fieldDescription>
 	</field>
 	<field name="reverse" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="reverse"/>
-		<fieldDescription><![CDATA[reverse]]></fieldDescription>
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.reverse"/>
+		<fieldDescription><![CDATA[shape.reverse]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -1662,29 +1662,13 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 			</textField>
 		</band>
 		<band height="179">
-			<staticText>
-				<reportElement mode="Opaque" x="10" y="10" width="550" height="16" backcolor="#949494" uuid="248af9b6-8c9a-493d-aec9-53d0fde7dfad"/>
-				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="6"/>
-				</textElement>
-				<text><![CDATA[REVERSO]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="10" y="26" width="550" height="153" uuid="3ad5a7de-5a0b-42f1-a9d6-56d44168458d"/>
-				<box topPadding="5" leftPadding="5">
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement markup="html"/>
-				<textFieldExpression><![CDATA[$F{reverse}]]></textFieldExpression>
+				<reportElement x="10" y="6" width="551" height="154" uuid="d1ee2ae4-09ab-4ab4-be8b-6359ec2685fe"/>
+				<box topPadding="5" leftPadding="5"/>
+				<textElement markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{reverse} != null ? $F{reverse} : ""]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
