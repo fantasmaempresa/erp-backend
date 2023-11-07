@@ -3,6 +3,7 @@
 /*
  * OPEN2CODE 2023
  */
+
 namespace App\Http\Controllers\Shape;
 
 use App\Http\Controllers\ApiController;
@@ -23,7 +24,7 @@ class ShapeActionController extends ApiController
 {
 
     /**
-     * @param   Shape $shape
+     * @param Shape $shape
      * @return  BinaryFileResponse|JsonResponse
      * @throws  Exception
      */
@@ -31,19 +32,32 @@ class ShapeActionController extends ApiController
     {
         $procedure = Procedure::find($shape->procedure->id);
 
-        $procedure->user;
-        $procedure->place;
-        $procedure->client;
-        $procedure->staff;
         $procedure->operation;
         $procedure->shape = $shape;
         $procedure->shape->signature_date_s = $this->separateDate(new DateTime($procedure->shape->signature_date));
 
         if ($shape->template_shape->id == 1) {
-            $procedure->shape->alien_rfc_s = $this->splitString($procedure->shape->data_form['alienating_rfc'], 13, 'al_rfc');
-            $procedure->shape->alien_curp_s = $this->splitString($procedure->shape->data_form['alienating_crup'], 18, 'al_curp');
-            $procedure->shape->acq_rfc_s = $this->splitString($procedure->shape->data_form['acquirer_rfc'], 13, 'ac_rfc');
-            $procedure->shape->acq_curp_s = $this->splitString($procedure->shape->data_form['acquirer_curp'], 18, 'ac_curp');
+            $procedure->shape->alien_rfc_s = $this->splitString(
+                $procedure->shape->data_form['alienating_rfc'],
+                13,
+                'al_rfc'
+            );
+            $procedure->shape->alien_curp_s = $this->splitString(
+                $procedure->shape->data_form['alienating_crup'],
+                18,
+                'al_curp'
+            );
+            $procedure->shape->acq_rfc_s = $this->splitString(
+                $procedure->shape->data_form['acquirer_rfc'],
+                13,
+                'ac_rfc'
+            );
+            $procedure->shape->acq_curp_s = $this->splitString(
+                $procedure->shape->data_form['acquirer_curp'],
+                18,
+                'ac_curp'
+            );
+
 
             $jasperPath = Storage::path('reports/format_1/FORMAT1.jasper');
             $outputPath = Storage::path('reports/format_1/FORMAT1.pdf');
@@ -59,15 +73,20 @@ class ShapeActionController extends ApiController
         unset($procedure->shape['procedure']);
 
         $imageAsset = Storage::path('assets/LogoFinanzas.png');
+        $jsonData = json_encode($procedure);
+
+        Storage::put("reports/tempJson.json", $jsonData);
 
         $pdf = new Report(
-            $procedure,
+            Storage::path('reports/tempJson.json'),
             ['imageSF' => $imageAsset],
             $jasperPath,
             $outputPath
         );
 
         $result = $pdf->generateReport();
+
+        Storage::delete("reports/tempJson.json");
 
         return $result['success'] ? $this->downloadFile($outputPath) : $this->errorResponse($result['message'], 500);
     }

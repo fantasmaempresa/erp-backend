@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Validation\ValidationException;
 
 class ShapeController extends ApiController
 {
@@ -85,21 +86,20 @@ class ShapeController extends ApiController
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Shape $shape
+     * @param Shape   $shape
      *
      * @return JsonResponse
+     *
+     * @throws ValidationException
      */
-    public function update(Request $request, Shape $shape)
+    public function update(Request $request, Shape $shape): JsonResponse
     {
         $this->validate($request, Shape::rules());
         $shape->fill($request->all());
+
         if ($shape->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);
         }
-
-//        if (!$shape->verifyForm()) {
-//            $this->errorResponse('this form format not valid', 422);
-//        }
 
         $shape->save();
 
