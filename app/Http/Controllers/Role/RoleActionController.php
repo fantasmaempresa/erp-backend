@@ -27,6 +27,7 @@ use App\Http\Controllers\Shape\ShapeController;
 use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\TemplateQuotes\TemplateQuotesController;
 use App\Http\Controllers\TemplateShape\TemplateShapeController;
+use App\Http\Controllers\User\UserActionController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\UserFilterController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
@@ -52,6 +53,7 @@ class RoleActionController extends ApiController
             'icon' => 'account_circle',
             'controllers' => [
                 UserFilterController::class,
+                UserActionController::class,
             ],
         ],
         [
