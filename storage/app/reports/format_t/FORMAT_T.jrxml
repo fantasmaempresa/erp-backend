@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FORMAT_T" pageWidth="623" pageHeight="963" columnWidth="583" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b3bdd097-91ef-48f0-9aef-c8feb468263a">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="REPORTE TESORERIA\DA_FORMAT_C.xml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="FORMAT 2.xml"/>
 	<parameter name="logo" class="java.lang.String"/>
 	<queryString language="JSON">
 		<![CDATA[shape.signature_date_s.day]]>
@@ -205,6 +205,14 @@
 	<field name="curp17" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.curp.curp17"/>
 		<fieldDescription><![CDATA[shape.curp.curp17]]></fieldDescription>
+	</field>
+	<field name="alienated_property_home" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.alienated_property_home"/>
+		<fieldDescription><![CDATA[shape.data_form.alienated_property_home]]></fieldDescription>
+	</field>
+	<field name="acquirer_home" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.acquirer_home"/>
+		<fieldDescription><![CDATA[shape.data_form.acquirer_home]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -1562,7 +1570,7 @@
 				<textFieldExpression><![CDATA[$F{rfc5}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="366" y="497" width="12" height="12" uuid="ec0494b0-d6e6-4446-a7ad-229ac4e985e4"/>
+				<reportElement x="377" y="497" width="12" height="12" uuid="ec0494b0-d6e6-4446-a7ad-229ac4e985e4"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1575,7 +1583,7 @@
 				<textFieldExpression><![CDATA[$F{rfc7}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="377" y="497" width="12" height="12" uuid="405eee32-463f-4786-b0e5-c608c13dcb8b"/>
+				<reportElement x="389" y="497" width="12" height="12" uuid="405eee32-463f-4786-b0e5-c608c13dcb8b"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1588,7 +1596,7 @@
 				<textFieldExpression><![CDATA[$F{rfc8}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="388" y="497" width="12" height="12" uuid="c2e144ea-211c-48a7-b0df-8d80cf746623"/>
+				<reportElement x="400" y="497" width="12" height="12" uuid="c2e144ea-211c-48a7-b0df-8d80cf746623"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1601,7 +1609,7 @@
 				<textFieldExpression><![CDATA[$F{rfc9}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="399" y="497" width="12" height="12" uuid="f12afd0d-01f2-4751-aafc-83ae47ad3288"/>
+				<reportElement x="411" y="497" width="12" height="12" uuid="f12afd0d-01f2-4751-aafc-83ae47ad3288"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1614,7 +1622,7 @@
 				<textFieldExpression><![CDATA[$F{rfc10}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="410" y="497" width="12" height="12" uuid="a993c08f-d6c3-4eb6-815b-22c921d2768e"/>
+				<reportElement x="422" y="497" width="12" height="12" uuid="a993c08f-d6c3-4eb6-815b-22c921d2768e"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1627,7 +1635,7 @@
 				<textFieldExpression><![CDATA[$F{rfc11}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="421" y="497" width="12" height="12" uuid="11b2c4e6-032a-4833-a282-85606b86d4da"/>
+				<reportElement x="433" y="497" width="12" height="12" uuid="11b2c4e6-032a-4833-a282-85606b86d4da"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1638,6 +1646,273 @@
 					<font fontName="Arial" size="6"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rfc12}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="514" width="12" height="12" uuid="d990225d-775d-41ed-b882-b7be232df76b"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{curp0}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="311" y="514" width="12" height="12" uuid="2c92a029-359d-4bf3-9baf-0b524ece20c1"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{curp1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="322" y="514" width="12" height="12" uuid="b701cda3-77c8-452f-8b60-ff7da42f3bc3"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{curp2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="333" y="514" width="12" height="12" uuid="5779cfa2-0ec8-4966-8327-66529ec02f2f"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{curp3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="344" y="514" width="12" height="12" uuid="ba0e81a8-5ef4-43e8-8de4-9526c9c0ea3b"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{curp4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="514" width="12" height="12" uuid="b7d4580c-d410-4891-80f5-7a344836e162"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{curp5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="366" y="514" width="12" height="12" uuid="2c19a0e4-816f-437a-b399-e2d229edb438"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{curp6}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="377" y="514" width="12" height="12" uuid="2f9284d4-29ac-44dd-9ec8-dbf3068ec13d"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{curp7}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="366" y="497" width="12" height="12" uuid="cb10bd07-0321-4bf3-ae42-64a19584b3f1"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{rfc6}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="389" y="514" width="12" height="12" uuid="1180e6da-5482-42a4-af75-235bc6a2be0d"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{curp8}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="514" width="12" height="12" uuid="ff527342-d963-4146-bb30-fb9ab4fe7a5b"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{curp9}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="411" y="514" width="12" height="12" uuid="39e0542a-de6c-4c4a-893b-53742130e420"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{curp10}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="422" y="514" width="12" height="12" uuid="2eb297f9-f97b-4d37-bdac-2887948c2665"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{curp11}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="433" y="514" width="12" height="12" uuid="e9f93154-6212-48cc-b785-8bfb412e6907"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{curp12}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="514" width="12" height="12" uuid="11509dfc-63b6-4285-8fd8-392ef3dd266c"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{curp13}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="514" width="12" height="12" uuid="a1a57fe4-51c4-4967-8a22-555ca6d1621b"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{curp14}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="466" y="514" width="12" height="12" uuid="d6bb2525-6d05-437d-b33a-1c96eead0d3d"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{curp15}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="477" y="514" width="12" height="12" uuid="6527d86a-35b6-4208-9cfa-6d3a9c4a0850"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{curp16}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="488" y="514" width="12" height="12" uuid="2a47d227-d615-4459-85c9-836935d66850"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{curp17}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="8" y="604" width="565" height="15" uuid="78714a59-57b4-4ee9-bc5e-5a36f8cc8796"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{acquirer_home}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="8" y="648" width="565" height="15" uuid="628909e6-3091-4e42-b798-b466ad721da9"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienated_property_home}]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="860">
