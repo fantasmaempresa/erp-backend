@@ -10,10 +10,99 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="REPORTE TESORERIA\DA_FORMAT_C.xml"/>
 	<parameter name="logo" class="java.lang.String"/>
-	<queryString>
+	<queryString language="JSON">
 		<![CDATA[]]>
 	</queryString>
+	<field name="alienating_name" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienating_name"/>
+		<fieldDescription><![CDATA[shape.alienating_name]]></fieldDescription>
+	</field>
+	<field name="alienating_street" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienating_street"/>
+		<fieldDescription><![CDATA[shape.alienating_street]]></fieldDescription>
+	</field>
+	<field name="alienating_outdoor_number" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienating_outdoor_number"/>
+		<fieldDescription><![CDATA[shape.alienating_outdoor_number]]></fieldDescription>
+	</field>
+	<field name="alienating_interior_number" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienating_interior_number"/>
+		<fieldDescription><![CDATA[shape.alienating_interior_number]]></fieldDescription>
+	</field>
+	<field name="alienating_colony" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienating_colony"/>
+		<fieldDescription><![CDATA[shape.alienating_colony]]></fieldDescription>
+	</field>
+	<field name="alienating_locality" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienating_locality"/>
+		<fieldDescription><![CDATA[shape.alienating_locality]]></fieldDescription>
+	</field>
+	<field name="alienating_municipality" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienating_municipality"/>
+		<fieldDescription><![CDATA[shape.alienating_municipality]]></fieldDescription>
+	</field>
+	<field name="alienating_entity" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienating_entity"/>
+		<fieldDescription><![CDATA[shape.alienating_entity]]></fieldDescription>
+	</field>
+	<field name="alienating_zipcode" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienating_zipcode"/>
+		<fieldDescription><![CDATA[shape.alienating_zipcode]]></fieldDescription>
+	</field>
+	<field name="alienating_phone" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienating_phone"/>
+		<fieldDescription><![CDATA[shape.alienating_phone]]></fieldDescription>
+	</field>
+	<field name="signature_date" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.signature_date"/>
+		<fieldDescription><![CDATA[shape.signature_date]]></fieldDescription>
+	</field>
+	<field name="folio" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.folio"/>
+		<fieldDescription><![CDATA[shape.folio]]></fieldDescription>
+	</field>
+	<field name="property" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.property"/>
+		<fieldDescription><![CDATA[shape.data_form.property]]></fieldDescription>
+	</field>
+	<field name="alienating_home" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.alienating_home"/>
+		<fieldDescription><![CDATA[shape.data_form.alienating_home]]></fieldDescription>
+	</field>
+	<field name="scriptures" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.scriptures"/>
+		<fieldDescription><![CDATA[shape.scriptures]]></fieldDescription>
+	</field>
+	<field name="departure" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.departure"/>
+		<fieldDescription><![CDATA[shape.departure]]></fieldDescription>
+	</field>
+	<field name="inscription" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.inscription"/>
+		<fieldDescription><![CDATA[shape.inscription]]></fieldDescription>
+	</field>
+	<field name="sheets" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.sheets"/>
+		<fieldDescription><![CDATA[shape.sheets]]></fieldDescription>
+	</field>
+	<field name="took" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.took"/>
+		<fieldDescription><![CDATA[shape.took]]></fieldDescription>
+	</field>
+	<field name="book" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.book"/>
+		<fieldDescription><![CDATA[shape.book]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="operation.name"/>
+		<fieldDescription><![CDATA[operation.name]]></fieldDescription>
+	</field>
+	<field name="description" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="operation.description"/>
+		<fieldDescription><![CDATA[operation.description]]></fieldDescription>
+	</field>
 	<title>
 		<band height="65" splitType="Stretch">
 			<image>
@@ -39,14 +128,23 @@
 			</rectangle>
 			<staticText>
 				<reportElement x="381" y="6" width="118" height="16" uuid="0aaf6fb1-e352-414c-8e51-2aa575062ad8"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
 				<text><![CDATA[FECHA DE OPERACIÓN:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="381" y="23" width="78" height="16" uuid="313887bb-4e97-4ac7-9a35-b26366416177"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
 				<text><![CDATA[INSTRUMENTO:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="492" y="23" width="38" height="16" uuid="fc8098eb-25a5-4b2c-9915-0d711810a8ce"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
 				<text><![CDATA[FOLIO:]]></text>
 			</staticText>
 			<staticText>
@@ -178,14 +276,14 @@
 			</rectangle>
 			<staticText>
 				<reportElement x="10" y="203" width="140" height="10" uuid="5fad0ae6-fef6-4d87-afa3-27b1b9dee489"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<text><![CDATA[Denominación del Inmueble:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="10" y="220" width="140" height="10" uuid="55f30735-80f2-48bd-8447-4761bc2474d3"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<text><![CDATA[Ubicación del Inmueble:]]></text>
@@ -298,35 +396,37 @@
 				<text><![CDATA[Partida:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="89" y="350" width="50" height="10" uuid="38702261-42a1-4e55-ba16-a2fe23cb505d"/>
+				<reportElement x="89" y="350" width="41" height="10" uuid="38702261-42a1-4e55-ba16-a2fe23cb505d"/>
 				<textElement>
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<text><![CDATA[Inscripción:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="180" y="350" width="28" height="10" uuid="dab2cfb4-9545-49f7-91ce-4fe116d016d5"/>
+				<reportElement x="180" y="350" width="23" height="10" uuid="dab2cfb4-9545-49f7-91ce-4fe116d016d5"/>
 				<textElement>
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<text><![CDATA[Fojas:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="240" y="350" width="60" height="10" uuid="77b9c1a5-59a7-42fe-bdd6-2c64df3b3a7e"/>
+				<reportElement x="253" y="350" width="57" height="10" uuid="77b9c1a5-59a7-42fe-bdd6-2c64df3b3a7e"/>
 				<textElement>
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<text><![CDATA[Tomo número:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="338" y="350" width="60" height="10" uuid="5e6413a3-1cad-4ea8-81e1-c5dc6c75b2cb"/>
+				<reportElement x="351" y="350" width="52" height="10" uuid="5e6413a3-1cad-4ea8-81e1-c5dc6c75b2cb">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
 				<textElement>
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<text><![CDATA[Libro número:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="430" y="350" width="80" height="10" uuid="e049ff6a-750c-4af1-b9e5-cc3a0b87a8fb"/>
+				<reportElement x="453" y="350" width="80" height="10" uuid="e049ff6a-750c-4af1-b9e5-cc3a0b87a8fb"/>
 				<textElement>
 					<font fontName="Arial" size="8"/>
 				</textElement>
@@ -522,6 +622,153 @@
 				</textElement>
 				<text><![CDATA[FIRMA DEL FEDERATARIO PÚBLICO]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="113" y="86" width="458" height="10" uuid="e2eb9fb7-0f96-4e53-8d50-049e1f813d15"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienating_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="43" y="110" width="528" height="10" uuid="d5bb7e0c-87a5-4d6d-9bf9-0fbc4615e29a"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienating_street}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="47" y="122" width="122" height="10" uuid="06c8ee12-17ad-4c94-8908-a0831bde4ec7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienating_outdoor_number}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="203" y="122" width="146" height="10" uuid="3a17e073-2011-44f5-a06b-84aafe32c28e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienating_interior_number}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="422" y="122" width="148" height="10" uuid="66eec5a6-e95a-488c-a5f5-7e18e38ba449"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienating_colony}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="64" y="135" width="126" height="10" uuid="440e1249-c9ae-4a7f-80d2-296bf240c69f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienating_locality}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="254" y="135" width="158" height="10" uuid="e03c32ba-0a21-404c-8ceb-096751ff0596"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienating_municipality}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="473" y="135" width="100" height="10" uuid="13ddb0d0-300c-4be7-9418-62593dfb042a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienating_entity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="94" y="150" width="136" height="10" uuid="3929fd87-d5d0-40af-a8dc-d7e3c25d45b6"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienating_phone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="502" y="6" width="68" height="16" uuid="99cedd73-c72b-44dd-a395-e75fc7d52257"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{signature_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="533" y="23" width="40" height="16" uuid="a1d7b65a-547a-4ef7-b4ce-cd8204ac2b99"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{folio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="203" width="412" height="10" uuid="b9aecf11-3eb8-4782-b642-12037ff86f18"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{property}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="219" width="410" height="10" uuid="a662ac21-e5cc-4187-b9ee-702d4092df18"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienating_home}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="96" y="334" width="314" height="10" uuid="2168709e-a566-450f-b962-0bb2fd51129a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{scriptures}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="42" y="350" width="44" height="10" uuid="77ab04df-1563-4dd1-9c15-3fb2b6b111ad"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{inscription}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="131" y="350" width="48" height="10" uuid="a3a02675-a86b-49bb-aedd-0e7c881acdb6"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{inscription}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="203" y="350" width="50" height="10" uuid="46c05d67-e557-46b3-b41c-3ca53f81eb41"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sheets}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="311" y="350" width="39" height="10" uuid="22f086bf-3d7c-4f70-ae06-d6209905ffb1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{took}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="403" y="350" width="50" height="10" uuid="40ca4c82-3c60-4407-aa1f-c10beff47be1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{book}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="422" width="198" height="138" uuid="764691ad-cce1-4b91-9cf6-346d5e76fabe"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="422" width="350" height="138" uuid="e9a3e28c-5dfd-44b0-85db-983f1049603b"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>

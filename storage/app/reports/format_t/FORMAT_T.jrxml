@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FORMAT_T" pageWidth="623" pageHeight="963" columnWidth="583" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b3bdd097-91ef-48f0-9aef-c8feb468263a">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="FORMAT 2.xml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="REPORTE TESORERIA\DA_FORMAT_C.xml"/>
 	<parameter name="logo" class="java.lang.String"/>
 	<queryString language="JSON">
 		<![CDATA[shape.signature_date_s.day]]>
@@ -213,6 +213,26 @@
 	<field name="acquirer_home" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.acquirer_home"/>
 		<fieldDescription><![CDATA[shape.data_form.acquirer_home]]></fieldDescription>
+	</field>
+	<field name="first_article" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.first_article"/>
+		<fieldDescription><![CDATA[shape.data_form.first_article]]></fieldDescription>
+	</field>
+	<field name="legal_section" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.legal_section"/>
+		<fieldDescription><![CDATA[shape.data_form.legal_section]]></fieldDescription>
+	</field>
+	<field name="first_fraction" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.first_fraction"/>
+		<fieldDescription><![CDATA[shape.data_form.first_fraction]]></fieldDescription>
+	</field>
+	<field name="first_quote" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.first_quote"/>
+		<fieldDescription><![CDATA[shape.data_form.first_quote]]></fieldDescription>
+	</field>
+	<field name="firs_amount" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.firs_amount"/>
+		<fieldDescription><![CDATA[shape.data_form.firs_amount]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -1913,6 +1933,41 @@
 					<font fontName="Arial" size="6"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{alienated_property_home}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3" y="697" width="66" height="10" uuid="db75a83e-53c1-43b2-8b70-c2c1cddc262b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{first_article}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="76" y="697" width="66" height="10" uuid="d5558e29-319a-4874-89e6-afd4b68facfd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{legal_section}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="149" y="697" width="66" height="10" uuid="c4ab10e0-dbee-4d48-a75e-ee5fb5bb8cd4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{first_fraction}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="221" y="697" width="66" height="10" uuid="fccb92e8-d616-4974-bf9b-1ea7fc252e82"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{first_quote}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="297" y="697" width="66" height="10" uuid="e31ffa6f-fe5c-4608-9041-0affeb93cb19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{firs_amount}]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="860">
