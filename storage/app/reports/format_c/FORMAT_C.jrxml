@@ -10,7 +10,7 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="REPORTE TESORERIA\DA_FORMAT_C.xml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="FORMAT 2.xml"/>
 	<parameter name="logo" class="java.lang.String"/>
 	<queryString language="JSON">
 		<![CDATA[]]>
@@ -102,6 +102,10 @@
 	<field name="description" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="operation.description"/>
 		<fieldDescription><![CDATA[operation.description]]></fieldDescription>
+	</field>
+	<field name="notary" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.notary"/>
+		<fieldDescription><![CDATA[shape.notary]]></fieldDescription>
 	</field>
 	<title>
 		<band height="65" splitType="Stretch">
@@ -511,7 +515,7 @@
 				<text><![CDATA[Código Postal:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="439" y="615" width="62" height="10" uuid="32e8459b-c88f-47b1-ba41-ed6d8b48f776"/>
+				<reportElement x="439" y="615" width="34" height="10" uuid="32e8459b-c88f-47b1-ba41-ed6d8b48f776"/>
 				<textElement>
 					<font fontName="Arial" size="8"/>
 				</textElement>
@@ -546,7 +550,7 @@
 				<text><![CDATA[Calle:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="200" y="643" width="59" height="10" uuid="b1efa11d-a714-45e5-be84-6035b8041888"/>
+				<reportElement x="200" y="643" width="54" height="10" uuid="b1efa11d-a714-45e5-be84-6035b8041888"/>
 				<textElement>
 					<font fontName="Arial" size="8"/>
 				</textElement>
@@ -560,28 +564,28 @@
 				<text><![CDATA[Núm. Interior / Letra:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="440" y="643" width="40" height="10" uuid="9bfd5967-2884-43ad-9e1f-18e6878ae1ff"/>
+				<reportElement x="440" y="643" width="33" height="10" uuid="9bfd5967-2884-43ad-9e1f-18e6878ae1ff"/>
 				<textElement>
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<text><![CDATA[Colonia:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="657" width="50" height="10" uuid="9fa0442c-f8d5-45c8-a931-0916f667ef44"/>
+				<reportElement x="10" y="657" width="40" height="10" uuid="9fa0442c-f8d5-45c8-a931-0916f667ef44"/>
 				<textElement>
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<text><![CDATA[Localidad:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="420" y="657" width="50" height="10" uuid="42ff2142-56e9-4bb3-a496-383447c164c0"/>
+				<reportElement x="420" y="657" width="33" height="10" uuid="42ff2142-56e9-4bb3-a496-383447c164c0"/>
 				<textElement>
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<text><![CDATA[Estado:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="200" y="657" width="50" height="10" uuid="9a7f1522-7412-45bc-989f-54feb58075ba"/>
+				<reportElement x="200" y="657" width="40" height="10" uuid="9a7f1522-7412-45bc-989f-54feb58075ba"/>
 				<textElement>
 					<font fontName="Arial" size="8"/>
 				</textElement>
@@ -769,6 +773,76 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="53" y="615" width="201" height="10" uuid="6003cb33-1539-4f1e-a07a-51842cdffda3"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{notary}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="323" y="615" width="107" height="10" uuid="a8ddcc6e-5fd1-4e36-bcee-56876903c96c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[72400]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="473" y="615" width="91" height="10" uuid="84bf4489-d32c-4f39-baaa-2f9f6ab59be7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[230 333]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="643" width="147" height="10" uuid="715191cc-7d0f-41ad-a662-1939e570ea7e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[CIRCUITO JUAN PABLO II]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="473" y="643" width="91" height="10" uuid="8ec6ccb4-3fb5-4852-a777-617d4ce07bbb"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[LAS ANIMAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="53" y="657" width="97" height="10" uuid="ba08f8f7-19a8-4524-ba11-f376630b48bf"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[PUEBLA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="243" y="657" width="97" height="10" uuid="f871ae03-cc43-4f5e-bcc9-20fd0d4f2c68"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[PUEBLA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="453" y="657" width="97" height="10" uuid="89512b92-f7c8-40af-9490-5aba154ab4b6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[PUEBLA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="271" y="629" width="39" height="10" uuid="ec33c017-7211-4ce0-8115-6db0fdcdead2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[4]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="253" y="643" width="37" height="10" uuid="ded3546a-06c9-4d61-b84e-a98aa16b47dd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[3117]]></text>
+			</staticText>
 		</band>
 	</detail>
 </jasperReport>
