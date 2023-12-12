@@ -12,6 +12,7 @@ use App\Models\Shape;
 use DateTime;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use JetBrains\PhpStorm\ArrayShape;
 use Open2code\Pdf\jasper\Report;
 use Illuminate\Support\Facades\Storage;
@@ -22,13 +23,13 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
  */
 class ShapeActionController extends ApiController
 {
-
     /**
      * @param Shape $shape
-     * @return  BinaryFileResponse|JsonResponse
-     * @throws  Exception
+     * @param Request $request
+     * @return BinaryFileResponse|JsonResponse
+     * @throws Exception
      */
-    public function generateShape(Shape $shape): BinaryFileResponse|JsonResponse
+    public function generateShape(Shape $shape, Request $request): BinaryFileResponse|JsonResponse
     {
         $procedure = Procedure::find($shape->procedure->id);
 
@@ -61,18 +62,32 @@ class ShapeActionController extends ApiController
 
             $jasperPath = Storage::path('reports/format_1/FORMAT1.jasper');
             $outputPath = Storage::path('reports/format_1/FORMAT1.pdf');
+            $imageAsset = Storage::path('assets/LogoFinanzas.png');
         } else {
             $procedure->shape->rfc = $this->splitString($procedure->shape->data_form['rfc'], 13, 'rfc');
             $procedure->shape->curp = $this->splitString($procedure->shape->data_form['curp'], 18, 'curp');
 
-            $jasperPath = Storage::path('reports/format_2/FORMAT2.jasper');
-            $outputPath = Storage::path('reports/format_2/FORMAT2.pdf');
+            if ($request->has('type')) {
+                if ($request->get('type') == 1) {
+                    $jasperPath = Storage::path('reports/format_c/FORMAT_C.jasper');
+                    $outputPath = Storage::path('reports/format_c/FORMAT_C.pdf');
+                    $imageAsset = Storage::path('assets/LogoFormaC.png');
+                }
+                if ($request->get('type') == 2) {
+                    $jasperPath = Storage::path('reports/format_t/FORMAT_T.jasper');
+                    $outputPath = Storage::path('reports/format_t/FORMAT_T.pdf');
+                    $imageAsset = Storage::path('assets/LogoFormaT.png');
+                }
+            } else {
+                $jasperPath = Storage::path('reports/format_2/FORMAT2.jasper');
+                $outputPath = Storage::path('reports/format_2/FORMAT2.pdf');
+                $imageAsset = Storage::path('assets/LogoFinanzas.png');
+            }
         }
 
         unset($procedure->shape['template_shape']);
         unset($procedure->shape['procedure']);
 
-        $imageAsset = Storage::path('assets/LogoFinanzas.png');
         $jsonData = json_encode($procedure);
 
         Storage::put("reports/tempJson.json", $jsonData);
