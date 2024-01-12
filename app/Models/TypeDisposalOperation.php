@@ -1,8 +1,8 @@
 <?php
 
 /*
- * CODE
- * NationalConsumerPriceIndex Model Class
+ * OPEN2CODE
+ * TypeDisposalOperation Model
  */
 namespace App\Models;
 
@@ -10,20 +10,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * v1
+ * @version1
  */
-class NationalConsumerPriceIndex extends Model
+class TypeDisposalOperation extends Model
 {
     public $timestamps = false;
+
     /**
-     * The attributes that are mass assignable.
-     *
      * @var string[]
      */
     protected $fillable = [
-        'id',
-        'year',
-        'month',
-        'value',
+      'id',
+      'type',
     ];
 }
