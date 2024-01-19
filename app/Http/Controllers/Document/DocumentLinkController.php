@@ -84,7 +84,6 @@ class DocumentLinkController extends ApiController
         return $this->showList($paginatedExpedient);
     }
 
-
     /**
      * Store a newly created resource in storage.
      *

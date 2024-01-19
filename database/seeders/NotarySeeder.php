@@ -19,6 +19,7 @@ class NotarySeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('work_areas')->truncate();
         DB::table('staff')->truncate();
+        DB::table('clients')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         WorkArea::create(
@@ -63,6 +64,19 @@ class NotarySeeder extends Seeder
             'extra_information' => [],
             'work_area_id' => 2,
             'user_id' => 3,
+        ]);
+
+        Staff::create([
+            'id' => 3,
+            'name' => 'backup',
+            'last_name' => 'sicom',
+            'mother_last_name' => ' ',
+            'email' => 'backup@sicom.com.mx',
+            'phone' => '2221714967',
+            'nickname' => 'Usuario para ligar el backup de sicom',
+            'extra_information' => [],
+            'work_area_id' => 2,
+            'user_id' => 6,
         ]);
 
     }

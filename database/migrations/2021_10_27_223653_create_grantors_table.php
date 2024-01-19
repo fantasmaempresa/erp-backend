@@ -16,9 +16,16 @@ class CreateGrantorsTable extends Migration
     {
         Schema::create('grantors', function (Blueprint $table) {
             $table->id();
+            //estado civil
+            //lugar de naciemitno
+            //fecha de nacimiento
+            //ocupación
+            //dirección
             $table->string('name');
             $table->string('father_last_name')->nullable();
             $table->string('mother_last_name')->nullable();
+            $table->string('rfc')->unique();
+            $table->string('curp')->unique();
             $table->string('type');
             $table->string('stake');
             $table->boolean('beneficiary')->default(Grantor::NO_BENEFICIARY);

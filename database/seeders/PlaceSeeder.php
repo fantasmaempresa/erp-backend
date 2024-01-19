@@ -16,7 +16,6 @@ class PlaceSeeder extends Seeder
     public function run()
     {
         $places = [
-            ['name' => 'SIN LUGAR'],
             ['name' => 'PUEBLA, PUE.'],
             ['name' => 'SAN ANDRES CHOLULA, PUEBLA'],
             ['name' => 'SAN PEDRO CHOLULA, PUEBLA'],
