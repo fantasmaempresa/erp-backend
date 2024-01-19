@@ -56,6 +56,8 @@ class CreateDisposalRealEstatesTable extends Migration
             $table->decimal('isr_federal_entity', 20, 4);
             $table->decimal('isr_federation', 20, 4);
 
+            $table->unsignedBigInteger('ncpi_disposal_id');
+            $table->unsignedBigInteger('ncpi_acquisition_id');
 
             $table->foreignId('alienating_id')->constrained();
             $table->foreignId('type_disposal_operation_id')->constrained();
