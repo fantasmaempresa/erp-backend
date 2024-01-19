@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Client;
 use App\Models\Staff;
 use App\Models\WorkArea;
 use Illuminate\Database\Seeder;
@@ -79,5 +80,21 @@ class NotarySeeder extends Seeder
             'user_id' => 6,
         ]);
 
+        Client::create([
+            'id' => 1,
+            'name' => 'backup sicon',
+            'last_name' => 'backup sicon',
+            'mother_last_name' => 'backup sicon',
+            'email' => 'backup_sicon@backup_sicon.com',
+            'phone' => '2221714958',
+            'nickname' => '',
+            'address' => '',
+            'rfc' => '',
+            'type' => 2,
+            'profession' => null,
+            'degree' => null,
+            'extra_information' => null,
+            'user_id' => null,
+        ]);
     }
 }

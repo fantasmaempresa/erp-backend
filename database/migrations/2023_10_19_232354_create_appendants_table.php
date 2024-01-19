@@ -26,7 +26,7 @@ class CreateAppendantsTable extends Migration
             $table->id();
             $table->integer('begin');
             $table->integer('end');
-            $table->string('factor');
+            $table->decimal('factor', 15, 4);
         });
     }
 

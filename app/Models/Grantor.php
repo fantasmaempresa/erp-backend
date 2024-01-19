@@ -35,8 +35,22 @@ class Grantor extends Model
         'name',
         'father_last_name',
         'mother_last_name',
+        'rfc',
+        'curp',
+        'civil_status',
+        'municipality',
+        'colony',
+        'no_int',
+        'no_ext',
+        'no_locality',
+        'phone',
+        'locality',
+        'zipcode',
+        'place_of_birth',
+        'birthdate',
+        'occupation',
         'type',
-        'stake',
+        'stake_id',
         'beneficiary',
     ];
 
@@ -61,6 +75,7 @@ class Grantor extends Model
      */
     public static function rules(): array
     {
+        //TODO Agregar validaciones
         return [
             'name' => 'required|string',
             'father_last_name' => 'nullable|string',

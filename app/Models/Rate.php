@@ -1,8 +1,8 @@
 <?php
 
 /*
- * CODE
- * NationalConsumerPriceIndex Model Class
+ * Open2Code
+ * Rate Model Class
  */
 namespace App\Models;
 
@@ -10,20 +10,23 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * v1
+ * @access  public
+ *
+ * @version 1.0
  */
-class NationalConsumerPriceIndex extends Model
+class Rate extends Model
 {
     public $timestamps = false;
+
     /**
-     * The attributes that are mass assignable.
-     *
      * @var string[]
      */
     protected $fillable = [
         'id',
         'year',
-        'month',
-        'value',
+        'lower_limit',
+        'upper_limit',
+        'fixed_fee',
+        'surplus',
     ];
 }

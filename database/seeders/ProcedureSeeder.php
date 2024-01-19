@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Imports\ImportCSV;
-use App\Models\InversionUnit;
 use App\Models\Procedure;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
@@ -46,10 +45,11 @@ class ProcedureSeeder extends Seeder
                 $procedure->operation_id = $record['Operacion'];
                 $procedure->user_id = 6;
                 $procedure->place_id = $record['Lugar'];
-                $procedure->client_id = $record['Expediente'];
-                $procedure->staff_id = $record['Expediente'];
+                $procedure->client_id = 1;
+                $procedure->staff_id = 3;
 
                 $procedure->save();
+                print_r($record);
             }
         } catch (IOException|ReaderNotOpenedException $e) {
             print_r("Fallo seeder ---> ", $e->getMessage());

@@ -25,7 +25,7 @@ class CreateInversionUnitsTable extends Migration
         Schema::create('inversion_units', function (Blueprint $table) {
             $table->id();
             $table->date('date');
-            $table->string('factor');
+            $table->decimal('factor', 15, 2);
         });
     }
 

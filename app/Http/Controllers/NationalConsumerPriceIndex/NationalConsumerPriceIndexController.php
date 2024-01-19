@@ -10,7 +10,6 @@ use App\Http\Controllers\ApiController;
 use App\Models\NationalConsumerPriceIndex;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 /**
  * @access  public

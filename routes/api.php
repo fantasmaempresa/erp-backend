@@ -36,6 +36,7 @@ use App\Http\Controllers\ProjectQuote\ProjectQuoteFilterController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteOperationsController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteReportController;
 use App\Http\Controllers\ProjectStaff\ProjectStaffController;
+use App\Http\Controllers\Rate\RateController;
 use App\Http\Controllers\Role\RoleActionController;
 use App\Http\Controllers\Role\RoleController;
 use App\Http\Controllers\Salary\SalaryController;
@@ -152,6 +153,12 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
 
     //APPENDANT 9
     Route::resource('appendant', AppendantController::class, ['only' => ['index', 'show']]);
+
+    //RATE
+    Route::resource('rate', RateController::class, ['only' => ['index', 'show']]);
+
+    //TYPE DISPOSAL OPERATION
+    Route::resource('typeDisposalOperation', RateController::class, ['only' => ['index', 'show']]);
 
     //ALIENATING
     Route::resource('alienating', AlienatingController::class, ['except' => ['create', 'edit']]);
