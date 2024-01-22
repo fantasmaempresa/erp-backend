@@ -35,9 +35,9 @@ class CreateDisposalRealEstatesTable extends Migration
             $table->decimal('annex_factor', 20, 4)->nullable();
             $table->decimal('updated_construction_cost', 20, 4)->nullable();
             $table->decimal('updated_land_cost', 20, 4)->nullable();
-            //ISR DISPOSAL
             $table->decimal('disposal_value_transferor', 20, 4);
             $table->decimal('updated_total_cost_acquisition', 20, 4);
+            //ISR DISPOSAL
             $table->decimal('improvements', 20, 4);
             $table->decimal('appraisal', 20, 4);
             $table->decimal('commissions', 20, 4);

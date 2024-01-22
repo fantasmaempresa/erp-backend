@@ -17,7 +17,7 @@ class CreateNationalConsumerPriceIndicesTable extends Migration
             $table->id();
             $table->integer('year');
             $table->integer('month');
-            $table->decimal('value');
+            $table->decimal('value', 20, 15);
         });
     }
 

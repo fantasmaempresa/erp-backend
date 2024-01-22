@@ -40,12 +40,16 @@ class NCPISeeder extends Seeder
 
             foreach ($catalogs as $catalog) {
                 $calendar = $catalog;
+                $year = $calendar['YEAR'];
                 unset($calendar['YEAR']);
 
-                NationalConsumerPriceIndex::create([
-                    'year' => $catalog['YEAR'],
-                    'calendar' => $calendar,
-                ]);
+                foreach ($calendar as $month => $value) {
+                    NationalConsumerPriceIndex::create([
+                        'year' => $year,
+                        'month' => $month,
+                        'value' => $value,
+                    ]);
+                }
             }
         } catch (IOException|ReaderNotOpenedException $e) {
         }
