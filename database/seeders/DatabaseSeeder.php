@@ -33,21 +33,21 @@ class DatabaseSeeder extends Seeder
 
         $this->call(
             [
-//                RoleSeeder::class,
-//                UserSeeder::class,
-//                NotarySeeder::class,
-//                StatusQuoteSeeder::class,
-//                DocumentSeeder::class,
-//                OperationSedeer::class,
-//                TemplateShapeSeeder::class,
-//                PlaceSeeder::class,
-//                NCPISeeder::class,
-//                InversionUnitSeeder::class,
-//                AppendantSeeder::class,
-//                StakeSeeder::class,
-//                ProcedureSeeder::class,
-//                GrantorSeeder::class,
-//                Shape1Sedeer::class,
+                RoleSeeder::class,
+                UserSeeder::class,
+                NotarySeeder::class,
+                StatusQuoteSeeder::class,
+                DocumentSeeder::class,
+                OperationSedeer::class,
+                TemplateShapeSeeder::class,
+                PlaceSeeder::class,
+                NCPISeeder::class,
+                InversionUnitSeeder::class,
+                AppendantSeeder::class,
+                StakeSeeder::class,
+                ProcedureSeeder::class,
+                GrantorSeeder::class,
+                Shape1Sedeer::class,
                 Shape2Sedder::class
 
             ]
