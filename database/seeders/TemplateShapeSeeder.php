@@ -3,6 +3,7 @@
 /*
  * OPEN2CODE 2023
  */
+
 namespace Database\Seeders;
 
 use App\Models\Shape;
@@ -117,7 +118,6 @@ class TemplateShapeSeeder extends Seeder
                         'label' => 'Cuota del Fundamento del inmueble enagenado',
                     ],
                     ['name' => 'total_tax_rights', 'type' => 'text', 'label' => 'Total de Impuestos y Derechos'],
-                    ['name' => 'reverse', 'type', 'type' => 'text', 'label' => 'Reverso'],
                 ],
             ],
             [
@@ -156,7 +156,6 @@ class TemplateShapeSeeder extends Seeder
                     ['name' => 'fourth_fraction', 'type' => 'text', 'label' => 'Fraccion4'],
                     ['name' => 'fourth_quote', 'type' => 'text', 'label' => 'Cuota4'],
                     ['name' => 'fourth_amount', 'type' => 'text', 'label' => 'Importe4'],
-                    ['name' => 'reverse', 'type', 'type' => 'text', 'label' => 'Reverso'],
                 ],
             ],
 //            [

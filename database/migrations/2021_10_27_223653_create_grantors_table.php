@@ -31,7 +31,7 @@ class CreateGrantorsTable extends Migration
             $table->string('locality');
             $table->string('zipcode');
             $table->string('place_of_birth');
-            $table->string('birthdate');
+            $table->date('birthdate');
             $table->string('occupation');
             $table->string('type'); //tipo de persona
             $table->foreignId('stake_id')->constrained(); //participación

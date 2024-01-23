@@ -21,8 +21,8 @@ class CreateProceduresTable extends Migration
             $table->string('instrument'); //instrumento
             $table->date('date'); //fecha
             $table->string('volume'); // volumen
-            $table->bigInteger('folio_min')->unique()->nullable(); //rango bajo de folio
-            $table->bigInteger('folio_max')->unique(); //rango alto de folio
+            $table->bigInteger('folio_min')->nullable(); //rango bajo de folio
+            $table->bigInteger('folio_max'); //rango alto de folio
             $table->string('credit')->nullable(); // credito
             $table->text('observation'); // observaciones
             $table->foreignId('operation_id')->constrained(); //Operacion

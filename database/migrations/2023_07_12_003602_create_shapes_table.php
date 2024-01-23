@@ -26,17 +26,17 @@ class CreateShapesTable extends Migration
             $table->string('took'); //Tomo
             $table->string('book'); //Libro
             $table->string('operation_value'); //ValorOperacion
-            $table->string('alienating_name'); //Nombre Enajenante
-            $table->string('alienating_street'); //Calle Enajenante
-            $table->string('alienating_outdoor_number'); //NoExt Enajenante
-            $table->string('alienating_interior_number'); //NoInt Enajenante
-            $table->string('alienating_colony'); //Colonia Enajenante
-            $table->string('alienating_locality'); //Localidad Enajenante
-            $table->string('alienating_municipality'); //MunicipioEnajenante
-            $table->string('alienating_entity'); //Entidad Enajenante
-            $table->string('alienating_zipcode'); //CodPos Enajenante
-            $table->string('alienating_phone'); //Telefono Enajenante
-            $table->string('acquirer_name'); //Nombre Adquiriente
+//            $table->string('alienating_name'); //Nombre Enajenante
+//            $table->string('alienating_street'); //Calle Enajenante
+//            $table->string('alienating_outdoor_number'); //NoExt Enajenante
+//            $table->string('alienating_interior_number'); //NoInt Enajenante
+//            $table->string('alienating_colony'); //Colonia Enajenante
+//            $table->string('alienating_locality'); //Localidad Enajenante
+//            $table->string('alienating_municipality'); //MunicipioEnajenante
+//            $table->string('alienating_entity'); //Entidad Enajenante
+//            $table->string('alienating_zipcode'); //CodPos Enajenante
+//            $table->string('alienating_phone'); //Telefono Enajenante
+//            $table->string('acquirer_name'); //Nombre Adquiriente
             $table->text('description'); //Descripcion
             $table->string('total'); //Total
             $table->json('data_form'); //Tipo de de trámite
