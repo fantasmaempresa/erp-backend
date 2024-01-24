@@ -7,6 +7,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\TypeDisposalOperation;
 use Illuminate\Database\Seeder;
 
 /**
@@ -48,8 +49,12 @@ class DatabaseSeeder extends Seeder
                 ProcedureSeeder::class,
                 GrantorSeeder::class,
                 Shape1Sedeer::class,
-                Shape2Sedder::class
-
+                Shape2Sedder::class,
+                AppendantSeeder::class,
+                InversionUnitSeeder::class,
+                NCPISeeder::class,
+                RateSeeder::class,
+                TypeDisposalOperation::class,
             ]
         );
     }
