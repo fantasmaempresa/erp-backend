@@ -24,7 +24,7 @@ class CreateGrantorsTable extends Migration
             $table->string('civil_status');
             $table->string('municipality');
             $table->string('colony');
-            $table->string('no_int');
+            $table->string('no_int')->nullable();
             $table->string('no_ext');
             $table->string('no_locality');
             $table->string('phone');

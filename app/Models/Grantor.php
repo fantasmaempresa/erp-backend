@@ -22,14 +22,6 @@ class Grantor extends Model
     const BENEFICIARY = true;
     const NO_BENEFICIARY = false;
 
-    /**
-     * @return BelongsToMany
-     */
-    public function procedures(): BelongsToMany
-    {
-        return $this->belongsToMany(Procedure::class);
-    }
-
     protected $fillable = [
         'id',
         'name',
@@ -55,6 +47,23 @@ class Grantor extends Model
     ];
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function stake()
+    {
+        return $this->belongsTo(Stake::class);
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function procedures(): BelongsToMany
+    {
+        return $this->belongsToMany(Procedure::class);
+    }
+
+
+    /**
      * @param $query
      * @param $search
      *
@@ -66,8 +75,10 @@ class Grantor extends Model
             ->orWhere('name', 'like', "%$search%")
             ->orWhere('father_last_name', 'like', "%$search%")
             ->orWhere('mother_last_name', 'like', "%$search%")
-            ->orWhere('beneficiary', 'like', "%$search%")
-            ->orWhere('stake', 'like', "%$search%");
+            ->orWhere('rfc', 'like', "%$search%")
+            ->orWhere('curp', 'like', "%$search%")
+            ->orWhere('municipality', 'like', "%$search%")
+            ->orWhere('beneficiary', 'like', "%$search%");
     }
 
     /**
@@ -75,7 +86,6 @@ class Grantor extends Model
      */
     public static function rules(): array
     {
-        //TODO Agregar validaciones
         return [
             'name' => 'required|string',
             'father_last_name' => 'nullable|string',
@@ -86,7 +96,7 @@ class Grantor extends Model
             'civil_status' => 'required|string',
             'municipality' => 'required|string',
             'colony' => 'required|string',
-            'no_int' => 'required|string',
+            'no_int' => 'nullable|string',
             'no_ext' => 'required|string',
             'no_locality' => 'required|string',
             'phone' => 'required|string',

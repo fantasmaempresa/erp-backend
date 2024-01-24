@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Grantor;
 
 use App\Http\Controllers\ApiController;
 use App\Models\Grantor;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -28,7 +29,7 @@ class GrantorController extends ApiController
         if ($request->has('search')) {
             $response = $this->showList(Grantor::search($request->get('search'))->paginate($paginate));
         } else {
-            $response = $this->showList(Grantor::paginate($paginate));
+            $response = $this->showList(Grantor::with('stake')->paginate($paginate));
         }
 
         return $response;
@@ -44,7 +45,9 @@ class GrantorController extends ApiController
     public function store(Request $request): JsonResponse
     {
         $this->validate($request, Grantor::rules());
-        $grantor = Grantor::create($request->all());
+        $grantor = new Grantor($request->all());
+        $grantor->birthdate = Carbon::parse($grantor->birthdate);
+        $grantor->save();
 
         return $this->showOne($grantor);
     }

@@ -48,7 +48,7 @@ class DatabaseSeeder extends Seeder
                 ProcedureSeeder::class,
                 GrantorSeeder::class,
                 Shape1Sedeer::class,
-                Shape2Sedder::class
+                Shape2Sedder::class,
 
             ]
         );

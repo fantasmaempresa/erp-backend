@@ -53,7 +53,8 @@ class Shape1Sedeer extends Seeder
                 $shape->took = empty($record['Tomo']) ? 'bk' : $record['Tomo'];
                 $shape->book = empty($record['Libro']) ? 'bk' : $record['Libro'];
 //                Predio	Operacion	ValorCatastral
-                $shape->operation_value = empty($record['ValorOperacion']) ? 'bk' : $record['ValorOperacion'];
+                $operation_value = empty($record['ValorOperacion']) ? 'bk' : $record['ValorOperacion'];
+                $shape->operation_value = str_replace("$", "", $operation_value);
                 $shape->description = empty($record['Descripcion']) ? 'bk' : $record['Descripcion'];
                 $shape->total = empty($record['Total']) ? 'bk' : $record['Total'];
                 $shape->data_form = [
