@@ -44,6 +44,7 @@ use App\Http\Controllers\Salary\SalaryController;
 use App\Http\Controllers\Shape\ShapeActionController;
 use App\Http\Controllers\Shape\ShapeController;
 use App\Http\Controllers\Staff\StaffController;
+use App\Http\Controllers\Stake\StakeController;
 use App\Http\Controllers\StatusQuote\StatusQuoteController;
 use App\Http\Controllers\TaxDatum\TaxDatumController;
 use App\Http\Controllers\TemplateQuotes\TemplateQuotesController;
@@ -132,6 +133,7 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
 
     //ROUTE NOTARY
     Route::resource('shape', ShapeController::class, ['except' => ['create', 'edit']]);
+    Route::resource('stake', StakeController::class, ['except' => ['create', 'edit']]);
     Route::resource('templateShape', TemplateShapeController::class, ['except' => ['create', 'edit']]);
     Route::resource('operations', OperationController::class, ['except' => ['create', 'edit']]);
     Route::resource('procedures', ProcedureController::class, ['except' => ['create', 'edit']]);

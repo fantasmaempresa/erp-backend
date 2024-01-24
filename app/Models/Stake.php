@@ -21,4 +21,26 @@ class Stake extends Model
     {
         return $this->hasMany(Grantor::class);
     }
+
+    /**
+     * @param $query
+     * @param $search
+     *
+     * @return mixed
+     */
+    public function scopeSearch($query, $search): mixed
+    {
+        return $query
+            ->orWhere('name', 'like', "%$search%");
+    }
+
+    /**
+     * @return string[]
+     */
+    public static function rules(): array
+    {
+        return [
+            'name' => 'required|string',
+        ];
+    }
 }
