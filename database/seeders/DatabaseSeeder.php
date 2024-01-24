@@ -7,7 +7,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\TypeDisposalOperation;
 use Illuminate\Database\Seeder;
 
 /**
@@ -42,9 +41,6 @@ class DatabaseSeeder extends Seeder
                 OperationSedeer::class,
                 TemplateShapeSeeder::class,
                 PlaceSeeder::class,
-                NCPISeeder::class,
-                InversionUnitSeeder::class,
-                AppendantSeeder::class,
                 StakeSeeder::class,
                 ProcedureSeeder::class,
                 GrantorSeeder::class,
@@ -54,7 +50,7 @@ class DatabaseSeeder extends Seeder
                 InversionUnitSeeder::class,
                 NCPISeeder::class,
                 RateSeeder::class,
-                TypeDisposalOperation::class,
+                TypeDisposalOperationSeeder::class,
             ]
         );
     }
