@@ -3,6 +3,7 @@
 /*
  * OPEN2CODE DisposalRealEstate Model
  */
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -63,10 +64,50 @@ class DisposalRealEstate extends Model
     ];
 
     /**
-     * @return void
+     * @return string[]
      */
-    public static function rules()
+    public static function rules(): array
     {
+        return [
+            'type_disposal_operation_id' => 'required|int',
+            'disposal_value' => 'required|numeric',
+            'disposal_date' => 'required|date',
+            'acquisition_value' => 'required|numeric',
+            'acquisition_date' => 'required|date',
+            'real_estate_appraisal' => 'required|numeric',
+            'fiscal_appraisal' => 'required|numeric',
+            'land_proportion' => 'required|int',
+            'construction_proportion' => 'int',
+            'depreciation_rate' => 'required|int',
+            'improvements' => 'numeric',
+            'appraisal' => 'numeric',
+            'commissions' => 'numeric',
+            'isabi' => 'numeric',
+            'rate' => 'required|int',
+        ];
+    }
 
+    /**
+     * @param $month
+     * @param $year
+     *
+     * @return mixed
+     */
+    public static function getNPCI($month, $year): mixed
+    {
+        $npci = NationalConsumerPriceIndex::where('month', $month)->where('year', $year)->first();
+        if ($npci->value == 0) {
+            $newMonth = $month - 1;
+            $newYear = $year;
+
+            if ($newMonth == 0) {
+                $newMonth = 12;
+                $newYear = $newYear - 1;
+            }
+
+            return self::getNPCI($newMonth, $newYear);
+        } else {
+            return $npci;
+        }
     }
 }

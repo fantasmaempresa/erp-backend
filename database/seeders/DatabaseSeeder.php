@@ -41,15 +41,16 @@ class DatabaseSeeder extends Seeder
                 OperationSedeer::class,
                 TemplateShapeSeeder::class,
                 PlaceSeeder::class,
-                NCPISeeder::class,
-                InversionUnitSeeder::class,
-                AppendantSeeder::class,
                 StakeSeeder::class,
                 ProcedureSeeder::class,
                 GrantorSeeder::class,
                 Shape1Sedeer::class,
                 Shape2Sedder::class,
-
+                AppendantSeeder::class,
+                InversionUnitSeeder::class,
+                NCPISeeder::class,
+                RateSeeder::class,
+                TypeDisposalOperationSeeder::class,
             ]
         );
     }

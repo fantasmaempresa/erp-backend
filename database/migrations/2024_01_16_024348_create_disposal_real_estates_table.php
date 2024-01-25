@@ -35,9 +35,9 @@ class CreateDisposalRealEstatesTable extends Migration
             $table->decimal('annex_factor', 20, 4)->nullable();
             $table->decimal('updated_construction_cost', 20, 4)->nullable();
             $table->decimal('updated_land_cost', 20, 4)->nullable();
-            $table->decimal('disposal_value_transferor', 20, 4);
             $table->decimal('updated_total_cost_acquisition', 20, 4);
             //ISR DISPOSAL
+            $table->decimal('disposal_value_transferor', 20, 4);
             $table->decimal('improvements', 20, 4);
             $table->decimal('appraisal', 20, 4);
             $table->decimal('commissions', 20, 4);
@@ -58,10 +58,11 @@ class CreateDisposalRealEstatesTable extends Migration
 
             $table->unsignedBigInteger('ncpi_disposal_id');
             $table->unsignedBigInteger('ncpi_acquisition_id');
+            $table->unsignedBigInteger('alienating_id');
 
-            $table->foreignId('alienating_id')->constrained();
             $table->foreignId('type_disposal_operation_id')->constrained();
             $table->foreignId('rate_id')->constrained();
+            $table->foreign('alienating_id')->references('id')->on('grantors');
             $table->foreign('ncpi_disposal_id')->references('id')->on('national_consumer_price_indices');
             $table->foreign('ncpi_acquisition_id')->references('id')->on('national_consumer_price_indices');
             $table->timestamps();

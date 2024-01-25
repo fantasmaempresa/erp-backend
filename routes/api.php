@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\Acquirer\AcquirerController;
-use App\Http\Controllers\Alienating\AlienatingController;
 use App\Http\Controllers\Appendant\AppendantController;
 use App\Http\Controllers\Auth\AuthActionController;
 use App\Http\Controllers\Auth\AuthController;
@@ -11,6 +9,7 @@ use App\Http\Controllers\ClientLink\ClientLinkController;
 use App\Http\Controllers\Concept\ConceptController;
 use App\Http\Controllers\Deduction\DeductionController;
 use App\Http\Controllers\DetailProject\DetailProjectController;
+use App\Http\Controllers\DisposalRealEstate\DisposalRealEstateController;
 use App\Http\Controllers\Document\DocumentController;
 use App\Http\Controllers\Document\DocumentLinkController;
 use App\Http\Controllers\ExtraHour\ExtraHourController;
@@ -162,11 +161,8 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     //TYPE DISPOSAL OPERATION
     Route::resource('typeDisposalOperation', RateController::class, ['only' => ['index', 'show']]);
 
-    //ALIENATING
-    Route::resource('alienating', AlienatingController::class, ['except' => ['create', 'edit']]);
-
-    //ACQUIRER
-    Route::resource('acquirer', AcquirerController::class, ['except' => ['create', 'edit']]);
+    //DISPOSAL REAL ESTATE
+    Route::resource('disposalRealEstate', DisposalRealEstateController::class, ['except' => ['create', 'edit']]);
 });
 
 
