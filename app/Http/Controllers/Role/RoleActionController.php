@@ -165,32 +165,37 @@ class RoleActionController extends ApiController
             ],
         ],
 
-        [
-            'label' => 'Trámites',
-            'icon' => 'description',
-            'route' => './procedures',
-            'dropdowns' => [
-                [
-                    'label' => 'Pendientes',
-                    'route' => './pending_procedures',
-                    'icon' => 'pause',
-                ],
-                [
-                    'label' => 'En Curso',
-                    'route' => './ongoing_procedure',
-                    'icon' => 'play_arrow',
-                ],
-            ],
-            'controllers' => [
-                PhasesProcessController::class,
-                ProjectController::class,
-            ],
-        ],
+//        [
+//            'label' => 'Trámites',
+//            'icon' => 'description',
+//            'route' => './procedures',
+//            'dropdowns' => [
+//                [
+//                    'label' => 'Pendientes',
+//                    'route' => './pending_procedures',
+//                    'icon' => 'pause',
+//                ],
+//                [
+//                    'label' => 'En Curso',
+//                    'route' => './ongoing_procedure',
+//                    'icon' => 'play_arrow',
+//                ],
+//            ],
+//            'controllers' => [
+//                PhasesProcessController::class,
+//                ProjectController::class,
+//            ],
+//        ],
         [
             'label' => 'Notarial',
             'icon' => 'balance',
             'route' => './notary',
             'dropdowns' => [
+                [
+                    'label' => 'Participaciones',
+                    'route' => './stakes',
+                    'icon' => 'play_arrow',
+                ],
                 [
                     'label' => 'Operaciones',
                     'route' => './operations',
