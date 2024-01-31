@@ -30,18 +30,18 @@ class CreateDisposalRealEstatesTable extends Migration
             $table->integer('depreciation_rate');
             $table->decimal('annual_depreciation', 20, 4);
             $table->integer('years_passed');
-            $table->decimal('depreciation_value', 20, 4)->nullable();
-            $table->decimal('construction_value', 20, 4)->nullable();
-            $table->decimal('annex_factor', 20, 4)->nullable();
-            $table->decimal('updated_construction_cost', 20, 4)->nullable();
-            $table->decimal('updated_land_cost', 20, 4)->nullable();
+            $table->decimal('depreciation_value', 20, 4)->default(0);
+            $table->decimal('construction_value', 20, 4)->default(0);
+            $table->decimal('annex_factor', 20, 4)->default(0);
+            $table->decimal('updated_construction_cost', 20, 4)->default(0);
+            $table->decimal('updated_land_cost', 20, 4)->default(0);
             $table->decimal('updated_total_cost_acquisition', 20, 4);
             //ISR DISPOSAL
             $table->decimal('disposal_value_transferor', 20, 4);
-            $table->decimal('improvements', 20, 4);
-            $table->decimal('appraisal', 20, 4);
-            $table->decimal('commissions', 20, 4);
-            $table->decimal('isabi', 20, 4);
+            $table->decimal('improvements', 20, 4)->default(0);
+            $table->decimal('appraisal', 20, 4)->default(0);
+            $table->decimal('commissions', 20, 4)->default(0);
+            $table->decimal('isabi', 20, 4)->default(0);
             $table->decimal('preventive_notices', 20, 4);
             $table->decimal('tax_base', 20, 4);
             $table->decimal('cumulative_profit', 20, 4);
