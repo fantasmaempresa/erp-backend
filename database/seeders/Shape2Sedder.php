@@ -24,7 +24,7 @@ class Shape2Sedder extends Seeder
 
         $import = new ImportCSV(Storage::path('backup_sicom/forma_2.csv'), delimeter: '|');
         $records = $import->readFile();
-        $templateShape = TemplateShape::findOrFail(1);
+        $templateShape = TemplateShape::findOrFail(2);
 
         foreach ($records as $record) {
             try {
