@@ -9,6 +9,9 @@ class Stake extends Model
 {
     use HasFactory;
 
+    const ACQUIRER = 1;
+    const ALIENATING = 3;
+
     protected $fillable = [
         'id',
         'name'
