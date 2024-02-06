@@ -3,8 +3,11 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FORMAT1" pageWidth="623" pageHeight="963" columnWidth="583" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="963e1d41-dcf3-4a1b-8c12-a1c0b97bcf5a">
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="cm"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="cm"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.xml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Form1-Data.xml"/>
 	<parameter name="imageSF" class="java.lang.String"/>
+	<queryString language="JSON">
+		<![CDATA[]]>
+	</queryString>
 	<field name="scriptures" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.scriptures"/>
 		<fieldDescription><![CDATA[shape.scriptures]]></fieldDescription>
@@ -53,89 +56,9 @@
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.operation_value"/>
 		<fieldDescription><![CDATA[shape.operation_value]]></fieldDescription>
 	</field>
-	<field name="alienating_name" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienating_name"/>
-		<fieldDescription><![CDATA[shape.alienating_name]]></fieldDescription>
-	</field>
-	<field name="alienating_street" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienating_street"/>
-		<fieldDescription><![CDATA[shape.alienating_street]]></fieldDescription>
-	</field>
-	<field name="alienating_outdoor_number" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienating_outdoor_number"/>
-		<fieldDescription><![CDATA[shape.alienating_outdoor_number]]></fieldDescription>
-	</field>
-	<field name="alienating_interior_number" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienating_interior_number"/>
-		<fieldDescription><![CDATA[shape.alienating_interior_number]]></fieldDescription>
-	</field>
-	<field name="alienating_colony" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienating_colony"/>
-		<fieldDescription><![CDATA[shape.alienating_colony]]></fieldDescription>
-	</field>
-	<field name="alienating_locality" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienating_locality"/>
-		<fieldDescription><![CDATA[shape.alienating_locality]]></fieldDescription>
-	</field>
-	<field name="alienating_municipality" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienating_municipality"/>
-		<fieldDescription><![CDATA[shape.alienating_municipality]]></fieldDescription>
-	</field>
-	<field name="alienating_entity" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienating_entity"/>
-		<fieldDescription><![CDATA[shape.alienating_entity]]></fieldDescription>
-	</field>
-	<field name="alienating_zipcode" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienating_zipcode"/>
-		<fieldDescription><![CDATA[shape.alienating_zipcode]]></fieldDescription>
-	</field>
-	<field name="alienating_phone" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienating_phone"/>
-		<fieldDescription><![CDATA[shape.alienating_phone]]></fieldDescription>
-	</field>
 	<field name="notary" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.notary"/>
 		<fieldDescription><![CDATA[shape.notary]]></fieldDescription>
-	</field>
-	<field name="acquirer_name" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.acquirer_name"/>
-		<fieldDescription><![CDATA[shape.acquirer_name]]></fieldDescription>
-	</field>
-	<field name="acquirer_street" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.acquirer_street"/>
-		<fieldDescription><![CDATA[shape.data_form.acquirer_street]]></fieldDescription>
-	</field>
-	<field name="acquirer_outdoor_number" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.acquirer_outdoor_number"/>
-		<fieldDescription><![CDATA[shape.data_form.acquirer_outdoor_number]]></fieldDescription>
-	</field>
-	<field name="acquirer_interior_number" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.acquirer_interior_number"/>
-		<fieldDescription><![CDATA[shape.data_form.acquirer_interior_number]]></fieldDescription>
-	</field>
-	<field name="acquirer_colony" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.acquirer_colony"/>
-		<fieldDescription><![CDATA[shape.data_form.acquirer_colony]]></fieldDescription>
-	</field>
-	<field name="acquirer_locality" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.acquirer_locality"/>
-		<fieldDescription><![CDATA[shape.data_form.acquirer_locality]]></fieldDescription>
-	</field>
-	<field name="acquirer_municipality" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.acquirer_municipality"/>
-		<fieldDescription><![CDATA[shape.data_form.acquirer_municipality]]></fieldDescription>
-	</field>
-	<field name="acquirer_entity" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.acquirer_entity"/>
-		<fieldDescription><![CDATA[shape.data_form.acquirer_entity]]></fieldDescription>
-	</field>
-	<field name="acquirer_zipcode" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.acquirer_zipcode"/>
-		<fieldDescription><![CDATA[shape.data_form.acquirer_zipcode]]></fieldDescription>
-	</field>
-	<field name="acquirer_phone" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.acquirer_phone"/>
-		<fieldDescription><![CDATA[shape.data_form.acquirer_phone]]></fieldDescription>
 	</field>
 	<field name="domicile" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.domicile"/>
@@ -500,6 +423,86 @@
 	<field name="reverse" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.reverse"/>
 		<fieldDescription><![CDATA[shape.reverse]]></fieldDescription>
+	</field>
+	<field name="name_al" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.name"/>
+		<fieldDescription><![CDATA[shape.alienatingData.name]]></fieldDescription>
+	</field>
+	<field name="street_al" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.street"/>
+		<fieldDescription><![CDATA[shape.alienatingData.street]]></fieldDescription>
+	</field>
+	<field name="outdoor_number_al" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.outdoor_number"/>
+		<fieldDescription><![CDATA[shape.alienatingData.outdoor_number]]></fieldDescription>
+	</field>
+	<field name="interior_number_al" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.interior_number"/>
+		<fieldDescription><![CDATA[shape.alienatingData.interior_number]]></fieldDescription>
+	</field>
+	<field name="colony_al" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.colony"/>
+		<fieldDescription><![CDATA[shape.alienatingData.colony]]></fieldDescription>
+	</field>
+	<field name="locality_al" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.locality"/>
+		<fieldDescription><![CDATA[shape.alienatingData.locality]]></fieldDescription>
+	</field>
+	<field name="municipality_al" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.municipality"/>
+		<fieldDescription><![CDATA[shape.alienatingData.municipality]]></fieldDescription>
+	</field>
+	<field name="entity_al" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.entity"/>
+		<fieldDescription><![CDATA[shape.alienatingData.entity]]></fieldDescription>
+	</field>
+	<field name="zipcode_al" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.zipcode"/>
+		<fieldDescription><![CDATA[shape.alienatingData.zipcode]]></fieldDescription>
+	</field>
+	<field name="phone_al" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.phone"/>
+		<fieldDescription><![CDATA[shape.alienatingData.phone]]></fieldDescription>
+	</field>
+	<field name="name_ac" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.acquirerData.name"/>
+		<fieldDescription><![CDATA[shape.acquirerData.name]]></fieldDescription>
+	</field>
+	<field name="street_ac" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.acquirerData.street"/>
+		<fieldDescription><![CDATA[shape.acquirerData.street]]></fieldDescription>
+	</field>
+	<field name="outdoor_number_ac" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.acquirerData.outdoor_number"/>
+		<fieldDescription><![CDATA[shape.acquirerData.outdoor_number]]></fieldDescription>
+	</field>
+	<field name="interior_number_ac" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.acquirerData.interior_number"/>
+		<fieldDescription><![CDATA[shape.acquirerData.interior_number]]></fieldDescription>
+	</field>
+	<field name="colony_ac" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.acquirerData.colony"/>
+		<fieldDescription><![CDATA[shape.acquirerData.colony]]></fieldDescription>
+	</field>
+	<field name="locality_ac" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.acquirerData.locality"/>
+		<fieldDescription><![CDATA[shape.acquirerData.locality]]></fieldDescription>
+	</field>
+	<field name="municipality_ac" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.acquirerData.municipality"/>
+		<fieldDescription><![CDATA[shape.acquirerData.municipality]]></fieldDescription>
+	</field>
+	<field name="entity_ac" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.acquirerData.entity"/>
+		<fieldDescription><![CDATA[shape.acquirerData.entity]]></fieldDescription>
+	</field>
+	<field name="zipcode_ac" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.acquirerData.zipcode"/>
+		<fieldDescription><![CDATA[shape.acquirerData.zipcode]]></fieldDescription>
+	</field>
+	<field name="phone_ac" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.acquirerData.phone"/>
+		<fieldDescription><![CDATA[shape.acquirerData.phone]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -1789,76 +1792,6 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				<text><![CDATA[SELLO DE LA OFICINA RECAUDADORA Y DE ASISTENCIA AL CONTRIBUYENTE]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="13" y="132" width="546" height="10" uuid="3e6e2268-962c-45fe-ad61-e1e1a12f98a8"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{alienating_name}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="120" y="152" width="112" height="10" uuid="5133d781-6082-40f4-9611-45bdae7fd80b"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{alienating_street}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="271" y="152" width="62" height="10" uuid="fbefcea3-65ab-4d0c-aafd-d030e2000251"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{alienating_outdoor_number}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="351" y="152" width="62" height="10" uuid="6f33f4ae-be36-4f7c-b234-052cfabcb2c8"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{alienating_interior_number}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="471" y="152" width="88" height="10" uuid="78c34bd5-7e32-4ed7-9135-9104645e3e5f"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{alienating_colony}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="26" y="172" width="112" height="10" uuid="d3f52525-4109-4dc9-b568-bda8fedee846"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{alienating_locality}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="148" y="172" width="112" height="10" uuid="21c2d6d3-eeed-4e20-b9e0-d78d56773295"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{alienating_municipality}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="291" y="172" width="86" height="10" uuid="7843c50e-1405-4441-9dd2-919cef3a0e83"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{alienating_entity}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="403" y="172" width="68" height="10" uuid="1831b7c7-045d-4e77-8361-a6797ac1ac4c"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{alienating_zipcode}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="485" y="172" width="68" height="10" uuid="75126c16-6e93-4901-8700-4c168008cad5"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{alienating_phone}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="13" y="13" width="428" height="9" uuid="44601c91-7c01-4252-b173-bd88246ac394"/>
 				<textElement>
 					<font fontName="Arial" size="6" isBold="true"/>
@@ -1922,78 +1855,6 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				<text><![CDATA[230 333]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="13" y="232" width="548" height="12" uuid="e397df7c-1616-4697-b8bf-c556aac68a9f"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{acquirer_name}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="90" y="252" width="100" height="10" uuid="874091ab-72de-44d7-a081-0b663ba557a7">
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{acquirer_street}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="213" y="252" width="100" height="10" uuid="ce4e677d-e3bf-42f2-b6e6-d25d5e430272"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{acquirer_outdoor_number}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="336" y="252" width="100" height="10" uuid="da5bbacc-9bd3-4b6e-bbe8-7b0828e2aa13"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{acquirer_interior_number}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="463" y="252" width="80" height="10" uuid="a6a9be6c-944b-42db-b397-9ef39b7d0de8"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{acquirer_colony}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="34" y="272" width="100" height="10" uuid="d5fcdebc-fda2-4fb7-adda-cda7e46ed9fe"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{acquirer_locality}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="155" y="272" width="100" height="10" uuid="7c4638c1-0d73-4ffb-8611-89fc916ac1a1"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{acquirer_municipality}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="281" y="272" width="100" height="10" uuid="3d8a86b0-f8a3-4fea-bab6-b6afc60b8d98"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{acquirer_entity}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="413" y="272" width="58" height="10" uuid="25032e8b-5803-41f8-bc39-395027869543"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{acquirer_zipcode}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="493" y="272" width="58" height="10" uuid="b07cf519-9c61-4dc5-a8d5-e17c3e0d68cc"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{acquirer_phone}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="24" y="312" width="537" height="12" uuid="f27869c5-ac59-4f02-a035-1509592bc363"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
@@ -2002,6 +1863,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 			</textField>
 			<textField>
 				<reportElement x="20" y="346" width="541" height="124" uuid="7b0723c3-f71c-4509-86e5-407acfb71e96"/>
+				<box topPadding="5"/>
 				<textElement>
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
@@ -3013,6 +2875,146 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ac_curp17}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="13" y="132" width="545" height="9" uuid="072802b9-72b2-4437-8893-dd25d4f8bef8"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name_al}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="151" width="100" height="9" uuid="f98bb480-373f-4107-8dd4-cd35c8a33ddc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{street_al}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="251" y="151" width="77" height="9" uuid="2a851ebf-1cf3-4b6c-98cf-e3c8c4c9b276"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{outdoor_number_al}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="346" y="151" width="77" height="9" uuid="bc15ca5b-079f-4456-9023-aed07759fd67"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{interior_number_al}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="458" y="151" width="77" height="9" uuid="a35b6b77-eb49-4029-ad27-18de7205e425"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{colony_al}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="31" y="172" width="100" height="9" uuid="e07b59e9-bbb3-4b53-8dce-549a30e24b58"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{locality_al}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="172" width="100" height="9" uuid="77a81075-24c3-4a02-a3cd-989e2b3bc59f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{municipality_al}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="283" y="172" width="100" height="9" uuid="a9080356-82f7-4571-9b24-e0e2958020b1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{entity_al}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="404" y="172" width="72" height="9" uuid="a52b8fc4-3036-42d2-bb31-8358e5c85287"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{zipcode_al}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="483" y="172" width="72" height="9" uuid="ff44bf75-782b-44a3-8a61-50ca1ea72503"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{phone_al}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="13" y="234" width="545" height="9" uuid="204d6791-a309-4145-8a81-a0dbbf9571f5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name_ac}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="253" width="100" height="9" uuid="e176c6af-4b36-4d56-bc2f-cbb1b4e2c358"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{street_al}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="224" y="253" width="77" height="9" uuid="e5cedd11-b3de-4599-bf17-b11175fdf49e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{outdoor_number_ac}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="346" y="253" width="77" height="9" uuid="664e46de-e9a3-4717-9656-583f11173cf1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{interior_number_ac}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="456" y="253" width="77" height="9" uuid="e9a5b267-2e69-452e-938c-6170e5eff75e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{colony_ac}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="28" y="273" width="100" height="9" uuid="453dfd9c-c41c-42e7-96c6-f1d5ad8a2362"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{locality_ac}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="149" y="273" width="100" height="9" uuid="ec4f6008-e266-4d99-9e38-0625b2ba2636"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{municipality_ac}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="284" y="273" width="100" height="9" uuid="fa3315d1-5805-42c3-9e60-fd6890393416"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{entity_ac}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="399" y="273" width="77" height="9" uuid="d88ab139-d96b-447c-a5ba-70a5c0327e19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{zipcode_ac}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="273" width="77" height="9" uuid="86ae1ac4-406d-444e-a191-a2e730b27974"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{phone_ac}]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="324">

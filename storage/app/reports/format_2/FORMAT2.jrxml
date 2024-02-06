@@ -300,6 +300,10 @@
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.reverse"/>
 		<fieldDescription><![CDATA[shape.reverse]]></fieldDescription>
 	</field>
+	<field name="name_ac" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.acquirerData.name"/>
+		<fieldDescription><![CDATA[shape.acquirerData.name]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -1575,7 +1579,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="20" y="353" width="538" height="18" uuid="b7559bab-76ad-43fa-9df3-4d2f73959d97"/>
+				<reportElement x="14" y="379" width="538" height="10" uuid="b7559bab-76ad-43fa-9df3-4d2f73959d97"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
@@ -1987,13 +1991,6 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				<textFieldExpression><![CDATA[$F{curp17}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="110" y="380" width="382" height="7" uuid="8b0d7262-c19c-436f-ad15-6fe50522b527"/>
-				<textElement textAlignment="Left" verticalAlignment="Bottom">
-					<font fontName="Arial" size="6" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{alienating_home}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="72" y="513" width="462" height="10" uuid="c7ba5cad-608e-4583-a7dd-57daaf7e7105"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
@@ -2146,6 +2143,13 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fourth_amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="16" y="476" width="536" height="10" uuid="691e2443-cfa3-47a9-ad43-bfd74b7e5e31"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name_ac}]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="179">
