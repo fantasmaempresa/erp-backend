@@ -23,7 +23,7 @@ class ProcedureController extends ApiController
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
         if ($request->has('search')) {
-            $response = $this->showList(Procedure::search($request->get('search')->with('grantors')->with('documents')->paginate($paginate)));
+            $response = $this->showList(Procedure::search($request->get('search'))->with('grantors')->with('documents')->paginate($paginate));
         } else {
             $response = $this->showList(Procedure::with('grantors')->with('documents')->paginate($paginate));
         }

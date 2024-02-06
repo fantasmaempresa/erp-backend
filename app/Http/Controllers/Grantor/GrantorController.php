@@ -20,7 +20,7 @@ class GrantorController extends ApiController
     /**
      * @param Request $request
      *
-     * @return JsonResponse
+     * @return JsonResponse0
      */
     public function index(Request $request): JsonResponse
     {
