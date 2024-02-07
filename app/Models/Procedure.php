@@ -1,5 +1,7 @@
 <?php
-
+/*
+ * OPEN 2 CODE PROCEDURE MODEL
+ */
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,9 +10,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * version
+ */
 class Procedure extends Model
 {
     use HasFactory;
+
+    const IN_PROCESS = 1;
 
     protected $fillable = [
         'id',
@@ -24,6 +31,7 @@ class Procedure extends Model
         'folio_max',
         'credit',
         'observation',
+        'status',
         'operation_id',
         'user_id',
         'place_id',
@@ -90,6 +98,14 @@ class Procedure extends Model
     public function documents(): BelongsToMany
     {
         return $this->belongsToMany(Document::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function comments(): HasMany
+    {
+        return$this->hasMany(ProcedureComment::class);
     }
 
     /**

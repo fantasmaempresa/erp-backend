@@ -25,6 +25,7 @@ use App\Http\Controllers\PhasesProcess\PhasesProcessController;
 use App\Http\Controllers\Place\PlaceController;
 use App\Http\Controllers\Procedure\ProcedureController;
 use App\Http\Controllers\Procedure\ProcedureValidatorsController;
+use App\Http\Controllers\ProcedureComment\ProcedureCommentController;
 use App\Http\Controllers\Process\ProcessController;
 use App\Http\Controllers\ProcessProject\ProcessProjectController;
 use App\Http\Controllers\Project\ProjectActionController;
@@ -163,6 +164,9 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
 
     //DISPOSAL REAL ESTATE
     Route::resource('disposalRealEstate', DisposalRealEstateController::class, ['except' => ['create', 'edit']]);
+
+    //PROCEDURE COMMENT
+    Route::resource('procedureComment', ProcedureCommentController::class, ['except' => ['create', 'edit']]);
 });
 
 
