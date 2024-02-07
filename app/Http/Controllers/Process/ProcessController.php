@@ -31,7 +31,7 @@ class ProcessController extends ApiController
     {
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
-        if ($request->has('search')) {
+        if (!empty($request->get('search')) && $request->get('search') !== 'null') {
             $response = $this->showList(Process::search($request->get('search')->with('phases')->paginate($paginate)));
         } else {
             $response = $this->showList(Process::with('phases')->with('roles')->paginate($paginate));

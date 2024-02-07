@@ -31,7 +31,7 @@ class ClientController extends ApiController
     {
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
-        if ($request->has('search')) {
+        if (!empty($request->get('search')) && $request->get('search') !== 'null') {
             $response = $this->showList(Client::search($request->get('search'))->with('user')->paginate($paginate));
         } else {
             $response = $this->showList(Client::with('user')->paginate($paginate));
