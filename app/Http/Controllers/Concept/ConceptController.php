@@ -31,7 +31,7 @@ class ConceptController extends ApiController
     {
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
-        if ($request->has('search')) {
+        if (!empty($request->get('search')) && $request->get('search') !== 'null') {
             $response = $this->showList(Concept::search($request->get('search'))->paginate($paginate));
         } else {
             $response = $this->showList(Concept::paginate($paginate));

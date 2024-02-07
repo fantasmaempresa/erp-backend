@@ -23,10 +23,9 @@ class ShapeController extends ApiController
     {
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
-        if ($request->has('search')) {
-            $response = $this->showList(shape::search($request->get('search')->paginate($paginate)));
-        }
-        if ($request->has('procedure_id')) {
+        if (!empty($request->get('search')) && $request->get('search') !== 'null') {
+            $response = $this->showList(shape::search($request->get('search'))->paginate($paginate));
+        } else if ($request->has('procedure_id')) {
             $procedure = Procedure::findOrFail($request->get('procedure_id'));
             $shapes = $procedure->shapes;
             $currentPage = Paginator::resolveCurrentPage('page');
@@ -86,7 +85,7 @@ class ShapeController extends ApiController
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Shape   $shape
+     * @param Shape $shape
      *
      * @return JsonResponse
      *
