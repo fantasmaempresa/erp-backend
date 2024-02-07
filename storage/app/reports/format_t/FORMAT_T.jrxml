@@ -2,7 +2,7 @@
 <!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FORMAT_T" pageWidth="623" pageHeight="963" columnWidth="583" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b3bdd097-91ef-48f0-9aef-c8feb468263a">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="JSON F2.xml"/>
-	<parameter name="logo" class="java.lang.String"/>
+	<parameter name="imageSF" class="java.lang.String"/>
 	<queryString language="JSON">
 		<![CDATA[shape.signature_date_s.day]]>
 	</queryString>
@@ -305,7 +305,7 @@
 			</staticText>
 			<image>
 				<reportElement x="0" y="0" width="161" height="49" uuid="7d0ecf05-b1ae-46b1-a60f-e440fd855763"/>
-				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+				<imageExpression><![CDATA[$P{imageSF}]]></imageExpression>
 			</image>
 			<textField>
 				<reportElement x="450" y="30" width="122" height="18" uuid="0b078eea-3c25-4ccc-8dd3-eb17fdbaa7a2"/>
