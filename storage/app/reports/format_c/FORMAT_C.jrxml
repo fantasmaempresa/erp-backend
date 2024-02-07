@@ -11,7 +11,7 @@
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="JSON F2.xml"/>
-	<parameter name="logo" class="java.lang.String"/>
+	<parameter name="imageSF" class="java.lang.String"/>
 	<queryString language="JSON">
 		<![CDATA[]]>
 	</queryString>
@@ -111,7 +111,7 @@
 		<band height="65" splitType="Stretch">
 			<image>
 				<reportElement x="0" y="0" width="578" height="65" uuid="317355e1-971c-486b-8dbb-8bdd7d7bf9d3"/>
-				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+				<imageExpression><![CDATA[$P{imageSF}]]></imageExpression>
 			</image>
 		</band>
 	</title>
