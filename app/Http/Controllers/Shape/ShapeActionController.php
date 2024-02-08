@@ -38,8 +38,6 @@ class ShapeActionController extends ApiController
         $procedure->shape = $shape;
         $procedure->shape->signature_date_s = $this->separateDate(new DateTime($procedure->shape->signature_date));
 
-        return $this->showList($procedure);
-
         //ALIENATING DATA
         $alienating = $procedure->grantors()->where('stake_id', Stake::ALIENATING)->get();
         $procedure->shape->alienatingData = [
