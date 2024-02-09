@@ -62,6 +62,13 @@ class Grantor extends Model
         return $this->belongsToMany(Procedure::class);
     }
 
+    /**
+     * @return BelongsToMany
+     */
+    public function shapes(): BelongsToMany
+    {
+        return $this->belongsToMany(Shape::class);
+    }
 
     /**
      * @param $query

@@ -9,6 +9,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Model shape
@@ -64,6 +65,13 @@ class Shape extends Model
         return $this->belongsTo(Procedure::class);
     }
 
+    /**
+     * @return BelongsToMany
+     */
+    public function grantors(): BelongsToMany
+    {
+        return $this->belongsToMany(Grantor::class);
+    }
 
     /**
      * @param $query
@@ -109,6 +117,9 @@ class Shape extends Model
             'reverse' => 'nullable|string',
             'template_shape_id' => 'required|exists:template_shapes,id',
             'procedure_id' => 'required|exists:procedures,id',
+            'alienating' => 'required|exists:grantors,id',
+            'acquirer' => 'required|exists:grantors,id',
+            'grantors.*.id' => 'required|exists:grantors,id',
         ];
     }
 

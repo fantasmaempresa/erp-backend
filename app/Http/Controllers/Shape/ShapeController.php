@@ -1,8 +1,12 @@
 <?php
 
+/*
+ * OPEN 2 CODE SHAPE CONTROLLER
+ */
 namespace App\Http\Controllers\Shape;
 
 use App\Http\Controllers\ApiController;
+use App\Models\Grantor;
 use App\Models\Procedure;
 use App\Models\Shape;
 use Carbon\Carbon;
@@ -12,6 +16,9 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Validation\ValidationException;
 
+/**
+ * @version
+ */
 class ShapeController extends ApiController
 {
     /**
@@ -25,7 +32,7 @@ class ShapeController extends ApiController
 
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
             $response = $this->showList(shape::search($request->get('search'))->paginate($paginate));
-        } else if ($request->has('procedure_id')) {
+        } elseif ($request->has('procedure_id')) {
             $procedure = Procedure::findOrFail($request->get('procedure_id'));
             $shapes = $procedure->shapes;
             $currentPage = Paginator::resolveCurrentPage('page');
@@ -49,9 +56,9 @@ class ShapeController extends ApiController
      *
      * @return JsonResponse
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $this->validate($request, Shape::rules());
 
@@ -65,6 +72,13 @@ class ShapeController extends ApiController
         $shape->signature_date = Carbon::parse($shape->signature_date);
         $shape->save();
 
+        $shape->grantors()->attach(Grantor::find($request->get('alienating')));
+        $shape->grantors()->attach(Grantor::find($request->get('acquirer')));
+
+        foreach ($request->get('grantors') as $grantor) {
+            $shape->grantors()->attach(Grantor::find($grantor['id']));
+        }
+
         return $this->showOne($shape);
     }
 
@@ -75,8 +89,10 @@ class ShapeController extends ApiController
      *
      * @return JsonResponse
      */
-    public function show(Shape $shape)
+    public function show(Shape $shape): JsonResponse
     {
+        $shape->grantors;
+
         return $this->showOne($shape);
     }
 
@@ -85,7 +101,7 @@ class ShapeController extends ApiController
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Shape $shape
+     * @param Shape   $shape
      *
      * @return JsonResponse
      *
@@ -100,6 +116,15 @@ class ShapeController extends ApiController
             return $this->errorResponse('A different value must be specified to update', 422);
         }
 
+        $shape->grantors()->detach();
+        $shape->grantors()->attach(Grantor::find($request->get('alienating')));
+        $shape->grantors()->attach(Grantor::find($request->get('acquirer')));
+
+        foreach ($request->get('grantors') as $grantor) {
+            $shape->grantors()->attach(Grantor::find($grantor['id']));
+        }
+
+        $shape->signature_date = Carbon::parse($shape->signature_date);
         $shape->save();
 
         return $this->showOne($shape);
