@@ -1,14 +1,25 @@
 <?php
 
+/*
+ * OPEN 2 CODE TEMPLATE SHAPE MODEL
+ */
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @version
+ */
 class TemplateShape extends Model
 {
     use HasFactory;
+
+    const FORM01 = 1;
+    const FORM02 = 2;
+    const FORM03 = 3;
+    const FORM04 = 4;
 
     protected $fillable = [
         'id',
