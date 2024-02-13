@@ -32,9 +32,9 @@ class DocumentController extends ApiController
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
-            $response = $this->showList(Document::search($request->get('search'))->paginate($paginate));
+            $response = $this->showList(Document::search($request->get('search'))->orderBy('id','desc')->paginate($paginate));
         } else {
-            $response = $this->showList(Document::paginate($paginate));
+            $response = $this->showList(Document::orderBy('id','desc')->paginate($paginate));
         }
 
         return $response;
