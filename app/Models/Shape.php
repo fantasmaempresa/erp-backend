@@ -83,7 +83,6 @@ class Shape extends Model
     {
         return $query
             ->orWhere('folio', 'like', "%$search%")
-            ->orWhere('notary', 'like', "%$search%")
             ->orWhere('scriptures', 'like', "%$search%")
             ->orWhere('property_account', 'like', "%$search%")
             ->orWhere('departure', 'like', "%$search%")
@@ -105,11 +104,11 @@ class Shape extends Model
             'scriptures' => 'required|string',
             'property_account' => 'required|string',
             'signature_date' => 'required|date',
-            'departure' => 'required|string',
+            'departure' => 'nullable|string',
             'inscription' => 'required|string',
-            'sheets' => 'required|string',
-            'took' => 'required|string',
-            'book' => 'required|string',
+            'sheets' => 'nullable|string',
+            'took' => 'nullable|string',
+            'book' => 'nullable|string',
             'operation_value' => 'required|string',
             'description' => 'required|string',
             'total' => 'required|string',

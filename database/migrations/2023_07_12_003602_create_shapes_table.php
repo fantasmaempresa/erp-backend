@@ -20,11 +20,11 @@ class CreateShapesTable extends Migration
             $table->string('scriptures'); //Escritura
             $table->string('property_account'); //Cuenta Predial
             $table->date('signature_date'); //Fecha Firma
-            $table->string('departure'); //Partida
-            $table->string('inscription'); //Inscripción
-            $table->string('sheets');//Fojas
-            $table->string('took'); //Tomo
-            $table->string('book'); //Libro
+            $table->string('departure')->nullable(); //Partida
+            $table->string('inscription')->nullable(); //Inscripción
+            $table->string('sheets')->nullable();//Fojas
+            $table->string('took')->nullable(); //Tomo
+            $table->string('book')->nullable(); //Libro
             $table->string('operation_value'); //ValorOperacion
 //            $table->string('alienating_name'); //Nombre Enajenante
 //            $table->string('alienating_street'); //Calle Enajenante

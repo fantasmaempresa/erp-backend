@@ -68,7 +68,6 @@ class Shape2Sedder extends Seeder
                     'alienating_zipcode' => $record['CodPos1'],
                     'alienating_phone' => $record['Telefono1'],
                     'acquirer_name' => $record['Nombre2'],
-
                     'type' => $record['Tipo'],
                     'index' => $record['Indice'],
                     'property' => $record['Inmueble'],

@@ -29,7 +29,7 @@ class TemplateShapeSeeder extends Seeder
                 'id' => 1,
                 'name' => 'Forma-01',
                 'form' => [
-                    ['name' => 'property', 'type' => 'text', 'label' => 'Predio'],
+                    ['name' => 'property', 'type' => 'text', 'label' => 'Indice de Predio'],
                     ['name' => 'value_catastral', 'type' => 'number', 'label' => 'Valor Catastral'],
                     ['name' => 'domicile', 'type' => 'text', 'label' => 'Domicilio'],
                     [
@@ -112,7 +112,7 @@ class TemplateShapeSeeder extends Seeder
                 'name' => 'Forma-02',
                 'form' => [
                     ['name' => 'type', 'type' => 'text', 'label' => 'Tipo'],
-                    ['name' => 'index', 'type' => 'number', 'label' => 'Indice'],
+                    ['name' => 'index', 'type' => 'number', 'label' => 'Indice de Predio'],
                     ['name' => 'property', 'type' => 'text', 'label' => 'Inmueble'],
                     [
                         'name' => 'alienated_property_home',
@@ -143,10 +143,10 @@ class TemplateShapeSeeder extends Seeder
             ],
             [
                 'id' => 3,
-                'name' => 'Forma-02 de declaración de modificación de los datos asentados en el registro catatral del predio',
+                'name' => 'Forma-02 Catastro del Estado de Puebla',
                 'form' => [
                     ['name' => 'type', 'type' => 'text', 'label' => 'Tipo'],
-                    ['name' => 'index', 'type' => 'number', 'label' => 'Indice'],
+                    ['name' => 'index', 'type' => 'number', 'label' => 'Indice de Predio'],
                     ['name' => 'property', 'type' => 'text', 'label' => 'Inmueble'],
                     [
                         'name' => 'alienated_property_home',
@@ -177,10 +177,10 @@ class TemplateShapeSeeder extends Seeder
             ],
             [
                 'id' => 4,
-                'name' => 'Forma-02 secretaría de tesorería municipal de Puebla',
+                'name' => 'Forma-02 Catastro del Municipio de Puebla',
                 'form' => [
                     ['name' => 'type', 'type' => 'text', 'label' => 'Tipo'],
-                    ['name' => 'index', 'type' => 'number', 'label' => 'Indice'],
+                    ['name' => 'index', 'type' => 'number', 'label' => 'Indice de Predio'],
                     ['name' => 'property', 'type' => 'text', 'label' => 'Inmueble'],
                     [
                         'name' => 'alienated_property_home',
