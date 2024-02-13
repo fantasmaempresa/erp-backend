@@ -27,7 +27,7 @@ class ConceptProjectQuoteController extends ApiController
      */
     public function index(): JsonResponse
     {
-        $conceptProjectQuotes = ConceptProjectQuote::all();
+        $conceptProjectQuotes = ConceptProjectQuote::orderBy('id','desc')->all();
 
         return $this->showAll($conceptProjectQuotes);
     }
