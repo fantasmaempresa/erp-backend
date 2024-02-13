@@ -27,7 +27,7 @@ class ProcessProjectController extends ApiController
      */
     public function index(): JsonResponse
     {
-        $processProjects = ProcessProject::all();
+        $processProjects = ProcessProject::orderBy('id','desc')->all();
 
         return $this->showAll($processProjects);
     }
