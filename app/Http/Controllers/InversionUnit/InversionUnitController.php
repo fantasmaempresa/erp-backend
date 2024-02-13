@@ -26,7 +26,7 @@ class InversionUnitController extends ApiController
     {
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
-        return $this->showList(InversionUnit::paginate($paginate));
+        return $this->showList(InversionUnit::orderBy('id','desc')->paginate($paginate));
     }
 
     /**
