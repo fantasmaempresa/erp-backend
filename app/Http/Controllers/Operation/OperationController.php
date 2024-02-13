@@ -26,9 +26,9 @@ class OperationController extends ApiController
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
-            $response = $this->showList(Operation::search($request->get('search')->paginate($paginate)));
+            $response = $this->showList(Operation::search($request->get('search')->orderBy('id','desc')->paginate($paginate)));
         } else {
-            $response = $this->showList(Operation::paginate($paginate));
+            $response = $this->showList(Operation::orderBy('id','desc')->paginate($paginate));
         }
 
         return $response;
