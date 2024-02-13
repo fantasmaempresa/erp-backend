@@ -30,9 +30,9 @@ class StaffController extends ApiController
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
-            $response = $this->showList(Staff::search($request->get('search'))->with('user')->with('workArea')->paginate($paginate));
+            $response = $this->showList(Staff::search($request->get('search'))->with('user')->with('workArea')->orderBy('id','desc')->paginate($paginate));
         } else {
-            $response = $this->showList(Staff::with('user')->with('workArea')->paginate($paginate));
+            $response = $this->showList(Staff::with('user')->with('workArea')->orderBy('id','desc')->paginate($paginate));
         }
 
         return $response;
