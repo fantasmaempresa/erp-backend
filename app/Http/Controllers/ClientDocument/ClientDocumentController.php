@@ -27,7 +27,7 @@ class ClientDocumentController extends ApiController
      */
     public function index(): JsonResponse
     {
-        $clientDocuments = ClientDocument::all();
+        $clientDocuments = ClientDocument::orderBy('id','desc')->all();
 
         return $this->showAll($clientDocuments);
     }
