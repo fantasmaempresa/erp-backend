@@ -42,7 +42,9 @@ class DisposalRealEstateController extends ApiController
                     'rate',
                     'acquirers'
                 ]
-            )->paginate($paginate)
+            )
+            ->orderBy('id','desc')
+            ->paginate($paginate)
         );
     }
 
