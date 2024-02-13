@@ -29,7 +29,7 @@ class NationalConsumerPriceIndexController extends ApiController
     {
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
-        return $this->showList(NationalConsumerPriceIndex::paginate($paginate));
+        return $this->showList(NationalConsumerPriceIndex::orderBy('id','desc')->paginate($paginate));
     }
 
     /**
