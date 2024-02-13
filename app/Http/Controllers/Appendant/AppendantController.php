@@ -26,7 +26,7 @@ class AppendantController extends ApiController
     {
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
-        return $this->showList(Appendant::paginate($paginate));
+        return $this->showList(Appendant::orderBy('id','desc')->paginate($paginate));
     }
 
     /**
