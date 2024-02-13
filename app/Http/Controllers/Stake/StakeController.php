@@ -18,9 +18,9 @@ class StakeController extends ApiController
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
-            $response = $this->showList(Stake::search($request->get('search'))->paginate($paginate));
+            $response = $this->showList(Stake::search($request->get('search'))->orderBy('id','desc')->paginate($paginate));
         } else {
-            $response = $this->showList(Stake::paginate($paginate));
+            $response = $this->showList(Stake::orderBy('id','desc')->paginate($paginate));
         }
 
         return $response;
