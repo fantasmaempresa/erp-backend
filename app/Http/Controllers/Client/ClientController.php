@@ -34,7 +34,7 @@ class ClientController extends ApiController
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
             $response = $this->showList(Client::search($request->get('search'))->with('user')->orderBy('id','desc')->paginate($paginate));
         } else {
-            $response = $this->showList(Client::with('user')->orderBy('id','desc')->orderBy('id','desc')->paginate($paginate));
+            $response = $this->showList(Client::with('user')->orderBy('id','desc')->paginate($paginate));
         }
 
         return $response;
