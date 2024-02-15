@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AuthActionController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\ClientDocument\ClientDocumentController;
+use App\Http\Controllers\ClientLink\ClientLinkActionController;
 use App\Http\Controllers\ClientLink\ClientLinkController;
 use App\Http\Controllers\Concept\ConceptController;
 use App\Http\Controllers\Deduction\DeductionController;
@@ -167,6 +168,9 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
 
     //PROCEDURE COMMENT
     Route::resource('procedureComment', ProcedureCommentController::class, ['except' => ['create', 'edit']]);
+
+    //CLIENT LINK ACTIONS
+    Route::put('clientLinks/active/{clientLink}', [ClientLinkActionController::class, 'active']);
 });
 
 

@@ -5,6 +5,7 @@
  * Client Links Class Migration
  */
 
+use App\Models\ClientLink;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -35,6 +36,7 @@ class CreateClientLinksTable extends Migration
             $table->string('rfc')->nullable()->unique();
             $table->string('profession')->nullable();
             $table->string('degree')->nullable();
+            $table->boolean('active')->default(ClientLink::INACTIVE);
             $table->foreignId('user_id')->nullable()->constrained();
             $table->foreignId('client_id')->nullable()->constrained();
             $table->timestamps();

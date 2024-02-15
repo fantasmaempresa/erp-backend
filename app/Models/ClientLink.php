@@ -23,6 +23,9 @@ class ClientLink extends Model
 {
     use HasFactory;
 
+    const ACTIVE = true;
+    const INACTIVE = false;
+
     protected $fillable = [
         'id',
         'name',
@@ -35,6 +38,7 @@ class ClientLink extends Model
         'rfc',
         'profession',
         'degree',
+        'active',
         'user_id',
         'client_id',
     ];
