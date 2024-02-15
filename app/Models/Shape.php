@@ -70,7 +70,7 @@ class Shape extends Model
      */
     public function grantors(): BelongsToMany
     {
-        return $this->belongsToMany(Grantor::class);
+        return $this->belongsToMany(Grantor::class)->withPivot('type');
     }
 
     /**
@@ -118,7 +118,8 @@ class Shape extends Model
             'procedure_id' => 'required|exists:procedures,id',
             'alienating' => 'required|exists:grantors,id',
             'acquirer' => 'required|exists:grantors,id',
-            'grantors.*.id' => 'required|exists:grantors,id',
+            'grantors.alienating.*.id' => 'required|exists:grantors,id',
+            'grantors.acquirer.*.id' => 'required|exists:grantors,id',
         ];
     }
 

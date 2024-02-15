@@ -15,6 +15,7 @@ class CreateGrantorShape extends Migration
     {
         Schema::create('grantor_shape', function (Blueprint $table) {
             $table->id();
+            $table->tinyInteger('type');
             $table->foreignId('grantor_id')->constrained();
             $table->foreignId('shape_id')->constrained();
         });

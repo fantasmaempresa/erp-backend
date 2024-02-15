@@ -67,7 +67,7 @@ class Grantor extends Model
      */
     public function shapes(): BelongsToMany
     {
-        return $this->belongsToMany(Shape::class);
+        return $this->belongsToMany(Shape::class)->withPivot('type');
     }
 
     /**
