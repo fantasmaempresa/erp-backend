@@ -18,6 +18,8 @@ class Shape extends Model
 {
     use HasFactory;
 
+    const REQUIRED_GRANTORS = 2;
+
     /**
      * @var string[]
      */
