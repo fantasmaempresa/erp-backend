@@ -61,12 +61,12 @@ class Client extends Model
      *
      * @return array
      */
-    public static function rules($id = null): array
+    public static function rules($id = null, $type): array
     {
         $rule = [
             'name' => 'required|string',
-            'last_name' => 'required|string',
-            'mother_last_name' => 'required|string',
+            'last_name' => [Rule::requiredIf($type == self::PHYSICAL_PERSON)],
+            'mother_last_name' => [Rule::requiredIf($type == self::PHYSICAL_PERSON)],
             'email' => 'required|email|unique:clients',
             'phone' => 'required|string|max:10|min:10|unique:clients',
             'nickname' => 'nullable|string',
