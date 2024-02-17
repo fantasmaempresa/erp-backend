@@ -9,13 +9,11 @@ namespace App\Http\Controllers\Shape;
 use App\Http\Controllers\ApiController;
 use App\Models\Procedure;
 use App\Models\Shape;
-use App\Models\Stake;
 use App\Models\TemplateShape;
 use DateTime;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use JetBrains\PhpStorm\ArrayShape;
 use Open2code\Pdf\jasper\Report;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -90,7 +88,6 @@ class ShapeActionController extends ApiController
      * @param DateTime $date
      * @return array
      */
-    #[ArrayShape(['year' => "string", 'month' => "string", 'day' => "string"])]
     private function separateDate(DateTime $date): array
     {
         return [

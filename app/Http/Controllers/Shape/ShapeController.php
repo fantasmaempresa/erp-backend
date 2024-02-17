@@ -76,12 +76,18 @@ class ShapeController extends ApiController
         $shape->grantors()->attach(Grantor::find($request->get('alienating')), ['type' => Stake::ALIENATING]);
         $shape->grantors()->attach(Grantor::find($request->get('acquirer')), ['type' => Stake::ACQUIRER]);
 
-        foreach ($request->get('grantors')['alienating'] as $grantor) {
-            $shape->grantors()->attach(Grantor::find($grantor['id']), ['type' => Stake::ALIENATING]);
-        }
-
-        foreach ($request->get('grantors')['acquirer'] as $grantor) {
-            $shape->grantors()->attach(Grantor::find($grantor['id']), ['type' => Stake::ACQUIRER]);
+        if ($request->has('grantors')){
+            if ($request->has('alienating')) {
+                foreach ($request->get('grantors')['alienating'] as $grantor) {
+                    $shape->grantors()->attach(Grantor::find($grantor['id']), ['type' => Stake::ALIENATING]);
+                }
+            }
+    
+            if ($request->has('acquirer')) {
+                foreach ($request->get('grantors')['acquirer'] as $grantor) {
+                    $shape->grantors()->attach(Grantor::find($grantor['id']), ['type' => Stake::ACQUIRER]);
+                }
+            }
         }
 
         return $this->showOne($shape);
@@ -126,12 +132,18 @@ class ShapeController extends ApiController
         $shape->grantors()->attach(Grantor::find($request->get('alienating')), ['type' => Stake::ALIENATING]);
         $shape->grantors()->attach(Grantor::find($request->get('acquirer')), ['type' => Stake::ACQUIRER]);
 
-        foreach ($request->get('grantors')['alienating'] as $grantor) {
-            $shape->grantors()->attach(Grantor::find($grantor['id']), ['type' => Stake::ALIENATING]);
-        }
-
-        foreach ($request->get('grantors')['acquirer'] as $grantor) {
-            $shape->grantors()->attach(Grantor::find($grantor['id']), ['type' => Stake::ACQUIRER]);
+        if ($request->has('grantors')){
+            if ($request->has('alienating')) {
+                foreach ($request->get('grantors')['alienating'] as $grantor) {
+                    $shape->grantors()->attach(Grantor::find($grantor['id']), ['type' => Stake::ALIENATING]);
+                }
+            }
+    
+            if ($request->has('acquirer')) {
+                foreach ($request->get('grantors')['acquirer'] as $grantor) {
+                    $shape->grantors()->attach(Grantor::find($grantor['id']), ['type' => Stake::ACQUIRER]);
+                }
+            }
         }
 
         $shape->signature_date = Carbon::parse($shape->signature_date);
