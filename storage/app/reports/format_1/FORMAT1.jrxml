@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FORMAT1" pageWidth="623" pageHeight="963" columnWidth="583" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="963e1d41-dcf3-4a1b-8c12-a1c0b97bcf5a">
-	<property name="com.jaspersoft.studio.unit.pageHeight" value="cm"/>
-	<property name="com.jaspersoft.studio.unit.pageWidth" value="cm"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Form1-Data.xml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="FORMA 01\FORMA 01.xml"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="imageSF" class="java.lang.String"/>
+	<parameter name="subReportPath" class="java.lang.String"/>
 	<queryString language="JSON">
 		<![CDATA[]]>
 	</queryString>
@@ -504,6 +510,10 @@
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.acquirerData.phone"/>
 		<fieldDescription><![CDATA[shape.acquirerData.phone]]></fieldDescription>
 	</field>
+	<field name="extra" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.extra"/>
+		<fieldDescription><![CDATA[shape.extra]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -939,7 +949,8 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 		</band>
 	</title>
 	<detail>
-		<band height="740" splitType="Stretch">
+		<band height="762" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<rectangle>
 				<reportElement x="10" y="4" width="431" height="19" uuid="d2154148-385b-4b77-a6c2-ea2bab480f28"/>
 			</rectangle>
@@ -3003,6 +3014,13 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				<textFieldExpression><![CDATA[$F{entity_ac}]]></textFieldExpression>
 			</textField>
 			<textField>
+				<reportElement x="377" y="740" width="184" height="10" uuid="de837c04-0a64-4794-b8a3-6359c84b77c5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{extra} != null ? "* LEER REVERSO" : ""]]></textFieldExpression>
+			</textField>
+			<textField>
 				<reportElement x="399" y="273" width="77" height="9" uuid="d88ab139-d96b-447c-a5ba-70a5c0327e19"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
@@ -3017,9 +3035,28 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				<textFieldExpression><![CDATA[$F{phone_ac}]]></textFieldExpression>
 			</textField>
 		</band>
-		<band height="324">
+		<band height="201">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<subreport>
+				<reportElement isPrintRepeatedValues="false" x="86" y="147" width="497" height="54" isRemoveLineWhenBlank="true" uuid="7678ad98-24a2-4a50-b89a-bbbda778225e"/>
+				<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("shape.extra.acquirers")]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{subReportPath}+"Acquirers.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="60">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<subreport>
+				<reportElement x="86" y="3" width="497" height="54" uuid="f8142ebb-9473-44cf-8cbf-8a6dcb45c1e6"/>
+				<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("shape.extra.alientating")]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{subReportPath}+"ALIENATING.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="60">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement x="10" y="10" width="551" height="300" uuid="d0ae63ce-3105-472e-b66c-0019c39fdcb3"/>
+				<reportElement stretchType="ElementGroupHeight" isPrintRepeatedValues="false" x="80" y="3" width="497" height="54" uuid="d0ae63ce-3105-472e-b66c-0019c39fdcb3">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box topPadding="5" leftPadding="5"/>
 				<textElement markup="html">
 					<font fontName="Arial"/>

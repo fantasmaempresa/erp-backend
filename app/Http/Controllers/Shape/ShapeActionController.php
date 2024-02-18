@@ -17,7 +17,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Open2code\Pdf\jasper\Report;
 use Illuminate\Support\Facades\Storage;
-use phpseclib3\Crypt\DSA\Formats\Signature\SSH2;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 use function PHPSTORM_META\type;
@@ -41,8 +40,12 @@ class ShapeActionController extends ApiController
         $procedure->shape = $shape;
         $procedure->shape->signature_date_s = $this->separateDate(new DateTime($procedure->shape->signature_date));
 
+        $parameters = [];
+
         if ($shape->template_shape->id == TemplateShape::FORM01) {
             $procedure = $this->prepareData($procedure, TemplateShape::FORM01);
+
+            $parameters += ['subReportPath' => Storage::path('reports/format_1/')];
 
             $jasperPath = Storage::path('reports/format_1/FORMAT1.jasper');
             $outputPath = Storage::path('reports/format_1/FORMAT1.pdf');
@@ -75,9 +78,11 @@ class ShapeActionController extends ApiController
 
         Storage::put("reports/tempJson.json", $jsonData);
 
+        $parameters += ['imageSF' => $imageAsset];
+
         $pdf = new Report(
             Storage::path('reports/tempJson.json'),
-            ['imageSF' => $imageAsset],
+            $parameters,
             $jasperPath,
             $outputPath
         );
