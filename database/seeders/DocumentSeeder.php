@@ -21,6 +21,7 @@ class DocumentSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         $documents = [
+            ['name' => 'BOLETA DE INSCRIPCIÓN', 'description' => 'BOLETA DE INSCRIPCIÓN', 'quote' => 0],
             ['name' => 'GENERALES', 'description' => 'GENERALES', 'quote' => 0],
             ['name' => 'ESCRITURA ORIGINAL', 'description' => 'ESCRITURA ORIGINAL', 'quote' => 0],
             ['name' => 'BOLETA PREDIAL', 'description' => 'BOLETA PREDIAL', 'quote' => 0],

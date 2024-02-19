@@ -26,10 +26,12 @@ class ProcedureController extends ApiController
             $response = Procedure::search($request->get('search'))
                 ->with('grantors')
                 ->with('documents')
+                ->orderBy('id', 'DESC')
                 ->paginate($paginate);
         } else {
             $response = Procedure::with('grantors')
                 ->with('documents')
+                ->orderBy('id', 'DESC')
                 ->paginate($paginate);
         }
 

@@ -32,9 +32,9 @@ class ShapeController extends ApiController
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
-            $response = $this->showList(shape::search($request->get('search'))->paginate($paginate));
+            $response = $this->showList(shape::search($request->get('search'))->orderBy('id', 'DESC')->paginate($paginate));
         } elseif ($request->has('procedure_id')) {
-            $procedure = Procedure::findOrFail($request->get('procedure_id'));
+            $procedure = Procedure::findOrFail($request->get('procedure_id'))->orderBy('id', 'DESC');
             $shapes = $procedure->shapes;
             $currentPage = Paginator::resolveCurrentPage('page');
             $response = $this->showList(new LengthAwarePaginator(
@@ -45,7 +45,7 @@ class ShapeController extends ApiController
                 ['path' => Paginator::resolveCurrentPath()]
             ));
         } else {
-            $response = $this->showList(shape::paginate($paginate));
+            $response = $this->showList(shape::orderBy('id', 'DESC')->paginate($paginate));
         }
 
         return $response;

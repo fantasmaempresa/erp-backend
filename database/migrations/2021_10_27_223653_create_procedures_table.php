@@ -26,6 +26,16 @@ class CreateProceduresTable extends Migration
             $table->bigInteger('folio_max'); //rango alto de folio
             $table->string('credit')->nullable(); // credito
             $table->text('observation'); // observaciones
+            $table->json('registration_data')->default(json_encode(
+                [
+                    'inscription' => '', 
+                    'sheets' => '',
+                    'took' => '',
+                    'book' => '',
+                    'date' => '',
+                    'property' => '',
+                ]
+            )); // Datos de registro
             $table->tinyInteger('status')->default(Procedure::IN_PROCESS);
             $table->foreignId('operation_id')->constrained(); //Operacion
             $table->foreignId('user_id')->constrained(); //Elaboro
