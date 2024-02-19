@@ -32,7 +32,7 @@ class ShapeActionController extends ApiController
      * @return BinaryFileResponse|JsonResponse
      * @throws Exception
      */
-    public function generateShape(Shape $shape): BinaryFileResponse|JsonResponse
+    public function generateShape(Shape $shape, Request $request): BinaryFileResponse|JsonResponse
     {
         $procedure = Procedure::find($shape->procedure->id);
 
@@ -42,13 +42,28 @@ class ShapeActionController extends ApiController
 
         $parameters = [];
 
+        $extension = "pdf";
+        if ($request->has('reportExtension')) {
+            switch ($request->get('reportExtension')){
+                case 1:
+                    $extension = "pdf";
+                    break;
+                case 2:
+                    $extension = "docx";
+                    break;
+                case 3:
+                    $extension = "xls";
+                    break;
+            }
+        }
+
         if ($shape->template_shape->id == TemplateShape::FORM01) {
             $procedure = $this->prepareData($procedure, TemplateShape::FORM01);
 
             $parameters += ['subReportPath' => Storage::path('reports/format_1/')];
 
             $jasperPath = Storage::path('reports/format_1/FORMAT1.jasper');
-            $outputPath = Storage::path('reports/format_1/FORMAT1.pdf');
+            $outputPath = Storage::path('reports/format_1/FORMAT1.' . $extension);
             $imageAsset = Storage::path('assets/LogoFinanzas.png');
         } elseif ($shape->template_shape->id == TemplateShape::FORM02) {
             $procedure = $this->prepareData($procedure, TemplateShape::FORM02);
@@ -56,19 +71,19 @@ class ShapeActionController extends ApiController
             $parameters += ['subReportPath' => Storage::path('reports/format_2/')];
 
             $jasperPath = Storage::path('reports/format_2/FORMAT2.jasper');
-            $outputPath = Storage::path('reports/format_2/FORMAT2.pdf');
+            $outputPath = Storage::path('reports/format_2/FORMAT2.' . $extension);
             $imageAsset = Storage::path('assets/LogoFinanzas.png');
         } elseif ($shape->template_shape->id == TemplateShape::FORM03) {
             $procedure = $this->prepareData($procedure, TemplateShape::FORM03);
 
             $jasperPath = Storage::path('reports/format_c/FORMAT_C.jasper');
-            $outputPath = Storage::path('reports/format_c/FORMAT_C.pdf');
+            $outputPath = Storage::path('reports/format_c/FORMAT_C.' . $extension);
             $imageAsset = Storage::path('assets/LogoFormaC.png');
         } elseif ($shape->template_shape->id == TemplateShape::FORM04) {
             $procedure = $this->prepareData($procedure, TemplateShape::FORM04);
 
             $jasperPath = Storage::path('reports/format_t/FORMAT_T.jasper');
-            $outputPath = Storage::path('reports/format_t/FORMAT_T.pdf');
+            $outputPath = Storage::path('reports/format_t/FORMAT_T.' . $extension);
             $imageAsset = Storage::path('assets/LogoFormaT.png');
         }
 
@@ -86,7 +101,8 @@ class ShapeActionController extends ApiController
             Storage::path('reports/tempJson.json'),
             $parameters,
             $jasperPath,
-            $outputPath
+            $outputPath,
+            $extension
         );
 
         $result = $pdf->generateReport();
