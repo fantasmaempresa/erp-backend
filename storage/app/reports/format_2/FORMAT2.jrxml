@@ -3,8 +3,9 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FORMAT1" pageWidth="623" pageHeight="963" columnWidth="583" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="963e1d41-dcf3-4a1b-8c12-a1c0b97bcf5a">
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="cm"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="cm"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="JSON F2.xml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="FORMA 02\JSON F2.xml"/>
 	<parameter name="imageSF" class="java.lang.String"/>
+	<parameter name="subReportPath" class="java.lang.String"/>
 	<queryString language="JSON">
 		<![CDATA[shape.data_form.first_quote]]>
 	</queryString>
@@ -303,6 +304,10 @@
 	<field name="name_ac" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.acquirerData.name"/>
 		<fieldDescription><![CDATA[shape.acquirerData.name]]></fieldDescription>
+	</field>
+	<field name="extra" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.extra"/>
+		<fieldDescription><![CDATA[shape.extra]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -2151,11 +2156,39 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{name_ac}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="376" y="760" width="184" height="11" uuid="fe26bc57-da99-4b95-954c-7ab96ba912c4"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{extra} != null ? "* LEER REVERSO" : ""]]></textFieldExpression>
+			</textField>
 		</band>
-		<band height="179">
+		<band height="201">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<subreport>
+				<reportElement x="86" y="147" width="481" height="54" uuid="6ff1460f-9a36-4d7c-b13d-b8394042127f">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("shape.extra.acquirers")]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{subReportPath}+"Acquirers.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="60">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<subreport>
+				<reportElement x="86" y="4" width="481" height="54" isRemoveLineWhenBlank="true" uuid="62f95c8c-fe31-4421-91b7-cb11b6596b55"/>
+				<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("shape.extra.alientating")]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{subReportPath}+"ALIENATING.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="163">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement x="10" y="10" width="551" height="160" uuid="43acdb2f-54df-4cc4-8004-a81d1c7a17e6"/>
+				<reportElement x="85" y="0" width="482" height="160" uuid="43acdb2f-54df-4cc4-8004-a81d1c7a17e6"/>
 				<box topPadding="5" leftPadding="5"/>
 				<textElement markup="html"/>
 				<textFieldExpression><![CDATA[$F{reverse} != null ? $F{reverse} : ""]]></textFieldExpression>
