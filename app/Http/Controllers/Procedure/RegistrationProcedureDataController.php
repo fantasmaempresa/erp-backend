@@ -9,6 +9,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 
 class RegistrationProcedureDataController extends ApiController
 {
@@ -22,22 +24,38 @@ class RegistrationProcedureDataController extends ApiController
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
             $response = RegistrationProcedureData::search($request->get('search'))
-                ->with('documents')
+                ->with('document')
+                ->with('user')
                 ->orderBy('id', 'DESC')
-                ->paginate($paginate);
-        }
-        elseif (!empty($request->get('procedure_id')) && $request->get('procedure_id') !== 'null') {
+                ->get();
+        } elseif (!empty($request->get('procedure_id')) && $request->get('procedure_id') !== 'null') {
             $response = RegistrationProcedureData::where('procedure_id', $request->get('procedure_id'))
-                ->with('documents')
+                ->with('document')
+                ->with('user')
                 ->orderBy('id', 'DESC')
-                ->paginate($paginate);
+                ->get();
         } else {
-            $response = RegistrationProcedureData::with('documents')
+            $response = RegistrationProcedureData::with('document')
+                ->with('user')
                 ->orderBy('id', 'DESC')
-                ->paginate($paginate);
+                ->get();
         }
 
-        return $this->showList($response);
+        $response->map(function ($item) {
+            $item->url_file = url('storage/app/registration_procedure_data/' . $item->procedure_id . '/' . $item->url_file);
+            return $item;        
+        });
+
+        $currentPage = Paginator::resolveCurrentPage('page');
+        $paginatedResponse = new LengthAwarePaginator(
+            $response->forPage($currentPage, $paginate),
+            $response->count(),
+            $paginate,
+            $currentPage,
+            ['path' => Paginator::resolveCurrentPath()]
+        );
+
+        return $this->showList($paginatedResponse);
     }
 
 
@@ -53,17 +71,22 @@ class RegistrationProcedureDataController extends ApiController
         $registrationProcedureData = new RegistrationProcedureData($request->all());
 
         DB::begintransaction();
-        
+
         try {
             $registrationProcedureData->date = Carbon::parse($registrationProcedureData->date);
-            $registrationProcedureData->user_id = Auth::user();
+            $registrationProcedureData->user_id = Auth::id();
+            $file = $request->file('file');
+            $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('registration_procedure_data/' . $registrationProcedureData->procedure_id . '/', $fileName);
+            $registrationProcedureData->url_file = $fileName;
             $registrationProcedureData->save();
             DB::commit();
-
-        }catch (\Exception $e) {
-            
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse('ocurrio un error al almacenar la información ' . $e->getMessage(), 422);
         }
-        
+
+        return $this->showOne($registrationProcedureData);
     }
 
     /**
@@ -74,18 +97,7 @@ class RegistrationProcedureDataController extends ApiController
      */
     public function show(RegistrationProcedureData $registrationProcedureData)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\RegistrationProcedureData  $registrationProcedureData
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(RegistrationProcedureData $registrationProcedureData)
-    {
-        //
+        return $this->showOne($registrationProcedureData);
     }
 
     /**
@@ -97,7 +109,11 @@ class RegistrationProcedureDataController extends ApiController
      */
     public function update(Request $request, RegistrationProcedureData $registrationProcedureData)
     {
-        //
+        $this->validate($request, RegistrationProcedureData::rules());
+        $registrationProcedureData->fill($request->all());
+        $registrationProcedureData->date = Carbon::parse($registrationProcedureData->date);
+        $registrationProcedureData->user_id = Auth::user();
+        $registrationProcedureData->save();
     }
 
     /**
@@ -108,6 +124,7 @@ class RegistrationProcedureDataController extends ApiController
      */
     public function destroy(RegistrationProcedureData $registrationProcedureData)
     {
-        //
+        $registrationProcedureData->delete();
+        return $this->successResponse('delete completed successfully');
     }
 }

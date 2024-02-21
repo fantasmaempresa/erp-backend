@@ -26,6 +26,7 @@ use App\Http\Controllers\PhasesProcess\PhasesProcessController;
 use App\Http\Controllers\Place\PlaceController;
 use App\Http\Controllers\Procedure\ProcedureController;
 use App\Http\Controllers\Procedure\ProcedureValidatorsController;
+use App\Http\Controllers\Procedure\RegistrationProcedureDataController;
 use App\Http\Controllers\ProcedureComment\ProcedureCommentController;
 use App\Http\Controllers\Process\ProcessController;
 use App\Http\Controllers\ProcessProject\ProcessProjectController;
@@ -137,6 +138,7 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('templateShape', TemplateShapeController::class, ['except' => ['create', 'edit']]);
     Route::resource('operations', OperationController::class, ['except' => ['create', 'edit']]);
     Route::resource('procedures', ProcedureController::class, ['except' => ['create', 'edit']]);
+    Route::resource('registrationProcedureData', RegistrationProcedureDataController::class, ['except' => ['create', 'edit']]);
     Route::resource('grantors', GrantorController::class, ['except' => ['create', 'edit']]);
     Route::resource('places', PlaceController::class, ['except' => ['create', 'edit']]);
     //GENERATOR REPORTS

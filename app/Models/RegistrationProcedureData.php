@@ -67,8 +67,8 @@ class RegistrationProcedureData extends Model
             'inscription' => 'required|string',
             'sheets' => 'nullable|string',
             'took' => 'nullable|string',
-            'date' => 'nullable|string',
-            'property' => 'nullable|date',
+            'date' => 'nullable|date',
+            'property' => 'nullable|string',
             'procedure_id' => 'required|exists:procedures,id',
             'document_id' => 'required|exists:documents,id',
         ];
