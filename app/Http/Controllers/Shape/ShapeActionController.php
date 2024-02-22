@@ -19,8 +19,6 @@ use Open2code\Pdf\jasper\Report;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
-use function PHPSTORM_META\type;
-
 /**
  * SHAPE CONTROLLER
  */
@@ -49,7 +47,7 @@ class ShapeActionController extends ApiController
                     $extension = "pdf";
                     break;
                 case 2:
-                    $extension = "docx";
+                    $extension = "rtf";
                     break;
                 case 3:
                     $extension = "xls";
@@ -106,10 +104,9 @@ class ShapeActionController extends ApiController
         );
 
         $result = $pdf->generateReport();
-
         Storage::delete("reports/tempJson.json");
 
-        return $result['success'] ? $this->downloadFile($outputPath) : $this->errorResponse($result['message'], 500);
+        return ($result['success'] || $extension == "rtf") ? $this->downloadFile($outputPath) : $this->errorResponse($result['message'], 500);
     }
 
     /**
