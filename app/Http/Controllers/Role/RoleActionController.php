@@ -13,6 +13,7 @@ use App\Http\Controllers\Concept\ConceptController;
 use App\Http\Controllers\Document\DocumentController;
 use App\Http\Controllers\Document\DocumentLinkController;
 use App\Http\Controllers\Grantor\GrantorController;
+use App\Http\Controllers\IsoDocument\IsoDocumentController;
 use App\Http\Controllers\Operation\OperationController;
 use App\Http\Controllers\PhasesProcess\PhasesProcessController;
 use App\Http\Controllers\Place\PlaceController;
@@ -230,6 +231,14 @@ class RoleActionController extends ApiController
                 PlaceController::class,
                 GrantorController::class,
             ],
+        ],
+        [
+            'label' => 'Documentación interna',
+            'icon' => 'storage',
+            'route' => './isoDocumentation',
+            'controllers' => [
+                IsoDocumentController::class
+            ]
         ],
         [
             'label' => 'Configuración',

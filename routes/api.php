@@ -17,6 +17,7 @@ use App\Http\Controllers\ExtraHour\ExtraHourController;
 use App\Http\Controllers\FormStructure\FromStructureController;
 use App\Http\Controllers\Grantor\GrantorController;
 use App\Http\Controllers\InversionUnit\InversionUnitController;
+use App\Http\Controllers\IsoDocument\IsoDocumentController;
 use App\Http\Controllers\NationalConsumerPriceIndex\NationalConsumerPriceIndexController;
 use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\Notification\NotificationFilterController;
@@ -141,6 +142,7 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('registrationProcedureData', RegistrationProcedureDataController::class, ['except' => ['create', 'edit']]);
     Route::resource('grantors', GrantorController::class, ['except' => ['create', 'edit']]);
     Route::resource('places', PlaceController::class, ['except' => ['create', 'edit']]);
+    Route::resource('isoDocumentation', IsoDocumentController::class, ['except' => ['create', 'edit']]);
     //GENERATOR REPORTS
     Route::get('report/generator/procedure/shape/{shape}', [ShapeActionController::class, 'generateShape']);
     //ROUTE NOTARY VALIDATORS
