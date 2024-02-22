@@ -26,11 +26,11 @@ class IsoDocumentController extends ApiController
                 ->orderBy('id', 'DESC')
                 ->get();
         }else {
-            $response = IsoDocument::all()->orderBy('id', 'DESC');
+            $response = IsoDocument::orderBy('id', 'DESC')->get();
         }
 
         $response->map(function ($item) {
-            $item->url_file = url('storage/app/iso_documentation/' . $item->file);
+            $item->file = url('storage/app/iso_documentation/' . $item->file);
             return $item;        
         });
 
@@ -43,7 +43,7 @@ class IsoDocumentController extends ApiController
             ['path' => Paginator::resolveCurrentPath()]
         );
 
-        return $this->showList($response);
+        return $this->showList($paginatedResponse);
     }
 
     /**
