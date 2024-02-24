@@ -74,12 +74,14 @@ class ShapeActionController extends ApiController
         } elseif ($shape->template_shape->id == TemplateShape::FORM03) {
             $procedure = $this->prepareData($procedure, TemplateShape::FORM03);
 
+            $parameters += ['subReportPath' => Storage::path('reports/format_c/')];
             $jasperPath = Storage::path('reports/format_c/FORMAT_C.jasper');
             $outputPath = Storage::path('reports/format_c/FORMAT_C.' . $extension);
             $imageAsset = Storage::path('assets/LogoFormaC.png');
         } elseif ($shape->template_shape->id == TemplateShape::FORM04) {
             $procedure = $this->prepareData($procedure, TemplateShape::FORM04);
 
+            $parameters += ['subReportPath' => Storage::path('reports/format_t/')];
             $jasperPath = Storage::path('reports/format_t/FORMAT_T.jasper');
             $outputPath = Storage::path('reports/format_t/FORMAT_T.' . $extension);
             $imageAsset = Storage::path('assets/LogoFormaT.png');

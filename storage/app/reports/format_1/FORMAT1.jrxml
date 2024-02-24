@@ -514,6 +514,14 @@
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.extra"/>
 		<fieldDescription><![CDATA[shape.extra]]></fieldDescription>
 	</field>
+	<field name="acquirers" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.extra.acquirers"/>
+		<fieldDescription><![CDATA[shape.extra.acquirers]]></fieldDescription>
+	</field>
+	<field name="alientating" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.extra.alientating"/>
+		<fieldDescription><![CDATA[shape.extra.alientating]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -3035,25 +3043,32 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				<textFieldExpression><![CDATA[$F{phone_ac}]]></textFieldExpression>
 			</textField>
 		</band>
-		<band height="201">
+		<band height="150">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<printWhenExpression><![CDATA[$F{extra} != null || $F{reverse} != null]]></printWhenExpression>
+		</band>
+		<band height="55">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<printWhenExpression><![CDATA[$F{acquirers} != null]]></printWhenExpression>
 			<subreport>
-				<reportElement isPrintRepeatedValues="false" x="86" y="147" width="497" height="54" isRemoveLineWhenBlank="true" uuid="7678ad98-24a2-4a50-b89a-bbbda778225e"/>
+				<reportElement isPrintRepeatedValues="false" x="86" y="1" width="497" height="54" isRemoveLineWhenBlank="true" uuid="7678ad98-24a2-4a50-b89a-bbbda778225e"/>
 				<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("shape.extra.acquirers")]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{subReportPath}+"Acquirers.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="60">
+		<band height="55">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<printWhenExpression><![CDATA[$F{alientating} != null]]></printWhenExpression>
 			<subreport>
-				<reportElement x="86" y="3" width="497" height="54" uuid="f8142ebb-9473-44cf-8cbf-8a6dcb45c1e6"/>
+				<reportElement isPrintRepeatedValues="false" x="86" y="1" width="497" height="54" isRemoveLineWhenBlank="true" uuid="f8142ebb-9473-44cf-8cbf-8a6dcb45c1e6"/>
 				<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("shape.extra.alientating")]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{subReportPath}+"ALIENATING.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 		<band height="60">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<textField>
+			<printWhenExpression><![CDATA[$F{reverse} != null]]></printWhenExpression>
+			<textField textAdjust="StretchHeight">
 				<reportElement stretchType="ElementGroupHeight" isPrintRepeatedValues="false" x="80" y="3" width="497" height="54" uuid="d0ae63ce-3105-472e-b66c-0019c39fdcb3">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
