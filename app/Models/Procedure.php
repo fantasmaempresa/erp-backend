@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 /**
  * version
@@ -116,7 +117,9 @@ class Procedure extends Model
      */
     public function scopeSearch($query, $search): mixed
     {
+        $columns = DB::getSchemaBuilder()->getColumnListing('procedures');
         return $query
+            ->select('procedures.*')
             ->join('clients', 'procedures.client_id', '=', 'clients.id')
             ->join('grantor_procedure', 'procedures.id', '=', 'grantor_procedure.procedure_id')
             ->join('grantors', 'grantor_procedure.grantor_id', '=', 'grantors.id')
@@ -134,7 +137,7 @@ class Procedure extends Model
             ->orWhere('grantors.name', 'like', "%$search%")
             ->orWhere('grantors.father_last_name', 'like', "%$search%")
             ->orWhere('grantors.mother_last_name', 'like', "%$search%")
-            ->select('procedures.*');
+            ->groupBy($columns);
     }
 
     /**
