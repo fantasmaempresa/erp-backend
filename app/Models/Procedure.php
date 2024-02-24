@@ -117,14 +117,24 @@ class Procedure extends Model
     public function scopeSearch($query, $search): mixed
     {
         return $query
-            ->orWhere('name', 'like', "%$search%")
+            ->join('clients', 'procedures.client_id', '=', 'clients.id')
+            ->join('grantor_procedure', 'procedures.id', '=', 'grantor_procedure.procedure_id')
+            ->join('grantors', 'grantor_procedure.grantor_id', '=', 'grantors.id')
+            ->orWhere('procedures.name', 'like', "%$search%")
             ->orWhere('value_operation', 'like', "%$search%")
             ->orWhere('date_proceedings', 'like', "%$search%")
             ->orWhere('instrument', 'like', "%$search%")
             ->orWhere('date', 'like', "%$search%")
             ->orWhere('volume', 'like', "%$search%")
             ->orWhere('folio_min', 'like', "%$search%")
-            ->orWhere('credit', 'like', "%$search%");
+            ->orWhere('credit', 'like', "%$search%")
+            ->orWhere('clients.name', 'like', "%$search%")
+            ->orWhere('clients.last_name', 'like', "%$search%")
+            ->orWhere('clients.mother_last_name', 'like', "%$search%")
+            ->orWhere('grantors.name', 'like', "%$search%")
+            ->orWhere('grantors.father_last_name', 'like', "%$search%")
+            ->orWhere('grantors.mother_last_name', 'like', "%$search%")
+            ->select('procedures.*');
     }
 
     /**
