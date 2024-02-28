@@ -32,9 +32,9 @@ class UserController extends ApiController
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
-            $response = $this->showList(User::search($request->get('search'))->with('role')->paginate($paginate));
+            $response = $this->showList(User::search($request->get('search'))->with('role')->orderBy('id','desc')->paginate($paginate));
         } else {
-            $response = $this->showList(User::with('role')->with('staff')->paginate($paginate));
+            $response = $this->showList(User::with('role')->with('staff')->orderBy('id','desc')->paginate($paginate));
         }
 
         return $response;

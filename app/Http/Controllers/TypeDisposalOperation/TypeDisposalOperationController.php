@@ -27,7 +27,7 @@ class TypeDisposalOperationController extends ApiController
     {
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
-        return $this->showList(TypeDisposalOperation::paginate($paginate));
+        return $this->showList(TypeDisposalOperation::orderBy('id','desc')->paginate($paginate));
     }
 
     /**

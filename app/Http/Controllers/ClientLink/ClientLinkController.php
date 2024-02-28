@@ -38,9 +38,9 @@ class ClientLinkController extends ApiController
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
-            $clientLinks = ClientLink::where('client_id', $request->get('client_id'))->search($request->get('search'))->with('user')->paginate($paginate);
+            $clientLinks = ClientLink::where('client_id', $request->get('client_id'))->search($request->get('search'))->with('user')->orderBy('id','desc')->paginate($paginate);
         } else {
-            $clientLinks = ClientLink::where('client_id', $request->get('client_id'))->with('user')->paginate($paginate);
+            $clientLinks = ClientLink::where('client_id', $request->get('client_id'))->with('user')->orderBy('id','desc')->paginate($paginate);
         }
 
         return $this->showList($clientLinks);

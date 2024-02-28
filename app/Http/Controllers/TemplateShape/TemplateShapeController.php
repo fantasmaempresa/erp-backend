@@ -24,9 +24,9 @@ class TemplateShapeController extends ApiController
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
-            $response = $this->showList(TemplateShape::search($request->get('search')->paginate($paginate)));
+            $response = $this->showList(TemplateShape::search($request->get('search')->orderBy('id','desc')->paginate($paginate)));
         } else {
-            $response = $this->showList(TemplateShape::paginate($paginate));
+            $response = $this->showList(TemplateShape::orderBy('id','desc')->paginate($paginate));
         }
 
         return $response;

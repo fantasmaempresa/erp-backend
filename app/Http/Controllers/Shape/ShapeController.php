@@ -32,7 +32,7 @@ class ShapeController extends ApiController
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
-            $response = $this->showList(shape::search($request->get('search'))->orderBy('id', 'DESC')->paginate($paginate));
+            $response = $this->showList(shape::search($request->get('search'))->orderBy('id','desc')->paginate($paginate));
         } elseif ($request->has('procedure_id')) {
             $procedure = Procedure::findOrFail($request->get('procedure_id'))->orderBy('id', 'DESC');
             $shapes = $procedure->shapes;
@@ -45,7 +45,7 @@ class ShapeController extends ApiController
                 ['path' => Paginator::resolveCurrentPath()]
             ));
         } else {
-            $response = $this->showList(shape::orderBy('id', 'DESC')->paginate($paginate));
+            $response = $this->showList(shape::orderBy('id','desc')->paginate($paginate));
         }
 
         return $response;

@@ -37,9 +37,9 @@ class ProjectController extends ApiController
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
-            $response = $this->showList(Project::search($request->get('search'))->paginate($paginate));
+            $response = $this->showList(Project::search($request->get('search'))->orderBy('id','desc')->paginate($paginate));
         } else {
-            $response = $this->showList(Project::paginate($paginate));
+            $response = $this->showList(Project::orderBy('id','desc')->paginate($paginate));
         }
 
         return $response;

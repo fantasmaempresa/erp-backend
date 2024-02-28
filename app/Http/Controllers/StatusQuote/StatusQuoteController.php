@@ -28,7 +28,7 @@ class StatusQuoteController extends ApiController
     public function index(): JsonResponse
     {
         return $this->showList(
-            StatusQuote::paginate(env('NUMBER_PAGINATE'))
+            StatusQuote::orderBy('id','desc')->paginate(env('NUMBER_PAGINATE'))
         );
     }
 

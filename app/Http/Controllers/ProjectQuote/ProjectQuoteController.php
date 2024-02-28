@@ -66,6 +66,7 @@ class ProjectQuoteController extends ApiController
                 ->with('client')
                 ->with('statusQuote')
                 ->with('concept')
+                ->orderBy('id','desc')
                 ->paginate($paginate)
         );
     }

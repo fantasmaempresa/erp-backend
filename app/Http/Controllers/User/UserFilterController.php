@@ -23,7 +23,7 @@ class UserFilterController extends ApiController
      */
     public function getUsersOnline(): JsonResponse
     {
-        return $this->showList(User::where('online', User::$ONLINE)->get());
+        return $this->showList(User::where('online', User::$ONLINE)->orderBy('id','desc')->get());
     }
 
     /**
@@ -31,7 +31,7 @@ class UserFilterController extends ApiController
      */
     public function getUsersOffline(): JsonResponse
     {
-        return $this->showList(User::where('online', User::$OFFLINE)->get());
+        return $this->showList(User::where('online', User::$OFFLINE)->orderBy('id','desc')->get());
     }
 
 

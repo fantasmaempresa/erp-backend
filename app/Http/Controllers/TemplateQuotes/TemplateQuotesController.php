@@ -32,9 +32,9 @@ class TemplateQuotesController extends ApiController
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
         if ($request->has('search')) {
-            $response = $this->showList(TemplateQuotes::search($request->get('search'))->paginate($paginate));
+            $response = $this->showList(TemplateQuotes::search($request->get('search'))->orderBy('id','desc')->paginate($paginate));
         } else {
-            $response = $this->showList(TemplateQuotes::paginate($paginate));
+            $response = $this->showList(TemplateQuotes::orderBy('id','desc')->paginate($paginate));
         }
 
         return $response;

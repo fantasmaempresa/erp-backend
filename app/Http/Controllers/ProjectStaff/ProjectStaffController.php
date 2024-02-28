@@ -27,7 +27,7 @@ class ProjectStaffController extends ApiController
      */
     public function index(): JsonResponse
     {
-        $projectStaffs = ProjectStaff::all();
+        $projectStaffs = ProjectStaff::orderBy('id','desc')->all();
 
         return $this->showAll($projectStaffs);
     }

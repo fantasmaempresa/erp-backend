@@ -30,9 +30,9 @@ class FromStructureController extends ApiController
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
         if ($request->has('search')) {
-            $response = $this->showList(FormStructure::search($request->get('search'))->paginate($paginate));
+            $response = $this->showList(FormStructure::search($request->get('search'))->orderBy('id','desc')->paginate($paginate));
         } else {
-            $response = $this->showList(FormStructure::paginate($paginate));
+            $response = $this->showList(FormStructure::orderBy('id','desc')->paginate($paginate));
         }
 
         return $response;
