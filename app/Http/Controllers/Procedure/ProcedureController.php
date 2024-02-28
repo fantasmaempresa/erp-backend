@@ -24,7 +24,7 @@ class ProcedureController extends ApiController
 
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
             $response = Procedure::search($request->get('search'))
-                ->with('grantors')
+                ->with('grantors.stake')
                 ->with('documents')
                 ->with('client')
                 ->orderBy('id','desc')

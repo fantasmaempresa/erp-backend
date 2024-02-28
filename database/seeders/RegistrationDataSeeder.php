@@ -57,7 +57,6 @@ class RegistrationDataSeeder extends Seeder
                 $register->folio_electronic_merchant = 'bk';
                 $register->nci = 'bk';
                 $register->description = $record['Observaciones'];
-                // $register->document_id = null;
                 $register->procedure_id = $procedure->id;
                 $register->place_id = empty($stake) ? 1 : $stake->id;
                 $register->user_id = 6;
