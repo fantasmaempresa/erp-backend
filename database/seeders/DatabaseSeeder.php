@@ -51,7 +51,8 @@ class DatabaseSeeder extends Seeder
                 NCPISeeder::class,
                 RateSeeder::class,
                 TypeDisposalOperationSeeder::class,
-                EmployesNotarySeeder::class
+                EmployesNotarySeeder::class,
+                RegistrationDataSeeder::class, 
             ]
         );
     }

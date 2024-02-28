@@ -42,7 +42,11 @@ class RegistrationProcedureDataController extends ApiController
         }
 
         $response->map(function ($item) {
-            $item->url_file = url('storage/app/registration_procedure_data/' . $item->procedure_id . '/' . $item->url_file);
+            if(empty($item->url_file)){
+                $item->url_file = null;
+            }else{
+                $item->url_file = url('storage/app/registration_procedure_data/' . $item->procedure_id . '/' . $item->url_file);
+            }
             return $item;        
         });
 
@@ -75,10 +79,14 @@ class RegistrationProcedureDataController extends ApiController
         try {
             $registrationProcedureData->date = Carbon::parse($registrationProcedureData->date);
             $registrationProcedureData->user_id = Auth::id();
-            $file = $request->file('file');
-            $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('registration_procedure_data/' . $registrationProcedureData->procedure_id . '/', $fileName);
-            $registrationProcedureData->url_file = $fileName;
+            
+            if($request->hasFile('file')) {
+                $file = $request->file('file');
+                $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
+                $file->storeAs('registration_procedure_data/' . $registrationProcedureData->procedure_id . '/', $fileName);
+                $registrationProcedureData->url_file = $fileName;
+            }
+            
             $registrationProcedureData->save();
             DB::commit();
         } catch (\Exception $e) {
@@ -95,8 +103,10 @@ class RegistrationProcedureDataController extends ApiController
      * @param  \App\Models\RegistrationProcedureData  $registrationProcedureData
      * @return \Illuminate\Http\Response
      */
-    public function show(RegistrationProcedureData $registrationProcedureData)
+    public function show($id)
     {
+        $registrationProcedureData = RegistrationProcedureData::findOrFail($id);
+
         return $this->showOne($registrationProcedureData);
     }
 
@@ -112,7 +122,15 @@ class RegistrationProcedureDataController extends ApiController
         $this->validate($request, RegistrationProcedureData::rules());
         $registrationProcedureData->fill($request->all());
         $registrationProcedureData->date = Carbon::parse($registrationProcedureData->date);
-        $registrationProcedureData->user_id = Auth::user();
+        $registrationProcedureData->user_id = Auth::id();
+        
+        if($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('registration_procedure_data/' . $registrationProcedureData->procedure_id . '/', $fileName);
+            $registrationProcedureData->url_file = $fileName;
+        }
+        
         $registrationProcedureData->save();
     }
 

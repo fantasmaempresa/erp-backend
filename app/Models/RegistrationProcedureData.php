@@ -8,38 +8,47 @@ use Illuminate\Database\Eloquent\Model;
 class RegistrationProcedureData extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'id',
+        'date',
         'inscription',
         'sheets',
         'took',
-        'date',
-        'property',
+        'book',
+        'departure',
+        'folio_real_estate',
+        'folio_electronic_merchant',
+        'nci',
+        'description',
         'url_file',
-        'procedure_id',
         'document_id',
+        'procedure_id',
+        'place_id',
         'user_id',
     ];
 
     /**
-     * @return BelongsToMany
+     * @return BelongsTo
      */
-    public function procedure(){
+    public function procedure()
+    {
         return $this->belongsTo(Procedure::class);
     }
 
     /**
-     * @return BelongsToMany
+     * @return BelongsTo
      */
-    public function document(){
+    public function document()
+    {
         return $this->belongsTo(Document::class);
     }
 
     /**
-     * @return BelongsToMany
+     * @return BelongsTo
      */
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
     /**
@@ -54,23 +63,32 @@ class RegistrationProcedureData extends Model
             ->orWhere('inscription', 'like', "%$search%")
             ->orWhere('sheets', 'like', "%$search%")
             ->orWhere('took', 'like', "%$search%")
-            ->orWhere('date', 'like', "%$search%")
-            ->orWhere('property', 'like', "%$search%");
+            ->orWhere('book', 'like', "%$search%")
+            ->orWhere('departure', 'like', "%$search%")
+            ->orWhere('folio_real_estate', 'like', "%$search%")
+            ->orWhere('folio_electronic_merchant', 'like', "%$search%")
+            ->orWhere('nci', 'like', "%$search%");
     }
 
-     /**
+    /**
      * @return string[]
      */
     public static function rules(): array
     {
         return [
-            'inscription' => 'required|string',
+            'date' => 'required|date',
+            'inscription' => 'nullable|string',
             'sheets' => 'nullable|string',
             'took' => 'nullable|string',
-            'date' => 'nullable|date',
-            'property' => 'nullable|string',
+            'book' => 'nullable|string',
+            'departure' => 'nullable|string',
+            'folio_real_estate' => 'nullable|string',
+            'folio_electronic_merchant' => 'nullable|string',
+            'description' => 'nullable|string',
+            'nci' => 'nullable|string',
             'procedure_id' => 'required|exists:procedures,id',
-            'document_id' => 'required|exists:documents,id',
+            'place_id' => 'required|exists:procedures,id',
+            'document_id' => 'nullable|exists:documents,id',
         ];
     }
 }
