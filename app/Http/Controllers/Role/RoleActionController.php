@@ -18,6 +18,7 @@ use App\Http\Controllers\Operation\OperationController;
 use App\Http\Controllers\PhasesProcess\PhasesProcessController;
 use App\Http\Controllers\Place\PlaceController;
 use App\Http\Controllers\Procedure\ProcedureController;
+use App\Http\Controllers\Procedure\RegistrationProcedureDataController;
 use App\Http\Controllers\Project\ProjectActionController;
 use App\Http\Controllers\Project\ProjectController;
 use App\Http\Controllers\Project\ProjectFilterController;
@@ -26,6 +27,7 @@ use App\Http\Controllers\ProjectQuote\ProjectQuoteFilterController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteOperationsController;
 use App\Http\Controllers\Shape\ShapeController;
 use App\Http\Controllers\Staff\StaffController;
+use App\Http\Controllers\Stake\StakeController;
 use App\Http\Controllers\TemplateQuotes\TemplateQuotesController;
 use App\Http\Controllers\TemplateShape\TemplateShapeController;
 use App\Http\Controllers\User\UserActionController;
@@ -34,6 +36,7 @@ use App\Http\Controllers\User\UserFilterController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
 use App\Models\Role;
 use App\Models\User;
+use Database\Seeders\RegistrationDataSeeder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
@@ -230,6 +233,8 @@ class RoleActionController extends ApiController
                 ProcedureController::class,
                 PlaceController::class,
                 GrantorController::class,
+                RegistrationProcedureDataController::class,
+                StakeController::class
             ],
         ],
         [
