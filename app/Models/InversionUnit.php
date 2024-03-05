@@ -6,8 +6,8 @@
  */
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\Rule;
 
 /**
  * @access  public
@@ -26,4 +26,17 @@ class InversionUnit extends Model
       'date',
       'factor',
     ];
+
+    public static function rules($id = null){
+      $rules = [
+        'date' => 'required',
+        'factor' => 'required',
+      ];
+
+      if($id){
+        $rules['date'] = ['required',Rule::unique('inversion_units')->ignore($id)];
+      }
+
+      return $rules;
+    }
 }

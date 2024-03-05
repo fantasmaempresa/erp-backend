@@ -6,7 +6,6 @@
  */
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -26,4 +25,13 @@ class NationalConsumerPriceIndex extends Model
         'month',
         'value',
     ];
+
+    public static function rules()
+    {
+        return [
+            'year' => 'required',
+            'month' => 'required',
+            'value' => 'required',
+        ];
+    }
 }

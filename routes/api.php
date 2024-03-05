@@ -51,6 +51,7 @@ use App\Http\Controllers\StatusQuote\StatusQuoteController;
 use App\Http\Controllers\TaxDatum\TaxDatumController;
 use App\Http\Controllers\TemplateQuotes\TemplateQuotesController;
 use App\Http\Controllers\TemplateShape\TemplateShapeController;
+use App\Http\Controllers\TypeDisposalOperation\TypeDisposalOperationController;
 use App\Http\Controllers\User\UserActionController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\UserLog\UserLogController;
@@ -153,19 +154,19 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('clients', ClientController::class, ['except' => ['create', 'edit']]);
 
     //NATIONAL CONSUMER PRICE INDEX
-    Route::resource('nationalConsumerPriceIndex', NationalConsumerPriceIndexController::class, ['only' => ['index', 'show']]);
+    Route::resource('nationalConsumerPriceIndex', NationalConsumerPriceIndexController::class, ['except' => ['create', 'edit']]);
 
     //INVERSION UNIT
-    Route::resource('inversionUnit', InversionUnitController::class, ['only' => ['index', 'show']]);
+    Route::resource('inversionUnit', InversionUnitController::class, ['except' => ['create', 'edit']]);
 
     //APPENDANT 9
-    Route::resource('appendant', AppendantController::class, ['only' => ['index', 'show']]);
+    Route::resource('appendant', AppendantController::class, ['only' => ['index', 'show', 'update']]);
 
     //RATE
-    Route::resource('rate', RateController::class, ['only' => ['index', 'show']]);
+    Route::resource('rate', RateController::class, ['except' => ['create', 'edit']]);
 
     //TYPE DISPOSAL OPERATION
-    Route::resource('typeDisposalOperation', RateController::class, ['only' => ['index', 'show']]);
+    Route::resource('typeDisposalOperation', TypeDisposalOperationController::class, ['except' => ['create', 'edit']]);
 
     //DISPOSAL REAL ESTATE
     Route::resource('disposalRealEstate', DisposalRealEstateController::class, ['except' => ['create', 'edit']]);

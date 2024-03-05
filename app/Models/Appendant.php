@@ -24,4 +24,11 @@ class Appendant extends Model
         'end',
         'factor',
     ];
+
+    public static function rules(): array
+    {
+        return [
+            'factor' => 'required|numeric',
+        ];
+    }
 }
