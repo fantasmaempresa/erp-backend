@@ -112,7 +112,7 @@
 				<textElement textAlignment="Left" verticalAlignment="Top">
 					<font fontName="Arial" size="8"/>
 				</textElement>
-				<text><![CDATA[CONTINUAN DATOS DEL ENAJENANTE]]></text>
+				<text><![CDATA[DATOS EXTRA DE LOS SOLICITANTES]]></text>
 			</staticText>
 		</band>
 	</title>
