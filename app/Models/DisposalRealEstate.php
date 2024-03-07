@@ -6,10 +6,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @version
@@ -64,6 +64,24 @@ class DisposalRealEstate extends Model
         'type_disposal_operation_id',
         'rate_id',
     ];
+
+
+    public function scopeSearch($query, $search)
+    {
+        $columns = DB::getSchemaBuilder()->getColumnListing('disposal_real_estates');
+        $query->select('disposal_real_estates.*')
+            ->join('grantors as alienating', 'disposal_real_estates.alienating_id', '=', 'alienating.id')
+            ->join('acquirer_disposal_real_estates', 'disposal_real_estates.id', '=', 'acquirer_disposal_real_estates.disposal_real_estate_id')
+            ->join('grantors as acquirer', 'acquirer_disposal_real_estates.acquirer_id', '=', 'acquirer.id')
+            ->where(function ($query) use ($search) {
+                $query->where('alienating.name', 'like', "%$search%")
+                    ->orWhere('alienating.father_last_name', 'like', "%$search%")
+                    ->orWhere('alienating.mother_last_name', 'like', "%$search%")
+                    ->orWhere('acquirer.name', 'like', "%$search%")
+                    ->orWhere('acquirer.father_last_name', 'like', "%$search%")
+                    ->orWhere('acquirer.mother_last_name', 'like', "%$search%");
+            })->groupBy($columns);
+    }
 
     /**
      * @return BelongsTo
