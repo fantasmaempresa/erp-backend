@@ -74,8 +74,8 @@ class DisposalRealEstate extends Model
             ->join('acquirer_disposal_real_estates', 'disposal_real_estates.id', '=', 'acquirer_disposal_real_estates.disposal_real_estate_id')
             ->join('grantors as acquirer', 'acquirer_disposal_real_estates.acquirer_id', '=', 'acquirer.id')
             ->where(function ($query) use ($search) {
-                $query->orWhereRaw('CONCAT(acquirer.name, " ", acquirer.last_name, " ", acquirer.mother_last_name) like ?', "%$search%")
-                    ->orWhereRaw('CONCAT(alienating.name, " ", alienating.last_name, " ", alienating.mother_last_name) like ?', "%$search%");
+                $query->orWhereRaw('CONCAT(acquirer.name, " ", acquirer.father_last_name, " ", acquirer.mother_last_name) like ?', "%$search%")
+                    ->orWhereRaw('CONCAT(alienating.name, " ", alienating.father_last_name, " ", alienating.mother_last_name) like ?', "%$search%");
             })->groupBy($columns);
     }
 
