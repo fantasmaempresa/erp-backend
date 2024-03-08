@@ -123,7 +123,7 @@ class ClientLink extends Model
      */
     public function scopeSearch($query, $search): mixed
     {
-        return $query->orWhere('name', 'like', "%$search%")
+        return $query->orWhereRaw('CONCAT(name, " ", last_name, " ", mother_last_name) like ?', "%$search%")
             ->orWhere('phone', 'like', "%$search%")
             ->orWhere('nickname', 'like', "%$search%")
             ->orWhere('address', 'like', "%$search%")

@@ -79,9 +79,7 @@ class Grantor extends Model
     public function scopeSearch($query, $search): mixed
     {
         return $query
-            ->orWhere('name', 'like', "%$search%")
-            ->orWhere('father_last_name', 'like', "%$search%")
-            ->orWhere('mother_last_name', 'like', "%$search%")
+            ->orWhereRaw('CONCAT(name, " ", father_last_name, " ", mother_last_name) like ?', "%$search%")
             ->orWhere('rfc', 'like', "%$search%")
             ->orWhere('curp', 'like', "%$search%")
             ->orWhere('municipality', 'like', "%$search%")

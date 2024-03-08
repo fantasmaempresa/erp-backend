@@ -8,8 +8,6 @@ namespace App\Http\Controllers\DisposalRealEstate;
 
 use App\Http\Controllers\ApiController;
 use App\Models\DisposalRealEstate;
-use App\Models\Grantor;
-use App\Models\Rate;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -21,31 +19,27 @@ use Illuminate\Validation\ValidationException;
  */
 class DisposalRealEstateController extends ApiController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @param Request $request
-     *
-     * @return JsonResponse
-     */
     public function index(Request $request): JsonResponse
     {
-        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+        $paginate = $request->get('paginate', env('NUMBER_PAGINATE'));
 
-        return $this->showList(
-            DisposalRealEstate::with(
-                [
-                    'nationalConsumerPriceIndexDisposal',
-                    'nationalConsumerPriceIndexAcquisition',
-                    'alienating',
-                    'typeDisposalOperation',
-                    'rate',
-                    'acquirers'
-                ]
-            )
-            ->orderBy('id','desc')
-            ->paginate($paginate)
-        );
+        $query = DisposalRealEstate::with([
+            'nationalConsumerPriceIndexDisposal',
+            'nationalConsumerPriceIndexAcquisition',
+            'alienating',
+            'typeDisposalOperation',
+            'rate',
+            'acquirers'
+        ])
+            ->orderBy('id', 'desc');
+
+        if (!empty($request->get('search')) && $request->get('search') !== 'null') {
+            $query->search($request->get('search'));
+        }
+
+        $response = $query->paginate($paginate);
+
+        return $this->showList($response);
     }
 
     /**
@@ -146,6 +140,6 @@ class DisposalRealEstateController extends ApiController
     {
         $disposalRealEstate->delete();
 
-        return $this->errorResponse('Record deleted successfully');
+        return $this->showMessage('Record deleted successfully');
     }
 }
