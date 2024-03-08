@@ -131,12 +131,8 @@ class Procedure extends Model
             ->orWhere('volume', 'like', "%$search%")
             ->orWhere('folio_min', 'like', "%$search%")
             ->orWhere('credit', 'like', "%$search%")
-            ->orWhere('clients.name', 'like', "%$search%")
-            ->orWhere('clients.last_name', 'like', "%$search%")
-            ->orWhere('clients.mother_last_name', 'like', "%$search%")
-            ->orWhere('grantors.name', 'like', "%$search%")
-            ->orWhere('grantors.father_last_name', 'like', "%$search%")
-            ->orWhere('grantors.mother_last_name', 'like', "%$search%")
+            ->orWhereRaw('CONCAT(clients.name, " ", clients.last_name, " ", clients.mother_last_name) like ?', "%$search%")
+            ->orWhereRaw('CONCAT(grantors.name, " ", grantors.father_last_name, " ", grantors.mother_last_name) like ?', "%$search%")
             ->groupBy($columns);
     }
 
