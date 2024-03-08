@@ -59,7 +59,6 @@ class ProcedureController extends ApiController
         DB::begintransaction();
 
         try {
-            $procedure->date_proceedings = Carbon::parse($procedure->date_proceedings);
             $procedure->date = Carbon::parse($procedure->date);
             $procedure->user_id = Auth::id();
             $procedure->save();

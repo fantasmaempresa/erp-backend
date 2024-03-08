@@ -156,15 +156,14 @@ class Procedure extends Model
     {
         return [
             'name' => 'required|string',
-            'value_operation' => 'required|string',
-            'date_proceedings' => 'required|string',
+            'value_operation' => 'nullable|string',
             'instrument' => 'required|string',
             'date' => 'required|date',
             'volume' => 'required|string',
             'folio_min' => 'nullable|string',
             'folio_max' => 'required|string',
             'credit' => 'nullable|string',
-            'observation' => 'required|string',
+            'observation' => 'nullable|string',
             'grantors' => 'required|array',
             'documents' => 'required|array',
             'operation_id' => 'required|exists:operations,id',
