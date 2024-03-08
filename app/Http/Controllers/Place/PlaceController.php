@@ -24,9 +24,9 @@ class PlaceController extends ApiController
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
-            $response = $this->showList(Place::search($request->get('search'))->orderBy('id','desc')->paginate($paginate));
+            $response = $this->showList(Place::search($request->get('search'))->orderBy('name')->paginate($paginate));
         } else {
-            $response = $this->showList(Place::orderBy('id','desc')->paginate($paginate));
+            $response = $this->showList(Place::orderBy('name')->paginate($paginate));
         }
 
         return $response;
