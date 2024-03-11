@@ -17,6 +17,14 @@ class Stake extends Model
         'name'
     ];
 
+    protected function setNameAttribute($value){
+        $this->attributes['name'] = strtolower($value);
+    }
+    
+    protected function getNameAttribute($value){
+        return strtoupper($value);
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

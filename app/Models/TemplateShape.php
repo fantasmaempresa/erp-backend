@@ -28,6 +28,15 @@ class TemplateShape extends Model
         'form',
     ];
 
+    protected function setNameAttribute($value){
+        $this->attributes['name'] = strtolower($value);
+    }
+    
+    protected function getNameAttribute($value){
+        return strtoupper($value);
+    }
+
+
     /**
      * @var string[]
      */

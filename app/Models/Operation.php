@@ -21,6 +21,23 @@ class Operation extends Model
         'description',
     ];
 
+    protected function setNameAttribute($value){
+        $this->attributes['name'] = strtolower($value);
+    }
+    
+    protected function getNameAttribute($value){
+        return strtoupper($value);
+    }
+
+    protected function setDescriptionAttribute($value){
+        $this->attributes['description'] = strtolower($value);
+    }
+    
+    protected function getDescriptionAttribute($value){
+        return strtoupper($value);
+    }
+
+
     /**
      * @param $query
      * @param $search

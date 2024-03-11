@@ -41,6 +41,50 @@ class Staff extends Model
             'user_id',
         ];
 
+        protected function setNameAttribute($value){
+            $this->attributes['name'] = strtolower($value);
+        }
+        
+        protected function getNameAttribute($value){
+            return strtoupper($value);
+        }
+    
+        protected function setLastNameAttribute($value){
+            $this->attributes['last_name'] = strtolower($value);
+        }
+    
+        protected function getLastNameAttribute($value){
+            return strtoupper($value);
+        }
+    
+        protected function setMotherLastNameAttribute($value){
+            $this->attributes['mother_last_name'] = strtolower($value);
+        }
+        
+        protected function getMotherLastNameAttribute($value){
+            return strtoupper($value);
+        }
+    
+        protected function setEmailAttribute($value){
+            $this->attributes['email'] = strtolower($value);
+        }
+
+        protected function setNicknameAttribute($value){
+            $this->attributes['nickname'] = strtolower($value);
+        }
+        
+        protected function getNicknameAttribute($value){
+            return strtoupper($value);
+        }
+
+        protected function setExtraInformationAttribute($value){
+            $this->attributes['extra_information'] = strtolower($value);
+        }
+        
+        protected function getExtraInformationAttribute($value){
+            return strtoupper($value);
+        }
+
     /**
      * The attributes that should be cast.
      *

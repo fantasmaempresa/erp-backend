@@ -28,6 +28,15 @@ class TemplateQuotes extends Model
         'operations',
     ];
 
+    protected function setNameAttribute($value){
+        $this->attributes['name'] = strtolower($value);
+    }
+    
+    protected function getNameAttribute($value){
+        return strtoupper($value);
+    }
+
+
     /**
      * The attributes that should be cast.
      *

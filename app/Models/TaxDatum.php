@@ -44,6 +44,62 @@ class TaxDatum extends Model
             'salary_id',
         ];
 
+    protected function setRfcAttribute($value){
+        $this->attributes['rfc'] = strtolower($value);
+    }
+        
+    protected function getRfcAttribute($value){
+        return strtoupper($value);
+    }
+    
+    protected function setCurpAttribute($value){
+        $this->attributes['curp'] = strtolower($value);
+    }
+        
+    protected function getCurpAttribute($value){
+        return strtoupper($value);
+    }
+
+    protected function setStreetAttribute($value){
+        $this->attributes['street'] = strtolower($value);
+    }
+        
+    protected function getStreetAttribute($value){
+        return ucfirst($value);
+    }
+
+    protected function setSuburbAttribute($value){
+        $this->attributes['suburb'] = strtolower($value);
+    }
+        
+    protected function getSuburbAttribute($value){
+        return ucfirst($value);
+    }
+
+    protected function setMunicipalityAttribute($value){
+        $this->attributes['municipality'] = strtolower($value);
+    }
+        
+    protected function getMunicipalityAttribute($value){
+        return ucfirst($value);
+    }
+
+    protected function setCountyAttribute($value){
+        $this->attributes['county'] = strtolower($value);
+    }
+        
+    protected function getCountyAttribute($value){
+        return ucfirst($value);
+    }
+
+    protected function setEstateAttribute($value){
+        $this->attributes['estate'] = strtolower($value);
+    }
+        
+    protected function getEstateAttribute($value){
+        return ucfirst($value);
+    }
+
     /**
      * @return BelongsTo
      */

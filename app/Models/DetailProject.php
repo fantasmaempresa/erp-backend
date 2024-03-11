@@ -33,6 +33,7 @@ class DetailProject extends Model
      *
      * @var string[]
      */
+
     protected $fillable = [
         'id',
         'comments',
@@ -40,6 +41,15 @@ class DetailProject extends Model
         'finished',
         'phases_process_id',
     ];
+
+    protected function setCommentsAttribute($value){
+        $this->attributes['comments'] = strtolower($value);
+    }
+    
+    protected function getCommentsAttribute($value){
+        return strtoupper($value);
+    }
+
 
     /**
      * The attributes that should be cast.

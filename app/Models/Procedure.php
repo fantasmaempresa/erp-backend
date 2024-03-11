@@ -39,6 +39,14 @@ class Procedure extends Model
         'staff_id',
     ];
 
+    protected function setNameAttribute($value){
+        $this->attributes['name'] = strtolower($value);
+    }
+    
+    protected function getNameAttribute($value){
+        return strtoupper($value);
+    }
+
     /**
      * @return BelongsTo
      */
