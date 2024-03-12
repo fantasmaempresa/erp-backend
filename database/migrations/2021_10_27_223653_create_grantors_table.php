@@ -17,22 +17,22 @@ class CreateGrantorsTable extends Migration
         Schema::create('grantors', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('father_last_name');
-            $table->string('mother_last_name');
-            $table->string('rfc')->unique();
-            $table->string('curp')->unique();
-            $table->string('civil_status');
+            $table->string('father_last_name')->nullable();
+            $table->string('mother_last_name')->nullable();
+            $table->string('rfc')->nullable()->unique();
+            $table->string('curp')->nullable()->unique();
+            $table->string('civil_status')->nullable();
             $table->string('municipality');
             $table->string('colony');
             $table->string('no_int')->nullable();
             $table->string('no_ext');
-            $table->string('no_locality');
-            $table->string('phone');
+            $table->string('no_locality')->nullable();
+            $table->string('phone')->nullable();
             $table->string('locality');
             $table->string('zipcode');
-            $table->string('place_of_birth');
-            $table->date('birthdate');
-            $table->string('occupation');
+            $table->string('place_of_birth')->nullable();
+            $table->date('birthdate')->nullable();
+            $table->string('occupation')->nullable();
             $table->string('type'); //tipo de persona
             $table->foreignId('stake_id')->constrained(); //participación
             $table->boolean('beneficiary')->default(Grantor::NO_BENEFICIARY);

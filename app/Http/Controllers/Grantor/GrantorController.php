@@ -46,7 +46,9 @@ class GrantorController extends ApiController
     {
         $this->validate($request, Grantor::rules());
         $grantor = new Grantor($request->all());
-        $grantor->birthdate = Carbon::parse($grantor->birthdate);
+        if(!empty($grantor->birthdate)){
+            $grantor->birthdate = Carbon::parse($grantor->birthdate);
+        }
         $grantor->save();
 
         return $this->showOne($grantor);
@@ -79,6 +81,10 @@ class GrantorController extends ApiController
         $grantor->fill($request->all());
         if ($grantor->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);
+        }
+
+        if(!empty($request->get('birthdate'))){
+            $grantor->birthdate = Carbon::parse($request->get('birthdate'));
         }
 
         $grantor->save();

@@ -20,6 +20,7 @@ use App\Http\Controllers\NationalConsumerPriceIndex\NationalConsumerPriceIndexCo
 use App\Http\Controllers\Operation\OperationController;
 use App\Http\Controllers\Place\PlaceController;
 use App\Http\Controllers\Procedure\ProcedureController;
+use App\Http\Controllers\Procedure\ProcedureValidatorsController;
 use App\Http\Controllers\Procedure\RegistrationProcedureDataController;
 use App\Http\Controllers\ProcedureComment\ProcedureCommentController;
 use App\Http\Controllers\Project\ProjectActionController;
@@ -222,6 +223,7 @@ class RoleActionController extends ApiController
                 RegistrationProcedureDataController::class,
                 ProcedureCommentController::class,
                 StaffController::class,
+                ProcedureValidatorsController::class,
             ],
         ],
         [

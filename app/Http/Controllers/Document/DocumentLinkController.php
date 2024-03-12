@@ -156,12 +156,14 @@ class DocumentLinkController extends ApiController
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Client $client
+     * @param $id
      *
      * @return JsonResponse
      */
     public function update(Request $request, $id): JsonResponse
     {
+        return $this->showList([$request->all(), $id]);
+
         $this->validate($request, [
             'client_id' => 'required|int',
             'document_id' => 'required|int',
@@ -235,6 +237,47 @@ class DocumentLinkController extends ApiController
             $client->documents()->detach($id);
             DB::commit();
         } catch (Exception $e) {
+            DB::rollBack();
+
+            return $this->errorResponse('error --> ' . $e->getMessage(), 409);
+        }
+    }
+
+    public function updateAlternative(Request $request): JsonResponse
+    {
+        $this->validate($request, [
+            'client_id' => 'required|int',
+            'document_id' => 'required|int',
+            'view' => 'required|string',
+            'file' => 'required|file|max:60048'
+        ]);
+
+        if ($request->get('view') == 'client') {
+            $client = Client::findOrFail($request->get('client_id'));
+            $path = 'clients/' . $client->id . '/expedient/';
+        } elseif ($request->get('view') == 'client_link') {
+            $client = ClientLink::findOrFail($request->get('client_id'));
+            $path = 'clients_link/' . $client->id . '/expedient/';
+        } elseif ($request->get('view') == 'procedures') {
+            $client = Procedure::findOrFail($request->get('client_id'));
+            $path = 'procedures/' . $client->id . '/expedient/';
+        } else {
+            return $this->errorResponse('value view not correct', 409);
+        }
+        DB::beginTransaction();
+        try {
+            $document = Document::findOrFail($request->get('document_id'));
+            
+            $document = $client->documents->find($document->id);
+            $file = $request->file('file');
+            $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs($path, $fileName);
+            $document->pivot->file = $fileName; 
+            $document->pivot->save();
+            DB::commit();
+
+            return $this->showOne($client);
+        } catch (\Exception $e) {
             DB::rollBack();
 
             return $this->errorResponse('error --> ' . $e->getMessage(), 409);

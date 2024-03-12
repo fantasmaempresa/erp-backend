@@ -20,6 +20,7 @@ class CreateProceduresTable extends Migration
             $table->string('value_operation')->nullable(); // Valor de Operación
             $table->string('instrument'); //instrumento
             $table->date('date'); //fecha
+            $table->date('date_proceedings')->nullable(); //fecha
             $table->string('volume'); // volumen
             $table->bigInteger('folio_min')->nullable(); //rango bajo de folio
             $table->bigInteger('folio_max'); //rango alto de folio
