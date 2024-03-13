@@ -88,6 +88,7 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('documents', DocumentController::class, ['except' => ['create', 'edit']]);
     Route::resource('clientDocuments', ClientDocumentController::class, ['except' => ['create', 'edit']]);
     Route::resource('documentLink', DocumentLinkController::class, ['except' => ['create', 'edit']]);
+    Route::post('documentLink/updateAlternative', [DocumentLinkController::class, 'updateAlternative']);
     Route::resource('concepts', ConceptController::class, ['except' => ['create', 'edit']]);
     Route::resource('statusQuotes', StatusQuoteController::class, ['except' => ['create', 'edit']]);
     Route::resource('clientLinks', ClientLinkController::class, ['except' => 'create', 'edit']);
@@ -194,10 +195,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('notifications/filter/getLastUserNotifications', [NotificationFilterController::class, 'getLastUserNotifications']);
     Route::get('notifications/filter/getUncheckUserNotifications', [NotificationFilterController::class, 'getUncheckUserNotifications']);
     Route::get('notifications/filter/getCheckUserNotifications', [NotificationFilterController::class, 'getCheckUserNotifications']);
-
 });
 
 //ROUTES OAUTH AND OPERATIONS LOGIN USERS
 Route::post('oauth/token', [AuthController::class, 'issueToken']);
-
-

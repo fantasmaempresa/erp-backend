@@ -10,33 +10,38 @@ use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\ClientLink\ClientLinkController;
 use App\Http\Controllers\Concept\ConceptController;
+use App\Http\Controllers\DisposalRealEstate\DisposalRealEstateController;
 use App\Http\Controllers\Document\DocumentController;
 use App\Http\Controllers\Document\DocumentLinkController;
 use App\Http\Controllers\Grantor\GrantorController;
+use App\Http\Controllers\InversionUnit\InversionUnitController;
 use App\Http\Controllers\IsoDocument\IsoDocumentController;
+use App\Http\Controllers\NationalConsumerPriceIndex\NationalConsumerPriceIndexController;
 use App\Http\Controllers\Operation\OperationController;
-use App\Http\Controllers\PhasesProcess\PhasesProcessController;
 use App\Http\Controllers\Place\PlaceController;
 use App\Http\Controllers\Procedure\ProcedureController;
+use App\Http\Controllers\Procedure\ProcedureValidatorsController;
 use App\Http\Controllers\Procedure\RegistrationProcedureDataController;
+use App\Http\Controllers\ProcedureComment\ProcedureCommentController;
 use App\Http\Controllers\Project\ProjectActionController;
 use App\Http\Controllers\Project\ProjectController;
 use App\Http\Controllers\Project\ProjectFilterController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteFilterController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteOperationsController;
+use App\Http\Controllers\Rate\RateController;
 use App\Http\Controllers\Shape\ShapeController;
 use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\Stake\StakeController;
 use App\Http\Controllers\TemplateQuotes\TemplateQuotesController;
 use App\Http\Controllers\TemplateShape\TemplateShapeController;
+use App\Http\Controllers\TypeDisposalOperation\TypeDisposalOperationController;
 use App\Http\Controllers\User\UserActionController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\UserFilterController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
 use App\Models\Role;
 use App\Models\User;
-use Database\Seeders\RegistrationDataSeeder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
@@ -168,28 +173,6 @@ class RoleActionController extends ApiController
                 ProjectFilterController::class,
             ],
         ],
-
-//        [
-//            'label' => 'Trámites',
-//            'icon' => 'description',
-//            'route' => './procedures',
-//            'dropdowns' => [
-//                [
-//                    'label' => 'Pendientes',
-//                    'route' => './pending_procedures',
-//                    'icon' => 'pause',
-//                ],
-//                [
-//                    'label' => 'En Curso',
-//                    'route' => './ongoing_procedure',
-//                    'icon' => 'play_arrow',
-//                ],
-//            ],
-//            'controllers' => [
-//                PhasesProcessController::class,
-//                ProjectController::class,
-//            ],
-//        ],
         [
             'label' => 'Notarial',
             'icon' => 'balance',
@@ -198,32 +181,32 @@ class RoleActionController extends ApiController
                 [
                     'label' => 'Participaciones',
                     'route' => './stakes',
-                    'icon' => 'play_arrow',
+                    'icon' => 'supervised_user_circle',
                 ],
                 [
                     'label' => 'Operaciones',
                     'route' => './operations',
-                    'icon' => 'play_arrow',
+                    'icon' => 'format_list_bulleted',
                 ],
                 [
                     'label' => 'Otorgantes',
                     'route' => './grantors',
-                    'icon' => 'play_arrow',
+                    'icon' => 'groups',
                 ],
                 [
                     'label' => 'Lugares',
                     'route' => './places',
-                    'icon' => 'play_arrow',
+                    'icon' => 'location_on',
                 ],
                 [
                     'label' => 'Formas',
                     'route' => './shapes',
-                    'icon' => 'play_arrow',
+                    'icon' => 'summarize',
                 ],
                 [
                     'label' => 'Trámites',
                     'route' => './procedures',
-                    'icon' => 'play_arrow',
+                    'icon' => 'event',
                 ],
             ],
             'controllers' => [
@@ -234,7 +217,52 @@ class RoleActionController extends ApiController
                 PlaceController::class,
                 GrantorController::class,
                 RegistrationProcedureDataController::class,
-                StakeController::class
+                StakeController::class,
+                DocumentLinkController::class,
+                ClientController::class,
+                RegistrationProcedureDataController::class,
+                ProcedureCommentController::class,
+                StaffController::class,
+                ProcedureValidatorsController::class,
+            ],
+        ],
+        [
+            'label' => 'Calculadora Enagenación de bienes',
+            'icon' => 'apartment',
+            'route' => './disposal_assets',
+            'dropdowns' => [
+                [
+                    'label' => 'Precio al Consumidor Nacional',
+                    'route' => './nationalConsumer',
+                    'icon' => 'attach_money',
+                ],
+                [
+                    'label' => 'Unidad de inversión',
+                    'route' => './inversionUnit',
+                    'icon' => 'trending_up',
+                ],
+                [
+                    'label' => 'Tasa',
+                    'route' => './rate',
+                    'icon' => 'savings',
+                ],
+                [
+                    'label' => 'Operaciones de eliminación',
+                    'route' => './disponsalOperation',
+                    'icon' => 'money',
+                ],
+                [
+                    'label' => 'Enajenación de Bienes',
+                    'route' => './disponsalRealEstate',
+                    'icon' => 'monetization_on',
+                ],
+            ],
+            'controllers' => [
+                NationalConsumerPriceIndexController::class,
+                InversionUnitController::class,
+                RateController::class,
+                TypeDisposalOperationController::class,
+                DisposalRealEstateController::class,
             ],
         ],
         [
@@ -314,7 +342,6 @@ class RoleActionController extends ApiController
                     }
                 }
             }
-
         }
 
         return $this->showList($menus);

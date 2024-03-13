@@ -17,15 +17,15 @@ class CreateProceduresTable extends Migration
         Schema::create('procedures', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique(); //Expediente
-            $table->string('value_operation'); // Valor de Operación
-            $table->date('date_proceedings'); //Fecha
+            $table->string('value_operation')->nullable(); // Valor de Operación
             $table->string('instrument'); //instrumento
             $table->date('date'); //fecha
+            $table->date('date_proceedings')->nullable(); //fecha
             $table->string('volume'); // volumen
             $table->bigInteger('folio_min')->nullable(); //rango bajo de folio
             $table->bigInteger('folio_max'); //rango alto de folio
             $table->string('credit')->nullable(); // credito
-            $table->text('observation'); // observaciones
+            $table->text('observation')->nullable(); // observaciones
             $table->tinyInteger('status')->default(Procedure::IN_PROCESS);
             $table->foreignId('operation_id')->constrained(); //Operacion
             $table->foreignId('user_id')->constrained(); //Elaboro

@@ -59,7 +59,6 @@ class ProcedureController extends ApiController
         DB::begintransaction();
 
         try {
-            $procedure->date_proceedings = Carbon::parse($procedure->date_proceedings);
             $procedure->date = Carbon::parse($procedure->date);
             $procedure->user_id = Auth::id();
             $procedure->save();
@@ -114,10 +113,29 @@ class ProcedureController extends ApiController
     {
 
         $this->validate($request, Procedure::rules());
-        $procedure->fill($request->all());
-        if ($procedure->isClean()) {
-            return $this->errorResponse('A different value must be specified to update', 422);
+        DB::begintransaction();
+
+        try{
+            $procedure->fill($request->all());
+            $documents = [];
+            $grantors = [];
+            foreach ($request->get('grantors') as $grantor) {
+                $grantors[] = $grantor['id'];
+            }
+
+            foreach ($request->get('documents') as $document) {
+                $documents[] = $document['id'];  
+            
+            }
+            $procedure->grantors()->sync($grantors);
+            $procedure->documents()->sync($documents);
+
+            DB::commit();
+        }catch (\Exception $e){
+            DB::rollBack();
+            return $this->errorResponse('error al actualizar --> ' . $e->getMessage(), 409);
         }
+        
 
         $procedure->save();
 

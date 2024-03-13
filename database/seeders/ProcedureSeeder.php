@@ -29,7 +29,6 @@ class ProcedureSeeder extends Seeder
         $records = $import->readFile();
 
         foreach ($records as $record) {
-            print_r($record);
             try {
 
                 $date_proceedings = Carbon::createFromFormat('d/m/Y', $record['FechaExp'])->format('Y-m-d');

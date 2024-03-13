@@ -113,7 +113,7 @@ class Shape extends Model
         return [
             'folio' => 'required|string',
             'notary' => 'required|string',
-            'scriptures' => 'required|string',
+            'scriptures' => 'nullable|string',
             'property_account' => 'required|string',
             'signature_date' => 'required|date',
             'departure' => 'nullable|string',
@@ -121,7 +121,7 @@ class Shape extends Model
             'sheets' => 'nullable|string',
             'took' => 'nullable|string',
             'book' => 'nullable|string',
-            'operation_value' => 'required|string',
+            'operation_value' => 'nullable|string',
             'description' => 'required|string',
             'total' => 'required|string',
             'data_form' => 'required|array',
