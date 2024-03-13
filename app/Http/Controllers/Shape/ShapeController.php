@@ -3,6 +3,7 @@
 /*
  * OPEN 2 CODE SHAPE CONTROLLER
  */
+
 namespace App\Http\Controllers\Shape;
 
 use App\Http\Controllers\ApiController;
@@ -15,6 +16,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 /**
@@ -32,7 +34,7 @@ class ShapeController extends ApiController
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
-            $response = $this->showList(shape::search($request->get('search'))->orderBy('id','desc')->paginate($paginate));
+            $response = $this->showList(shape::search($request->get('search'))->orderBy('id', 'desc')->paginate($paginate));
         } elseif ($request->has('procedure_id')) {
             $procedure = Procedure::findOrFail($request->get('procedure_id'))->orderBy('id', 'DESC');
             $shapes = $procedure->shapes;
@@ -45,7 +47,7 @@ class ShapeController extends ApiController
                 ['path' => Paginator::resolveCurrentPath()]
             ));
         } else {
-            $response = $this->showList(shape::orderBy('id','desc')->paginate($paginate));
+            $response = $this->showList(shape::orderBy('id', 'desc')->paginate($paginate));
         }
 
         return $response;
@@ -63,34 +65,45 @@ class ShapeController extends ApiController
     {
         $this->validate($request, Shape::rules());
 
-        $shape = new Shape($request->all());
+        DB::beginTransaction();
+        try{
+            $shape = new Shape($request->all());
 
-        //TODO verificar que el fomulario que viene sea el mismo que el de la plantilla
-//        if (!$shape->verifyForm()) {
-//            return $this->errorResponse('this form format not valid', 422);
-//        }
-
-        $shape->signature_date = Carbon::parse($shape->signature_date);
-        $shape->save();
-
-        $shape->grantors()->attach(Grantor::find($request->get('alienating')), ['type' => Stake::ALIENATING]);
-        $shape->grantors()->attach(Grantor::find($request->get('acquirer')), ['type' => Stake::ACQUIRER]);
-
-        if ($request->has('grantors')){
-            if ($request->has('alienating')) {
-                foreach ($request->get('grantors')['alienating'] as $grantor) {
-                    $shape->grantors()->attach(Grantor::find($grantor['id']), ['type' => Stake::ALIENATING]);
-                }
-            }
+            //TODO verificar que el fomulario que viene sea el mismo que el de la plantilla
+            //        if (!$shape->verifyForm()) {
+            //            return $this->errorResponse('this form format not valid', 422);
+            //        }
     
-            if ($request->has('acquirer')) {
-                foreach ($request->get('grantors')['acquirer'] as $grantor) {
-                    $shape->grantors()->attach(Grantor::find($grantor['id']), ['type' => Stake::ACQUIRER]);
+            $shape->signature_date = Carbon::parse($shape->signature_date);
+            $shape->save();
+    
+            $shape->grantors()->attach(Grantor::find($request->get('alienating')), ['type' => Stake::ALIENATING]);
+            $shape->grantors()->attach(Grantor::find($request->get('acquirer')), ['type' => Stake::ACQUIRER]);
+    
+            if ($request->has('grantors')) {
+                $grantors = $request->input('grantors');
+                if (isset($grantors['alienating'])) {
+                    foreach ($request->get('grantors')['alienating'] as $grantor) {
+                        $shape->grantors()->attach(Grantor::find($grantor['id']), ['type' => Stake::ALIENATING]);
+                    }
+                }
+    
+                $grantors = $request->input('acquirer');
+                if (isset($grantors['acquirer'])) {
+                    foreach ($request->get('grantors')['acquirer'] as $grantor) {
+                        $shape->grantors()->attach(Grantor::find($grantor['id']), ['type' => Stake::ACQUIRER]);
+                    }
                 }
             }
-        }
 
-        return $this->showOne($shape);
+            DB::commit();
+
+            return $this->showOne($shape);
+        }catch (Exception $exception){
+            DB::rollBack();
+
+            return $this->errorResponse($exception->getMessage(), 422);
+        }
     }
 
     /**
@@ -132,13 +145,13 @@ class ShapeController extends ApiController
         $shape->grantors()->attach(Grantor::find($request->get('alienating')), ['type' => Stake::ALIENATING]);
         $shape->grantors()->attach(Grantor::find($request->get('acquirer')), ['type' => Stake::ACQUIRER]);
 
-        if ($request->has('grantors')){
+        if ($request->has('grantors')) {
             if ($request->has('alienating')) {
                 foreach ($request->get('grantors')['alienating'] as $grantor) {
                     $shape->grantors()->attach(Grantor::find($grantor['id']), ['type' => Stake::ALIENATING]);
                 }
             }
-    
+
             if ($request->has('acquirer')) {
                 foreach ($request->get('grantors')['acquirer'] as $grantor) {
                     $shape->grantors()->attach(Grantor::find($grantor['id']), ['type' => Stake::ACQUIRER]);
