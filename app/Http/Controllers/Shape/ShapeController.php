@@ -31,26 +31,43 @@ class ShapeController extends ApiController
      */
     public function index(Request $request): JsonResponse
     {
-        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+        $perPage = $request->get('paginate') ?? env('NUMBER_PAGINATE');
+        $query = shape::query();
 
-        if (!empty($request->get('search')) && $request->get('search') !== 'null') {
-            $response = $this->showList(shape::search($request->get('search'))->orderBy('id', 'desc')->paginate($paginate));
+        if ($request->has('search') && $request->get('search') !== 'null') {
+            $query->search($request->get('search'));
         } elseif ($request->has('procedure_id')) {
-            $procedure = Procedure::findOrFail($request->get('procedure_id'))->orderBy('id', 'DESC');
-            $shapes = $procedure->shapes;
-            $currentPage = Paginator::resolveCurrentPage('page');
-            $response = $this->showList(new LengthAwarePaginator(
-                $shapes->forPage($currentPage, $paginate),
-                $shapes->count(),
-                $paginate,
-                $currentPage,
-                ['path' => Paginator::resolveCurrentPath()]
-            ));
-        } else {
-            $response = $this->showList(shape::orderBy('id', 'desc')->paginate($paginate));
+            $procedure = Procedure::findOrFail($request->get('procedure_id'));
+            $query->whereIn('id', $procedure->shapes->modelKeys());
         }
 
-        return $response;
+        $shapes = $query->orderBy('id', 'desc')->paginate($perPage);
+
+        $shapes->getCollection()->map(function ($shape) {
+            if ($shape->grantors()->get()->isNotEmpty()) {
+                $otherGrantors = $shape->grantors()->get()->splice(2);
+
+                $shape->acquirer = $shape->grantors()->get()[0];
+                $shape->alienator = $shape->grantors()->get()[1];
+
+                $acquirers = $alienators = [];
+
+                foreach ($otherGrantors as $grantor) {
+                    if ($grantor->pivot->type === Stake::ACQUIRER) {
+                        $acquirers[] = $grantor;
+                    } else {
+                        $alienators[] = $grantor;
+                    }
+                }
+
+                $shape->grantors = [
+                    'acquirers' => $acquirers,
+                    'alienators' => $alienators,
+                ];
+            }
+        });
+
+        return $this->showList($shapes);
     }
 
 
@@ -66,29 +83,29 @@ class ShapeController extends ApiController
         $this->validate($request, Shape::rules());
 
         DB::beginTransaction();
-        try{
+        try {
             $shape = new Shape($request->all());
 
             //TODO verificar que el fomulario que viene sea el mismo que el de la plantilla
             //        if (!$shape->verifyForm()) {
             //            return $this->errorResponse('this form format not valid', 422);
             //        }
-    
+
             $shape->signature_date = Carbon::parse($shape->signature_date);
             $shape->save();
-    
+
             $shape->grantors()->attach(Grantor::find($request->get('alienating')), ['type' => Stake::ALIENATING]);
             $shape->grantors()->attach(Grantor::find($request->get('acquirer')), ['type' => Stake::ACQUIRER]);
-    
+
             if ($request->has('grantors')) {
                 $grantors = $request->input('grantors');
+
                 if (isset($grantors['alienating'])) {
                     foreach ($request->get('grantors')['alienating'] as $grantor) {
                         $shape->grantors()->attach(Grantor::find($grantor['id']), ['type' => Stake::ALIENATING]);
                     }
                 }
-    
-                $grantors = $request->input('acquirer');
+
                 if (isset($grantors['acquirer'])) {
                     foreach ($request->get('grantors')['acquirer'] as $grantor) {
                         $shape->grantors()->attach(Grantor::find($grantor['id']), ['type' => Stake::ACQUIRER]);
@@ -99,7 +116,7 @@ class ShapeController extends ApiController
             DB::commit();
 
             return $this->showOne($shape);
-        }catch (Exception $exception){
+        } catch (Exception $exception) {
             DB::rollBack();
 
             return $this->errorResponse($exception->getMessage(), 422);
