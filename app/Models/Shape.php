@@ -43,6 +43,7 @@ class Shape extends Model
         'reverse',
         'template_shape_id',
         'procedure_id',
+        'operation_id',
     ];
 
     /**
@@ -128,6 +129,7 @@ class Shape extends Model
             'reverse' => 'nullable|string',
             'template_shape_id' => 'required|exists:template_shapes,id',
             'procedure_id' => 'required|exists:procedures,id',
+            'operation_id' => 'required|exists:operations,id',
             'alienating' => 'required|exists:grantors,id',
             'acquirer' => 'required|exists:grantors,id',
             'grantors.alienating.*.id' => 'required|exists:grantors,id',

@@ -33,6 +33,7 @@ class CreateShapesTable extends Migration
 
             $table->foreignId('template_shape_id')->constrained(); //Tipo de de trámite
             $table->foreignId('procedure_id')->constrained(); // trámite al que pertenece esta forma
+            $table->foreignId('operation_id')->nullable()->constrained();
             $table->timestamps();
         });
     }
