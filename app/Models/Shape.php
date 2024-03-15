@@ -105,6 +105,11 @@ class Shape extends Model
             ->groupBy($columns);
     }
 
+    public function operation()
+    {
+        return $this->belongsTo(Operation::class);
+    }
+
     /**
      * @return string[]
      */
@@ -136,6 +141,4 @@ class Shape extends Model
             'grantors.acquirer.*.id' => 'required|exists:grantors,id',
         ];
     }
-
-
 }
