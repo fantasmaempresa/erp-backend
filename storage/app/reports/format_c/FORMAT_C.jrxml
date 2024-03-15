@@ -43,14 +43,6 @@
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.book"/>
 		<fieldDescription><![CDATA[shape.book]]></fieldDescription>
 	</field>
-	<field name="name" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="operation.name"/>
-		<fieldDescription><![CDATA[operation.name]]></fieldDescription>
-	</field>
-	<field name="description" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="operation.description"/>
-		<fieldDescription><![CDATA[operation.description]]></fieldDescription>
-	</field>
 	<field name="notary" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.notary"/>
 		<fieldDescription><![CDATA[shape.notary]]></fieldDescription>
@@ -110,6 +102,22 @@
 	<field name="alientating" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.extra.alientating"/>
 		<fieldDescription><![CDATA[shape.extra.alientating]]></fieldDescription>
+	</field>
+	<field name="operation_name" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.operation.name"/>
+		<fieldDescription><![CDATA[shape.operation.name]]></fieldDescription>
+	</field>
+	<field name="description" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.description"/>
+		<fieldDescription><![CDATA[shape.description]]></fieldDescription>
+	</field>
+	<field name="father_last_name_al" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.father_last_name"/>
+		<fieldDescription><![CDATA[shape.alienatingData.father_last_name]]></fieldDescription>
+	</field>
+	<field name="mother_last_name_al" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.mother_last_name"/>
+		<fieldDescription><![CDATA[shape.alienatingData.mother_last_name]]></fieldDescription>
 	</field>
 	<title>
 		<band height="65" splitType="Stretch">
@@ -702,20 +710,6 @@
 				<textFieldExpression><![CDATA[$F{book}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="10" y="422" width="198" height="138" uuid="764691ad-cce1-4b91-9cf6-346d5e76fabe"/>
-				<textElement>
-					<font fontName="Arial" size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="220" y="422" width="350" height="138" uuid="e9a3e28c-5dfd-44b0-85db-983f1049603b"/>
-				<textElement>
-					<font fontName="Arial" size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="53" y="615" width="201" height="10" uuid="6003cb33-1539-4f1e-a07a-51842cdffda3"/>
 				<textElement>
 					<font fontName="Arial" size="8"/>
@@ -786,11 +780,11 @@
 				<text><![CDATA[3117]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="113" y="86" width="460" height="10" uuid="a012fc2c-c3ce-472b-99da-02f6a4554b0b"/>
+				<reportElement x="113" y="86" width="316" height="10" uuid="a012fc2c-c3ce-472b-99da-02f6a4554b0b"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{name_al}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{name_al} + " " + $F{father_last_name_al} + " " + $F{mother_last_name_al}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="45" y="110" width="528" height="10" uuid="515da075-0da7-4672-bcbc-c5b035c81d9b"/>
@@ -849,11 +843,25 @@
 				<textFieldExpression><![CDATA[$F{phone_al}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="360" y="830" width="218" height="15" uuid="86c1aa2c-1ffa-4c3b-95d9-1ed7faafed60"/>
+				<reportElement x="439" y="86" width="125" height="10" uuid="86c1aa2c-1ffa-4c3b-95d9-1ed7faafed60"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="9"/>
+					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{extra} != null ? "* LEER REVERSO" : ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="423" width="198" height="140" uuid="491821ae-f6a1-430d-aed7-71be9b2095d4"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{operation_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="219" y="423" width="344" height="140" uuid="046b8e9e-c0b7-4afa-b04f-41a471f3f362"/>
+				<textElement markup="html">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{operation_name} + " " + $F{description}]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="150">

@@ -34,15 +34,15 @@ class ShapeActionController extends ApiController
     {
         $procedure = Procedure::find($shape->procedure->id);
 
-        $procedure->operation;
         $procedure->shape = $shape;
+        $procedure->shape->operation = $shape->operation;
         $procedure->shape->signature_date_s = $this->separateDate(new DateTime($procedure->shape->signature_date));
 
         $parameters = [];
 
         $extension = "pdf";
         if ($request->has('reportExtension')) {
-            switch ($request->get('reportExtension')){
+            switch ($request->get('reportExtension')) {
                 case 1:
                     $extension = "pdf";
                     break;
@@ -90,6 +90,8 @@ class ShapeActionController extends ApiController
         unset($procedure->shape['template_shape']);
         unset($procedure->shape['procedure']);
         unset($procedure->shape['grantors']);
+
+        // return $this->showList($procedure);
 
         $jsonData = json_encode($procedure);
 
@@ -177,9 +179,13 @@ class ShapeActionController extends ApiController
                 'ac_curp'
             );
         } else {
+            $grantor = $procedure->shape->grantors[1] ?? null;
+
             //ACQUIRER DATA
             $procedure->shape->acquirerData = [
-                "name" => ($procedure->shape->grantors->isNotEmpty()) ? $procedure->shape->grantors[1]['name'] : $procedure->shape->data_form['acquirer_name'],
+                'name' => $grantor ? $grantor['name'] : $procedure->shape->data_form['acquirer_name'],
+                'father_last_name' => $grantor ? $grantor['father_last_name'] : '',
+                'mother_last_name' => $grantor ? $grantor['mother_last_name'] : '',
             ];
 
             $procedure->shape->rfc = $this->splitString(
@@ -228,17 +234,21 @@ class ShapeActionController extends ApiController
 
     private function grantorData($procedure, $index)
     {
+        $grantor = $procedure->shape->grantors[$index] ?? null;
+
         return [
-            "name" => ($procedure->shape->grantors->isNotEmpty()) ? $procedure->shape->grantors[$index]['name'] : $procedure->shape->data_form['alienating_name'],
-            "street" => ($procedure->shape->grantors->isNotEmpty()) ? $procedure->shape->grantors[$index]['name'] : $procedure->shape->data_form['alienating_street'],
-            "outdoor_number" => ($procedure->shape->grantors->isNotEmpty()) ? $procedure->shape->grantors[$index]['no_ext'] : $procedure->shape->data_form['alienating_outdoor_number'],
-            "interior_number" => ($procedure->shape->grantors->isNotEmpty()) ? $procedure->shape->grantors[$index]['no_int'] : $procedure->shape->data_form['alienating_interior_number'],
-            "colony" => ($procedure->shape->grantors->isNotEmpty()) ? $procedure->shape->grantors[$index]['colony'] : $procedure->shape->data_form['alienating_colony'],
-            "locality" => ($procedure->shape->grantors->isNotEmpty()) ? $procedure->shape->grantors[$index]['locality'] : $procedure->shape->data_form['alienating_locality'],
-            "municipality" => ($procedure->shape->grantors->isNotEmpty()) ? $procedure->shape->grantors[$index]['municipality'] : $procedure->shape->data_form['alienating_municipality'],
-            "entity" => ($procedure->shape->grantors->isNotEmpty()) ? $procedure->shape->grantors[$index]['municipality'] : $procedure->shape->data_form['alienating_entity'],
-            "zipcode" => ($procedure->shape->grantors->isNotEmpty()) ? $procedure->shape->grantors[$index]['zipcode'] : $procedure->shape->data_form['alienating_zipcode'],
-            "phone" => ($procedure->shape->grantors->isNotEmpty()) ? $procedure->shape->grantors[$index]['phone'] : $procedure->shape->data_form['alienating_phone'],
+            'name' => $grantor ? $grantor['name'] : $procedure->shape->data_form['alienating_name'],
+            'father_last_name' => $grantor ? $grantor['father_last_name'] : '',
+            'mother_last_name' => $grantor ? $grantor['mother_last_name'] : '',
+            'street' => $grantor ? $grantor['street'] : $procedure->shape->data_form['alienating_street'],
+            'outdoor_number' => $grantor ? $grantor['no_ext'] : $procedure->shape->data_form['alienating_outdoor_number'],
+            'interior_number' => $grantor ? $grantor['no_int'] : $procedure->shape->data_form['alienating_interior_number'],
+            'colony' => $grantor ? $grantor['colony'] : $procedure->shape->data_form['alienating_colony'],
+            'locality' => $grantor ? $grantor['locality'] : $procedure->shape->data_form['alienating_locality'],
+            'municipality' => $grantor ? $grantor['municipality'] : $procedure->shape->data_form['alienating_municipality'],
+            'entity' => $grantor ? $grantor['entity'] : $procedure->shape->data_form['alienating_entity'],
+            'zipcode' => $grantor ? $grantor['zipcode'] : $procedure->shape->data_form['alienating_zipcode'],
+            'phone' => $grantor ? $grantor['phone'] : $procedure->shape->data_form['alienating_phone'],
         ];
     }
 }

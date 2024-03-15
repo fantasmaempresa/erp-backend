@@ -67,14 +67,6 @@
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.operation_value"/>
 		<fieldDescription><![CDATA[shape.operation_value]]></fieldDescription>
 	</field>
-	<field name="name" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="operation.name"/>
-		<fieldDescription><![CDATA[operation.name]]></fieldDescription>
-	</field>
-	<field name="description" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="operation.description"/>
-		<fieldDescription><![CDATA[operation.description]]></fieldDescription>
-	</field>
 	<field name="property" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.property"/>
 		<fieldDescription><![CDATA[shape.data_form.property]]></fieldDescription>
@@ -250,6 +242,22 @@
 	<field name="alientating" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.extra.alientating"/>
 		<fieldDescription><![CDATA[shape.extra.alientating]]></fieldDescription>
+	</field>
+	<field name="operation_name" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.operation.name"/>
+		<fieldDescription><![CDATA[shape.operation.name]]></fieldDescription>
+	</field>
+	<field name="description" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.description"/>
+		<fieldDescription><![CDATA[shape.description]]></fieldDescription>
+	</field>
+	<field name="father_last_name_ac" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.acquirerData.father_last_name"/>
+		<fieldDescription><![CDATA[shape.acquirerData.father_last_name]]></fieldDescription>
+	</field>
+	<field name="mother_last_name_ac" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.acquirerData.mother_last_name"/>
+		<fieldDescription><![CDATA[shape.acquirerData.mother_last_name]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -1499,20 +1507,6 @@
 				<textFieldExpression><![CDATA[$F{operation_value}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="4" y="262" width="206" height="118" uuid="cdc68a35-a80e-4698-b3e1-661ab7d6acef"/>
-				<textElement>
-					<font fontName="Arial" size="6"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="219" y="262" width="358" height="118" uuid="c343490b-051e-445a-8513-029ace89d7ed"/>
-				<textElement>
-					<font fontName="Arial" size="6"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="7" y="408" width="570" height="18" uuid="7b38dfcc-7fe5-49c2-a7de-91817a9f4a94"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6"/>
@@ -1981,11 +1975,11 @@
 				<textFieldExpression><![CDATA[$F{firs_amount}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="5" y="558" width="564" height="14" uuid="9555dc88-c600-458e-acb5-4f43be2e94bf"/>
+				<reportElement x="5" y="558" width="340" height="14" uuid="9555dc88-c600-458e-acb5-4f43be2e94bf"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{name_ac}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{name_ac} + " " + $F{father_last_name_ac} + " " + $F{mother_last_name_ac}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="5" y="605" width="564" height="14" uuid="4de31255-37ce-4942-8243-7fddb61bae88"/>
@@ -1995,11 +1989,25 @@
 				<textFieldExpression><![CDATA[$F{acquirer_home}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="359" y="802" width="218" height="15" uuid="980bc75a-2d60-44da-b8c1-86e181875ad8"/>
+				<reportElement x="355" y="558" width="172" height="14" uuid="980bc75a-2d60-44da-b8c1-86e181875ad8"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="7"/>
+					<font fontName="Arial" size="6"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{extra} != null ? "* LEER REVERSO" : ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="5" y="262" width="204" height="118" uuid="63194b9f-4862-49fb-b8a1-acd9a7b6f874"/>
+				<textElement>
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{operation_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="221" y="262" width="352" height="118" uuid="fe3a317a-cfd9-4e50-9fd8-e9f6d148c65b"/>
+				<textElement markup="html">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{operation_name} + " " + $F{description}]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="150">

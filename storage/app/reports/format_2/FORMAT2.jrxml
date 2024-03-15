@@ -3,11 +3,11 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FORMAT1" pageWidth="623" pageHeight="963" columnWidth="583" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="963e1d41-dcf3-4a1b-8c12-a1c0b97bcf5a">
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="cm"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="cm"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="FORMA 02\JSON F2.xml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="REPORTE TESORERIA\DA_FORMAT_C.xml"/>
 	<parameter name="imageSF" class="java.lang.String"/>
 	<parameter name="subReportPath" class="java.lang.String"/>
 	<queryString language="JSON">
-		<![CDATA[shape.data_form.first_quote]]>
+		<![CDATA[shape.operation.name]]>
 	</queryString>
 	<field name="folio" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.folio"/>
@@ -68,14 +68,6 @@
 	<field name="operation_value" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.operation_value"/>
 		<fieldDescription><![CDATA[shape.operation_value]]></fieldDescription>
-	</field>
-	<field name="name" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="operation.name"/>
-		<fieldDescription><![CDATA[operation.name]]></fieldDescription>
-	</field>
-	<field name="description" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="operation.description"/>
-		<fieldDescription><![CDATA[operation.description]]></fieldDescription>
 	</field>
 	<field name="property" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.property"/>
@@ -316,6 +308,22 @@
 	<field name="alientating" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.extra.alientating"/>
 		<fieldDescription><![CDATA[shape.extra.alientating]]></fieldDescription>
+	</field>
+	<field name="operation_name" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.operation.name"/>
+		<fieldDescription><![CDATA[shape.operation.name]]></fieldDescription>
+	</field>
+	<field name="description" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.description"/>
+		<fieldDescription><![CDATA[shape.description]]></fieldDescription>
+	</field>
+	<field name="father_last_name_ac" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.acquirerData.father_last_name"/>
+		<fieldDescription><![CDATA[shape.acquirerData.father_last_name]]></fieldDescription>
+	</field>
+	<field name="mother_last_name_ac" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.acquirerData.mother_last_name"/>
+		<fieldDescription><![CDATA[shape.acquirerData.mother_last_name]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -1578,20 +1586,6 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				<textFieldExpression><![CDATA[$F{operation_value}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="13" y="160" width="217" height="176" uuid="d38aa0d9-76a8-4ea8-af59-a564ce0d1e34"/>
-				<textElement textAlignment="Left">
-					<font fontName="Arial" size="6" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="235" y="160" width="325" height="176" uuid="68bb4bef-e258-483d-baa1-8e01df8a657a"/>
-				<textElement>
-					<font fontName="Arial" size="6" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="14" y="379" width="538" height="10" uuid="b7559bab-76ad-43fa-9df3-4d2f73959d97"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
@@ -2158,14 +2152,35 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				<textFieldExpression><![CDATA[$F{fourth_amount}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="16" y="476" width="536" height="10" uuid="691e2443-cfa3-47a9-ad43-bfd74b7e5e31"/>
+				<reportElement x="16" y="476" width="254" height="10" uuid="691e2443-cfa3-47a9-ad43-bfd74b7e5e31"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{name_ac}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{name_ac} + " " + $F{father_last_name_ac} + " " + $F{mother_last_name_ac}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="376" y="760" width="184" height="11" uuid="fe26bc57-da99-4b95-954c-7ab96ba912c4"/>
+				<reportElement x="13" y="160" width="206" height="170" uuid="5ec92cfa-746c-45d4-8366-eddd3ee8c25e"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{operation_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="236" y="160" width="314" height="170" uuid="d33b98c8-aac0-4a1d-bea4-be3dd256d217"/>
+				<textElement markup="html">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{operation_name} + " " + $F{description}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="456" y="760" width="100" height="11" uuid="d6e37ab9-f664-4391-8508-6352565bc67e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[VPF - 002]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="272" y="476" width="184" height="11" uuid="a853f800-07fc-41ce-9321-e7f41cf8e073"/>
 				<textElement>
 					<font fontName="Arial" size="7"/>
 				</textElement>

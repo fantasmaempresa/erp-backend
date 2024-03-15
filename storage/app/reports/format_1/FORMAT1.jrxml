@@ -12,7 +12,7 @@
 	<parameter name="imageSF" class="java.lang.String"/>
 	<parameter name="subReportPath" class="java.lang.String"/>
 	<queryString language="JSON">
-		<![CDATA[]]>
+		<![CDATA[shape.alienatingData.mother_last_name]]>
 	</queryString>
 	<field name="scriptures" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.scriptures"/>
@@ -521,6 +521,26 @@
 	<field name="alientating" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.extra.alientating"/>
 		<fieldDescription><![CDATA[shape.extra.alientating]]></fieldDescription>
+	</field>
+	<field name="total_rights" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.total_rights"/>
+		<fieldDescription><![CDATA[shape.data_form.total_rights]]></fieldDescription>
+	</field>
+	<field name="father_last_name_al" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.father_last_name"/>
+		<fieldDescription><![CDATA[shape.alienatingData.father_last_name]]></fieldDescription>
+	</field>
+	<field name="mother_last_name_al" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.mother_last_name"/>
+		<fieldDescription><![CDATA[shape.alienatingData.mother_last_name]]></fieldDescription>
+	</field>
+	<field name="father_last_name_ac" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.acquirerData.father_last_name"/>
+		<fieldDescription><![CDATA[shape.acquirerData.father_last_name]]></fieldDescription>
+	</field>
+	<field name="mother_last_name_ac" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.acquirerData.mother_last_name"/>
+		<fieldDescription><![CDATA[shape.acquirerData.mother_last_name]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -1731,11 +1751,6 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<text><![CDATA[  TOTAL DE DERECHOS]]></text>
 			</staticText>
-			<rectangle>
-				<reportElement x="470" y="624" width="91" height="18" uuid="fb4e8dcb-ef46-44ef-9fc8-5433384a32a0">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-				</reportElement>
-			</rectangle>
 			<staticText>
 				<reportElement x="266" y="642" width="204" height="18" uuid="16493624-f58a-4506-bfdd-971d0fb06aba">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -1883,7 +1898,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 			<textField>
 				<reportElement x="20" y="346" width="541" height="124" uuid="7b0723c3-f71c-4509-86e5-407acfb71e96"/>
 				<box topPadding="5"/>
-				<textElement>
+				<textElement markup="html">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
@@ -2896,11 +2911,11 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				<textFieldExpression><![CDATA[$F{ac_curp17}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="13" y="132" width="545" height="9" uuid="072802b9-72b2-4437-8893-dd25d4f8bef8"/>
+				<reportElement x="13" y="132" width="272" height="9" uuid="072802b9-72b2-4437-8893-dd25d4f8bef8"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{name_al}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{name_al} + " " + $F{father_last_name_al} + " " + $F{mother_last_name_al}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="95" y="151" width="100" height="9" uuid="f98bb480-373f-4107-8dd4-cd35c8a33ddc"/>
@@ -2966,11 +2981,11 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				<textFieldExpression><![CDATA[$F{phone_al}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="13" y="234" width="545" height="9" uuid="204d6791-a309-4145-8a81-a0dbbf9571f5"/>
+				<reportElement x="13" y="234" width="273" height="9" uuid="204d6791-a309-4145-8a81-a0dbbf9571f5"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{name_ac}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{name_ac} + " " + $F{father_last_name_ac} + " " + $F{mother_last_name_ac}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="95" y="253" width="100" height="9" uuid="e176c6af-4b36-4d56-bc2f-cbb1b4e2c358"/>
@@ -3022,11 +3037,11 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				<textFieldExpression><![CDATA[$F{entity_ac}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="377" y="740" width="184" height="10" uuid="de837c04-0a64-4794-b8a3-6359c84b77c5"/>
+				<reportElement x="377" y="234" width="184" height="10" uuid="de837c04-0a64-4794-b8a3-6359c84b77c5"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="7"/>
+					<font fontName="Arial" size="6"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{extra} != null ? "* LEER REVERSO" : ""]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{acquirers} != null ? "* LEER REVERSO" : ""]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="399" y="273" width="77" height="9" uuid="d88ab139-d96b-447c-a5ba-70a5c0327e19"/>
@@ -3042,6 +3057,33 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{phone_ac}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="377" y="132" width="184" height="10" uuid="027b2f37-fd97-4e1f-8789-db161b283545"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alientating} != null ? "* LEER REVERSO" : ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="470" y="624" width="91" height="18" uuid="04a8f7bf-6961-4211-be2f-193586c21e94"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_rights}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="515" y="732" width="46" height="12" uuid="b0438b41-f169-4762-b86c-46c2bf3bc8d9"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[VPF - 001]]></text>
+			</staticText>
 		</band>
 		<band height="150">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -3067,7 +3109,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 		</band>
 		<band height="60">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<printWhenExpression><![CDATA[$F{reverse} != null]]></printWhenExpression>
+			<printWhenExpression><![CDATA[$F{reverse} != null && $F{reverse} != ""]]></printWhenExpression>
 			<textField textAdjust="StretchHeight">
 				<reportElement stretchType="ElementGroupHeight" isPrintRepeatedValues="false" x="80" y="3" width="497" height="54" uuid="d0ae63ce-3105-472e-b66c-0019c39fdcb3">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
