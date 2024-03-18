@@ -2911,7 +2911,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				<textFieldExpression><![CDATA[$F{ac_curp17}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="13" y="132" width="272" height="9" uuid="072802b9-72b2-4437-8893-dd25d4f8bef8"/>
+				<reportElement x="13" y="132" width="434" height="9" uuid="072802b9-72b2-4437-8893-dd25d4f8bef8"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
@@ -2981,7 +2981,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				<textFieldExpression><![CDATA[$F{phone_al}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="13" y="234" width="273" height="9" uuid="204d6791-a309-4145-8a81-a0dbbf9571f5"/>
+				<reportElement x="13" y="234" width="434" height="9" uuid="204d6791-a309-4145-8a81-a0dbbf9571f5"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
@@ -3037,7 +3037,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				<textFieldExpression><![CDATA[$F{entity_ac}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="377" y="234" width="184" height="10" uuid="de837c04-0a64-4794-b8a3-6359c84b77c5"/>
+				<reportElement x="451" y="234" width="108" height="10" uuid="de837c04-0a64-4794-b8a3-6359c84b77c5"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6"/>
 				</textElement>
@@ -3058,7 +3058,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				<textFieldExpression><![CDATA[$F{phone_ac}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="377" y="132" width="184" height="10" uuid="027b2f37-fd97-4e1f-8789-db161b283545"/>
+				<reportElement x="451" y="132" width="108" height="10" uuid="027b2f37-fd97-4e1f-8789-db161b283545"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6"/>
 				</textElement>

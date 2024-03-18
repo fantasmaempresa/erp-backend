@@ -780,7 +780,7 @@
 				<text><![CDATA[3117]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="113" y="86" width="316" height="10" uuid="a012fc2c-c3ce-472b-99da-02f6a4554b0b"/>
+				<reportElement x="113" y="86" width="334" height="10" uuid="a012fc2c-c3ce-472b-99da-02f6a4554b0b"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
@@ -843,7 +843,7 @@
 				<textFieldExpression><![CDATA[$F{phone_al}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="439" y="86" width="125" height="10" uuid="86c1aa2c-1ffa-4c3b-95d9-1ed7faafed60"/>
+				<reportElement x="447" y="86" width="125" height="10" uuid="86c1aa2c-1ffa-4c3b-95d9-1ed7faafed60"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>

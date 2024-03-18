@@ -2152,7 +2152,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				<textFieldExpression><![CDATA[$F{fourth_amount}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="16" y="476" width="254" height="10" uuid="691e2443-cfa3-47a9-ad43-bfd74b7e5e31"/>
+				<reportElement x="16" y="476" width="414" height="10" uuid="691e2443-cfa3-47a9-ad43-bfd74b7e5e31"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
@@ -2180,8 +2180,8 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				<text><![CDATA[VPF - 002]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="272" y="476" width="184" height="11" uuid="a853f800-07fc-41ce-9321-e7f41cf8e073"/>
-				<textElement>
+				<reportElement x="433" y="476" width="125" height="11" uuid="a853f800-07fc-41ce-9321-e7f41cf8e073"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{extra} != null ? "* LEER REVERSO" : ""]]></textFieldExpression>

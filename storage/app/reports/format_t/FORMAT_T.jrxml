@@ -1975,7 +1975,7 @@
 				<textFieldExpression><![CDATA[$F{firs_amount}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="5" y="558" width="340" height="14" uuid="9555dc88-c600-458e-acb5-4f43be2e94bf"/>
+				<reportElement x="5" y="558" width="460" height="14" uuid="9555dc88-c600-458e-acb5-4f43be2e94bf"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6"/>
 				</textElement>
@@ -1989,7 +1989,7 @@
 				<textFieldExpression><![CDATA[$F{acquirer_home}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="355" y="558" width="172" height="14" uuid="980bc75a-2d60-44da-b8c1-86e181875ad8"/>
+				<reportElement x="469" y="558" width="108" height="14" uuid="980bc75a-2d60-44da-b8c1-86e181875ad8"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6"/>
 				</textElement>

@@ -14,8 +14,6 @@ use App\Models\Stake;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
@@ -45,10 +43,10 @@ class ShapeController extends ApiController
 
         $shapes->getCollection()->map(function ($shape) {
             if ($shape->grantors()->get()->isNotEmpty()) {
-                $otherGrantors = $shape->grantors()->get()->splice(2);
+                $otherGrantors = $shape->grantors()->where('principal', false)->get();
 
-                $shape->acquirer = $shape->grantors()->get()[0];
-                $shape->alienator = $shape->grantors()->get()[1];
+                $shape->acquirer = $shape->grantors()->where('principal', true)->where('grantor_shape.type', Stake::ACQUIRER)->first();
+                $shape->alienator = $shape->grantors()->where('principal', true)->where('grantor_shape.type', Stake::ALIENATING)->first();
 
                 $acquirers = $alienators = [];
 
@@ -95,20 +93,23 @@ class ShapeController extends ApiController
             $shape->save();
 
             $shape->grantors()->attach(Grantor::find($request->get('alienating')), ['type' => Stake::ALIENATING]);
-            $shape->grantors()->attach(Grantor::find($request->get('acquirer')), ['type' => Stake::ACQUIRER]);
+
+            if($request->has('acquirer')) {
+                $shape->grantors()->attach(Grantor::find($request->get('acquirer')), ['type' => Stake::ACQUIRER]);
+            }
 
             if ($request->has('grantors')) {
                 $grantors = $request->input('grantors');
 
                 if (isset($grantors['alienating'])) {
                     foreach ($request->get('grantors')['alienating'] as $grantor) {
-                        $shape->grantors()->attach(Grantor::find($grantor['id']), ['type' => Stake::ALIENATING]);
+                        $shape->grantors()->attach(Grantor::find($grantor['id']), ['type' => Stake::ALIENATING, 'principal' => false]);
                     }
                 }
 
                 if (isset($grantors['acquirer'])) {
                     foreach ($request->get('grantors')['acquirer'] as $grantor) {
-                        $shape->grantors()->attach(Grantor::find($grantor['id']), ['type' => Stake::ACQUIRER]);
+                        $shape->grantors()->attach(Grantor::find($grantor['id']), ['type' => Stake::ACQUIRER, 'principal' => false]);
                     }
                 }
             }
