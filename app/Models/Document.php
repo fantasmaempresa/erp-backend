@@ -29,7 +29,14 @@ Document extends Model
         'name',
         'description',
         'quote',
+        'config',
     ];
+
+
+    protected $casts = [
+        'config' => 'array',
+    ];
+
     /**
      * Function to return array rules in method create and update
      *

@@ -19,6 +19,11 @@ class Operation extends Model
         'id',
         'name',
         'description',
+        'config',
+    ];
+
+    protected $casts = [
+        'config' => 'array',
     ];
 
     /**
