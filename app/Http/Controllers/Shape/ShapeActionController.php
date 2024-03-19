@@ -153,10 +153,10 @@ class ShapeActionController extends ApiController
     {
         if ($templateShapeType == TemplateShape::FORM01) {
             //ALIENATING DATA
-            $procedure->shape->alienatingData = $this->grantorData($procedure, 0);
+            $procedure->shape->alienatingData = $this->grantorAlienating($procedure);
 
             //ACQUIRER DATA
-            $procedure->shape->acquirerData = $this->grantorData($procedure, 1);
+            $procedure->shape->acquirerData = $this->grantorAcquirer($procedure);
 
             $procedure->shape->alien_rfc_s = $this->splitString(
                 ($procedure->shape->grantors->isNotEmpty()) ? $procedure->shape->grantors[0]['rfc'] : $procedure->shape->data_form['alienating_rfc'],
@@ -179,11 +179,11 @@ class ShapeActionController extends ApiController
                 'ac_curp'
             );
         } else {
-            $grantor = $procedure->shape->grantors[1] ?? null;
+            $grantor = $procedure->shape->grantors()->where('principal', true)->where('grantor_shape.type', Stake::ACQUIRER)->first();
 
             //ACQUIRER DATA
             $procedure->shape->acquirerData = [
-                'name' => $grantor ? $grantor['name'] : $procedure->shape->data_form['acquirer_name'],
+                'name' => $grantor ? $grantor['name'] : $procedure->shape->data_form['acquirer_name'] ?? '',
                 'father_last_name' => $grantor ? $grantor['father_last_name'] : '',
                 'mother_last_name' => $grantor ? $grantor['mother_last_name'] : '',
             ];
@@ -202,12 +202,12 @@ class ShapeActionController extends ApiController
 
         if ($templateShapeType == TemplateShape::FORM03) {
             //ALIENATING DATA
-            $procedure->shape->alienatingData = $this->grantorData($procedure, 0);
+            $procedure->shape->alienatingData = $this->grantorAlienating($procedure);
         }
 
         if ($procedure->shape->grantors->isNotEmpty()) {
-            if (count($procedure->shape->grantors) > Shape::REQUIRED_GRANTORS) {
-                $grantors = $procedure->shape->grantors->splice(2);
+            if ($procedure->shape->grantors()->get()->isNotEmpty()) {
+                $grantors = $procedure->shape->grantors()->where('principal', false)->get();
 
                 $acquirers = [];
                 $alienating = [];
@@ -232,9 +232,9 @@ class ShapeActionController extends ApiController
         return $procedure;
     }
 
-    private function grantorData($procedure, $index)
+    private function grantorAlienating($procedure)
     {
-        $grantor = $procedure->shape->grantors[$index] ?? null;
+        $grantor = $procedure->shape->grantors()->where('principal', true)->where('grantor_shape.type', Stake::ALIENATING)->first();
 
         return [
             'name' => $grantor ? $grantor['name'] : $procedure->shape->data_form['alienating_name'],
@@ -249,6 +249,26 @@ class ShapeActionController extends ApiController
             'entity' => $grantor ? $grantor['entity'] : $procedure->shape->data_form['alienating_entity'],
             'zipcode' => $grantor ? $grantor['zipcode'] : $procedure->shape->data_form['alienating_zipcode'],
             'phone' => $grantor ? $grantor['phone'] : $procedure->shape->data_form['alienating_phone'],
+        ];
+    }
+
+    private function grantorAcquirer($procedure)
+    {
+        $grantor = $procedure->shape->grantors()->where('principal', true)->where('grantor_shape.type', Stake::ACQUIRER)->first();
+
+        return [
+            'name' => $grantor ? $grantor['name'] : $procedure->shape->data_form['acquirer_name'],
+            'father_last_name' => $grantor ? $grantor['father_last_name'] : '',
+            'mother_last_name' => $grantor ? $grantor['mother_last_name'] : '',
+            'street' => $grantor ? $grantor['street'] : $procedure->shape->data_form['acquirer_street'],
+            'outdoor_number' => $grantor ? $grantor['no_ext'] : $procedure->shape->data_form['acquirer_outdoor_number'],
+            'interior_number' => $grantor ? $grantor['no_int'] : $procedure->shape->data_form['acquirer_interior_number'],
+            'colony' => $grantor ? $grantor['colony'] : $procedure->shape->data_form['acquirer_colony'],
+            'locality' => $grantor ? $grantor['locality'] : $procedure->shape->data_form['acquirer_locality'],
+            'municipality' => $grantor ? $grantor['municipality'] : $procedure->shape->data_form['acquirer_municipality'],
+            'entity' => $grantor ? $grantor['entity'] : $procedure->shape->data_form['acquirer_entity'],
+            'zipcode' => $grantor ? $grantor['zipcode'] : $procedure->shape->data_form['acquirer_zipcode'],
+            'phone' => $grantor ? $grantor['phone'] : $procedure->shape->data_form['acquirer_phone'],
         ];
     }
 }

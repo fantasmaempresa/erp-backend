@@ -30,6 +30,8 @@ use App\Http\Controllers\Procedure\ProcedureValidatorsController;
 use App\Http\Controllers\Procedure\RegistrationProcedureDataController;
 use App\Http\Controllers\ProcedureComment\ProcedureCommentController;
 use App\Http\Controllers\Process\ProcessController;
+use App\Http\Controllers\ProcessingIncome\ProcessingIncomeController;
+use App\Http\Controllers\ProcessingIncomeComment\ProcessingIncomeCommentController;
 use App\Http\Controllers\ProcessProject\ProcessProjectController;
 use App\Http\Controllers\Project\ProjectActionController;
 use App\Http\Controllers\Project\ProjectController;
@@ -177,6 +179,10 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
 
     //CLIENT LINK ACTIONS
     Route::put('clientLinks/active/{clientLink}', [ClientLinkActionController::class, 'active']);
+
+    Route::resource('processingIncome', ProcessingIncomeController::class, ['except' => ['create', 'edit']]);
+
+    Route::resource('processingIncomeComment', ProcessingIncomeCommentController::class, ['except' => ['create', 'edit']]);
 });
 
 

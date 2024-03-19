@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOperationsTable extends Migration
+class CreateDocumentProcessingIncomeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateOperationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('operations', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->text('description');
-            $table->json('config')->nullable();
-            $table->timestamps();
+        Schema::create('document_processing_income', function (Blueprint $table) {
+            $table->foreignId('document_id')->constrained();
+            $table->foreignId('processing_income_id')->constrained();
         });
     }
 
@@ -29,6 +26,6 @@ class CreateOperationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('operations');
+        Schema::dropIfExists('document_processing_income');
     }
 }

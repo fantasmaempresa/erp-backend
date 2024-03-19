@@ -28,6 +28,7 @@ class CreateDocumentsTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->float('quote')->nullable();
+            $table->json('config')->nullable();
             $table->timestamps();
         });
     }
