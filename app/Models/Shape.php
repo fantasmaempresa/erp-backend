@@ -136,7 +136,7 @@ class Shape extends Model
             'procedure_id' => 'required|exists:procedures,id',
             'operation_id' => 'required|exists:operations,id',
             'alienating' => 'required|exists:grantors,id',
-            'acquirer' => 'exists:grantors,id',
+            'acquirer' => 'nullable|exists:grantors,id',
             'grantors.alienating.*.id' => 'required|exists:grantors,id',
             'grantors.acquirer.*.id' => 'required|exists:grantors,id',
         ];

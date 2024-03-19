@@ -15,10 +15,9 @@ class CreateProcessingIncomesTable extends Migration
     {
         Schema::create('processing_incomes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->text('name');
             $table->date('date_income');
-            $table->json('config');
-            $table->string('url_file');
+            $table->json('config')->nullable();
             $table->foreignId('procedure_id')->constrained();
             $table->foreignId('operation_id')->constrained();
             $table->foreignId('staff_id')->constrained();

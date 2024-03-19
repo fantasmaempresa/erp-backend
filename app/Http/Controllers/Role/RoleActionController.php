@@ -204,11 +204,6 @@ class RoleActionController extends ApiController
                     'icon' => 'summarize',
                 ],
                 [
-                    'label' => 'Ingresos',
-                    'route' => './incomming',
-                    'icon' => 'place_item',
-                ],
-                [
                     'label' => 'Trámites',
                     'route' => './procedures',
                     'icon' => 'event',

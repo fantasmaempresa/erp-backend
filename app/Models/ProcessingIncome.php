@@ -11,7 +11,6 @@ class ProcessingIncome extends Model
       'name',
       'date_income',
       'config',
-      'url_file',
       'procedure_id',
       'operation_id',
       'staff_id',
@@ -53,14 +52,13 @@ class ProcessingIncome extends Model
 
     public static function rules(){
         return [
-            'name' => 'required',
-            'date_income' => 'required',
-            'config' => 'required',
-            'url_file' => 'required',
-            'procedure_id' => 'required',
-            'operation_id' => 'required',
-            'staff_id' => 'required',
-            'place_id' => 'required'
+            'name' => 'required|string',
+            'date_income' => 'required|date',
+            'config' => 'nullable|array',
+            'procedure_id' => 'required|exists:procedures,id',
+            'operation_id' => 'required|exists:operations,id',
+            'staff_id' => 'required|exists:staffs,id',
+            'place_id' => 'required|exists:places,id',
         ];
     }
 }
