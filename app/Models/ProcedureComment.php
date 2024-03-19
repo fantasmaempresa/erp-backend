@@ -56,9 +56,10 @@ class ProcedureComment extends Model
      *
      * @return mixed
      */
-    public function scopeSearch($query, $search): mixed
+    public function scopeSearch($query, $search, $procedure_id): mixed
     {
         return $query
+            ->where('procedure_id', $procedure_id)
             ->orWhere('comment', 'like', "%$search");
     }
 }

@@ -25,15 +25,22 @@ class ProcedureCommentController extends ApiController
      */
     public function index(Request $request): JsonResponse
     {
-        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+        $this->validate($request, [
+            'procedure_id' => 'required|exists:procedures,id',
+        ]);
 
-        if ($request->has('search')) {
+        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+        
+        if (!empty($request->get('search')) && $request->get('search') !== 'null') {
             $response = $this->showList(
-                ProcedureComment::search($request->get('search'))->with(['procedure', 'user'])->paginate($paginate)
+                ProcedureComment::search($request->get('search'), $request->get('procedure_id'))
+                ->with(['procedure', 'user'])->paginate($paginate)
             );
         } else {
             $response = $this->showList(
-                ProcedureComment::with(['procedure', 'user'])->paginate($paginate)
+                ProcedureComment::where('procedure_id', $request->get('procedure_id'))
+                ->with(['procedure', 'user'])
+                ->paginate($paginate)
             );
         }
 
