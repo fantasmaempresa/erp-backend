@@ -223,14 +223,6 @@
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.firs_amount"/>
 		<fieldDescription><![CDATA[shape.data_form.firs_amount]]></fieldDescription>
 	</field>
-	<field name="name_ac" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.acquirerData.name"/>
-		<fieldDescription><![CDATA[shape.acquirerData.name]]></fieldDescription>
-	</field>
-	<field name="acquirer_home" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.acquirer_home"/>
-		<fieldDescription><![CDATA[shape.data_form.acquirer_home]]></fieldDescription>
-	</field>
 	<field name="extra" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.extra"/>
 		<fieldDescription><![CDATA[shape.extra]]></fieldDescription>
@@ -251,13 +243,53 @@
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.description"/>
 		<fieldDescription><![CDATA[shape.description]]></fieldDescription>
 	</field>
-	<field name="father_last_name_ac" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.acquirerData.father_last_name"/>
-		<fieldDescription><![CDATA[shape.acquirerData.father_last_name]]></fieldDescription>
+	<field name="name" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.name"/>
+		<fieldDescription><![CDATA[shape.alienatingData.name]]></fieldDescription>
 	</field>
-	<field name="mother_last_name_ac" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.acquirerData.mother_last_name"/>
-		<fieldDescription><![CDATA[shape.acquirerData.mother_last_name]]></fieldDescription>
+	<field name="father_last_name" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.father_last_name"/>
+		<fieldDescription><![CDATA[shape.alienatingData.father_last_name]]></fieldDescription>
+	</field>
+	<field name="mother_last_name" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.mother_last_name"/>
+		<fieldDescription><![CDATA[shape.alienatingData.mother_last_name]]></fieldDescription>
+	</field>
+	<field name="street" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.street"/>
+		<fieldDescription><![CDATA[shape.alienatingData.street]]></fieldDescription>
+	</field>
+	<field name="outdoor_number" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.outdoor_number"/>
+		<fieldDescription><![CDATA[shape.alienatingData.outdoor_number]]></fieldDescription>
+	</field>
+	<field name="interior_number" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.interior_number"/>
+		<fieldDescription><![CDATA[shape.alienatingData.interior_number]]></fieldDescription>
+	</field>
+	<field name="colony" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.colony"/>
+		<fieldDescription><![CDATA[shape.alienatingData.colony]]></fieldDescription>
+	</field>
+	<field name="locality" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.locality"/>
+		<fieldDescription><![CDATA[shape.alienatingData.locality]]></fieldDescription>
+	</field>
+	<field name="municipality" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.municipality"/>
+		<fieldDescription><![CDATA[shape.alienatingData.municipality]]></fieldDescription>
+	</field>
+	<field name="entity" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.entity"/>
+		<fieldDescription><![CDATA[shape.alienatingData.entity]]></fieldDescription>
+	</field>
+	<field name="zipcode" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.zipcode"/>
+		<fieldDescription><![CDATA[shape.alienatingData.zipcode]]></fieldDescription>
+	</field>
+	<field name="phone" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.phone"/>
+		<fieldDescription><![CDATA[shape.alienatingData.phone]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -1975,25 +2007,11 @@
 				<textFieldExpression><![CDATA[$F{firs_amount}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="5" y="558" width="460" height="14" uuid="9555dc88-c600-458e-acb5-4f43be2e94bf"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="6"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{name_ac} + " " + $F{father_last_name_ac} + " " + $F{mother_last_name_ac}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="5" y="605" width="564" height="14" uuid="4de31255-37ce-4942-8243-7fddb61bae88"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="6"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{acquirer_home}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="469" y="558" width="108" height="14" uuid="980bc75a-2d60-44da-b8c1-86e181875ad8"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{extra} != null ? "* LEER REVERSO" : ""]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{alientating} != null ? "* LEER REVERSO" : ""]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="5" y="262" width="204" height="118" uuid="63194b9f-4862-49fb-b8a1-acd9a7b6f874"/>
@@ -2009,10 +2027,26 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{operation_name} + " " + $F{description}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="0" y="558" width="464" height="14" uuid="da5d6a24-4d35-4fee-8d44-6910bb45a990"/>
+				<box leftPadding="5" rightPadding="0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name} + " " + $F{father_last_name} + " " + $F{mother_last_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="6" y="605" width="572" height="14" uuid="a8020c60-5a1a-459b-889c-bbd8f2231f74"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{street} + " " + $F{outdoor_number} + " " + $F{interior_number} + " " + $F{colony} + " " + $F{locality} + " " + $F{municipality} + " " + $F{entity} + " " + $F{zipcode} + " " + $F{phone}]]></textFieldExpression>
+			</textField>
 		</band>
 		<band height="150">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<printWhenExpression><![CDATA[$F{extra} != null]]></printWhenExpression>
+			<printWhenExpression><![CDATA[$F{acquirers} != null && $F{alientating} != null]]></printWhenExpression>
 		</band>
 		<band height="55">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>

@@ -15,10 +15,6 @@
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.property"/>
 		<fieldDescription><![CDATA[shape.data_form.property]]></fieldDescription>
 	</field>
-	<field name="alienating_home" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.alienating_home"/>
-		<fieldDescription><![CDATA[shape.data_form.alienating_home]]></fieldDescription>
-	</field>
 	<field name="scriptures" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.scriptures"/>
 		<fieldDescription><![CDATA[shape.scriptures]]></fieldDescription>
@@ -118,6 +114,10 @@
 	<field name="mother_last_name_al" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.mother_last_name"/>
 		<fieldDescription><![CDATA[shape.alienatingData.mother_last_name]]></fieldDescription>
+	</field>
+	<field name="alienated_property_home" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.alienated_property_home"/>
+		<fieldDescription><![CDATA[shape.data_form.alienated_property_home]]></fieldDescription>
 	</field>
 	<title>
 		<band height="65" splitType="Stretch">
@@ -661,13 +661,6 @@
 				<textFieldExpression><![CDATA[$F{property}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="160" y="219" width="410" height="10" uuid="a662ac21-e5cc-4187-b9ee-702d4092df18"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{alienating_home}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="96" y="334" width="314" height="10" uuid="2168709e-a566-450f-b962-0bb2fd51129a"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
@@ -847,7 +840,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{extra} != null ? "* LEER REVERSO" : ""]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{alientating} != null ? "* LEER REVERSO" : ""]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="10" y="423" width="198" height="140" uuid="491821ae-f6a1-430d-aed7-71be9b2095d4"/>
@@ -863,10 +856,17 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{operation_name} + " " + $F{description}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="160" y="220" width="412" height="10" uuid="3c0c9ca2-9256-4a22-9c0b-fa03b77661d0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienated_property_home}]]></textFieldExpression>
+			</textField>
 		</band>
 		<band height="150">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<printWhenExpression><![CDATA[$F{extra} != null]]></printWhenExpression>
+			<printWhenExpression><![CDATA[$F{acquirers} != null && $F{alientating} != null]]></printWhenExpression>
 		</band>
 		<band height="55">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>

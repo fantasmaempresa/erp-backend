@@ -153,122 +153,128 @@ class ShapeActionController extends ApiController
     {
         if ($templateShapeType == TemplateShape::FORM01) {
             //ALIENATING DATA
-            $procedure->shape->alienatingData = $this->grantorAlienating($procedure);
+            $grantorAlienating = $procedure->shape->grantors()->where('principal', true)->where('grantor_shape.type', Stake::ALIENATING)->first();
+            $procedure->shape->alienatingData = $this->grantorAlienating($grantorAlienating, $procedure);
 
             //ACQUIRER DATA
-            $procedure->shape->acquirerData = $this->grantorAcquirer($procedure);
+            $grantorAcquirer = $procedure->shape->grantors()->where('principal', true)->where('grantor_shape.type', Stake::ACQUIRER)->first();
+            $procedure->shape->acquirerData = $this->grantorAcquirer($grantorAcquirer, $procedure);
 
-            $procedure->shape->alien_rfc_s = $this->splitString(
-                ($procedure->shape->grantors->isNotEmpty()) ? $procedure->shape->grantors[0]['rfc'] : $procedure->shape->data_form['alienating_rfc'],
-                13,
-                'al_rfc'
-            );
-            $procedure->shape->alien_curp_s = $this->splitString(
-                ($procedure->shape->grantors->isNotEmpty()) ? $procedure->shape->grantors[0]['curp'] : $procedure->shape->data_form['alienating_crup'],
-                18,
-                'al_curp'
-            );
-            $procedure->shape->acq_rfc_s = $this->splitString(
-                ($procedure->shape->grantors->isNotEmpty()) ? $procedure->shape->grantors[1]['rfc'] : $procedure->shape->data_form['acquirer_rfc'],
-                13,
-                'ac_rfc'
-            );
-            $procedure->shape->acq_curp_s = $this->splitString(
-                ($procedure->shape->grantors->isNotEmpty()) ? $procedure->shape->grantors[1]['curp'] : $procedure->shape->data_form['acquirer_curp'],
-                18,
-                'ac_curp'
-            );
+            //ALIENATING RFC AND CURP
+            $grantorRfc = $grantorAlienating?->rfc ?? $procedure->shape->data_form['alienating_rfc'] ?? null;
+            $procedure->shape->alien_rfc_s = $this->splitString($grantorRfc, 13, 'al_rfc');
+
+            $grantorCurp = $grantorAlienating?->curp ?? $procedure->shape->data_form['alienating_crup'] ?? null;
+            $procedure->shape->alien_curp_s = $this->splitString($grantorCurp, 18, 'al_curp');
+
+            //ACQUIRER RFC AND CURP
+            $grantorRfc = $grantorAcquirer?->rfc ?? $procedure->shape->data_form['acquirer_rfc'] ?? null;
+            $procedure->shape->acq_rfc_s = $this->splitString($grantorRfc, 13, 'ac_rfc');
+
+            $grantorCurp = $grantorAcquirer?->curp ?? $procedure->shape->data_form['acquirer_curp'] ?? null;
+            $procedure->shape->acq_curp_s = $this->splitString($grantorCurp, 18, 'ac_curp');
+
         } else {
-            $grantor = $procedure->shape->grantors()->where('principal', true)->where('grantor_shape.type', Stake::ACQUIRER)->first();
-
-            //ACQUIRER DATA
-            $procedure->shape->acquirerData = [
-                'name' => $grantor ? $grantor['name'] : $procedure->shape->data_form['acquirer_name'] ?? '',
-                'father_last_name' => $grantor ? $grantor['father_last_name'] : '',
-                'mother_last_name' => $grantor ? $grantor['mother_last_name'] : '',
-            ];
-
-            $procedure->shape->rfc = $this->splitString(
-                ($procedure->shape->grantors->isNotEmpty()) ? $procedure->shape->grantors[1]['rfc'] : $procedure->shape->data_form['rfc'],
-                13,
-                'rfc'
-            );
-            $procedure->shape->curp = $this->splitString(
-                ($procedure->shape->grantors->isNotEmpty()) ? $procedure->shape->grantors[1]['curp'] : $procedure->shape->data_form['curp'],
-                18,
-                'curp'
-            );
-        }
-
-        if ($templateShapeType == TemplateShape::FORM03) {
             //ALIENATING DATA
-            $procedure->shape->alienatingData = $this->grantorAlienating($procedure);
+            $grantorAlienating = $procedure->shape->grantors()->where('principal', true)->where('grantor_shape.type', Stake::ALIENATING)->first();
+            $procedure->shape->alienatingData = $this->grantorAlienating($grantorAlienating, $procedure);
+
+            $grantorRfc = $grantorAlienating?->rfc ?? $procedure->shape->data_form['rfc'] ?? null;
+            $procedure->shape->rfc = $this->splitString($grantorRfc, 13, 'rfc');
+
+            $grantorCurp = $grantorAlienating?->curp ?? $procedure->shape->data_form['curp'] ?? null;
+            $procedure->shape->curp = $this->splitString($grantorCurp, 18, 'curp');
         }
 
-        if ($procedure->shape->grantors->isNotEmpty()) {
-            if ($procedure->shape->grantors()->get()->isNotEmpty()) {
-                $grantors = $procedure->shape->grantors()->where('principal', false)->get();
+        $grantors = $procedure->shape->grantors()->where('principal', false)->get(); 
+        $acquirers = null;
+        $alienating = null;
 
-                $acquirers = [];
-                $alienating = [];
+        foreach ($grantors as $grantor) {
+            if ($grantor->pivot->type == Stake::ACQUIRER) {
+                $acquirers[] = $grantor;
+            }
 
-                foreach ($grantors as $grantor) {
-                    if ($grantor->pivot->type == Stake::ACQUIRER) {
-                        $acquirers[] = $grantor;
-                    }
-
-                    if ($grantor->pivot->type == Stake::ALIENATING) {
-                        $alienating[] = $grantor;
-                    }
-                }
-
-                $procedure->shape->extra = [
-                    'acquirers' => $acquirers,
-                    'alientating' => $alienating,
-                ];
+            if ($grantor->pivot->type == Stake::ALIENATING) {
+                $alienating[] = $grantor;
             }
         }
+
+        $procedure->shape->extra = [
+            'acquirers' => $acquirers,
+            'alientating' => $alienating,
+        ];
 
         return $procedure;
     }
 
-    private function grantorAlienating($procedure)
+    private function grantorAlienating($grantor, $procedure)
     {
-        $grantor = $procedure->shape->grantors()->where('principal', true)->where('grantor_shape.type', Stake::ALIENATING)->first();
+        $result = [];
 
-        return [
-            'name' => $grantor ? $grantor['name'] : $procedure->shape->data_form['alienating_name'],
-            'father_last_name' => $grantor ? $grantor['father_last_name'] : '',
-            'mother_last_name' => $grantor ? $grantor['mother_last_name'] : '',
-            'street' => $grantor ? $grantor['street'] : $procedure->shape->data_form['alienating_street'],
-            'outdoor_number' => $grantor ? $grantor['no_ext'] : $procedure->shape->data_form['alienating_outdoor_number'],
-            'interior_number' => $grantor ? $grantor['no_int'] : $procedure->shape->data_form['alienating_interior_number'],
-            'colony' => $grantor ? $grantor['colony'] : $procedure->shape->data_form['alienating_colony'],
-            'locality' => $grantor ? $grantor['locality'] : $procedure->shape->data_form['alienating_locality'],
-            'municipality' => $grantor ? $grantor['municipality'] : $procedure->shape->data_form['alienating_municipality'],
-            'entity' => $grantor ? $grantor['entity'] : $procedure->shape->data_form['alienating_entity'],
-            'zipcode' => $grantor ? $grantor['zipcode'] : $procedure->shape->data_form['alienating_zipcode'],
-            'phone' => $grantor ? $grantor['phone'] : $procedure->shape->data_form['alienating_phone'],
-        ];
+        if (isset($grantor)) {
+            $result['name'] = $grantor['name'] ?? '';
+            $result['father_last_name'] = $grantor['father_last_name'] ?? '';
+            $result['mother_last_name'] = $grantor['mother_last_name'] ?? '';
+            $result['street'] = $grantor['street'] ?? '';
+            $result['outdoor_number'] = $grantor['no_ext'] ?? '';
+            $result['interior_number'] = $grantor['no_int'] ?? '';
+            $result['colony'] = $grantor['colony'] ?? '';
+            $result['locality'] = $grantor['locality'] ?? '';
+            $result['municipality'] = $grantor['municipality'] ?? '';
+            $result['entity'] = $grantor['entity'] ?? '';
+            $result['zipcode'] = $grantor['zipcode'] ?? '';
+            $result['phone'] = $grantor['phone'] ?? '';
+        } else {
+            $result['name'] = $procedure->shape->data_form['alienating_name'] ?? '';
+            $result['father_last_name'] = '';
+            $result['mother_last_name'] = '';
+            $result['street'] = $procedure->shape->data_form['alienating_street'] ?? '';
+            $result['outdoor_number'] = $procedure->shape->data_form['alienating_outdoor_number'] ?? '';
+            $result['interior_number'] = $procedure->shape->data_form['alienating_interior_number'] ?? '';
+            $result['colony'] = $procedure->shape->data_form['alienating_colony'] ?? '';
+            $result['locality'] = $procedure->shape->data_form['alienating_locality'] ?? '';
+            $result['municipality'] = $procedure->shape->data_form['alienating_municipality'] ?? '';
+            $result['entity'] = $procedure->shape->data_form['alienating_entity'] ?? '';
+            $result['zipcode'] = $procedure->shape->data_form['alienating_zipcode'] ?? '';
+            $result['phone'] = $procedure->shape->data_form['alienating_phone'] ?? '';
+        }
+
+        return $result;
     }
 
-    private function grantorAcquirer($procedure)
+    private function grantorAcquirer($grantor, $procedure)
     {
-        $grantor = $procedure->shape->grantors()->where('principal', true)->where('grantor_shape.type', Stake::ACQUIRER)->first();
+        $result = [];
 
-        return [
-            'name' => $grantor ? $grantor['name'] : $procedure->shape->data_form['acquirer_name'],
-            'father_last_name' => $grantor ? $grantor['father_last_name'] : '',
-            'mother_last_name' => $grantor ? $grantor['mother_last_name'] : '',
-            'street' => $grantor ? $grantor['street'] : $procedure->shape->data_form['acquirer_street'],
-            'outdoor_number' => $grantor ? $grantor['no_ext'] : $procedure->shape->data_form['acquirer_outdoor_number'],
-            'interior_number' => $grantor ? $grantor['no_int'] : $procedure->shape->data_form['acquirer_interior_number'],
-            'colony' => $grantor ? $grantor['colony'] : $procedure->shape->data_form['acquirer_colony'],
-            'locality' => $grantor ? $grantor['locality'] : $procedure->shape->data_form['acquirer_locality'],
-            'municipality' => $grantor ? $grantor['municipality'] : $procedure->shape->data_form['acquirer_municipality'],
-            'entity' => $grantor ? $grantor['entity'] : $procedure->shape->data_form['acquirer_entity'],
-            'zipcode' => $grantor ? $grantor['zipcode'] : $procedure->shape->data_form['acquirer_zipcode'],
-            'phone' => $grantor ? $grantor['phone'] : $procedure->shape->data_form['acquirer_phone'],
-        ];
+        if (isset($grantor)) {
+            $result['name'] = $grantor['name'] ?? '';
+            $result['father_last_name'] = $grantor['father_last_name'] ?? '';
+            $result['mother_last_name'] = $grantor['mother_last_name'] ?? '';
+            $result['street'] = $grantor['street'] ?? '';
+            $result['outdoor_number'] = $grantor['no_ext'] ?? '';
+            $result['interior_number'] = $grantor['no_int'] ?? '';
+            $result['colony'] = $grantor['colony'] ?? '';
+            $result['locality'] = $grantor['locality'] ?? '';
+            $result['municipality'] = $grantor['municipality'] ?? '';
+            $result['entity'] = $grantor['entity'] ?? '';
+            $result['zipcode'] = $grantor['zipcode'] ?? '';
+            $result['phone'] = $grantor['phone'] ?? '';
+        } else {
+            $result['name'] = $procedure->shape->data_form['acquirer_name'] ?? '';
+            $result['father_last_name'] = '';
+            $result['mother_last_name'] = '';
+            $result['street'] = $procedure->shape->data_form['acquirer_street'] ?? '';
+            $result['outdoor_number'] = $procedure->shape->data_form['acquirer_outdoor_number'] ?? '';
+            $result['interior_number'] = $procedure->shape->data_form['acquirer_interior_number'] ?? '';
+            $result['colony'] = $procedure->shape->data_form['acquirer_colony'] ?? '';
+            $result['locality'] = $procedure->shape->data_form['acquirer_locality'] ?? '';
+            $result['municipality'] = $procedure->shape->data_form['acquirer_municipality'] ?? '';
+            $result['entity'] = $procedure->shape->data_form['acquirer_entity'] ?? '';
+            $result['zipcode'] = $procedure->shape->data_form['acquirer_zipcode'] ?? '';
+            $result['phone'] = $procedure->shape->data_form['acquirer_phone'] ?? '';
+        }
+
+        return $result;
     }
 }
