@@ -58,6 +58,7 @@ class DisposalRealEstate extends Model
         'rate',
         'isr_federal_entity',
         'isr_federation',
+        'appendant_id',
         'ncpi_disposal_id',
         'ncpi_acquisition_id',
         'alienating_id',
@@ -114,9 +115,15 @@ class DisposalRealEstate extends Model
     /**
      * @return BelongsTo
      */
-    public function rate(): BelongsTo
+    public function rates(): BelongsTo
     {
-        return $this->belongsTo(Rate::class);
+        return $this->belongsTo(Rate::class, 'rate_id');
+    }
+
+    public function appendant(): BelongsTo
+    {
+
+        return $this->belongsTo(Appendant::class);
     }
 
     /**
@@ -223,6 +230,9 @@ class DisposalRealEstate extends Model
         $this->ncpi_disposal_id = $npciDisposal->id;
         $this->ncpi_acquisition_id = $npciAcquisition->id;
         $this->annex_factor = round(($npciDisposal->value / $npciAcquisition->value), 4);
+
+        $appendant = Appendant::where('begin', $this->years_passed)->first();
+        $this->appendant_id = $appendant->id;
 
         $this->updated_construction_cost = $this->construction_value * $this->annex_factor;
         $this->updated_land_cost = $this->acquisition_value_transferor * $this->annex_factor;

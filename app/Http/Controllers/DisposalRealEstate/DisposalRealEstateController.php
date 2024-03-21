@@ -28,8 +28,9 @@ class DisposalRealEstateController extends ApiController
             'nationalConsumerPriceIndexAcquisition',
             'alienating',
             'typeDisposalOperation',
-            'rate',
-            'acquirers'
+            'rates',
+            'acquirers',
+            'appendant'
         ])
             ->orderBy('id', 'desc');
 
@@ -90,8 +91,9 @@ class DisposalRealEstateController extends ApiController
         $disposalRealEstate->nationalConsumerPriceIndexAcquisition;
         $disposalRealEstate->alienating;
         $disposalRealEstate->typeDisposalOperation;
-        $disposalRealEstate->rate;
+        $disposalRealEstate->rates;
         $disposalRealEstate->acquirers;
+        $disposalRealEstate->appendant;
 
         return $this->showOne($disposalRealEstate);
     }
