@@ -55,7 +55,18 @@ class User extends Authenticatable implements MustVerifyEmail
             'online',
             'locked',
         ];
+    
+        protected function setNameAttribute($value){
+            $this->attributes['name'] = strtolower($value);
+        }
+        
+        protected function getNameAttribute($value){
+            return strtoupper($value);
+        }
 
+        protected function setEmailAttribute($value){
+            $this->attributes['email'] = strtolower($value);
+        }
     /**
      * The attributes that should be hidden for serialization.
      *

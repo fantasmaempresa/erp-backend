@@ -32,10 +32,28 @@ Document extends Model
         'config',
     ];
 
-
     protected $casts = [
         'config' => 'array',
     ];
+    protected function setNameAttribute($value)
+    {
+        $this->attributes['name'] = strtolower($value);
+    }
+
+    protected function getNameAttribute($value)
+    {
+        return strtoupper($value);
+    }
+
+    protected function setDescriptionAttribute($value)
+    {
+        $this->attributes['description'] = strtolower($value);
+    }
+
+    protected function getDescriptionAttribute($value)
+    {
+        return strtoupper($value);
+    }
 
     /**
      * Function to return array rules in method create and update

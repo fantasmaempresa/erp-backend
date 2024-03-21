@@ -39,6 +39,38 @@ class ProjectQuote extends Model
         'template_quote_id',
     ];
 
+    protected function setNameAttribute($value){
+        $this->attributes['name'] = strtolower($value);
+    }
+    
+    protected function getNameAttribute($value){
+        return strtoupper($value);
+    }
+
+    protected function setDescriptionAttribute($value){
+        $this->attributes['description'] = strtolower($value);
+    }
+    
+    protected function getDescriptionAttribute($value){
+        return strtoupper($value);
+    }
+
+    protected function setObservationAttribute($value){
+        $this->attributes['observation'] = strtolower($value);
+    }
+    
+    protected function getObservationAttribute($value){
+        return strtoupper($value);
+    }
+
+    protected function setAddresseeAttribute($value){
+        $this->attributes['addressee'] = strtolower($value);
+    }
+    
+    protected function getAddresseeAttribute($value){
+        return strtoupper($value);
+    }
+
     /**
      * The attributes that should be cast.
      *

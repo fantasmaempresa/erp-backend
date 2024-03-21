@@ -16,12 +16,21 @@ class ProcedureComment extends Model
 {
     use HasFactory;
 
+
     protected $fillable = [
         'id',
         'comment',
         'procedure_id',
         'user_id',
     ];
+
+    protected function setCommentAttribute($value){
+        $this->attributes['comment'] = strtolower($value);
+    }
+    
+    protected function getCommentAttribute($value){
+        return strtoupper($value);
+    }
 
     /**
      * @return BelongsTo
