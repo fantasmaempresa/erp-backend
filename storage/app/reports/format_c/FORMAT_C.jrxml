@@ -854,7 +854,7 @@
 				<textElement markup="html">
 					<font fontName="Arial" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{operation_name} != null ? $F{operation_name} : "" ) + " " + $F{description}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{operation_name} != null ? $F{operation_name} : "" ) + " " + ($F{description} != null ? $F{description} : "")]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="160" y="220" width="412" height="10" uuid="3c0c9ca2-9256-4a22-9c0b-fa03b77661d0"/>

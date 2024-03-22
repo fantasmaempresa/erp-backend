@@ -2019,7 +2019,7 @@
 				<textElement markup="html">
 					<font fontName="Arial" size="6"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{operation_name} != null ? $F{operation_name} : "") + " " + $F{description}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{operation_name} != null ? $F{operation_name} : "") + " " + ($F{description} != null ? $F{description} : "" )]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="558" width="464" height="14" uuid="da5d6a24-4d35-4fee-8d44-6910bb45a990"/>

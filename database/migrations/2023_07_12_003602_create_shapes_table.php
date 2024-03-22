@@ -26,7 +26,7 @@ class CreateShapesTable extends Migration
             $table->string('took')->nullable(); //Tomo
             $table->string('book')->nullable(); //Libro
             $table->string('operation_value')->nullable(); //ValorOperacion
-            $table->text('description'); //Descripcion
+            $table->text('description')->nullable(); //Descripcion
             $table->string('total'); //Total
             $table->json('data_form'); //Tipo de de trámite
             $table->text('reverse')->nullable(); //Reverso
