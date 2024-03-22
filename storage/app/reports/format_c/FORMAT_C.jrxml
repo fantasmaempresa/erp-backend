@@ -639,70 +639,70 @@
 				</textElement>
 				<text><![CDATA[FIRMA DEL FEDERATARIO PÚBLICO]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="502" y="6" width="68" height="16" uuid="99cedd73-c72b-44dd-a395-e75fc7d52257"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{signature_date}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="533" y="23" width="40" height="16" uuid="a1d7b65a-547a-4ef7-b4ce-cd8204ac2b99"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{folio}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="160" y="203" width="412" height="10" uuid="b9aecf11-3eb8-4782-b642-12037ff86f18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{property}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="96" y="334" width="314" height="10" uuid="2168709e-a566-450f-b962-0bb2fd51129a"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{scriptures}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="42" y="350" width="44" height="10" uuid="77ab04df-1563-4dd1-9c15-3fb2b6b111ad"/>
 				<textElement>
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{inscription}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="131" y="350" width="48" height="10" uuid="a3a02675-a86b-49bb-aedd-0e7c881acdb6"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{inscription}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="203" y="350" width="50" height="10" uuid="46c05d67-e557-46b3-b41c-3ca53f81eb41"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{sheets}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="311" y="350" width="39" height="10" uuid="22f086bf-3d7c-4f70-ae06-d6209905ffb1"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{took}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="403" y="350" width="50" height="10" uuid="40ca4c82-3c60-4407-aa1f-c10beff47be1"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{book}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="53" y="615" width="201" height="10" uuid="6003cb33-1539-4f1e-a07a-51842cdffda3"/>
 				<textElement>
 					<font fontName="Arial" size="8"/>
@@ -772,63 +772,63 @@
 				</textElement>
 				<text><![CDATA[3117]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="113" y="86" width="334" height="10" uuid="a012fc2c-c3ce-472b-99da-02f6a4554b0b"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{name_al} + " " + $F{father_last_name_al} + " " + $F{mother_last_name_al}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="45" y="110" width="528" height="10" uuid="515da075-0da7-4672-bcbc-c5b035c81d9b"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{street_al}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="45" y="122" width="100" height="10" uuid="06502d54-3596-430a-a090-2e40df75a727"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{outdoor_number_al}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="205" y="122" width="100" height="10" uuid="fa70b4d7-c7ea-4f50-810a-c48cc90eca8e"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{interior_number_al}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="424" y="122" width="100" height="10" uuid="394feabc-d1a2-4b0e-9df6-41e26d034492"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{colony_al}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="64" y="135" width="100" height="10" uuid="bdafd14c-4bed-40f5-8f91-f3220697d656"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{locality_al}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="255" y="135" width="100" height="10" uuid="4f4dbc2d-8f82-412f-9f8d-b188f2ab1fe9"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{municipality_al}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="473" y="135" width="100" height="10" uuid="e2c3ec4f-3525-4440-a6f9-0f2b0bdfcc39"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{entity_al}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="275" y="150" width="100" height="10" uuid="27871988-928c-4eff-9888-e24bdb2127e3"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
@@ -842,21 +842,21 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{alientating} != null ? "* LEER REVERSO" : ""]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="10" y="423" width="198" height="140" uuid="491821ae-f6a1-430d-aed7-71be9b2095d4"/>
 				<textElement>
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{operation_name}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="219" y="423" width="344" height="140" uuid="046b8e9e-c0b7-4afa-b04f-41a471f3f362"/>
 				<textElement markup="html">
 					<font fontName="Arial" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{operation_name} + " " + $F{description}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{operation_name} != null ? $F{operation_name} : "" ) + " " + $F{description}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="160" y="220" width="412" height="10" uuid="3c0c9ca2-9256-4a22-9c0b-fa03b77661d0"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>

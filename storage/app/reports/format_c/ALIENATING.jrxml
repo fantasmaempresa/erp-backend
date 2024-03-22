@@ -119,8 +119,8 @@
 	<detail>
 		<band height="50" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<textField>
-				<reportElement x="0" y="4" width="50" height="10" uuid="43c73d09-dd40-4c0e-9491-4a115a9fe282">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="4" width="300" height="10" uuid="43c73d09-dd40-4c0e-9491-4a115a9fe282">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -128,21 +128,7 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Arial" size="6"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="50" y="4" width="50" height="10" uuid="b2d0f38b-9617-40b1-8b5c-4b3ead56a53a"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="Arial" size="6"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{father_last_name}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="100" y="4" width="50" height="10" uuid="97741dbb-3f05-403d-aaec-5a52852a0bc4"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="Arial" size="6"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{mother_last_name}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{name} + " " + $F{father_last_name} + " " + $F{mother_last_name}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="21" width="40" height="10" uuid="29425f12-f119-4fb0-8f33-ea103d52d4fa"/>
@@ -152,7 +138,7 @@
 				</textElement>
 				<text><![CDATA[RFC:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="40" y="21" width="260" height="10" uuid="2e042f19-88ba-4a61-b853-8c0e20ca1fcf"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6"/>
@@ -167,7 +153,7 @@
 				</textElement>
 				<text><![CDATA[CURP:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="40" y="38" width="260" height="10" uuid="cbf91a7c-bda0-4b9f-a763-d63319fa4e3f"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="6"/>
