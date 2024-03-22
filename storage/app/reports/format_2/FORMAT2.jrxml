@@ -3,7 +3,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FORMAT1" pageWidth="623" pageHeight="963" columnWidth="583" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="963e1d41-dcf3-4a1b-8c12-a1c0b97bcf5a">
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="cm"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="cm"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="REPORTE TESORERIA\DA_FORMAT_C.xml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="FORMA 02\JSON F2.xml"/>
 	<parameter name="imageSF" class="java.lang.String"/>
 	<parameter name="subReportPath" class="java.lang.String"/>
 	<queryString language="JSON">
@@ -361,6 +361,10 @@
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.phone"/>
 		<fieldDescription><![CDATA[shape.alienatingData.phone]]></fieldDescription>
 	</field>
+	<field name="total" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.total"/>
+		<fieldDescription><![CDATA[shape.total]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -527,7 +531,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				<reportElement x="8" y="18" width="124" height="76" uuid="d780d6d0-316c-4bc5-a238-91df7f1945e8"/>
 				<imageExpression><![CDATA[$P{imageSF}]]></imageExpression>
 			</image>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="430" y="20" width="130" height="21" uuid="30fddc3f-027a-4cfa-9dce-e15711e60451"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -540,7 +544,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{folio}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="10" y="99" width="91" height="20" uuid="37aa6b22-f2b8-4ee6-872c-079cc7f5bf73"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -553,35 +557,35 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{scriptures}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="192" y="99" width="91" height="20" uuid="04703990-fe16-4d4f-a870-d4a8e79b62ee"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{property_account}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="101" y="99" width="91" height="20" uuid="ee619e71-917e-42c6-9797-45bdeadd5058"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{type}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="465" y="99" width="95" height="20" uuid="1f78d285-3435-4cfa-8eae-24cd2a2ddb2c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{year}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="374" y="99" width="91" height="20" uuid="538c9d5e-fcb8-402a-9cb2-37f65bb2cd22"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{month}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="283" y="99" width="91" height="20" uuid="8a9954ae-abd3-44e6-99cd-87f0ee99c38b"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1572,56 +1576,56 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{notary}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="88" y="109" width="78" height="11" uuid="5abee089-c3d9-4b0a-bebc-7e93aa4e5cec"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{inscription}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="10" y="109" width="78" height="11" uuid="b5efac07-5c84-4977-8e30-1011e6362fc4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{departure}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="166" y="109" width="77" height="11" uuid="5dcfc420-ffb6-485f-88b6-d497ade2ed9a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{sheets}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="244" y="109" width="77" height="11" uuid="b5d666bc-426b-4690-b1fc-b530c543bb27"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{took}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="322" y="109" width="77" height="11" uuid="83bde51d-9d35-4a41-aab6-fc6a0d9e01dc"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{book}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="400" y="109" width="78" height="11" uuid="4dc5e4f8-02fb-426f-a37c-944cf067d0ea"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{index}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="478" y="109" width="83" height="11" uuid="e3d77d20-f57e-4b75-821a-ed5d7c1775ca"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{operation_value}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="14" y="379" width="538" height="10" uuid="b7559bab-76ad-43fa-9df3-4d2f73959d97"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
@@ -2033,166 +2037,166 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp17}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="72" y="559" width="462" height="10" uuid="b670fd90-ba1b-40fa-9f73-09c2bd56d27a"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{alienated_property_home}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="10" y="608" width="78" height="14" uuid="2709ec1e-9852-4053-87bf-fddb140d1a0a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{first_article}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="88" y="608" width="78" height="14" uuid="73e4fdf8-8c7b-4a5a-9b04-738ecac91bf3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{legal_section}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="166" y="608" width="78" height="14" uuid="e510a656-6df1-44fe-8387-eb81b5a3b146"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{first_fraction}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="244" y="608" width="78" height="14" uuid="e2dff0ad-e590-4301-9c33-794439390cd3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{first_quote}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="322" y="608" width="78" height="14" uuid="4dd5412e-befa-4803-8027-f32113a4ca85"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{firs_amount}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="10" y="622" width="78" height="14" uuid="8b49b6b9-7856-4082-8a37-361de95456a8"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{second_article}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="88" y="622" width="78" height="14" uuid="bef85ecc-9aea-4701-95ce-2ef59c46c4a7"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{second_section}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="166" y="622" width="78" height="14" uuid="c2af9cc0-d163-4740-86e8-e48b04702453"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{second_fraction}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="244" y="622" width="78" height="14" uuid="b6ccd0f5-bf3c-4a00-9334-1b77137b4633"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{second_quote}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="322" y="622" width="78" height="14" uuid="ab593458-e21f-405b-8324-b6c32f7fbe94"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{second_amount}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="10" y="636" width="78" height="14" uuid="36e99eba-8dcb-443c-bf0f-ddcf1d63d92a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{thirty_article}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="88" y="636" width="78" height="14" uuid="8ea00945-04f4-4af3-96a2-77cefa595ebf"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{thirty_section}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="166" y="636" width="78" height="14" uuid="0bb51c9e-68d2-453f-9486-0d85832754db"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{thirty_fraction}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="244" y="636" width="78" height="14" uuid="15159407-1009-4ae4-8614-2663451b5e31"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{thirty_quote}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="322" y="636" width="78" height="14" uuid="49995f25-8dd7-43a7-8375-1975c6fd0377"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{thirty_amount}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="10" y="650" width="78" height="14" uuid="82e92494-483a-4720-b368-07d2c5dce0fd"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fourth_article}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="88" y="650" width="78" height="14" uuid="ec8548a3-a2e3-46a2-8e91-4be66f8608f0"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fourth_section}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="166" y="650" width="78" height="14" uuid="23f295de-8bb7-4232-bfbf-afed70be087e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fourth_fraction}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="244" y="650" width="78" height="14" uuid="ce1ca5c6-c98d-4f5b-9abf-2f802ad5a166"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fourth_quote}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="322" y="650" width="78" height="14" uuid="d22989a9-4180-4084-960e-588c49499352"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fourth_amount}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="13" y="160" width="206" height="170" uuid="5ec92cfa-746c-45d4-8366-eddd3ee8c25e"/>
 				<textElement>
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{operation_name}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="236" y="160" width="314" height="170" uuid="d33b98c8-aac0-4a1d-bea4-be3dd256d217"/>
 				<textElement markup="html">
 					<font fontName="Arial" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{operation_name} + " " + $F{description}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{operation_name} != null ? $F{operation_name} : "") + " " + $F{description}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="456" y="760" width="100" height="11" uuid="d6e37ab9-f664-4391-8508-6352565bc67e"/>
@@ -2206,10 +2210,9 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{alientating} != null ? "* LEER REVERSO" : ""
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{alientating} != null ? "* LEER REVERSO" : ""]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="13" y="477" width="420" height="10" uuid="fce78c8f-f344-4915-8ba4-382202e339f2"/>
 				<box leftPadding="5"/>
 				<textElement verticalAlignment="Middle">
@@ -2221,7 +2224,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				<reportElement x="-58" y="478" width="100" height="30" uuid="d664def5-c21b-4785-adf3-00bf2c55f27c"/>
 				<text><![CDATA[name]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="13" y="513" width="544" height="10" uuid="2c36a996-e043-4d5c-b722-a7ff5257d831"/>
 				<box leftPadding="5"/>
 				<textElement verticalAlignment="Middle">
@@ -2229,10 +2232,17 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{street} + " " + $F{outdoor_number} + " " + $F{interior_number} + " " + $F{colony} + " " + $F{locality} + " " + $F{municipality} + " " + $F{entity} + " " + $F{zipcode} + " " + $F{phone}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="303" y="666" width="97" height="14" uuid="174e9ab3-c081-4be8-8dcb-5cd161adfaa4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
 		</band>
 		<band height="150">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<printWhenExpression><![CDATA[$F{extra} != null || $F{reverse} != null]]></printWhenExpression>
+			<printWhenExpression><![CDATA[$F{acquirers} != null && $F{alientating} != null]]></printWhenExpression>
 		</band>
 		<band height="55">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -2259,7 +2269,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 		</band>
 		<band height="57" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<printWhenExpression><![CDATA[$F{reverse} != null]]></printWhenExpression>
+			<printWhenExpression><![CDATA[$F{reverse} != null && $F{reverse} != ""]]></printWhenExpression>
 			<textField textAdjust="StretchHeight">
 				<reportElement isPrintRepeatedValues="false" x="85" y="0" width="482" height="50" isPrintWhenDetailOverflows="true" uuid="43acdb2f-54df-4cc4-8004-a81d1c7a17e6"/>
 				<box topPadding="5" leftPadding="5"/>
