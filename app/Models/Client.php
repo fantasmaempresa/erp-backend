@@ -116,14 +116,6 @@ class Client extends Model
     protected function getDegreeAttribute($value){
         return strtoupper($value);
     }
-
-    protected function setExtraInformationAttribute($value){
-        $this->attributes['extra_information'] = strtolower($value);
-    }
-    
-    protected function getExtraInformationAttribute($value){
-        return strtoupper($value);
-    }
     
     protected $casts
         = [

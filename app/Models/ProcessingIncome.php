@@ -15,7 +15,6 @@ class ProcessingIncome extends Model
       'name',
       'date_income',
       'config',
-      'type',
       'procedure_id',
       'operation_id',
       'staff_id',
@@ -55,12 +54,25 @@ class ProcessingIncome extends Model
         return $this->hasMany(ProcessingIncomeComment::class);
     }
 
+    /**
+     * @param $query
+     * @param $search
+     *
+     * @return mixed
+     */
+    public function scopeSearch($query, $search, $procedure_id): mixed
+    {
+        return $query
+            ->where('procedure_id', $procedure_id)
+            ->orWhere('name', 'like', "%$search")
+            ->orWhere('date_income', 'like', "%$search");
+    }
+
     public static function rules(){
         return [
             'name' => 'required|string',
             'date_income' => 'required|date',
             'config' => 'nullable|array',
-            'type' => 'required|in:'.self::DOCUMENT_REGISTER.','.self::ENTRY_TICKET.','.self::DOCUMENT_RETURN,
             'procedure_id' => 'required|exists:procedures,id',
             'operation_id' => 'required|exists:operations,id',
             'staff_id' => 'required|exists:staff,id',

@@ -22,6 +22,19 @@ class ProcessingIncomeComment extends Model
         return $this->belongsTo(ProcessingIncome::class);
     }
 
+     /**
+     * @param $query
+     * @param $search
+     *
+     * @return mixed
+     */
+    public function scopeSearch($query, $search, $processing_income_id): mixed
+    {
+        return $query
+            ->where('processing_income_id', $processing_income_id)
+            ->orWhere('comment', 'like', "%$search");
+    }
+
     public static function rules(){
         return [
             'comment' => 'required',

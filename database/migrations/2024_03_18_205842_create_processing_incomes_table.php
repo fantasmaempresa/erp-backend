@@ -18,7 +18,6 @@ class CreateProcessingIncomesTable extends Migration
             $table->text('name');
             $table->date('date_income');
             $table->json('config')->nullable();
-            $table->tinyInteger('type');
             $table->foreignId('procedure_id')->constrained();
             $table->foreignId('operation_id')->constrained();
             $table->foreignId('staff_id')->constrained();

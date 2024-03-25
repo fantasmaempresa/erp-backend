@@ -12,6 +12,7 @@ use App\Models\Client;
 use App\Models\ClientLink;
 use App\Models\Document;
 use App\Models\Procedure;
+use App\Models\ProcessingIncome;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -73,6 +74,17 @@ class DocumentLinkController extends ApiController
 
                 return $document;
             });
+        } else if ($request->get('view') == 'incomming') {
+            $incoming = ProcessingIncome::findOrFail($request->get('client_id'));
+            $documents = $incoming->documents()->withPivot('file')->get();
+            $expedient = $documents->map(function ($document) use ($incoming) {
+                if (empty($document->pivot->file)) {
+                    $document->url = null;
+                } else {
+                    $document->url = url('storage/app/incomming/' . $incoming->id . '/expedient/' . $document->pivot->file);
+                }
+                return $document;
+            });
         } else {
             return $this->errorResponse('value view not correct', 409);
         }
@@ -116,6 +128,9 @@ class DocumentLinkController extends ApiController
         } elseif ($request->get('view') == 'procedures') {
             $client = Procedure::findOrFail($request->get('client_id'));
             $path = 'procedures/' . $client->id . '/expedient/';
+        } else if ($request->get('view') == 'incomming') {
+            $client = ProcessingIncome::findOrFail($request->get('client_id'));
+            $path = 'incomming/' . $client->id . '/expedient/';
         } else {
             return $this->errorResponse('value view not correct', 409);
         }
@@ -181,6 +196,9 @@ class DocumentLinkController extends ApiController
         } elseif ($request->get('view') == 'procedures') {
             $client = Procedure::findOrFail($request->get('client_id'));
             $path = 'procedures/' . $client->id . '/expedient/';
+        } elseif ($request->get('view') == 'incomming') {
+            $client = ProcessingIncome::findOrFail($request->get('client_id'));
+            $path = 'incomming/' . $client->id . '/expedient/';
         } else {
             return $this->errorResponse('value view not correct', 409);
         }
@@ -226,7 +244,10 @@ class DocumentLinkController extends ApiController
             $client = ClientLink::findOrFail($request->get('client_id'));
         } elseif ($request->get('view') == 'procedures') {
             $client = Procedure::findOrFail($request->get('client_id'));
-        } else {
+        }elseif($request->get('view') == 'incomming'){
+            $client = Procedure::findOrFail($request->get('client_id'));
+        } 
+        else {
             return $this->errorResponse('value view not correct', 409);
         }
 
@@ -261,18 +282,21 @@ class DocumentLinkController extends ApiController
         } elseif ($request->get('view') == 'procedures') {
             $client = Procedure::findOrFail($request->get('client_id'));
             $path = 'procedures/' . $client->id . '/expedient/';
+        } elseif ($request->get('view') == 'incomming') {
+            $client = ProcessingIncome::findOrFail($request->get('client_id'));
+            $path = 'incomming/' . $client->id . '/expedient/';
         } else {
             return $this->errorResponse('value view not correct', 409);
         }
         DB::beginTransaction();
         try {
             $document = Document::findOrFail($request->get('document_id'));
-            
+
             $document = $client->documents->find($document->id);
             $file = $request->file('file');
             $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
             $file->storeAs($path, $fileName);
-            $document->pivot->file = $fileName; 
+            $document->pivot->file = $fileName;
             $document->pivot->save();
             DB::commit();
 

@@ -7,6 +7,7 @@ use App\Models\Document;
 use App\Models\ProcessingIncome;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class ProcessingIncomeController extends ApiController
@@ -21,11 +22,26 @@ class ProcessingIncomeController extends ApiController
      */
     public function index(Request $request)
     {
+        $this->validate($request, [
+            'procedure_id' => 'required|exists:procedures,id',
+        ]);
+
         $perPage = $request->get('paginate') ?? env('NUMBER_PAGINATE');
 
-        return $this->showList(ProcessingIncome::with(['procedure', 'operation', 'staff', 'place', 'user', 'documents', 'processingIncomeComments'])
-            ->orderBy('id', 'desc')
-            ->paginate($perPage));
+        if (!empty($request->get('search')) && $request->get('search') !== 'null') {
+            $response = $this->showList(
+                ProcessingIncome::search($request->get('search'), $request->get('procedure_id'))
+                ->with(['operation', 'staff', 'place', 'user'])->paginate($perPage)
+            );
+        } else {
+            $response = $this->showList(
+                ProcessingIncome::where('procedure_id', $request->get('procedure_id'))
+                ->with(['operation', 'staff', 'place', 'user'])
+                ->paginate($perPage)
+            );
+        }
+
+        return $response;
     }
 
     
@@ -40,6 +56,7 @@ class ProcessingIncomeController extends ApiController
         $this->validate($request, ProcessingIncome::rules());
         $processingIncome = new ProcessingIncome($request->all());
         $processingIncome->user_id = Auth::id();
+        $processingIncome->date_income = Carbon::parse($request->get('date_income'));
         $processingIncome->save();
 
         if($request->has('documents')) {

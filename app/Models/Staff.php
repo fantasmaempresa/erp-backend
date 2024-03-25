@@ -77,14 +77,6 @@ class Staff extends Model
             return strtoupper($value);
         }
 
-        protected function setExtraInformationAttribute($value){
-            $this->attributes['extra_information'] = strtolower($value);
-        }
-        
-        protected function getExtraInformationAttribute($value){
-            return strtoupper($value);
-        }
-
     /**
      * The attributes that should be cast.
      *

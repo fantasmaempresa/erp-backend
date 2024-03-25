@@ -16,14 +16,26 @@ class ProcessingIncomeCommentController extends ApiController
      */
     public function index(Request $request)
     {
-        $perPage = $request->get('paginate') ?? env('NUMBER_PAGINATE');
-        $processingIncomeComment = ProcessingIncomeComment::query();
+        $this->validate($request, [
+            'processing_income_id' => 'required|exists:processing_incomes,id',
+        ]);
 
-        if ($request->has('processing_income_id')) {
-            $processingIncomeComment = $processingIncomeComment->where('processing_income_id', $request->get('processing_income_id'));
+        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+        
+        if (!empty($request->get('search')) && $request->get('search') !== 'null') {
+            $response = $this->showList(
+                ProcessingIncomeComment::search($request->get('search'), $request->get('processing_income_id'))
+                ->with('user')->paginate($paginate)
+            );
+        } else {
+            $response = $this->showList(
+                ProcessingIncomeComment::where('processing_income_id', $request->get('processing_income_id'))
+                ->with('user')
+                ->paginate($paginate)
+            );
         }
 
-        return $this->showList($processingIncomeComment->with(['user','processingIncome'])->paginate($perPage));
+        return $response;
     }
 
     /**

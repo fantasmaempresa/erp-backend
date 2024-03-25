@@ -16,6 +16,8 @@ class CreateDocumentProcessingIncomeTable extends Migration
         Schema::create('document_processing_income', function (Blueprint $table) {
             $table->foreignId('document_id')->constrained();
             $table->foreignId('processing_income_id')->constrained();
+            $table->string('file')->nullable();
+            $table->tinyInteger('type')->nullable();
         });
     }
 
