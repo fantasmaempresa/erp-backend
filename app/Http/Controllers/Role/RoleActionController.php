@@ -23,6 +23,8 @@ use App\Http\Controllers\Procedure\ProcedureController;
 use App\Http\Controllers\Procedure\ProcedureValidatorsController;
 use App\Http\Controllers\Procedure\RegistrationProcedureDataController;
 use App\Http\Controllers\ProcedureComment\ProcedureCommentController;
+use App\Http\Controllers\ProcessingIncome\ProcessingIncomeController;
+use App\Http\Controllers\ProcessingIncomeComment\ProcessingIncomeCommentController;
 use App\Http\Controllers\Project\ProjectActionController;
 use App\Http\Controllers\Project\ProjectController;
 use App\Http\Controllers\Project\ProjectFilterController;
@@ -224,6 +226,9 @@ class RoleActionController extends ApiController
                 ProcedureCommentController::class,
                 StaffController::class,
                 ProcedureValidatorsController::class,
+                ProcessingIncomeController::class,
+                ProcessingIncomeCommentController::class,
+                ClientController::class,
             ],
         ],
         [
