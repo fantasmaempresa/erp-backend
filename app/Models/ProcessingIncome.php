@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProcessingIncome extends Model
 {
     const DOCUMENT_REGISTER = 1;
-    const ENTRY_TICKET = 2;
+    const DOCUMENT_OUTPUT = 2;
     const DOCUMENT_RETURN = 3;
 
     protected $fillable = [
@@ -47,11 +47,33 @@ class ProcessingIncome extends Model
     }
 
     public function documents(){
-        return $this->belongsToMany(Document::class);
+        return $this->belongsToMany(Document::class)->withPivot(['file', 'type']);
     }
 
     public function processingIncomeComments(){
         return $this->hasMany(ProcessingIncomeComment::class);
+    }
+
+    public static function getMessageNotify(int $statusNotify, string $name = ''){
+        $notifications = [
+          self::DOCUMENT_REGISTER => [
+            'title' => 'Se ha registrado un nuevo documento de registro',
+            'message' => "Se ha registrado un nuevo documento de registro para el expediente : ($name)",
+            'type' => self::DOCUMENT_REGISTER,
+          ],
+          self::DOCUMENT_OUTPUT => [
+            'title' => 'Se ha registrado un nuevo documento de salida',
+            'message' => "Se ha registrado un nuevo documento de salida para el expediente : ($name)",
+            'type' => self::DOCUMENT_OUTPUT,
+          ],
+          self::DOCUMENT_RETURN => [
+            'title' => 'Se ha registrado un nuevo documento que regresa',
+            'message' => "Se ha registrado un nuevo documento que regresa para el expediente : ($name)",
+            'type' => self::DOCUMENT_RETURN,
+          ]
+        ];
+
+        return $notifications[$statusNotify];
     }
 
     /**

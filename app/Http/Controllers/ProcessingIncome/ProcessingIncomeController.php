@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ProcessingIncomeController extends ApiController
 {
-    
+
     /**
      * A description of the entire PHP function.
      *
@@ -31,20 +31,20 @@ class ProcessingIncomeController extends ApiController
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
             $response = $this->showList(
                 ProcessingIncome::search($request->get('search'), $request->get('procedure_id'))
-                ->with(['operation', 'staff', 'place', 'user'])->paginate($perPage)
+                    ->with(['operation', 'staff', 'place', 'user', 'procedure', 'documents'])->paginate($perPage)
             );
         } else {
             $response = $this->showList(
                 ProcessingIncome::where('procedure_id', $request->get('procedure_id'))
-                ->with(['operation', 'staff', 'place', 'user'])
-                ->paginate($perPage)
+                    ->with(['operation', 'staff', 'place', 'user', 'procedure', 'documents'])
+                    ->paginate($perPage)
             );
         }
 
         return $response;
     }
 
-    
+
     /**
      * Store a new processing income.
      *
@@ -59,16 +59,26 @@ class ProcessingIncomeController extends ApiController
         $processingIncome->date_income = Carbon::parse($request->get('date_income'));
         $processingIncome->save();
 
-        if($request->has('documents')) {
-            foreach($request->get('documents') as $document) {
-                $processingIncome->documents()->attach(Document::find($document['id']));
+        if ($request->has('documents')) {
+            $documents = $request->input('documents');
+
+            $types = [
+                'register' => ProcessingIncome::DOCUMENT_REGISTER,
+                'output' => ProcessingIncome::DOCUMENT_OUTPUT,
+                'return' => ProcessingIncome::DOCUMENT_RETURN,
+            ];
+
+            foreach ($types as $key => $type) {
+                if (isset($documents[$key])) {
+                    $processingIncome->documents()->attach(Document::find($documents[$key]["id"]), ['type' => $type]);
+                }
             }
         }
 
         return $this->showOne($processingIncome);
     }
 
-    
+
     public function show(ProcessingIncome $processingIncome): JsonResponse
     {
         $processingIncome->procedure;
@@ -95,12 +105,30 @@ class ProcessingIncomeController extends ApiController
         $processingIncome->fill($request->all());
         $processingIncome->save();
 
-        if($request->has('documents')) {
-            $processingIncome->documents()->detach();
-            foreach($request->get('documents') as $document) {
-                $processingIncome->documents()->attach(Document::find($document['id']));
+        if ($request->has('documents')) {
+            $documents = $request->input('documents');
+
+            if (isset($documents['register'])) {
+                $types = [
+                    'register' => ProcessingIncome::DOCUMENT_REGISTER,
+                    'output' => ProcessingIncome::DOCUMENT_OUTPUT,
+                    'return' => ProcessingIncome::DOCUMENT_RETURN,
+                ];
+
+                foreach ($types as $key => $type) {
+                    if (isset($documents[$key])) {
+                        $document = $processingIncome->documents()->where('type', $type)->first();
+
+                        if (!is_null($document)) {
+                            $processingIncome->documents()->detach($document->id);
+                        }
+
+                        $processingIncome->documents()->attach(Document::find($documents[$key]["id"]), ['type' => $type]);
+                    }
+                }
             }
         }
+
         return $this->showOne($processingIncome);
     }
 
