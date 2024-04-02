@@ -285,6 +285,7 @@ class DocumentLinkController extends ApiController
         } elseif ($request->get('view') == 'incomming') {
             $client = ProcessingIncome::findOrFail($request->get('client_id'));
             $path = 'incomming/' . $client->id . '/expedient/';
+            $client->notify($request->get('document_id'));
         } else {
             return $this->errorResponse('value view not correct', 409);
         }
@@ -301,7 +302,7 @@ class DocumentLinkController extends ApiController
             DB::commit();
 
             return $this->showOne($client);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
 
             return $this->errorResponse('error --> ' . $e->getMessage(), 409);

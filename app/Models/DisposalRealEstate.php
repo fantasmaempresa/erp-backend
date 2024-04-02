@@ -66,7 +66,6 @@ class DisposalRealEstate extends Model
         'rate_id',
     ];
 
-
     public function scopeSearch($query, $search)
     {
         $columns = DB::getSchemaBuilder()->getColumnListing('disposal_real_estates');
@@ -137,7 +136,7 @@ class DisposalRealEstate extends Model
             'disposal_real_estate_id',
             'acquirer_id'
         )
-            ->withPivot(['proportion', 'operation_mount_value', 'tax_base', 'rate', 'isr_acquisition']);
+            ->withPivot(['proportion', 'operation_mount_value', 'tax_base', 'rate', 'isr_acquisition', 'fiscal_appraisal', 'disposal_value']);
     }
 
     /**
@@ -278,6 +277,8 @@ class DisposalRealEstate extends Model
             'tax_base' => $taxBase,
             'rate' => $aquire['rate'],
             'isr_acquisition' => $isrAcquisition,
+            'fiscal_appraisal' => $this->fiscal_appraisal,
+            'disposal_value' => $this->disposal_value_transferor,
         ]);
     }
 }
