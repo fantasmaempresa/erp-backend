@@ -12,7 +12,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Storage;
+use Open2code\Pdf\jasper\Report;
 
 /**
  * version
@@ -143,5 +144,51 @@ class DisposalRealEstateController extends ApiController
         $disposalRealEstate->delete();
 
         return $this->showMessage('Record deleted successfully');
+    }
+
+    public function generateReport(DisposalRealEstate $disposalRealEstate, Request $request)
+    {
+        $extension = "pdf";
+        if ($request->has('reportExtension')) {
+            switch ($request->get('reportExtension')) {
+                case 1:
+                    $extension = "pdf";
+                    break;
+                case 2:
+                    $extension = "rtf";
+                    break;
+                case 3:
+                    $extension = "xls";
+                    break;
+            }
+        }
+
+        $parameters = [];
+        $disposalRealEstate->nationalConsumerPriceIndexDisposal;
+        $disposalRealEstate->nationalConsumerPriceIndexAcquisition;
+        $disposalRealEstate->alienating;
+        $disposalRealEstate->typeDisposalOperation;
+        $disposalRealEstate->rates;
+        $disposalRealEstate->acquirers;
+        $disposalRealEstate->appendant;
+
+        $jsonData = json_encode($disposalRealEstate);
+        Storage::put("reports/tempJson.json", $jsonData);
+
+        $parameters += ['subReportPath' => Storage::path('reports/disposal_real_estate/')];
+        $outputPath = Storage::path('reports/disposal_real_estate/MC.' . $extension);
+
+        $pdf = new Report(
+            Storage::path('reports/tempJson.json'),
+            $parameters,
+            Storage::path('reports/disposal_real_estate/MC.jasper'),
+            Storage::path('reports/disposal_real_estate/MC.' . $extension),
+            $extension
+        );
+
+        $result = $pdf->generateReport();
+        Storage::delete("reports/tempJson.json");
+
+        return ($result['success'] || $extension == "rtf") ? $this->downloadFile($outputPath) : $this->errorResponse($result['message'], 500);
     }
 }

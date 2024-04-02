@@ -158,21 +158,23 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
 
     //NATIONAL CONSUMER PRICE INDEX
     Route::resource('nationalConsumerPriceIndex', NationalConsumerPriceIndexController::class, ['except' => ['create', 'edit']]);
-
+    
     //INVERSION UNIT
     Route::resource('inversionUnit', InversionUnitController::class, ['except' => ['create', 'edit']]);
-
+    
     //APPENDANT 9
     Route::resource('appendant', AppendantController::class, ['only' => ['index', 'show', 'update']]);
-
+    
     //RATE
     Route::resource('rate', RateController::class, ['except' => ['create', 'edit']]);
-
+    
     //TYPE DISPOSAL OPERATION
     Route::resource('typeDisposalOperation', TypeDisposalOperationController::class, ['except' => ['create', 'edit']]);
-
+    
     //DISPOSAL REAL ESTATE
     Route::resource('disposalRealEstate', DisposalRealEstateController::class, ['except' => ['create', 'edit']]);
+    Route::get('disposalRealEstate/report/{disposalRealEstate}', [DisposalRealEstateController::class, 'generateReport']);
+
 
     //PROCEDURE COMMENT
     Route::resource('procedureComment', ProcedureCommentController::class, ['except' => ['create', 'edit']]);
