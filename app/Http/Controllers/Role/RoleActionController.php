@@ -33,6 +33,7 @@ use App\Http\Controllers\ProjectQuote\ProjectQuoteFilterController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteOperationsController;
 use App\Http\Controllers\Rate\RateController;
 use App\Http\Controllers\Shape\ShapeController;
+use App\Http\Controllers\Shape\ShapeActionController;
 use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\Stake\StakeController;
 use App\Http\Controllers\TemplateQuotes\TemplateQuotesController;
@@ -229,6 +230,7 @@ class RoleActionController extends ApiController
                 ProcessingIncomeController::class,
                 ProcessingIncomeCommentController::class,
                 ClientController::class,
+                ShapeActionController::class,
             ],
         ],
         [
