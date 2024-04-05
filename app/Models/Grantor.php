@@ -204,6 +204,7 @@ class Grantor extends Model
      */
     public static function rules($id = null, $type): array
     {
+        
         return [
             'name' => 'required|string',
             'father_last_name' => [Rule::requiredIf($type == self::PHYSICAL_PERSON)],
