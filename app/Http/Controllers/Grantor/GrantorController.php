@@ -77,7 +77,7 @@ class GrantorController extends ApiController
      */
     public function update(Request $request, Grantor $grantor): JsonResponse
     {
-        $this->validate($request, Grantor::rules(id: null,type: $request->get('type')));
+        $this->validate($request, Grantor::rules($grantor->id,$request->get('type')));
         $grantor->fill($request->all());
         if ($grantor->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);
