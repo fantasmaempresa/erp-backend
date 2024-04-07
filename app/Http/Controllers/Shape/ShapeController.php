@@ -174,12 +174,7 @@ class ShapeController extends ApiController
         $this->validate($request, Shape::rules());
         $shape->fill($request->all());
 
-        if ($shape->isClean()) {
-            return $this->errorResponse('A different value must be specified to update', 422);
-        }
-
         $shape->grantors()->detach();
-
         $shape->grantors()->attach(Grantor::find($request->get('alienating')), ['type' => Stake::ALIENATING]);
         $shape->grantors()->attach(Grantor::find($request->get('acquirer')), ['type' => Stake::ACQUIRER]);
 

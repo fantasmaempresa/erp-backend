@@ -37,6 +37,8 @@ class ShapeActionController extends ApiController
         $procedure->shape = $shape;
         $procedure->shape->operation = $shape->operation;
         $procedure->shape->signature_date_s = $this->separateDate(new DateTime($procedure->shape->signature_date));
+        $procedure->staff;
+        $procedure->staff->abbreviation = $procedure->staff->initials();
 
         $parameters = [];
 
@@ -173,7 +175,6 @@ class ShapeActionController extends ApiController
 
             $grantorCurp = $grantorAcquirer?->curp ?? $procedure->shape->data_form['acquirer_curp'] ?? null;
             $procedure->shape->acq_curp_s = $this->splitString($grantorCurp, 18, 'ac_curp');
-
         } else {
             //ALIENATING DATA
             $grantorAlienating = $procedure->shape->grantors()->where('principal', true)->where('grantor_shape.type', Stake::ALIENATING)->first();
@@ -186,16 +187,25 @@ class ShapeActionController extends ApiController
             $procedure->shape->curp = $this->splitString($grantorCurp, 18, 'curp');
         }
 
-        $grantors = $procedure->shape->grantors()->where('principal', false)->get(); 
+        $grantorsAcquirers = $procedure->shape->grantors()->where('principal', false)->where('grantor_shape.type', Stake::ACQUIRER)->get();
+        $grantorsAlienating = $procedure->shape->grantors()->where('principal', false)->where('grantor_shape.type', Stake::ALIENATING)->get();
+
         $acquirers = null;
         $alienating = null;
 
-        foreach ($grantors as $grantor) {
-            if ($grantor->pivot->type == Stake::ACQUIRER) {
-                $acquirers[] = $grantor;
-            }
+        foreach ($grantorsAcquirers as $grantor) {
+            $acquirers[] = $grantor;
+        }
 
-            if ($grantor->pivot->type == Stake::ALIENATING) {
+        foreach ($grantorsAlienating as $index => $grantor) {
+            if ($templateShapeType == TemplateShape::FORM02 && $index == 0) {
+                $alienatingData = $procedure->shape->alienatingData;
+
+                $alienatingData['complete_name'] = $alienatingData['complete_name']
+                    . " y " . $grantor->father_last_name . " " . $grantor->mother_last_name . " " . $grantor->name;
+
+                $procedure->shape->alienatingData = $alienatingData;
+            } else {
                 $alienating[] = $grantor;
             }
         }
@@ -211,11 +221,8 @@ class ShapeActionController extends ApiController
     private function grantorAlienating($grantor, $procedure)
     {
         $result = [];
-
         if (isset($grantor)) {
-            $result['name'] = $grantor['name'] ?? '';
-            $result['father_last_name'] = $grantor['father_last_name'] ?? '';
-            $result['mother_last_name'] = $grantor['mother_last_name'] ?? '';
+            $result['complete_name'] = ($grantor['father_last_name'] ?? '') . " " . ($grantor['mother_last_name'] ?? '') . " " . ($grantor['name'] ?? '');
             $result['street'] = $grantor['street'] ?? '';
             $result['outdoor_number'] = $grantor['no_ext'] ?? '';
             $result['interior_number'] = $grantor['no_int'] ?? '';
@@ -226,9 +233,7 @@ class ShapeActionController extends ApiController
             $result['zipcode'] = $grantor['zipcode'] ?? '';
             $result['phone'] = $grantor['phone'] ?? '';
         } else {
-            $result['name'] = $procedure->shape->data_form['alienating_name'] ?? '';
-            $result['father_last_name'] = '';
-            $result['mother_last_name'] = '';
+            $result['complete_name'] = $procedure->shape->data_form['alienating_name'] ?? '';
             $result['street'] = $procedure->shape->data_form['alienating_street'] ?? '';
             $result['outdoor_number'] = $procedure->shape->data_form['alienating_outdoor_number'] ?? '';
             $result['interior_number'] = $procedure->shape->data_form['alienating_interior_number'] ?? '';
@@ -239,7 +244,6 @@ class ShapeActionController extends ApiController
             $result['zipcode'] = $procedure->shape->data_form['alienating_zipcode'] ?? '';
             $result['phone'] = $procedure->shape->data_form['alienating_phone'] ?? '';
         }
-
         return $result;
     }
 
@@ -248,9 +252,7 @@ class ShapeActionController extends ApiController
         $result = [];
 
         if (isset($grantor)) {
-            $result['name'] = $grantor['name'] ?? '';
-            $result['father_last_name'] = $grantor['father_last_name'] ?? '';
-            $result['mother_last_name'] = $grantor['mother_last_name'] ?? '';
+            $result['complete_name'] = ($grantor['father_last_name'] ?? '') . " " . ($grantor['mother_last_name'] ?? '') . " " . ($grantor['name'] ?? '');
             $result['street'] = $grantor['street'] ?? '';
             $result['outdoor_number'] = $grantor['no_ext'] ?? '';
             $result['interior_number'] = $grantor['no_int'] ?? '';
@@ -261,9 +263,7 @@ class ShapeActionController extends ApiController
             $result['zipcode'] = $grantor['zipcode'] ?? '';
             $result['phone'] = $grantor['phone'] ?? '';
         } else {
-            $result['name'] = $procedure->shape->data_form['acquirer_name'] ?? '';
-            $result['father_last_name'] = '';
-            $result['mother_last_name'] = '';
+            $result['complete_name'] = $procedure->shape->data_form['alienating_name'] ?? '';
             $result['street'] = $procedure->shape->data_form['acquirer_street'] ?? '';
             $result['outdoor_number'] = $procedure->shape->data_form['acquirer_outdoor_number'] ?? '';
             $result['interior_number'] = $procedure->shape->data_form['acquirer_interior_number'] ?? '';

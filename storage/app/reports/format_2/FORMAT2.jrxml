@@ -313,18 +313,6 @@
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.description"/>
 		<fieldDescription><![CDATA[shape.description]]></fieldDescription>
 	</field>
-	<field name="name" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.name"/>
-		<fieldDescription><![CDATA[shape.alienatingData.name]]></fieldDescription>
-	</field>
-	<field name="father_last_name" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.father_last_name"/>
-		<fieldDescription><![CDATA[shape.alienatingData.father_last_name]]></fieldDescription>
-	</field>
-	<field name="mother_last_name" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.mother_last_name"/>
-		<fieldDescription><![CDATA[shape.alienatingData.mother_last_name]]></fieldDescription>
-	</field>
 	<field name="street" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.street"/>
 		<fieldDescription><![CDATA[shape.alienatingData.street]]></fieldDescription>
@@ -364,6 +352,18 @@
 	<field name="total" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.total"/>
 		<fieldDescription><![CDATA[shape.total]]></fieldDescription>
+	</field>
+	<field name="complete_name" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.complete_name"/>
+		<fieldDescription><![CDATA[shape.alienatingData.complete_name]]></fieldDescription>
+	</field>
+	<field name="procedure_name" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="name"/>
+		<fieldDescription><![CDATA[name]]></fieldDescription>
+	</field>
+	<field name="staff_abbreviation" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="staff.abbreviation"/>
+		<fieldDescription><![CDATA[staff.abbreviation]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -2213,18 +2213,6 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				<textFieldExpression><![CDATA[$F{alientating} != null ? "* LEER REVERSO" : ""]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="13" y="477" width="420" height="10" uuid="fce78c8f-f344-4915-8ba4-382202e339f2"/>
-				<box leftPadding="5"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="6"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{name} + " " + $F{father_last_name} + " " + $F{mother_last_name}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="-58" y="478" width="100" height="30" uuid="d664def5-c21b-4785-adf3-00bf2c55f27c"/>
-				<text><![CDATA[name]]></text>
-			</staticText>
-			<textField isBlankWhenNull="true">
 				<reportElement x="13" y="513" width="544" height="10" uuid="2c36a996-e043-4d5c-b722-a7ff5257d831"/>
 				<box leftPadding="5"/>
 				<textElement verticalAlignment="Middle">
@@ -2239,10 +2227,25 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="13" y="476" width="417" height="10" uuid="641a5f97-a9fc-4b4e-9033-5a2991f2b722"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{complete_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="760" width="100" height="11" uuid="1402814b-0f8e-4ffa-b361-d147d6ce2202"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{staff_abbreviation} + "/" + $F{procedure_name}]]></textFieldExpression>
+			</textField>
 		</band>
 		<band height="150">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<printWhenExpression><![CDATA[$F{acquirers} != null && $F{alientating} != null]]></printWhenExpression>
+			<printWhenExpression><![CDATA[$F{acquirers} != null || $F{alientating} != null]]></printWhenExpression>
 		</band>
 		<band height="55">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
