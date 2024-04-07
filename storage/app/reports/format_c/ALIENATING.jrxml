@@ -128,7 +128,7 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Arial" size="6"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{name} + " " + $F{father_last_name} + " " + $F{mother_last_name}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{father_last_name} + " " + $F{mother_last_name} + " " + $F{name}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="21" width="40" height="10" uuid="29425f12-f119-4fb0-8f33-ea103d52d4fa"/>

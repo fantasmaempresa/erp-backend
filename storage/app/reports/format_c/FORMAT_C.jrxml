@@ -43,10 +43,6 @@
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.notary"/>
 		<fieldDescription><![CDATA[shape.notary]]></fieldDescription>
 	</field>
-	<field name="name_al" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.name"/>
-		<fieldDescription><![CDATA[shape.alienatingData.name]]></fieldDescription>
-	</field>
 	<field name="street_al" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.street"/>
 		<fieldDescription><![CDATA[shape.alienatingData.street]]></fieldDescription>
@@ -107,17 +103,17 @@
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.description"/>
 		<fieldDescription><![CDATA[shape.description]]></fieldDescription>
 	</field>
-	<field name="father_last_name_al" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.father_last_name"/>
-		<fieldDescription><![CDATA[shape.alienatingData.father_last_name]]></fieldDescription>
-	</field>
-	<field name="mother_last_name_al" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.mother_last_name"/>
-		<fieldDescription><![CDATA[shape.alienatingData.mother_last_name]]></fieldDescription>
-	</field>
 	<field name="alienated_property_home" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.alienated_property_home"/>
 		<fieldDescription><![CDATA[shape.data_form.alienated_property_home]]></fieldDescription>
+	</field>
+	<field name="complete_name" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.complete_name"/>
+		<fieldDescription><![CDATA[shape.alienatingData.complete_name]]></fieldDescription>
+	</field>
+	<field name="procedure_name" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="name"/>
+		<fieldDescription><![CDATA[name]]></fieldDescription>
 	</field>
 	<title>
 		<band height="65" splitType="Stretch">
@@ -773,13 +769,6 @@
 				<text><![CDATA[3117]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="113" y="86" width="334" height="10" uuid="a012fc2c-c3ce-472b-99da-02f6a4554b0b"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{name_al} + " " + $F{father_last_name_al} + " " + $F{mother_last_name_al}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
 				<reportElement x="45" y="110" width="528" height="10" uuid="515da075-0da7-4672-bcbc-c5b035c81d9b"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
@@ -863,10 +852,26 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{alienated_property_home}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="110" y="86" width="330" height="10" uuid="586208de-3e67-4542-b190-3aa34d393bc5"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{complete_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="478" y="830" width="100" height="11" uuid="15904db2-9628-4dfd-b043-9d182d4bf30d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["EXP. " + $F{procedure_name}]]></textFieldExpression>
+			</textField>
 		</band>
 		<band height="150">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<printWhenExpression><![CDATA[$F{acquirers} != null && $F{alientating} != null]]></printWhenExpression>
+			<printWhenExpression><![CDATA[$F{acquirers} != null || $F{alientating} != null]]></printWhenExpression>
 		</band>
 		<band height="55">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
