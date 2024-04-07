@@ -21,6 +21,11 @@ storage/app/registration_procedure_data/
 storage/app/procedures/
 storage/app/incomming/
 storage/app/reports/format_2/FORMAT2.rtf
+
 storage/app/reports/format_c/FORMAT_C.pdf
 storage/app/reports/format_c/FORMAT_C.rtf
 storage/app/reports/format_c/FORMAT_C.xls
+
+storage/app/reports/format_t/FORMAT_T.pdf
+storage/app/reports/format_t/FORMAT_T.rtf
+storage/app/reports/format_t/FORMAT_T.xls
