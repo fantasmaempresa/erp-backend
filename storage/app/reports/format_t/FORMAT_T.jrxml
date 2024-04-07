@@ -243,18 +243,6 @@
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.description"/>
 		<fieldDescription><![CDATA[shape.description]]></fieldDescription>
 	</field>
-	<field name="name" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.name"/>
-		<fieldDescription><![CDATA[shape.alienatingData.name]]></fieldDescription>
-	</field>
-	<field name="father_last_name" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.father_last_name"/>
-		<fieldDescription><![CDATA[shape.alienatingData.father_last_name]]></fieldDescription>
-	</field>
-	<field name="mother_last_name" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.mother_last_name"/>
-		<fieldDescription><![CDATA[shape.alienatingData.mother_last_name]]></fieldDescription>
-	</field>
 	<field name="street" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.street"/>
 		<fieldDescription><![CDATA[shape.alienatingData.street]]></fieldDescription>
@@ -294,6 +282,10 @@
 	<field name="total" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.total"/>
 		<fieldDescription><![CDATA[shape.total]]></fieldDescription>
+	</field>
+	<field name="complete_name" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.complete_name"/>
+		<fieldDescription><![CDATA[shape.alienatingData.complete_name]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -2022,14 +2014,6 @@
 				<textFieldExpression><![CDATA[($F{operation_name} != null ? $F{operation_name} : "") + " " + ($F{description} != null ? $F{description} : "" )]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="558" width="464" height="14" uuid="da5d6a24-4d35-4fee-8d44-6910bb45a990"/>
-				<box leftPadding="5" rightPadding="0"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="6"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{name} + " " + $F{father_last_name} + " " + $F{mother_last_name}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
 				<reportElement x="6" y="605" width="572" height="14" uuid="a8020c60-5a1a-459b-889c-bbd8f2231f74"/>
 				<box leftPadding="5"/>
 				<textElement verticalAlignment="Middle">
@@ -2050,10 +2034,25 @@
 				</textElement>
 				<textFieldExpression><![CDATA["TOTAL: $ " + $F{total}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="477" y="804" width="100" height="11" uuid="3b7c1d29-bf5b-4a1a-9180-147df0cfcf73"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[VPF - 002]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="558" width="464" height="14" uuid="3c372f2b-27e1-4bf1-b033-b71059df2de1"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{complete_name}]]></textFieldExpression>
+			</textField>
 		</band>
 		<band height="150">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<printWhenExpression><![CDATA[$F{acquirers} != null && $F{alientating} != null]]></printWhenExpression>
+			<printWhenExpression><![CDATA[$F{acquirers} != null || $F{alientating} != null]]></printWhenExpression>
 		</band>
 		<band height="55">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
