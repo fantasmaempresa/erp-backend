@@ -5,16 +5,18 @@
 
 namespace App\Models;
 
+use App\Traits\NotificationTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Events\NotificationEvent;
 
 /**
  * @version
  */
 class ProcedureComment extends Model
 {
-    use HasFactory;
+    use HasFactory, NotificationTrait;
 
 
     protected $fillable = [
@@ -24,11 +26,13 @@ class ProcedureComment extends Model
         'user_id',
     ];
 
-    protected function setCommentAttribute($value){
+    protected function setCommentAttribute($value)
+    {
         $this->attributes['comment'] = strtolower($value);
     }
-    
-    protected function getCommentAttribute($value){
+
+    protected function getCommentAttribute($value)
+    {
         return strtoupper($value);
     }
 
@@ -70,5 +74,19 @@ class ProcedureComment extends Model
         return $query
             ->where('procedure_id', $procedure_id)
             ->orWhere('comment', 'like', "%$search");
+    }
+
+    public function notify()
+    {
+        $procedure = Procedure::find($this->procedure_id);
+        $notification = $this->createNotification([
+            "title" => "Se ha registrado un nuevo comentario",
+            "message" => "Se ha registrado un nuevo comentario para el expediente : ($procedure->name)"
+        ], null, Role::$ADMIN);
+        $this->sendNotification(
+            $notification,
+            null,
+            new NotificationEvent($notification, 0, Role::$ADMIN, [])
+        );
     }
 }
