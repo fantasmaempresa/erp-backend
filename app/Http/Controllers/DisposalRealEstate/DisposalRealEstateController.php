@@ -8,6 +8,7 @@ namespace App\Http\Controllers\DisposalRealEstate;
 
 use App\Http\Controllers\ApiController;
 use App\Models\DisposalRealEstate;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -57,6 +58,8 @@ class DisposalRealEstateController extends ApiController
     {
         $this->validate($request, DisposalRealEstate::rules());
         $disposalRealEstate = new DisposalRealEstate($request->all());
+        $disposalRealEstate->disposal_date = Carbon::parse($disposalRealEstate->disposal_date);
+        $disposalRealEstate->acquisition_date = Carbon::parse($disposalRealEstate->acquisition_date);
 
         $acquirers = count($request->get('acquirers'));
 
