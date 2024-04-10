@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\NotificationTrait;
 use Illuminate\Database\Eloquent\Model;
+use App\Events\NotificationEvent;
 
 class ProcessingIncomeComment extends Model
 {
+    use NotificationTrait;
+
     protected $fillable = [
         'id',
         'comment',
@@ -14,15 +17,17 @@ class ProcessingIncomeComment extends Model
         'processing_income_id',
     ];
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function processingIncome(){
+    public function processingIncome()
+    {
         return $this->belongsTo(ProcessingIncome::class);
     }
 
-     /**
+    /**
      * @param $query
      * @param $search
      *
@@ -35,10 +40,22 @@ class ProcessingIncomeComment extends Model
             ->orWhere('comment', 'like', "%$search");
     }
 
-    public static function rules(){
+    public static function rules()
+    {
         return [
             'comment' => 'required',
             'processing_income_id' => 'required',
         ];
+    }
+
+    public function notify()
+    {
+        $procesingIncome = ProcessingIncome::find($this->processing_income_id);
+        $notification = $this->createNotification([
+            "title" => "Se ha registrado un nuevo comentario",
+            "message" => "Se ha registrado un nuevo comentario para el expediente : ($procesingIncome->name)",
+        ], null, Role::$ADMIN);
+
+        $this->sendNotification($notification, null, new NotificationEvent($notification, 0, Role::$ADMIN, []));
     }
 }
