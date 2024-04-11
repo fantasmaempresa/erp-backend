@@ -154,7 +154,8 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::get('procedure/validator/uniqueValue/{name}', [ProcedureValidatorsController::class, 'uniqueValueValidator']);
     Route::get('procedure/validator/uniqueFolioValue/{folio}', [ProcedureValidatorsController::class, 'uniqueFolioValueValidator']);
 
-    Route::get('procedure/myProcedures', [ProcedureFilterController::class, 'myProcedures']);
+    Route::get('procedure/filter/myProcedures', [ProcedureFilterController::class, 'myProcedures']);
+    Route::get('procedure/filter/withoutData', [ProcedureFilterController::class, 'proceduresWithoutData']);
 
     Route::resource('clients', ClientController::class, ['except' => ['create', 'edit']]);
 
