@@ -26,6 +26,7 @@ use App\Http\Controllers\Perception\PerceptionController;
 use App\Http\Controllers\PhasesProcess\PhasesProcessController;
 use App\Http\Controllers\Place\PlaceController;
 use App\Http\Controllers\Procedure\ProcedureController;
+use App\Http\Controllers\Procedure\ProcedureFilterController;
 use App\Http\Controllers\Procedure\ProcedureValidatorsController;
 use App\Http\Controllers\Procedure\RegistrationProcedureDataController;
 use App\Http\Controllers\ProcedureComment\ProcedureCommentController;
@@ -153,6 +154,7 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::get('procedure/validator/uniqueValue/{name}', [ProcedureValidatorsController::class, 'uniqueValueValidator']);
     Route::get('procedure/validator/uniqueFolioValue/{folio}', [ProcedureValidatorsController::class, 'uniqueFolioValueValidator']);
 
+    Route::get('procedure/myProcedures', [ProcedureFilterController::class, 'myProcedures']);
 
     Route::resource('clients', ClientController::class, ['except' => ['create', 'edit']]);
 
