@@ -6,31 +6,31 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-
-class ClientLinkDocument extends Model
+class DocumentProcessingIncome extends Model
 {
     use HasFactory;
 
-     /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var string[]
-     */
-    protected $fillable = [
+    */
+    protected $fillable = [ 
         'id',
-        'client_link_id',
+        'processing_income_id',
         'document_id',
         'file',
+        'type',
     ];
 
-    protected $table = "client_link_document";
+    protected $table = "document_processing_income";
 
     /**
     * @return BelongsTo
     */
-   public function clientLink(): BelongsTo
+   public function processing_income(): BelongsTo
    {
-       return $this->belongsTo(ClientLink::class);
+       return $this->belongsTo(ProcessingIncome::class);
    }
 
    /**

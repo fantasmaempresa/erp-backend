@@ -14,6 +14,8 @@ class CreateDocumentProcessingIncomeTable extends Migration
     public function up()
     {
         Schema::create('document_processing_income', function (Blueprint $table) {
+            //TODO eliminar después de ejcutar en el server ALTER TABLE document_processing_income ADD id INT AUTO_INCREMENT PRIMARY KEY NOT NULL;
+            $table->id();
             $table->foreignId('document_id')->constrained();
             $table->foreignId('processing_income_id')->constrained();
             $table->string('file')->nullable();

@@ -9,8 +9,12 @@ namespace App\Http\Controllers\Document;
 
 use App\Http\Controllers\ApiController;
 use App\Models\Client;
+use App\Models\ClientDocument;
 use App\Models\ClientLink;
+use App\Models\ClientLinkDocument;
 use App\Models\Document;
+use App\Models\DocumentProcedure;
+use App\Models\DocumentProcessingIncome;
 use App\Models\Procedure;
 use App\Models\ProcessingIncome;
 use Illuminate\Http\JsonResponse;
@@ -47,7 +51,7 @@ class DocumentLinkController extends ApiController
         if ($request->get('view') == 'client') {
             $client = Client::findOrFail($request->get('client_id'));
 
-            $documents = $client->documents()->withPivot('file')->get();
+            $documents = $client->documents()->withPivot('file')->withPivot('id')->get();
             $expedient = $documents->map(function ($document) use ($client) {
                 $document->url = url('storage/app/clients/' . $client->id . '/expedient/' . $document->pivot->file);
                 return $document;
@@ -55,7 +59,7 @@ class DocumentLinkController extends ApiController
         } elseif ($request->get('view') == 'client_link') {
             $client = ClientLink::findOrFail($request->get('client_id'));
 
-            $documents = $client->documents()->withPivot('file')->get();
+            $documents = $client->documents()->withPivot('file')->withPivot('id')->get();
             $expedient = $documents->map(function ($document) use ($client) {
                 $document->url = url('storage/app/clients_link/' . $client->id . '/expedient/' . $document->pivot->file);
                 return $document;
@@ -63,7 +67,7 @@ class DocumentLinkController extends ApiController
         } elseif ($request->get('view') == 'procedures') {
             $procedure = Procedure::findOrFail($request->get('client_id'));
 
-            $documents = $procedure->documents()->withPivot('file')->get();
+            $documents = $procedure->documents()->withPivot('file')->withPivot('id')->get();
             $expedient = $documents->map(function ($document) use ($procedure) {
 
                 if (empty($document->pivot->file)) {
@@ -76,7 +80,7 @@ class DocumentLinkController extends ApiController
             });
         } else if ($request->get('view') == 'incomming') {
             $incoming = ProcessingIncome::findOrFail($request->get('client_id'));
-            $documents = $incoming->documents()->withPivot('file')->get();
+            $documents = $incoming->documents()->withPivot('file')->withPivot('id')->get();
             $expedient = $documents->map(function ($document) use ($incoming) {
                 if (empty($document->pivot->file)) {
                     $document->url = null;
@@ -223,7 +227,7 @@ class DocumentLinkController extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param int $id //este id es el id del pivot
      *
      * @return \Illuminate\Http\Response
      */
@@ -234,20 +238,22 @@ class DocumentLinkController extends ApiController
             [
                 'view' => 'required|string',
                 'client_id' => 'required|int',
-
             ]
         );
 
         if ($request->get('view') == 'client') {
-            $client = Client::findOrFail($request->get('client_id'));
+            //$client = Client::findOrFail($request->get('client_id'));
+            $pivot = ClientDocument::findOrFail($id);
         } elseif ($request->get('view') == 'client_link') {
-            $client = ClientLink::findOrFail($request->get('client_id'));
+            //$client = ClientLink::findOrFail($request->get('client_id'));
+            $pivot = ClientLinkDocument::findOrFail($id);
         } elseif ($request->get('view') == 'procedures') {
-            $client = Procedure::findOrFail($request->get('client_id'));
-        }elseif($request->get('view') == 'incomming'){
-            $client = Procedure::findOrFail($request->get('client_id'));
-        } 
-        else {
+            //$client = Procedure::findOrFail($request->get('client_id'));
+            $pivot = DocumentProcedure::findOrFail($id);
+        } elseif ($request->get('view') == 'incomming') {
+            //$client = Procedure::findOrFail($request->get('client_id'));
+            $pivot = DocumentProcessingIncome::findOrFail($id);
+        } else {
             return $this->errorResponse('value view not correct', 409);
         }
 
@@ -255,7 +261,7 @@ class DocumentLinkController extends ApiController
         DB::beginTransaction();
         try {
 
-            $client->documents()->detach($id);
+            $pivot->delete();
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
@@ -270,38 +276,40 @@ class DocumentLinkController extends ApiController
             'client_id' => 'required|int',
             'document_id' => 'required|int',
             'view' => 'required|string',
-            'file' => 'required|file|max:60048'
+            'file' => 'required|file|max:60048',
+            'document_pivot_id' => 'required|int'
         ]);
 
         if ($request->get('view') == 'client') {
             $client = Client::findOrFail($request->get('client_id'));
             $path = 'clients/' . $client->id . '/expedient/';
+            $pivot = ClientDocument::findOrFail($request->get('document_pivot_id'));
         } elseif ($request->get('view') == 'client_link') {
             $client = ClientLink::findOrFail($request->get('client_id'));
             $path = 'clients_link/' . $client->id . '/expedient/';
+            $pivot = ClientLinkDocument::findOrFail($request->get('document_pivot_id'));
         } elseif ($request->get('view') == 'procedures') {
             $client = Procedure::findOrFail($request->get('client_id'));
             $path = 'procedures/' . $client->id . '/expedient/';
+            $pivot = DocumentProcedure::findOrFail($request->get('document_pivot_id'));
         } elseif ($request->get('view') == 'incomming') {
             $client = ProcessingIncome::findOrFail($request->get('client_id'));
             $path = 'incomming/' . $client->id . '/expedient/';
+            $pivot = DocumentProcessingIncome::findOrFail($request->get('document_pivot_id'));
             $client->notify($request->get('document_id'));
         } else {
             return $this->errorResponse('value view not correct', 409);
         }
         DB::beginTransaction();
         try {
-            $document = Document::findOrFail($request->get('document_id'));
-
-            $document = $client->documents->find($document->id);
             $file = $request->file('file');
             $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
             $file->storeAs($path, $fileName);
-            $document->pivot->file = $fileName;
-            $document->pivot->save();
+            $pivot->file = $fileName;
+            $pivot->save();
             DB::commit();
+            return $this->showOne($pivot);
 
-            return $this->showOne($client);
         } catch (Exception $e) {
             DB::rollBack();
 
