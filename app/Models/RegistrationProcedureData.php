@@ -39,6 +39,14 @@ class RegistrationProcedureData extends Model
     /**
      * @return BelongsTo
      */
+    public function place()
+    {
+        return $this->belongsTo(Place::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
     public function document()
     {
         return $this->belongsTo(Document::class);

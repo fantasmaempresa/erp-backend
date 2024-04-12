@@ -26,17 +26,20 @@ class RegistrationProcedureDataController extends ApiController
             $response = RegistrationProcedureData::search($request->get('search'))
                 ->with('document')
                 ->with('user')
+                ->with('place')
                 ->orderBy('id', 'DESC')
                 ->get();
         } elseif (!empty($request->get('procedure_id')) && $request->get('procedure_id') !== 'null') {
             $response = RegistrationProcedureData::where('procedure_id', $request->get('procedure_id'))
                 ->with('document')
                 ->with('user')
+                ->with('place')
                 ->orderBy('id', 'DESC')
                 ->get();
         } else {
             $response = RegistrationProcedureData::with('document')
                 ->with('user')
+                ->with('place')
                 ->orderBy('id', 'DESC')
                 ->get();
         }
@@ -140,8 +143,9 @@ class RegistrationProcedureDataController extends ApiController
      * @param  \App\Models\RegistrationProcedureData  $registrationProcedureData
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RegistrationProcedureData $registrationProcedureData)
+    public function destroy($id)
     {
+        $registrationProcedureData = RegistrationProcedureData::findOrFail($id);
         $registrationProcedureData->delete();
         return $this->successResponse('delete completed successfully');
     }
