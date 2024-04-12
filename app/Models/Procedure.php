@@ -134,7 +134,7 @@ class Procedure extends Model
             ->orWhere('procedures.name', 'like', "%$search%")
             ->orWhere('value_operation', 'like', "%$search%")
             ->orWhere('instrument', 'like', "%$search%")
-            ->orWhere('date', 'like', "%$search%")
+            ->orWhere('procedures.date', 'like', "%$search%")
             ->orWhere('volume', 'like', "%$search%")
             ->orWhere('folio_min', 'like', "%$search%")
             ->orWhere('credit', 'like', "%$search%")
