@@ -74,7 +74,7 @@ Document extends Model
      */
     public function client(): BelongsToMany
     {
-        return $this->belongsToMany(Client::class);
+        return $this->belongsToMany(Client::class)->withTimestamps();
     }
 
     /**
@@ -82,7 +82,7 @@ Document extends Model
      */
     public function procedures(): BelongsToMany
     {
-        return $this->belongsToMany(Procedure::class);
+        return $this->belongsToMany(Procedure::class)->withTimestamps();
     }
 
     /**
@@ -90,7 +90,7 @@ Document extends Model
      */
     public function clientLink(): BelongsToMany
     {
-        return $this->belongsToMany(ClientLink::class);
+        return $this->belongsToMany(ClientLink::class)->withTimestamps();
     }
 
     /**

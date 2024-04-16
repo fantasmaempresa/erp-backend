@@ -19,6 +19,7 @@ class CreateGrantorsTable extends Migration
             $table->string('name');
             $table->string('father_last_name')->nullable();
             $table->string('mother_last_name')->nullable();
+            $table->string('email')->unique()->nullable();
             $table->string('rfc')->nullable()->unique();
             $table->string('curp')->nullable()->unique();
             $table->string('civil_status')->nullable();
@@ -26,7 +27,7 @@ class CreateGrantorsTable extends Migration
             $table->string('colony');
             $table->string('no_int')->nullable();
             $table->string('no_ext');
-            $table->string('no_locality')->nullable();
+            $table->string('no_locality')->nullable(); // se cambio a estado
             $table->string('phone')->nullable();
             $table->string('locality');
             $table->string('zipcode');

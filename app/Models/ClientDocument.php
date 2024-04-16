@@ -29,6 +29,8 @@ class ClientDocument extends Model
         'file',
     ];
 
+    protected $table = "client_document";
+
     /**
      * @return BelongsTo
      */

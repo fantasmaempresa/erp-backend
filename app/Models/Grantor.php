@@ -30,6 +30,7 @@ class Grantor extends Model
         'name',
         'father_last_name',
         'mother_last_name',
+        'email',
         'rfc',
         'curp',
         'civil_status',
@@ -193,6 +194,7 @@ class Grantor extends Model
     {
         return $query
             ->orWhereRaw('CONCAT(name, " ", father_last_name, " ", mother_last_name) like ?', "%$search%")
+            ->orWhere('email', 'like', "%$search%")
             ->orWhere('rfc', 'like', "%$search%")
             ->orWhere('curp', 'like', "%$search%")
             ->orWhere('municipality', 'like', "%$search%")
@@ -205,10 +207,11 @@ class Grantor extends Model
     public static function rules($id = null, $type): array
     {
         
-        return [
+        $rule = [
             'name' => 'required|string',
             'father_last_name' => [Rule::requiredIf($type == self::PHYSICAL_PERSON)],
             'mother_last_name' => [Rule::requiredIf($type == self::PHYSICAL_PERSON)],
+            'email' => 'nullable|email|unique:grantors',
             'type' => 'required|int',
             'rfc' => 'nullable|string|unique:grantors',
             'curp' => 'nullable|string|unique:grantors',
@@ -230,6 +233,11 @@ class Grantor extends Model
 
         if ($id) {
             // phpcs:ignore
+            $rule['email'] = [
+                'required', 'email',
+                Rule::unique('grantors')->ignore($id)
+            ];
+            // phpcs:ignore
             $rule['rfc'] = [
                 'required',
                 Rule::unique('grantors')->ignore($id),
@@ -242,5 +250,7 @@ class Grantor extends Model
                 Rule::unique('grantors')->ignore($id),
             ];
         }
+
+        return $rule;
     }
 }

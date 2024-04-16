@@ -194,7 +194,7 @@ class Client extends Model
      */
     public function documents(): BelongsToMany
     {
-        return $this->belongsToMany(Document::class);
+        return $this->belongsToMany(Document::class)->withTimestamps();
     }
 
     /**

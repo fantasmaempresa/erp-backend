@@ -145,7 +145,8 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('templateShape', TemplateShapeController::class, ['except' => ['create', 'edit']]);
     Route::resource('operations', OperationController::class, ['except' => ['create', 'edit']]);
     Route::resource('procedures', ProcedureController::class, ['except' => ['create', 'edit']]);
-    Route::resource('registrationProcedureData', RegistrationProcedureDataController::class, ['except' => ['create', 'edit']]);
+    Route::resource('registrationProcedureData', RegistrationProcedureDataController::class, ['except' => ['create', 'edit', 'update']]);
+    Route::post('registrationProcedureData/updateAlternative/{registrationProcedureData}', [RegistrationProcedureDataController::class, 'update']);
     Route::resource('grantors', GrantorController::class, ['except' => ['create', 'edit']]);
     Route::resource('places', PlaceController::class, ['except' => ['create', 'edit']]);
     Route::resource('isoDocumentation', IsoDocumentController::class, ['except' => ['create', 'edit']]);
