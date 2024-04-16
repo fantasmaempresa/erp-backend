@@ -3,6 +3,7 @@
 use App\Http\Controllers\Appendant\AppendantController;
 use App\Http\Controllers\Auth\AuthActionController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\CategoryOperation\CategoryOperationController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\ClientDocument\ClientDocumentController;
 use App\Http\Controllers\ClientLink\ClientLinkActionController;
@@ -188,6 +189,8 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('processingIncome', ProcessingIncomeController::class, ['except' => ['create', 'edit']]);
 
     Route::resource('processingIncomeComment', ProcessingIncomeCommentController::class, ['except' => ['create', 'edit']]);
+
+    Route::resource('categoryOperation', CategoryOperationController::class, ['except' => ['create', 'edit']]);
 });
 
 
