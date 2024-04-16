@@ -19,7 +19,6 @@ class CreateGrantorsTable extends Migration
             $table->string('name');
             $table->string('father_last_name')->nullable();
             $table->string('mother_last_name')->nullable();
-            //TODO eliminar después de ejecutar en server ALTER TABLE grantors ADD email VARCHAR(255) NULL UNIQUE;
             $table->string('email')->unique()->nullable();
             $table->string('rfc')->nullable()->unique();
             $table->string('curp')->nullable()->unique();

@@ -207,7 +207,7 @@ class Grantor extends Model
     public static function rules($id = null, $type): array
     {
         
-        return [
+        $rule = [
             'name' => 'required|string',
             'father_last_name' => [Rule::requiredIf($type == self::PHYSICAL_PERSON)],
             'mother_last_name' => [Rule::requiredIf($type == self::PHYSICAL_PERSON)],
@@ -250,5 +250,7 @@ class Grantor extends Model
                 Rule::unique('grantors')->ignore($id),
             ];
         }
+
+        return $rule;
     }
 }
