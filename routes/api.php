@@ -56,6 +56,7 @@ use App\Http\Controllers\TaxDatum\TaxDatumController;
 use App\Http\Controllers\TemplateQuotes\TemplateQuotesController;
 use App\Http\Controllers\TemplateShape\TemplateShapeController;
 use App\Http\Controllers\TypeDisposalOperation\TypeDisposalOperationController;
+use App\Http\Controllers\Unit\UnitController;
 use App\Http\Controllers\User\UserActionController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\UserLog\UserLogController;
@@ -192,6 +193,8 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('processingIncomeComment', ProcessingIncomeCommentController::class, ['except' => ['create', 'edit']]);
 
     Route::resource('categoryOperation', CategoryOperationController::class, ['except' => ['create', 'edit']]);
+
+    Route::resource('unit', UnitController::class, ['except' => ['create', 'edit']]);
 });
 
 

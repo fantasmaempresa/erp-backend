@@ -2,29 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\Rule;
 
-class CategoryOperation extends Model
+class Unit extends Model
 {
     protected $fillable = [
         'id',
         'name',
         'description',
-        'config',
-        'form',
-        'operation_id'
+        'year',
+        'value'
     ];
-
-    protected $casts = [
-        'config' => 'array',
-        'form' => 'array'
-    ];
-
-    public function operation()
-    {
-        return $this->belongsTo(Operation::class);
-    }
 
     public function scopeSearch($query, $search)
     {
@@ -35,18 +24,17 @@ class CategoryOperation extends Model
     public static function rules($id = null)
     {
         $rules = [
-            'name' => 'required|string|unique:category_operations',
+            'name' => 'required|string|unique:units',
             'description' => 'required|string',
-            'config' => 'required|array',
-            'form' => 'required|array',
-            'operation_id' => 'required|exists:operations,id'
+            'year' => 'required|int',
+            'value' => 'required|numeric'
         ];
 
-        if($id){
+        if ($id) {
             $rules['name'] = [
                 'required',
                 'string',
-                Rule::unique('category_operations')->ignore($id)
+                Rule::unique('units')->ignore($id)
             ];
         }
 
