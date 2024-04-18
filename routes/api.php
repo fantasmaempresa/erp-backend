@@ -60,6 +60,7 @@ use App\Http\Controllers\Unit\UnitController;
 use App\Http\Controllers\User\UserActionController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\UserLog\UserLogController;
+use App\Http\Controllers\VulnerableOperation\VulnerableOperationController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
 use Illuminate\Support\Facades\Route;
 
@@ -195,6 +196,8 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('categoryOperation', CategoryOperationController::class, ['except' => ['create', 'edit']]);
 
     Route::resource('unit', UnitController::class, ['except' => ['create', 'edit']]);
+
+    Route::resource('vulnerableOperation', VulnerableOperationController::class, ['except' => ['create', 'edit']]);
 });
 
 
