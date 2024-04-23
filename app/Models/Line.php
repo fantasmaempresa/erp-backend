@@ -13,11 +13,11 @@ class Line extends Model
     protected $fillable
         = [
             'id',
-            'type',
+            'line',
         ];
 
     protected function setNameAttribute($value){
-        $this->attributes['type'] = strtolower($value);
+        $this->attributes['line'] = strtolower($value);
     }
     
     protected function getNameAttribute($value){
@@ -34,7 +34,7 @@ class Line extends Model
     public static function rules($id = null): array
     {
         $rule = [
-            'type' => 'required|string',
+            'line' => 'required|string',
         ];
         return $rule;
     }
