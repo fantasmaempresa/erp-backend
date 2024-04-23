@@ -15,8 +15,10 @@ use App\Models\ClientLinkDocument;
 use App\Models\Document;
 use App\Models\DocumentProcedure;
 use App\Models\DocumentProcessingIncome;
+use App\Models\DocumentVulnerableOperation;
 use App\Models\Procedure;
 use App\Models\ProcessingIncome;
+use App\Models\VulnerableOperation;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -89,6 +91,18 @@ class DocumentLinkController extends ApiController
                 }
                 return $document;
             });
+        } else if ($request->get('view') == 'vulnerable_operation') {
+            $vulnerableOperation = VulnerableOperation::findOrFail($request->get('client_id'));
+            $documents = $vulnerableOperation->documents()->withPivot('file')->withPivot('id')->get();
+            $expedient = $documents->map(function ($document) use ($vulnerableOperation) {
+                if(empty($document->pivot->file)){
+                    $document->url = null;
+                }else{
+                    $document->url = url('storage/app/vulnerable_operation/' . $vulnerableOperation->id . '/expedient/' . $document->pivot->file);
+                }
+
+                return $document;
+            });
         } else {
             return $this->errorResponse('value view not correct', 409);
         }
@@ -135,6 +149,9 @@ class DocumentLinkController extends ApiController
         } else if ($request->get('view') == 'incomming') {
             $client = ProcessingIncome::findOrFail($request->get('client_id'));
             $path = 'incomming/' . $client->id . '/expedient/';
+        } else if ($request->get('view') == 'vulnerable_operation') {
+            $client = VulnerableOperation::findOrFail($request->get('client_id'));
+            $path = 'vulnerable_operation/' . $client->id . '/expedient/';
         } else {
             return $this->errorResponse('value view not correct', 409);
         }
@@ -203,9 +220,13 @@ class DocumentLinkController extends ApiController
         } elseif ($request->get('view') == 'incomming') {
             $client = ProcessingIncome::findOrFail($request->get('client_id'));
             $path = 'incomming/' . $client->id . '/expedient/';
+        } else if ($request->get('view') == 'vulnerable_operation') {
+            $client = VulnerableOperation::findOrFail($request->get('client_id'));
+            $path = 'vulnerable_operation/' . $client->id . '/expedient/';
         } else {
             return $this->errorResponse('value view not correct', 409);
         }
+
         DB::beginTransaction();
         try {
             $document = Document::findOrFail($request->get('document_id'));
@@ -253,6 +274,8 @@ class DocumentLinkController extends ApiController
         } elseif ($request->get('view') == 'incomming') {
             //$client = Procedure::findOrFail($request->get('client_id'));
             $pivot = DocumentProcessingIncome::findOrFail($id);
+        } else if ($request->get('view') == 'vulnerable_operation') {
+            $pivot = VulnerableOperation::findOrFail($id);
         } else {
             return $this->errorResponse('value view not correct', 409);
         }
@@ -297,6 +320,10 @@ class DocumentLinkController extends ApiController
             $path = 'incomming/' . $client->id . '/expedient/';
             $pivot = DocumentProcessingIncome::findOrFail($request->get('document_pivot_id'));
             $client->notify($request->get('document_id'));
+        } else if ($request->get('view') == 'vulnerable_operation') {
+            $client = VulnerableOperation::findOrFail($request->get('client_id'));
+            $path = 'vulnerable_operation/' . $client->id . '/expedient/';
+            $pivot = DocumentVulnerableOperation::findOrFail($request->get('document_pivot_id'));
         } else {
             return $this->errorResponse('value view not correct', 409);
         }
@@ -309,7 +336,6 @@ class DocumentLinkController extends ApiController
             $pivot->save();
             DB::commit();
             return $this->showOne($pivot);
-
         } catch (Exception $e) {
             DB::rollBack();
 

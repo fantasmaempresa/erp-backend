@@ -93,6 +93,11 @@ Document extends Model
         return $this->belongsToMany(ClientLink::class)->withTimestamps();
     }
 
+    public function vulnerableOptions()
+    {
+        return $this->hasMany(VulnerableOption::class);
+    }
+
     /**
      * @param $query
      * @param $search

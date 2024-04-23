@@ -28,7 +28,13 @@ class VulnerableOperation extends Model
         return $this->belongsTo(Unit::class);
     }
 
-    public static function rules(){
+    public function documents()
+    {
+        return $this->belongsToMany(Document::class)->withPivot(['file', 'id']);
+    }
+
+    public static function rules()
+    {
 
         return [
             'data_form' => 'required|array',
