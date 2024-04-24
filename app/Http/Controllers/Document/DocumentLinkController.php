@@ -275,7 +275,7 @@ class DocumentLinkController extends ApiController
             //$client = Procedure::findOrFail($request->get('client_id'));
             $pivot = DocumentProcessingIncome::findOrFail($id);
         } else if ($request->get('view') == 'vulnerable_operation') {
-            $pivot = VulnerableOperation::findOrFail($id);
+            $pivot = DocumentVulnerableOperation::findOrFail($id);
         } else {
             return $this->errorResponse('value view not correct', 409);
         }
