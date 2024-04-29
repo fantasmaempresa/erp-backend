@@ -12,8 +12,8 @@ class OfficeSecurityMeasures extends Model
     protected $fillable
         = [
             'id',
-            'id_staff',
-            'id_article',
+            'staff_id',
+            'article_id',
             'adquisition_date',
             'return_date',
             'adquisition_comments',
@@ -46,8 +46,8 @@ class OfficeSecurityMeasures extends Model
     public static function rules($id = null): array
     {
         $rule = [
-            'id_staff' => 'required|int',
-            'id_article' => 'required|int',
+            'staff_id' => 'required|int',
+            'article_id' => 'required|int',
             'adquisition_date' => 'required|date',
             'return_date' => 'required|date',
             'adquisition_comments' => 'nullable|string',

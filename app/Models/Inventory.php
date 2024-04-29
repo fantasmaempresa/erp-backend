@@ -12,8 +12,8 @@ class Inventory extends Model
     protected $fillable
         = [
             'id',
-            'id_article',
-            'id_warehouse',
+            'article_id',
+            'warehouse_id',
             'amount',
         ];
         
@@ -27,8 +27,8 @@ class Inventory extends Model
     public static function rules($id = null): array
     {
         $rule = [
-            'id_article' => 'required|int',
-            'id_warehouse' => 'required|int',
+            'article_id' => 'required|int',
+            'warehouse_id' => 'required|int',
             'amount' => 'required|int',
         ];
         return $rule;

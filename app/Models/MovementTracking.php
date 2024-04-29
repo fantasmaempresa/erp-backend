@@ -12,8 +12,8 @@ class MovementTracking extends Model
     protected $fillable
         = [
             'id',
-            'id_article',
-            'id_warehouse',
+            'article_id',
+            'warehouse_id',
             'amount',
             'reason',
         ];
@@ -36,9 +36,9 @@ class MovementTracking extends Model
     public static function rules($id = null): array
     {
         $rule = [
-            'id_article' => 'required|int',
-            'id_warehouse' => 'required|int',
-            'amount' => 'required|float',
+            'article_id' => 'required|int',
+            'warehouse_id' => 'required|int',
+            'amount' => 'required|int',
             'reason' => 'required|string|in:Inventario Inicial, Venta, Compra, Resguardo, Traslado Almacén'
         ];
         return $rule;
