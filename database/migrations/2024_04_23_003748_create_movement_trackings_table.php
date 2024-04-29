@@ -15,7 +15,7 @@ class CreateMovementTrackingsTable extends Migration
     {
         Schema::create('movement_trackings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('articel_id')->constrained();
+            $table->foreignId('articles_id')->constrained();
             $table->foreignId('warehouse_id')->constrained();
             $table->integer('amount');
             $table->string('reason');
