@@ -50,8 +50,6 @@ class CategoryOperationController extends ApiController
      */
     public function show(CategoryOperation $categoryOperation)
     {
-        $categoryOperation->operation;
-
         return $this->showOne($categoryOperation);
     }
 

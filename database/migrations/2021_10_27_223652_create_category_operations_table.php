@@ -19,7 +19,6 @@ class CreateCategoryOperationsTable extends Migration
             $table->string('description');
             $table->json('config');
             $table->json('form');
-            $table->foreignId('operation_id')->constrained();
             $table->timestamps();
         });
     }

@@ -20,6 +20,7 @@ class Operation extends Model
         'name',
         'description',
         'config',
+        'category_operation_id'
     ];
 
     protected $casts = [
@@ -40,6 +41,11 @@ class Operation extends Model
     
     protected function getDescriptionAttribute($value){
         return strtoupper($value);
+    }
+
+    public function categoryOperation(): BelongsTo
+    {
+        return $this->belongsTo(CategoryOperation::class);
     }
 
 
@@ -71,6 +77,8 @@ class Operation extends Model
         return [
             'name' => 'required|string',
             'description' => 'nullable|string',
+            'category_operation_id' => 'exists:category_operations,id',
+            'config' => 'array',
         ];
     }
 }
