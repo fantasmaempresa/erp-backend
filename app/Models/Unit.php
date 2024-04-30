@@ -18,11 +18,21 @@ class Unit extends Model
         return $query->orWhere('year', 'like', "%$search%");
     }
 
-    public static function rules()
+    public static function rules($id = null)
     {
-        return [
-            'year' => 'required|int',
+        $rules = [
+            'year' => 'required|int|unique:units',
             'value' => 'required|numeric'
         ];
+
+        if ($id) {
+            $rules['year'] = [
+                'required',
+                'integer',
+                Rule::unique('units')->ignore($id)
+            ];
+        }
+
+        return $rules;
     }
 }

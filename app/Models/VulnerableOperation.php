@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class VulnerableOperation extends Model
 {
@@ -12,6 +13,7 @@ class VulnerableOperation extends Model
         'data_form',
         'procedure_id',
         'unit_id',
+        'inversion_unit_id'
     ];
 
     protected $casts = [
@@ -23,8 +25,11 @@ class VulnerableOperation extends Model
         return $this->belongsTo(Procedure::class);
     }
 
-    public function unit()
-    {
+    public function unit(){
+        return $this->belongsTo(Unit::class);
+    }
+
+    public function inversionUnit(){
         return $this->belongsTo(Unit::class);
     }
 
@@ -33,13 +38,20 @@ class VulnerableOperation extends Model
         return $this->belongsToMany(Document::class)->withPivot(['file', 'id']);
     }
 
+    public function scopeSearch($query, $search){
+        return $query
+                ->join('procedures', 'vulnerable_operations.procedure_id', '=', 'procedures.id')
+                ->where('procedures.name', 'like', '%'.$search.'%')
+                ->select('vulnerable_operations.*');
+    }
+
     public static function rules()
     {
-
         return [
             'data_form' => 'required|array',
             'procedure_id' => 'required|exists:procedures,id',
-            'unit_id' => 'required|exists:units,id',
+            'unit_id' => 'nullable|exists:units,id',
+            'inversion_unit_id' => 'nullable|exists:units,id',
         ];
     }
 }
