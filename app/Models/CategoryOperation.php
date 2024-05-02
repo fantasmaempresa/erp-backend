@@ -12,8 +12,7 @@ class CategoryOperation extends Model
         'name',
         'description',
         'config',
-        'form',
-        'operation_id'
+        'form'
     ];
 
     protected $casts = [
@@ -23,7 +22,7 @@ class CategoryOperation extends Model
 
     public function operation()
     {
-        return $this->belongsTo(Operation::class);
+        return $this->hasMany(Operation::class);
     }
 
     public function scopeSearch($query, $search)
@@ -39,7 +38,6 @@ class CategoryOperation extends Model
             'description' => 'required|string',
             'config' => 'required|array',
             'form' => 'required|array',
-            'operation_id' => 'required|exists:operations,id'
         ];
 
         if($id){

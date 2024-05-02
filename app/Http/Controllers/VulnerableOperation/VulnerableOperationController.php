@@ -15,13 +15,13 @@ class VulnerableOperationController extends ApiController
      */
     public function index(Request $request)
     {
-        $this->validate($request, [
-            'procedure_id' => 'required|exists:procedures,id',
-        ]);
-
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
-        $vulnerableOperations = VulnerableOperation::where('procedure_id', $request->get('procedure_id'))->with(['procedure', 'unit'])->paginate($paginate);
+        if (!empty($request->get('search')) && $request->get('search') !== 'null') {
+            $vulnerableOperations = VulnerableOperation::search($request->get('search'))->with(['procedure'])->paginate($paginate);
+        } else if ($request->has('procedure_id')) {
+            $vulnerableOperations = VulnerableOperation::where('procedure_id', $request->get('procedure_id'))->with(['procedure'])->paginate($paginate);
+        }
 
         return $this->showList($vulnerableOperations);
     }
@@ -50,7 +50,6 @@ class VulnerableOperationController extends ApiController
     public function show(VulnerableOperation $vulnerableOperation)
     {
         $vulnerableOperation->procedure;
-        $vulnerableOperation->unit;
 
         return $this->showOne($vulnerableOperation);
     }
@@ -66,7 +65,7 @@ class VulnerableOperationController extends ApiController
     {
         $this->validate($request, VulnerableOperation::rules());
         $vulnerableOperation->fill($request->all());
-        if($vulnerableOperation->isClean()){
+        if ($vulnerableOperation->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);
         }
 

@@ -17,7 +17,8 @@ class CreateVulnerableOperationsTable extends Migration
             $table->id();
             $table->json('data_form');
             $table->foreignId('procedure_id')->constrained();
-            $table->foreignId('unit_id')->constrained();
+            $table->foreignId('unit_id')->nullable()->constrained();
+            $table->foreignId('inversion_unit_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

@@ -15,9 +15,7 @@ class CreateUnitsTable extends Migration
     {
         Schema::create('units', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('description');
-            $table->integer('year');
+            $table->integer('year')->unique();
             $table->decimal('value', 20, 15);
             $table->timestamps();
         });

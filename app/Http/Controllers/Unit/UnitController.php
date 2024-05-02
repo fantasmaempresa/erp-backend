@@ -16,6 +16,7 @@ class UnitController extends ApiController
     public function index(Request $request)
     {
         $perPage = $request->get('paginate') ?? env('NUMBER_PAGINATE');
+
         if ($request->has('search') && $request->get('search') !== 'null') {
             $response = Unit::search($request->get('search'))
                 ->orderBy('id', 'desc')->paginate($perPage);
