@@ -39,9 +39,11 @@ use App\Http\Controllers\Stake\StakeController;
 use App\Http\Controllers\TemplateQuotes\TemplateQuotesController;
 use App\Http\Controllers\TemplateShape\TemplateShapeController;
 use App\Http\Controllers\TypeDisposalOperation\TypeDisposalOperationController;
+use App\Http\Controllers\Unit\UnitController;
 use App\Http\Controllers\User\UserActionController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\UserFilterController;
+use App\Http\Controllers\VulnerableOperation\VulnerableOperationController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
 use App\Models\Role;
 use App\Models\User;
@@ -69,15 +71,35 @@ class RoleActionController extends ApiController
             ],
         ],
         [
-            'label' => 'Clientes',
-            'route' => './clients',
-            'icon' => 'people',
+            'label' => 'Catálogos',
+            'icon' => 'folder_special',
+            'route' => './disposal_assets',
+            'dropdowns' => [
+                [
+                    'label' => 'Clientes',
+                    'route' => './clients',
+                    'icon' => 'people',
+                ],
+                [
+                    'label' => 'Documentos',
+                    'route' => './documents',
+                    'icon' => 'document_scanner',
+                ],
+                [
+                    'label' => 'Catálogo de Unidades',
+                    'route' => './unit',
+                    'icon' => 'groups',
+                ],
+            ],
             'controllers' => [
                 ClientController::class,
                 DocumentLinkController::class,
                 ClientLinkController::class,
+                DocumentController::class,
+                UnitController::class,
             ],
         ],
+        
         [
             'label' => 'Personal',
             'route' => './staff',
@@ -92,14 +114,6 @@ class RoleActionController extends ApiController
             'icon' => 'group_work',
             'controllers' => [
                 WorkAreaController::class,
-            ],
-        ],
-        [
-            'label' => 'Documentos',
-            'route' => './documents',
-            'icon' => 'document_scanner',
-            'controllers' => [
-                DocumentController::class,
             ],
         ],
         [
@@ -255,12 +269,12 @@ class RoleActionController extends ApiController
                 ],
                 [
                     'label' => 'Operaciones de eliminación',
-                    'route' => './disponsalOperation',
+                    'route' => './disposalOperation',
                     'icon' => 'money',
                 ],
                 [
                     'label' => 'Enajenación de Bienes',
-                    'route' => './disponsalRealEstate',
+                    'route' => './disposalRealEstate',
                     'icon' => 'monetization_on',
                 ],
             ],
@@ -270,6 +284,28 @@ class RoleActionController extends ApiController
                 RateController::class,
                 TypeDisposalOperationController::class,
                 DisposalRealEstateController::class,
+            ],
+        ],
+        [
+            'label' => 'Operaciones notariales vulnerables',
+            'icon' => 'campaign',
+            'route' => './vulnerableOperations',
+            'dropdowns' => [
+                [
+                    'label' => 'Lista de operaciones vulnerables',
+                    'route' => './vulnerableOperations',
+                    'icon' => 'campaign',
+                ],
+                [
+                    'label' => 'Completar Operación Vulnerable',
+                    'route' => './vulnerableOperations/new',
+                    'icon' => 'verified_user',
+                ],
+            ],
+            'controllers' => [
+                VulnerableOperationController::class,
+                ProcedureController::class,
+                StaffController::class,
             ],
         ],
         [
@@ -302,7 +338,6 @@ class RoleActionController extends ApiController
             ],
         ],
     ];
-
     /**
      * @return JsonResponse
      */

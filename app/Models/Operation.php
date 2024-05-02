@@ -71,6 +71,7 @@ class Operation extends Model
         return [
             'name' => 'required|string',
             'description' => 'nullable|string',
+            'documents.*.id' => 'required|exists:documents,id'
         ];
     }
 }

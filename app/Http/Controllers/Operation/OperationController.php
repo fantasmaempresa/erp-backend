@@ -44,8 +44,12 @@ class OperationController extends ApiController
     public function store(Request $request): JsonResponse
     {
         $this->validate($request, Operation::rules());
-        $operation = Operation::create($request->all());
-
+        $operation = new Operation($request->all());
+        $operation->config = 
+        array_merge(empty($operation->config) ? [] : $operation->config, 
+            ['documents_required' => $request->get('documents')]
+        );
+        $operation->save();
         return $this->showOne($operation);
 
     }

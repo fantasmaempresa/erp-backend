@@ -88,7 +88,7 @@ class UserController extends ApiController
         }
         $user->password = empty($request->has('password'))
             ? $user->password
-            : bcrypt($request->has('password'));
+            : bcrypt($request->get('password'));
         $user->save();
 
         return $this->showOne($user);
