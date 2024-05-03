@@ -22,7 +22,7 @@ class CategoryOperation extends Model
 
     public function operation()
     {
-        return $this->hasMany(Operation::class);
+        return $this->hasOne(Operation::class);
     }
 
     public function scopeSearch($query, $search)
@@ -36,8 +36,8 @@ class CategoryOperation extends Model
         $rules = [
             'name' => 'required|string|unique:category_operations',
             'description' => 'required|string',
-            'config' => 'required|array',
-            'form' => 'required|array',
+            'config' => 'nullable|array',
+            'form' => 'nullable|array',
         ];
 
         if($id){

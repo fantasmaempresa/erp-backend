@@ -27,6 +27,11 @@ class CreateProceduresTable extends Migration
             $table->string('credit')->nullable(); // credito
             $table->text('observation')->nullable(); // observaciones
             $table->tinyInteger('status')->default(Procedure::IN_PROCESS);
+            $table->tinyInteger('way_to_pay')->nullable();
+            $table->string('real_estate_folio')->nullable();
+            $table->string('meters_land')->nullable();
+            $table->string('construction_meters')->nullable();
+            $table->tinyInteger('property_type')->nullable();
             $table->string('appraisal')->nullable();
             $table->foreignId('operation_id')->constrained(); //Operacion
             $table->foreignId('user_id')->constrained(); //Elaboro
