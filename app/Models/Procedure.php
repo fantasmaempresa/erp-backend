@@ -2,6 +2,7 @@
 /*
  * OPEN 2 CODE PROCEDURE MODEL
  */
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,6 +21,14 @@ class Procedure extends Model
 
     const IN_PROCESS = 1;
 
+    const TRANSFER = 1;
+    const CHECK = 2;
+    const CASH = 3;
+
+    const LAND = 1;
+    const HOUSE_ROOM = 2;
+    const LOCAL = 3;
+
     protected $fillable = [
         'id',
         'name', //Número de expediente
@@ -33,6 +42,11 @@ class Procedure extends Model
         'credit',
         'observation',
         'status',
+        'way_to_pay',
+        'real_estate_folio',
+        'meters_land',
+        'construction_meters',
+        'property_type',
         'appraisal',
         'operation_id',
         'user_id',
@@ -41,12 +55,20 @@ class Procedure extends Model
         'staff_id',
     ];
 
-    protected function setNameAttribute($value){
+    protected function setNameAttribute($value)
+    {
         $this->attributes['name'] = strtolower($value);
     }
-    
-    protected function getNameAttribute($value){
+
+    protected function getNameAttribute($value)
+    {
         return strtoupper($value);
+    }
+
+    protected function getValueOperationAttribute($value)
+    {
+        $cleanedValue = preg_replace('/[^0-9]/', '', $value);
+        return (int)$cleanedValue;
     }
 
     /**
@@ -115,7 +137,7 @@ class Procedure extends Model
      */
     public function comments(): HasMany
     {
-        return$this->hasMany(ProcedureComment::class);
+        return $this->hasMany(ProcedureComment::class);
     }
 
     /**
@@ -160,7 +182,7 @@ class Procedure extends Model
     {
         return [
             'name' => 'required|string',
-            'value_operation' => 'nullable|string',
+            'value_operation' => 'nullable|string|regex:/^[a-zA-Z0-9\s]+$/',
             'instrument' => 'required|string',
             'date' => 'required|date',
             'volume' => 'required|string',
@@ -171,11 +193,15 @@ class Procedure extends Model
             'grantors' => 'required|array',
             'documents' => 'required|array',
             'appraisal' => 'nullable|string',
+            'way_to_pay' => 'nullable|tinyint',
+            'real_estate_folio' => 'nullable|string',
+            'meters_land' => 'nullable|string',
+            'construction_meters' => 'nullable|string',
+            'property_type' => 'nullable|tinyint',
             'operation_id' => 'required|exists:operations,id',
             'place_id' => 'required|exists:places,id',
             'client_id' => 'required|exists:clients,id',
             'staff_id' => 'required|exists:staff,id',
         ];
     }
-
 }
