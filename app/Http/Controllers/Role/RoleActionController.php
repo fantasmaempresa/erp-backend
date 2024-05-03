@@ -191,19 +191,24 @@ class RoleActionController extends ApiController
             ],
         ],
         [
-            'label' => 'Notarial',
-            'icon' => 'balance',
+            'label' => 'Catálogos Notariales',
+            'icon' => 'folder_special',
             'route' => './notary',
             'dropdowns' => [
                 [
-                    'label' => 'Participaciones',
-                    'route' => './stakes',
-                    'icon' => 'supervised_user_circle',
+                    'label' => 'Categorías de operaciones',
+                    'route' => './category-operation',
+                    'icon' => 'folder',
                 ],
                 [
                     'label' => 'Operaciones',
                     'route' => './operations',
                     'icon' => 'format_list_bulleted',
+                ],
+                [
+                    'label' => 'Participaciones',
+                    'route' => './stakes',
+                    'icon' => 'supervised_user_circle',
                 ],
                 [
                     'label' => 'Otorgantes',
@@ -215,6 +220,22 @@ class RoleActionController extends ApiController
                     'route' => './places',
                     'icon' => 'location_on',
                 ],
+            ],
+            'controllers' => [
+                OperationController::class,
+                PlaceController::class,
+                GrantorController::class,
+                RegistrationProcedureDataController::class,
+                StakeController::class,
+                DocumentLinkController::class,
+                DocumentController::class,
+            ],
+        ],
+        [
+            'label' => 'Notarial',
+            'icon' => 'balance',
+            'route' => './notary',
+            'dropdowns' => [              
                 [
                     'label' => 'Formas',
                     'route' => './shapes',
@@ -243,7 +264,6 @@ class RoleActionController extends ApiController
                 ProcedureValidatorsController::class,
                 ProcessingIncomeController::class,
                 ProcessingIncomeCommentController::class,
-                ClientController::class,
                 ShapeActionController::class,
             ],
         ],
