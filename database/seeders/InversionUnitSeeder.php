@@ -40,7 +40,8 @@ class InversionUnitSeeder extends Seeder
 
             foreach ($catalogs as $catalog) {
                 $date = Carbon::createFromFormat('d/m/Y', $catalog['date'])->format('Y-m-d');
-                $catalog['date'] = $date;
+                $catalog['name'] = $date;
+                unset($catalog['date']);
                 InversionUnit::create($catalog);
             }
         } catch (IOException|ReaderNotOpenedException $e) {
