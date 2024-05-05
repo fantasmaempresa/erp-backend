@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class CategoryOperation extends Model
 {
+
+    const UMA = 1;
+    const UDI = 2;
+    const DOCUMENT = 3;
+    const OPTION = 4;
+ 
     protected $fillable = [
         'id',
         'name',
@@ -40,7 +46,7 @@ class CategoryOperation extends Model
             'form' => 'nullable|array',
         ];
 
-        if($id){
+        if ($id) {
             $rules['name'] = [
                 'required',
                 'string',
