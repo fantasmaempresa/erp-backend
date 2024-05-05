@@ -9,24 +9,24 @@ class Unit extends Model
 {
     protected $fillable = [
         'id',
-        'year',
+        'name',
         'value'
     ];
 
     public function scopeSearch($query, $search)
     {
-        return $query->orWhere('year', 'like', "%$search%");
+        return $query->orWhere('name', 'like', "%$search%");
     }
 
     public static function rules($id = null)
     {
         $rules = [
-            'year' => 'required|int|unique:units',
+            'name' => 'required|int|unique:units',
             'value' => 'required|numeric'
         ];
 
         if ($id) {
-            $rules['year'] = [
+            $rules['name'] = [
                 'required',
                 'integer',
                 Rule::unique('units')->ignore($id)

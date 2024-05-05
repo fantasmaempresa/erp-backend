@@ -5,3 +5,4 @@ alter table procedures add column real_estate_folio varchar(250) default null af
 alter table procedures add column meters_land varchar(250) default null after status;
 alter table procedures add column construction_meters varchar(250) default null after status;
 alter table inversion_units change date name varchar(250);
+alter table units change year name varchar(250);
