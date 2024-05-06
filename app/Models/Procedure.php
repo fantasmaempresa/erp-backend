@@ -121,7 +121,7 @@ class Procedure extends Model
      */
     public function grantors(): BelongsToMany
     {
-        return $this->belongsToMany(Grantor::class);
+        return $this->belongsToMany(Grantor::class)->withPivot(['percentage', 'amount']);
     }
 
     /**

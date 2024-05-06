@@ -6,3 +6,5 @@ alter table procedures add column meters_land varchar(250) default null after st
 alter table procedures add column construction_meters varchar(250) default null after status;
 alter table inversion_units change date name varchar(250);
 alter table units change year name varchar(250);
+alter table grantor_procedure add percentage decimal(15,4) default null after procedure_id;
+alter table grantor_procedure add amount decimal(15,4) default null after procedure_id;
