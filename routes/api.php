@@ -26,6 +26,7 @@ use App\Http\Controllers\Operation\OperationController;
 use App\Http\Controllers\Perception\PerceptionController;
 use App\Http\Controllers\PhasesProcess\PhasesProcessController;
 use App\Http\Controllers\Place\PlaceController;
+use App\Http\Controllers\Procedure\ProcedureActionController;
 use App\Http\Controllers\Procedure\ProcedureController;
 use App\Http\Controllers\Procedure\ProcedureFilterController;
 use App\Http\Controllers\Procedure\ProcedureValidatorsController;
@@ -161,6 +162,7 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::get('procedure/filter/myProcedures', [ProcedureFilterController::class, 'myProcedures']);
     Route::get('procedure/filter/withoutData', [ProcedureFilterController::class, 'proceduresWithoutData']);
     Route::get('procedure/filter/vulnerableOperations', [ProcedureFilterController::class, 'proceduresVulnerableOperations']);
+    Route::put('procedure/grantors/additionalData/{procedure}', [ProcedureActionController::class, 'grantorsAdditionalData']);
 
     Route::resource('clients', ClientController::class, ['except' => ['create', 'edit']]);
 
