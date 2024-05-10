@@ -27,12 +27,14 @@ class ProcedureController extends ApiController
                 ->with('grantors.stake')
                 ->with('documents')
                 ->with('client')
+                ->with('operations')
                 ->orderBy('id','desc')
                 ->paginate($paginate);
         } else {
             $response = Procedure::with('grantors')
                 ->with('documents')
                 ->with('client')
+                ->with('operations')
                 ->orderBy('id','desc')
                 ->paginate($paginate);
         }
@@ -72,6 +74,10 @@ class ProcedureController extends ApiController
                 $procedure->documents()->attach($grantor['id']);
             }
 
+            foreach ($request->get('operations') as $operation) {
+                $procedure->operations()->attach($operation['id']);
+            }
+
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -96,6 +102,7 @@ class ProcedureController extends ApiController
     {
         $procedure->grantors;
         $procedure->documents;
+        $procedure->operations;
 
         return $this->showOne($procedure);
     }
@@ -119,6 +126,8 @@ class ProcedureController extends ApiController
             $procedure->fill($request->all());
             $documents = [];
             $grantors = [];
+            $operations = [];
+
             foreach ($request->get('grantors') as $grantor) {
                 $grantors[] = $grantor['id'];
             }
@@ -127,8 +136,14 @@ class ProcedureController extends ApiController
                 $documents[] = $document['id'];  
             
             }
+
+            foreach ($request->get('operations') as $operation) {
+                $operations[] = $operation['id'];
+            }
+
             $procedure->grantors()->sync($grantors);
             $procedure->documents()->sync($documents);
+            $procedure->operations()->sync($operations);
 
             DB::commit();
         }catch (\Exception $e){

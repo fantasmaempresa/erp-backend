@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Procedure;
 
 use App\Http\Controllers\ApiController;
+use App\Models\CategoryOperation;
 use App\Models\Procedure;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -63,29 +65,24 @@ class ProcedureFilterController extends ApiController
 
     public function proceduresVulnerableOperations(Request $request)
     {
-        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
-
-        if (!empty($request->get('search')) && $request->get('search') !== 'null') {
-            $response = Procedure::leftJoin('vulnerable_operations', 'procedures.id', '=', 'vulnerable_operations.procedure_id')
-                ->where('vulnerable_operations.procedure_id', '!=',null)
-                ->select('procedures.*')
-                ->search($request->get('search'))
-                ->with('grantors.stake')
-                ->with('documents')
-                ->with('client')
-                ->orderBy('id', 'desc')
-                ->paginate($paginate);
-        } else{
-            $response = Procedure::leftJoin('vulnerable_operations', 'procedures.id', '=', 'vulnerable_operations.procedure_id')
-                ->where('vulnerable_operations.procedure_id', '!=',null)
-                ->select('procedures.*')
-                ->with('grantors.stake')
-                ->with('documents')
-                ->with('client')
-                ->orderBy('id', 'desc')
-                ->paginate($paginate);
-        }
-
-        return $this->showList($response);
+        $procedures = Procedure::all();
+        $proceduresFilter = $procedures->filter(function ($value, $key) {
+            if (!is_null($value->operation->categoryOperation)) {
+                $vulnerable_options = $value->operation->categoryOperation->config['vulnerable'];
+                foreach ($vulnerable_options as $vulnerable_option) {
+                    switch ($vulnerable_option['type']) {
+                        case CategoryOperation::UMA:
+                            $uma = Unit::orderBy('id', 'desc')->first();
+                            break;
+                        case CategoryOperation::UDI:
+                            break;
+                        case CategoryOperation::DOCUMENT:
+                            break;
+                        case CategoryOperation::OPTION:
+                            break;
+                    }
+                }
+            }
+        });
     }
 }
