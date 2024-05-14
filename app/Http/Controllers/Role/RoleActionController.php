@@ -254,13 +254,18 @@ class RoleActionController extends ApiController
                     'icon' => 'savings',
                 ],
                 [
+                    'label' => 'Operaciones vulnerables',
+                    'route' => './vulnerableOperation',
+                    'icon' => 'trending_down'
+                ],
+                [
                     'label' => 'Operaciones de eliminación',
-                    'route' => './disponsalOperation',
+                    'route' => './disposalOperation',
                     'icon' => 'money',
                 ],
                 [
                     'label' => 'Enajenación de Bienes',
-                    'route' => './disponsalRealEstate',
+                    'route' => './disposalRealEstate',
                     'icon' => 'monetization_on',
                 ],
             ],
