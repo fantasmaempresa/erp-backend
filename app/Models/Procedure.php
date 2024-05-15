@@ -67,7 +67,7 @@ class Procedure extends Model
 
     protected function getValueOperationAttribute($value)
     {
-        $cleanedValue = preg_replace('/[^0-9]/', '', $value);
+        $cleanedValue = preg_replace('/[^0-9.]/', '', $value);
         return (int)$cleanedValue;
     }
 
