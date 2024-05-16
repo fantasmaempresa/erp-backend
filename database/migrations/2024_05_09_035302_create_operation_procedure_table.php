@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUnitsTable extends Migration
+class CreateOperationProcedureTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateUnitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('units', function (Blueprint $table) {
+        Schema::create('operation_procedure', function (Blueprint $table) {
             $table->id();
-            $table->integer('name')->unique();
-            $table->decimal('value', 20, 8);
-            $table->timestamps();
+            $table->foreignId('operation_id')->constrained();
+            $table->foreignId('procedure_id')->constrained();
         });
     }
 
@@ -28,6 +27,6 @@ class CreateUnitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('units');
+        Schema::dropIfExists('operation_procedure');
     }
 }

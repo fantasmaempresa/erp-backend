@@ -67,7 +67,7 @@ class Procedure extends Model
 
     protected function getValueOperationAttribute($value)
     {
-        $cleanedValue = preg_replace('/[^0-9]/', '', $value);
+        $cleanedValue = preg_replace('/[^0-9.]/', '', $value);
         return (int)$cleanedValue;
     }
 
@@ -81,12 +81,11 @@ class Procedure extends Model
     }
 
     /**
-     * @return BelongsTo
+     * @return BelongsToMany
      */
-    public function operation(): BelongsTo
+    public function operations(): BelongsToMany
     {
-
-        return $this->belongsTo(Operation::class);
+        return $this->belongsToMany(Operation::class);
     }
 
     /**
@@ -121,7 +120,7 @@ class Procedure extends Model
      */
     public function grantors(): BelongsToMany
     {
-        return $this->belongsToMany(Grantor::class);
+        return $this->belongsToMany(Grantor::class)->withPivot(['percentage', 'amount']);
     }
 
     /**
@@ -178,10 +177,10 @@ class Procedure extends Model
     /**
      * @return string[]
      */
-    public static function rules(): array
+    public static function rules($id = null): array
     {
-        return [
-            'name' => 'required|string',
+        $rules = [
+            'name' => 'required|string|unique:procedures,name',
             'value_operation' => 'nullable|string|regex:/^[a-zA-Z0-9\s]+$/',
             'instrument' => 'required|string',
             'date' => 'required|date',
@@ -192,16 +191,22 @@ class Procedure extends Model
             'observation' => 'nullable|string',
             'grantors' => 'required|array',
             'documents' => 'required|array',
+            'operations' => 'required|array',
             'appraisal' => 'nullable|string',
             'way_to_pay' => 'nullable|tinyint',
             'real_estate_folio' => 'nullable|string',
             'meters_land' => 'nullable|string',
             'construction_meters' => 'nullable|string',
             'property_type' => 'nullable|tinyint',
-            'operation_id' => 'required|exists:operations,id',
             'place_id' => 'required|exists:places,id',
             'client_id' => 'required|exists:clients,id',
             'staff_id' => 'required|exists:staff,id',
         ];
+
+        if ($id) {
+            $rules['name'] = ['required', Rule::unique('procedures')->ignore($id)];
+        }
+
+        return $rules;
     }
 }
