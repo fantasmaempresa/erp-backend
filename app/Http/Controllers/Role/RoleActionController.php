@@ -13,6 +13,7 @@ use App\Http\Controllers\Concept\ConceptController;
 use App\Http\Controllers\DisposalRealEstate\DisposalRealEstateController;
 use App\Http\Controllers\Document\DocumentController;
 use App\Http\Controllers\Document\DocumentLinkController;
+use App\Http\Controllers\GeneralTemplate\GeneralTemplateController;
 use App\Http\Controllers\Grantor\GrantorController;
 use App\Http\Controllers\InversionUnit\InversionUnitController;
 use App\Http\Controllers\IsoDocument\IsoDocumentController;
@@ -117,18 +118,25 @@ class RoleActionController extends ApiController
             ],
         ],
         [
-            'label' => 'Conceptos',
-            'route' => './concepts',
-            'icon' => 'group_work',
-            'controllers' => [
-                ConceptController::class,
-            ],
-        ],
-        [
-            'label' => 'Cotizaciones',
+            'label' => 'Cotabilidada',
             'route' => './quotes',
             'icon' => 'rule_folder',
             'dropdowns' => [
+                [
+                    'label' => 'Estados de la cotización',
+                    'route' => './quote-statuses',
+                    'icon' => 'group_work',
+                ],
+                [
+                    'label' => 'Conceptos',
+                    'route' => './concepts',
+                    'icon' => 'group_work',
+                ],
+                [
+                    'label' => 'Plantillas',
+                    'route' => './project-quote-template',
+                    'icon' => 'group_work',
+                ],
                 [
                     'label' => 'Nueva Cotización',
                     'route' => './project-quote/new',
@@ -139,22 +147,13 @@ class RoleActionController extends ApiController
                     'route' => './project-quote',
                     'icon' => 'group_work',
                 ],
-                [
-                    'label' => 'Estados de la cotización',
-                    'route' => './quote-statuses',
-                    'icon' => 'group_work',
-                ],
-                [
-                    'label' => 'Plantillas',
-                    'route' => './project-quote-template',
-                    'icon' => 'group_work',
-                ],
             ],
             'controllers' => [
                 ProjectQuoteController::class,
                 ProjectQuoteFilterController::class,
                 ProjectQuoteOperationsController::class,
                 TemplateQuotesController::class,
+                ConceptController::class,
                 ConceptController::class,
             ],
         ],
@@ -327,6 +326,14 @@ class RoleActionController extends ApiController
                 ProcedureController::class,
                 StaffController::class,
             ],
+        ],
+        [
+            'label' => 'Plantillas Generales',
+            'icon' => 'description',
+            'route' => './generalTemplates',
+            'controllers' => [
+                GeneralTemplateController::class
+            ]
         ],
         [
             'label' => 'Documentación interna',
