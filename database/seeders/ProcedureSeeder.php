@@ -45,13 +45,13 @@ class ProcedureSeeder extends Seeder
                 $procedure->folio_max = trim($record['Folio2']);
                 $procedure->credit = trim($record['Credito']);
                 $procedure->observation = trim($record['Observaciones']);
-                $procedure->operation_id = (int)$record['Operacion'];
                 $procedure->user_id = 6;
                 $procedure->place_id = (int) $record['Lugar'];
                 $procedure->client_id = 1;
                 $procedure->staff_id = 3;
-
                 $procedure->save();
+                
+                $procedure->operations()->attach((int)$record['Operacion']);
             } catch (IOException|ReaderNotOpenedException $e) {
                 print_r($procedure);
                 print_r("Fallo seeder ---> ", $e->getMessage());

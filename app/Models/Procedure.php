@@ -48,7 +48,6 @@ class Procedure extends Model
         'construction_meters',
         'property_type',
         'appraisal',
-        'operation_id',
         'user_id',
         'place_id',
         'client_id',
