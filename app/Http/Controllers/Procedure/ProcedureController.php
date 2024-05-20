@@ -87,6 +87,7 @@ class ProcedureController extends ApiController
 
         $procedure->grantors;
         $procedure->documents;
+        $procedure->operations;
 
         return $this->showOne($procedure);
     }
@@ -119,7 +120,7 @@ class ProcedureController extends ApiController
     public function update(Request $request, Procedure $procedure): JsonResponse
     {
 
-        $this->validate($request, Procedure::rules());
+        $this->validate($request, Procedure::rules($procedure->id));
         DB::begintransaction();
 
         try{
@@ -153,6 +154,9 @@ class ProcedureController extends ApiController
         
 
         $procedure->save();
+        $procedure->grantors;
+        $procedure->documents;
+        $procedure->operations;
 
         return $this->showOne($procedure);
     }
