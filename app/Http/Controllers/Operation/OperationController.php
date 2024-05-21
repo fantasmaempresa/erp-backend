@@ -1,4 +1,5 @@
 <?php
+
 /**
  * open2code first version
  */
@@ -46,8 +47,16 @@ class OperationController extends ApiController
         $this->validate($request, Operation::rules());
         $operation = Operation::create($request->all());
 
-        return $this->showOne($operation);
+        if ($request->has('documents')) {
+            $configDocuments = [];
+            foreach ($request->get('documents') as $document) {
+                $configDocuments['documents_required'][] = ["id" => $document['id']];
+            }
+            $operation->config = $configDocuments;
+            $operation->save();
+        }
 
+        return $this->showOne($operation);
     }
 
     /**
@@ -76,7 +85,14 @@ class OperationController extends ApiController
     {
         $this->validate($request, Operation::rules());
         $operation->fill($request->all());
-        if ($operation->isClean()) {
+
+        if ($request->has('documents')) {
+            $configDocuments = [];
+            foreach ($request->get('documents') as $document) {
+                $configDocuments['documents_required'][] = ["id" => $document['id']];
+            }
+            $operation->config = $configDocuments;
+        } elseif ($operation->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);
         }
 
