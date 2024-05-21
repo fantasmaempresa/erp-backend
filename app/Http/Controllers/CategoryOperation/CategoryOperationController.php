@@ -4,6 +4,7 @@ namespace App\Http\Controllers\CategoryOperation;
 
 use App\Http\Controllers\ApiController;
 use App\Models\CategoryOperation;
+use App\Models\Procedure;
 use Illuminate\Http\Request;
 
 class CategoryOperationController extends ApiController
@@ -67,7 +68,29 @@ class CategoryOperationController extends ApiController
         if ($categoryOperation->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);
         }
-        $categoryOperation->save();
+        // $categoryOperation->save();
+
+        $procedures = Procedure::join('operation_procedure', 'procedures.id', 'operation_procedure.procedure_id')
+                ->join('operations', 'operation_procedure.operation_id', 'operations.id')
+                ->where('operations.category_operation_id', $categoryOperation->id)
+                ->select('procedures.*')
+                ->get();
+        
+        foreach ($procedures as $procedure) {
+            $documents = [];
+            if(!is_null($categoryOperation->config['documents'])){
+                foreach ($categoryOperation->config['documents'] as $document) {
+                    $documents[] = $document['id'];
+                }
+
+                foreach ($procedure->documents->toArray() as $document) {
+                    $documents[] = $document['id'];
+                }
+
+                $documents = array_unique($documents);
+                $procedure->documents()->sync($documents);
+            }
+        }
 
         return $this->showOne($categoryOperation);
     }

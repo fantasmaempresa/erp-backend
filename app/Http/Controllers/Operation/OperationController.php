@@ -7,7 +7,9 @@
 namespace App\Http\Controllers\Operation;
 
 use App\Http\Controllers\ApiController;
+use App\Models\CategoryOperation;
 use App\Models\Operation;
+use App\Models\Procedure;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Js;
@@ -84,6 +86,8 @@ class OperationController extends ApiController
     public function update(Request $request, Operation $operation): JsonResponse
     {
         $this->validate($request, Operation::rules());
+
+        $oldConfigDocuments = $operation->config['documents_required'] ?? [];
         $operation->fill($request->all());
 
         if ($request->has('documents')) {
@@ -92,6 +96,35 @@ class OperationController extends ApiController
                 $configDocuments['documents_required'][] = ["id" => $document['id']];
             }
             $operation->config = $configDocuments;
+
+            $procedures = Procedure::join('operation_procedure', 'procedures.id', 'operation_procedure.procedure_id')
+                ->where('operation_procedure.operation_id', $operation->id)
+                ->select('procedures.*')
+                ->get();
+
+            foreach ($procedures as $procedure) {
+                $documents = [];
+
+                $categoryOperation = CategoryOperation::find($operation->category_operation_id);
+                if (!is_null($categoryOperation->config['documents'])) {
+                    foreach ($categoryOperation->config['documents'] as $document) {
+                        $documents[] = $document['id'];
+                    }
+                }
+
+                foreach ($configDocuments['documents_required'] as $document) {
+                    $documents[] = $document['id'];
+                }
+                
+                foreach ($procedure->documents->toArray() as $document) {
+                    dd($document);
+                    $documents[] = $document['id'];
+                }
+
+
+                $documents = array_unique($documents);
+                $procedure->documents()->sync($documents);
+            }
         } elseif ($operation->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);
         }
