@@ -1,4 +1,5 @@
 <?php
+
 /**
  * open2code first version
  */
@@ -9,7 +10,6 @@ use App\Http\Controllers\ApiController;
 use App\Models\Operation;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Js;
 
 /**
  * Operation Controller open2code
@@ -44,14 +44,18 @@ class OperationController extends ApiController
     public function store(Request $request): JsonResponse
     {
         $this->validate($request, Operation::rules());
-        $operation = new Operation($request->all());
-        $operation->config = 
-        array_merge(empty($operation->config) ? [] : $operation->config, 
-            ['documents_required' => $request->get('documents')]
-        );
-        $operation->save();
-        return $this->showOne($operation);
+        $operation = Operation::create($request->all());
 
+        if ($request->has('documents')) {
+            $configDocuments = [];
+            foreach ($request->get('documents') as $document) {
+                $configDocuments['documents_required'][] = ["id" => $document['id']];
+            }
+            $operation->config = $configDocuments;
+            $operation->save();
+        }
+
+        return $this->showOne($operation);
     }
 
     /**
@@ -80,14 +84,16 @@ class OperationController extends ApiController
     {
         $this->validate($request, Operation::rules());
         $operation->fill($request->all());
-        // if ($operation->isClean()) {
-        //     return $this->errorResponse('A different value must be specified to update', 422);
-        // }
 
-        $operation->config = 
-        array_merge(empty($operation->config) ? [] : $operation->config, 
-            ['documents_required' => $request->get('documents')]
-        );
+        if ($request->has('documents')) {
+            $configDocuments = [];
+            foreach ($request->get('documents') as $document) {
+                $configDocuments['documents_required'][] = ["id" => $document['id']];
+            }
+            $operation->config = $configDocuments;
+        } elseif ($operation->isClean()) {
+            return $this->errorResponse('A different value must be specified to update', 422);
+        }
 
         $operation->save();
 

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 /**
  * version
@@ -48,7 +49,6 @@ class Procedure extends Model
         'construction_meters',
         'property_type',
         'appraisal',
-        'operation_id',
         'user_id',
         'place_id',
         'client_id',
