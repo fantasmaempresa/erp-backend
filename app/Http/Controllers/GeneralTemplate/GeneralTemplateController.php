@@ -44,46 +44,46 @@ class GeneralTemplateController extends ApiController
     }
 
     /**
-     * @param GeneralTemplate $templateQuote
+     * @param GeneralTemplate $generalTemplate
      *
      * @return JsonResponse
      */
-    public function show(GeneralTemplate $templateQuote): JsonResponse
+    public function show(GeneralTemplate $generalTemplate): JsonResponse
     {
-        return $this->showOne($templateQuote);
+        return $this->showOne($generalTemplate);
     }
 
     /**
      * @param Request        $request
-     * @param GeneralTemplate $templateQuote
+     * @param GeneralTemplate $generalTemplate
      *
      * @return JsonResponse
      *
      * @throws ValidationException
      */
-    public function update(Request $request, GeneralTemplate $templateQuote): JsonResponse
+    public function update(Request $request, GeneralTemplate $generalTemplate): JsonResponse
     {
         $this->validate($request, GeneralTemplate::rules());
-        $templateQuote->fill($request->all());
-        if ($templateQuote->isClean()) {
+        $generalTemplate->fill($request->all());
+        if ($generalTemplate->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);
         }
 
-        $templateQuote->save();
+        $generalTemplate->save();
 
-        return $this->showOne($templateQuote);
+        return $this->showOne($generalTemplate);
     }
 
     /**
-     * @param GeneralTemplate $templateQuote
+     * @param GeneralTemplate $generalTemplate
      *
      * @return JsonResponse
      *
      * @throws Exception
      */
-    public function destroy(GeneralTemplate $templateQuote): JsonResponse
+    public function destroy(GeneralTemplate $generalTemplate): JsonResponse
     {
-        $templateQuote->delete();
+        $generalTemplate->delete();
 
         return $this->showMessage('Record deleted successfully');
     }

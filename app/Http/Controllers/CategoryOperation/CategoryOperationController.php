@@ -37,9 +37,14 @@ class CategoryOperationController extends ApiController
     public function store(Request $request)
     {
         $this->validate($request, CategoryOperation::rules());
-        $categoryOperation = CategoryOperation::create($request->all());
+        $operation = new CategoryOperation($request->all());
+        $operation->config = 
+        array_merge(empty($operation->config) ? [] : $operation->config, 
+            ['documents_required' => $request->get('documents')]
+        );
+        $operation->save();
 
-        return $this->showOne($categoryOperation);
+        return $this->showOne($$operation);
     }
 
     /**
@@ -64,9 +69,13 @@ class CategoryOperationController extends ApiController
     {
         $this->validate($request, CategoryOperation::rules($categoryOperation->id));
         $categoryOperation->fill($request->all());
-        if ($categoryOperation->isClean()) {
-            return $this->errorResponse('A different value must be specified to update', 422);
-        }
+        // if ($categoryOperation->isClean()) {
+        //     return $this->errorResponse('A different value must be specified to update', 422);
+        // }
+        $categoryOperation->config = 
+        array_merge(empty($categoryOperation->config) ? [] : $categoryOperation->config, 
+            ['documents_required' => $request->get('documents')]
+        );
         $categoryOperation->save();
 
         return $this->showOne($categoryOperation);

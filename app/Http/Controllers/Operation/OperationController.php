@@ -80,9 +80,14 @@ class OperationController extends ApiController
     {
         $this->validate($request, Operation::rules());
         $operation->fill($request->all());
-        if ($operation->isClean()) {
-            return $this->errorResponse('A different value must be specified to update', 422);
-        }
+        // if ($operation->isClean()) {
+        //     return $this->errorResponse('A different value must be specified to update', 422);
+        // }
+
+        $operation->config = 
+        array_merge(empty($operation->config) ? [] : $operation->config, 
+            ['documents_required' => $request->get('documents')]
+        );
 
         $operation->save();
 
