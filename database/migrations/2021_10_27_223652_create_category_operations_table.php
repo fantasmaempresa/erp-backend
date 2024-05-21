@@ -18,7 +18,8 @@ class CreateCategoryOperationsTable extends Migration
             $table->string('name')->unique();
             $table->string('description');
             $table->json('config');
-            $table->json('form')->nullable();
+            // $table->json('form')->nullable();
+            $table->foreignId('general_template_id')->nullable()->constrained(); //formulario en caso de ser vulnerable
             $table->timestamps();
         });
     }

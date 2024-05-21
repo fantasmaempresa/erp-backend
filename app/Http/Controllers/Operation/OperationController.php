@@ -12,7 +12,6 @@ use App\Models\Operation;
 use App\Models\Procedure;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Js;
 
 /**
  * Operation Controller open2code

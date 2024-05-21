@@ -7,6 +7,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CategoryOperation;
 use Illuminate\Database\Seeder;
 
 /**
@@ -53,6 +54,7 @@ class DatabaseSeeder extends Seeder
                 TypeDisposalOperationSeeder::class,
                 EmployesNotarySeeder::class,
                 RegistrationDataSeeder::class, 
+                CategoryOperationSeeder::class
             ]
         );
     }

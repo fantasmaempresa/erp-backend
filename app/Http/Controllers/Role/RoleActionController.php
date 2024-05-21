@@ -13,6 +13,7 @@ use App\Http\Controllers\Concept\ConceptController;
 use App\Http\Controllers\DisposalRealEstate\DisposalRealEstateController;
 use App\Http\Controllers\Document\DocumentController;
 use App\Http\Controllers\Document\DocumentLinkController;
+use App\Http\Controllers\GeneralTemplate\GeneralTemplateController;
 use App\Http\Controllers\Grantor\GrantorController;
 use App\Http\Controllers\InversionUnit\InversionUnitController;
 use App\Http\Controllers\IsoDocument\IsoDocumentController;
@@ -39,9 +40,11 @@ use App\Http\Controllers\Stake\StakeController;
 use App\Http\Controllers\TemplateQuotes\TemplateQuotesController;
 use App\Http\Controllers\TemplateShape\TemplateShapeController;
 use App\Http\Controllers\TypeDisposalOperation\TypeDisposalOperationController;
+use App\Http\Controllers\Unit\UnitController;
 use App\Http\Controllers\User\UserActionController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\UserFilterController;
+use App\Http\Controllers\VulnerableOperation\VulnerableOperationController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
 use App\Models\Role;
 use App\Models\User;
@@ -69,15 +72,35 @@ class RoleActionController extends ApiController
             ],
         ],
         [
-            'label' => 'Clientes',
-            'route' => './clients',
-            'icon' => 'people',
+            'label' => 'Catálogos',
+            'icon' => 'folder_special',
+            'route' => './disposal_assets',
+            'dropdowns' => [
+                [
+                    'label' => 'Clientes',
+                    'route' => './clients',
+                    'icon' => 'people',
+                ],
+                [
+                    'label' => 'Documentos',
+                    'route' => './documents',
+                    'icon' => 'document_scanner',
+                ],
+                [
+                    'label' => 'Catálogo de Unidades',
+                    'route' => './unit',
+                    'icon' => 'groups',
+                ],
+            ],
             'controllers' => [
                 ClientController::class,
                 DocumentLinkController::class,
                 ClientLinkController::class,
+                DocumentController::class,
+                UnitController::class,
             ],
         ],
+        
         [
             'label' => 'Personal',
             'route' => './staff',
@@ -95,26 +118,25 @@ class RoleActionController extends ApiController
             ],
         ],
         [
-            'label' => 'Documentos',
-            'route' => './documents',
-            'icon' => 'document_scanner',
-            'controllers' => [
-                DocumentController::class,
-            ],
-        ],
-        [
-            'label' => 'Conceptos',
-            'route' => './concepts',
-            'icon' => 'group_work',
-            'controllers' => [
-                ConceptController::class,
-            ],
-        ],
-        [
-            'label' => 'Cotizaciones',
+            'label' => 'Cotabilidada',
             'route' => './quotes',
             'icon' => 'rule_folder',
             'dropdowns' => [
+                [
+                    'label' => 'Estados de la cotización',
+                    'route' => './quote-statuses',
+                    'icon' => 'group_work',
+                ],
+                [
+                    'label' => 'Conceptos',
+                    'route' => './concepts',
+                    'icon' => 'group_work',
+                ],
+                [
+                    'label' => 'Plantillas',
+                    'route' => './project-quote-template',
+                    'icon' => 'group_work',
+                ],
                 [
                     'label' => 'Nueva Cotización',
                     'route' => './project-quote/new',
@@ -125,22 +147,13 @@ class RoleActionController extends ApiController
                     'route' => './project-quote',
                     'icon' => 'group_work',
                 ],
-                [
-                    'label' => 'Estados de la cotización',
-                    'route' => './quote-statuses',
-                    'icon' => 'group_work',
-                ],
-                [
-                    'label' => 'Plantillas',
-                    'route' => './project-quote-template',
-                    'icon' => 'group_work',
-                ],
             ],
             'controllers' => [
                 ProjectQuoteController::class,
                 ProjectQuoteFilterController::class,
                 ProjectQuoteOperationsController::class,
                 TemplateQuotesController::class,
+                ConceptController::class,
                 ConceptController::class,
             ],
         ],
@@ -177,19 +190,24 @@ class RoleActionController extends ApiController
             ],
         ],
         [
-            'label' => 'Notarial',
-            'icon' => 'balance',
+            'label' => 'Catálogos Notariales',
+            'icon' => 'folder_special',
             'route' => './notary',
             'dropdowns' => [
                 [
-                    'label' => 'Participaciones',
-                    'route' => './stakes',
-                    'icon' => 'supervised_user_circle',
+                    'label' => 'Categorías de operaciones',
+                    'route' => './category-operation',
+                    'icon' => 'folder',
                 ],
                 [
                     'label' => 'Operaciones',
                     'route' => './operations',
                     'icon' => 'format_list_bulleted',
+                ],
+                [
+                    'label' => 'Participaciones',
+                    'route' => './stakes',
+                    'icon' => 'supervised_user_circle',
                 ],
                 [
                     'label' => 'Otorgantes',
@@ -201,6 +219,22 @@ class RoleActionController extends ApiController
                     'route' => './places',
                     'icon' => 'location_on',
                 ],
+            ],
+            'controllers' => [
+                OperationController::class,
+                PlaceController::class,
+                GrantorController::class,
+                RegistrationProcedureDataController::class,
+                StakeController::class,
+                DocumentLinkController::class,
+                DocumentController::class,
+            ],
+        ],
+        [
+            'label' => 'Notarial',
+            'icon' => 'balance',
+            'route' => './notary',
+            'dropdowns' => [              
                 [
                     'label' => 'Formas',
                     'route' => './shapes',
@@ -229,7 +263,6 @@ class RoleActionController extends ApiController
                 ProcedureValidatorsController::class,
                 ProcessingIncomeController::class,
                 ProcessingIncomeCommentController::class,
-                ClientController::class,
                 ShapeActionController::class,
             ],
         ],
@@ -255,12 +288,12 @@ class RoleActionController extends ApiController
                 ],
                 [
                     'label' => 'Operaciones de eliminación',
-                    'route' => './disponsalOperation',
+                    'route' => './disposalOperation',
                     'icon' => 'money',
                 ],
                 [
                     'label' => 'Enajenación de Bienes',
-                    'route' => './disponsalRealEstate',
+                    'route' => './disposalRealEstate',
                     'icon' => 'monetization_on',
                 ],
             ],
@@ -271,6 +304,36 @@ class RoleActionController extends ApiController
                 TypeDisposalOperationController::class,
                 DisposalRealEstateController::class,
             ],
+        ],
+        [
+            'label' => 'Operaciones notariales vulnerables',
+            'icon' => 'campaign',
+            'route' => './vulnerableOperations',
+            'dropdowns' => [
+                [
+                    'label' => 'Lista de operaciones vulnerables',
+                    'route' => './vulnerableOperations',
+                    'icon' => 'campaign',
+                ],
+                [
+                    'label' => 'Completar Operación Vulnerable',
+                    'route' => './vulnerableOperations/new',
+                    'icon' => 'verified_user',
+                ],
+            ],
+            'controllers' => [
+                VulnerableOperationController::class,
+                ProcedureController::class,
+                StaffController::class,
+            ],
+        ],
+        [
+            'label' => 'Plantillas Generales',
+            'icon' => 'description',
+            'route' => './generalTemplates',
+            'controllers' => [
+                GeneralTemplateController::class
+            ]
         ],
         [
             'label' => 'Documentación interna',
@@ -302,7 +365,6 @@ class RoleActionController extends ApiController
             ],
         ],
     ];
-
     /**
      * @return JsonResponse
      */
