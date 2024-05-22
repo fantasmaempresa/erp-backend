@@ -39,10 +39,11 @@ class CategoryOperationController extends ApiController
     {
         $this->validate($request, CategoryOperation::rules());
         $operation = new CategoryOperation($request->all());
-        $operation->config = 
-        array_merge(empty($operation->config) ? [] : $operation->config, 
-            ['documents_required' => $request->get('documents')]
-        );
+        $operation->config =
+            array_merge(
+                empty($operation->config) ? [] : $operation->config,
+                ['documents_required' => $request->get('documents')]
+            );
         $operation->save();
 
         return $this->showOne($$operation);
@@ -69,37 +70,52 @@ class CategoryOperationController extends ApiController
     public function update(Request $request, CategoryOperation $categoryOperation)
     {
         $this->validate($request, CategoryOperation::rules($categoryOperation->id));
+
+        $oldDocuments = $categoryOperation->config['documents'] ?? [];
         $categoryOperation->fill($request->all());
 
-        // if ($categoryOperation->isClean()) {
-        //     return $this->errorResponse('A different value must be specified to update', 422);
-        // }
-        $categoryOperation->config = 
-        array_merge(empty($categoryOperation->config) ? [] : $categoryOperation->config, 
-            ['documents_required' => $request->get('documents')]
-        );
+        $categoryOperation->config =
+            array_merge(
+                empty($categoryOperation->config) ? [] : $categoryOperation->config,
+                ['documents_required' => $request->get('documents')]
+            );
         $categoryOperation->save();
 
         $procedures = Procedure::join('operation_procedure', 'procedures.id', 'operation_procedure.procedure_id')
-                ->join('operations', 'operation_procedure.operation_id', 'operations.id')
-                ->where('operations.category_operation_id', $categoryOperation->id)
-                ->select('procedures.*')
-                ->get();
-        
+            ->join('operations', 'operation_procedure.operation_id', 'operations.id')
+            ->where('operations.category_operation_id', $categoryOperation->id)
+            ->select('procedures.*')
+            ->get();
+
+        //VIEJOS DOCUMENTOS
+        $docuemntsOld = [];
+        foreach ($docuemntsOld as $document) {
+            $docuemntsOld[] = $document['id'];
+        }
+
+        //NUEVOS DOCUMENTOS
+        $documentsNew = [];
+        if (isset($categoryOperation->config['documents']) && !empty($categoryOperation->config['documents'])) {
+            foreach ($categoryOperation->config['documents'] as $document) {
+                $documentsNew[] = $document['id'];
+            }
+        }
+
         foreach ($procedures as $procedure) {
             $documents = [];
-            if(!is_null($categoryOperation->config['documents'])){
-                foreach ($categoryOperation->config['documents'] as $document) {
+            foreach ($procedure->documents->toArray() as $document) {
+                if (in_array($document['id'], $docuemntsOld)) {
+                    if ($document['pivot']['file'] != '') {
+                        $documents[] = $document['id'];
+                    }
+                } else {
                     $documents[] = $document['id'];
                 }
-
-                foreach ($procedure->documents->toArray() as $document) {
-                    $documents[] = $document['id'];
-                }
-
-                $documents = array_unique($documents);
-                $procedure->documents()->sync($documents);
             }
+
+            $documents = array_merge($documents, $documentsNew);
+            $documents = array_unique($documents);
+            $procedure->documents()->sync($documents);
         }
 
         return $this->showOne($categoryOperation);

@@ -87,7 +87,10 @@ class OperationController extends ApiController
         $this->validate($request, Operation::rules());
 
         $oldConfigDocuments = $operation->config['documents_required'] ?? [];
+        $oldCategoryOperation = $operation->category_operation_id;
+
         $operation->fill($request->all());
+        $operation->save();
 
         if ($request->has('documents')) {
             $configDocuments = [];
@@ -95,40 +98,58 @@ class OperationController extends ApiController
                 $configDocuments['documents_required'][] = ["id" => $document['id']];
             }
             $operation->config = $configDocuments;
+            $operation->save();
 
             $procedures = Procedure::join('operation_procedure', 'procedures.id', 'operation_procedure.procedure_id')
                 ->where('operation_procedure.operation_id', $operation->id)
                 ->select('procedures.*')
                 ->get();
 
-            foreach ($procedures as $procedure) {
-                $documents = [];
+            //VIEJOS DOCUMENTOS
+            $docuemntsOld = [];
+            foreach ($oldConfigDocuments as $document) {
+                $docuemntsOld[] = $document['id'];
+            }
 
-                $categoryOperation = CategoryOperation::find($operation->category_operation_id);
+            if (!is_null($oldCategoryOperation)) {
+                $categoryOperation = CategoryOperation::find($oldCategoryOperation);
                 if (!is_null($categoryOperation->config['documents'])) {
                     foreach ($categoryOperation->config['documents'] as $document) {
+                        $docuemntsOld[] = $document['id'];
+                    }
+                }
+            }
+
+            //NUEVOS DOCUMENTOS
+            $documentsNew = [];
+            foreach ($configDocuments['documents_required'] as $document) {
+                $documentsNew[] = $document['id'];
+            }
+
+            $categoryOperation = CategoryOperation::find($operation->category_operation_id);
+            if (isset($categoryOperation->config['documents']) && !empty($categoryOperation->config['documents'])) {
+                foreach ($categoryOperation->config['documents'] as $document) {
+                    $documentsNew[] = $document['id'];
+                }
+            }
+
+            foreach ($procedures as $procedure) {
+                $documents = [];
+                foreach ($procedure->documents->toArray() as $document) {
+                    if(in_array($document['id'], $docuemntsOld)) {
+                        if($document['pivot']['file'] != '') {
+                            $documents[] = $document['id'];    
+                        }
+                    }else{
                         $documents[] = $document['id'];
                     }
                 }
 
-                foreach ($configDocuments['documents_required'] as $document) {
-                    $documents[] = $document['id'];
-                }
-                
-                foreach ($procedure->documents->toArray() as $document) {
-                    dd($document);
-                    $documents[] = $document['id'];
-                }
-
-
+                $documents = array_merge($documents, $documentsNew);
                 $documents = array_unique($documents);
                 $procedure->documents()->sync($documents);
             }
-        } elseif ($operation->isClean()) {
-            return $this->errorResponse('A different value must be specified to update', 422);
         }
-
-        $operation->save();
 
         return $this->showOne($operation);
     }
