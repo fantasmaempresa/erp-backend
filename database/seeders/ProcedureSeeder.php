@@ -53,12 +53,12 @@ class ProcedureSeeder extends Seeder
                 
                 $procedure->operations()->attach((int)$record['Operacion']);
             } catch (IOException|ReaderNotOpenedException $e) {
-                print_r($procedure);
                 print_r("Fallo seeder ---> ", $e->getMessage());
             } catch (QueryException $exception) {
-                print_r($exception->getMessage());
+                print_r("SALTO --->", $record['Expediente']);
                 continue;
             } catch (InvalidFormatException $exception) {
+                print_r("SALTO --->", $record['Expediente']);
                 continue;
             }
         }

@@ -28,14 +28,14 @@ class ProcedureController extends ApiController
                 ->with('documents')
                 ->with('client')
                 ->with('operations')
-                ->orderBy('id','desc')
+                ->orderBy('instrument','desc')
                 ->paginate($paginate);
         } else {
             $response = Procedure::with('grantors')
                 ->with('documents')
                 ->with('client')
                 ->with('operations')
-                ->orderBy('id','desc')
+                ->orderBy('instrument','desc')
                 ->paginate($paginate);
         }
 

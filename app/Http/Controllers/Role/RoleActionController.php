@@ -21,6 +21,7 @@ use App\Http\Controllers\NationalConsumerPriceIndex\NationalConsumerPriceIndexCo
 use App\Http\Controllers\Operation\OperationController;
 use App\Http\Controllers\Place\PlaceController;
 use App\Http\Controllers\Procedure\ProcedureController;
+use App\Http\Controllers\Procedure\ProcedureFilterController;
 use App\Http\Controllers\Procedure\ProcedureValidatorsController;
 use App\Http\Controllers\Procedure\RegistrationProcedureDataController;
 use App\Http\Controllers\ProcedureComment\ProcedureCommentController;
@@ -245,6 +246,11 @@ class RoleActionController extends ApiController
                     'route' => './procedures',
                     'icon' => 'event',
                 ],
+                [
+                    'label' => 'Trámites con posible operación vulnerable',
+                    'route' => './proceduresVulnerableOperations',
+                    'icon' => 'campaign',
+                ],
             ],
             'controllers' => [
                 ShapeController::class,
@@ -264,6 +270,7 @@ class RoleActionController extends ApiController
                 ProcessingIncomeController::class,
                 ProcessingIncomeCommentController::class,
                 ShapeActionController::class,
+                ProcedureFilterController::class,
             ],
         ],
         [
