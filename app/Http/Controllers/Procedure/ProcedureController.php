@@ -146,14 +146,15 @@ class ProcedureController extends ApiController
             $procedure->documents()->sync($documents);
             $procedure->operations()->sync($operations);
 
-            DB::commit();
         }catch (\Exception $e){
             DB::rollBack();
             return $this->errorResponse('error al actualizar --> ' . $e->getMessage(), 409);
         }
         
-
+        
         $procedure->save();
+        DB::commit();
+        
         $procedure->grantors;
         $procedure->documents;
         $procedure->operations;

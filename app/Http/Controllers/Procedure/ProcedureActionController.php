@@ -17,11 +17,19 @@ class ProcedureActionController extends ApiController
             "grantors.*.amount" => "nullable|numeric",
         ]);
 
-        $procedure->grantors()->sync($request->get("grantors"));
+        foreach ($request->input('grantors') as $grantorData) {
+            $procedure->grantors()->updateExistingPivot(
+                $grantorData['grantor_id'],
+                [
+                    'percentage' => $grantorData['percentage'] ?? null,
+                    'amount' => $grantorData['amount'] ?? null,
+                ]
+            );
+        }
 
         $procedure->grantors;
         $procedure->documents;
-        
+
         return $this->showOne($procedure);
     }
 }
