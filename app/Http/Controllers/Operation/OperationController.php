@@ -12,6 +12,7 @@ use App\Models\Operation;
 use App\Models\Procedure;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Operation Controller open2code
@@ -47,15 +48,13 @@ class OperationController extends ApiController
     {
         $this->validate($request, Operation::rules());
         $operation = Operation::create($request->all());
+        $operation->config =
+            array_merge(
+                empty($operation->config) ? [] : $operation->config,
+                ['documents_required' => $request->get('documents')]
+            );
 
-        if ($request->has('documents')) {
-            $configDocuments = [];
-            foreach ($request->get('documents') as $document) {
-                $configDocuments['documents_required'][] = ["id" => $document['id']];
-            }
-            $operation->config = $configDocuments;
-            $operation->save();
-        }
+        $operation->save();
 
         return $this->showOne($operation);
     }
@@ -88,69 +87,76 @@ class OperationController extends ApiController
 
         $oldConfigDocuments = $operation->config['documents_required'] ?? [];
         $oldCategoryOperation = $operation->category_operation_id;
-
         $operation->fill($request->all());
-        $operation->save();
 
-        if ($request->has('documents')) {
-            $configDocuments = [];
-            foreach ($request->get('documents') as $document) {
-                $configDocuments['documents_required'][] = ["id" => $document['id']];
-            }
-            $operation->config = $configDocuments;
-            $operation->save();
+        DB::beginTransaction();
+        try {
+            if ($request->has('documents')) {
+                //DATA EN CONFIG
+                $operation->config =
+                    array_merge(
+                        empty($operation->config) ? [] : $operation->config,
+                        ['documents_required' => $request->get('documents')]
+                    );
 
-            $procedures = Procedure::join('operation_procedure', 'procedures.id', 'operation_procedure.procedure_id')
-                ->where('operation_procedure.operation_id', $operation->id)
-                ->select('procedures.*')
-                ->get();
+                
+                $procedures = Procedure::join('operation_procedure', 'procedures.id', 'operation_procedure.procedure_id')
+                    ->where('operation_procedure.operation_id', $operation->id)
+                    ->select('procedures.*')
+                    ->get();
 
-            //VIEJOS DOCUMENTOS
-            $docuemntsOld = [];
-            foreach ($oldConfigDocuments as $document) {
-                $docuemntsOld[] = $document['id'];
-            }
+                //VIEJOS DOCUMENTOS
+                $docuemntsOld = [];
+                foreach ($oldConfigDocuments as $document) {
+                    $docuemntsOld[] = $document['id'];
+                }
 
-            if (!is_null($oldCategoryOperation)) {
-                $categoryOperation = CategoryOperation::find($oldCategoryOperation);
-                if (!is_null($categoryOperation->config['documents'])) {
-                    foreach ($categoryOperation->config['documents'] as $document) {
-                        $docuemntsOld[] = $document['id'];
+                if (!is_null($oldCategoryOperation)) {
+                    $categoryOperation = CategoryOperation::find($oldCategoryOperation);
+                    if (!is_null($categoryOperation->config['documents_required'])) {
+                        foreach ($categoryOperation->config['documents_required'] as $document) {
+                            $docuemntsOld[] = $document['id'];
+                        }
                     }
                 }
-            }
 
-            //NUEVOS DOCUMENTOS
-            $documentsNew = [];
-            foreach ($configDocuments['documents_required'] as $document) {
-                $documentsNew[] = $document['id'];
-            }
-
-            $categoryOperation = CategoryOperation::find($operation->category_operation_id);
-            if (isset($categoryOperation->config['documents']) && !empty($categoryOperation->config['documents'])) {
-                foreach ($categoryOperation->config['documents'] as $document) {
+                //NUEVOS DOCUMENTOS
+                $documentsNew = [];
+                foreach ($operation->config['documents_required'] as $document) {
                     $documentsNew[] = $document['id'];
                 }
-            }
 
-            foreach ($procedures as $procedure) {
-                $documents = [];
-                foreach ($procedure->documents->toArray() as $document) {
-                    if(in_array($document['id'], $docuemntsOld)) {
-                        if($document['pivot']['file'] != '') {
-                            $documents[] = $document['id'];    
-                        }
-                    }else{
-                        $documents[] = $document['id'];
+                $categoryOperation = CategoryOperation::find($operation->category_operation_id);
+                if (isset($categoryOperation->config['documents_required']) && !empty($categoryOperation->config['documents_required'])) {
+                    foreach ($categoryOperation->config['documents_required'] as $document) {
+                        $documentsNew[] = $document['id'];
                     }
                 }
 
-                $documents = array_merge($documents, $documentsNew);
-                $documents = array_unique($documents);
-                $procedure->documents()->sync($documents);
+                foreach ($procedures as $procedure) {
+                    $documents = [];
+                    foreach ($procedure->documents->toArray() as $document) {
+                        if (in_array($document['id'], $docuemntsOld)) {
+                            if ($document['pivot']['file'] != '') {
+                                $documents[] = $document['id'];
+                            }
+                        } else {
+                            $documents[] = $document['id'];
+                        }
+                    }
+
+                    $documents = array_merge($documents, $documentsNew);
+                    $documents = array_unique($documents);
+                    $procedure->documents()->sync($documents);
+                }
             }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse($e->getMessage(), 500);
         }
 
+        $operation->save();
+        DB::commit();
         return $this->showOne($operation);
     }
 

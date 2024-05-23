@@ -89,11 +89,21 @@ class ProcedureFilterController extends ApiController
                     foreach ($vulnerableOptions as $vulnerableOption) {
                         switch ($vulnerableOption['type']) {
                             case CategoryOperation::UMA:
-                                $umaValue = Unit::orderBy('id', 'desc')->first()->value * $vulnerableOption['condition'];
-                                return $procedure->value_operation > $umaValue;
+                                $uma = Unit::orderBy('id', 'desc')->first();
+                                if (!is_null($uma)) {
+                                    $umaValue = $uma->value * $vulnerableOption['condition'];
+                                    return (int)$procedure->value_operation > $umaValue;
+                                } else {
+                                    return false;
+                                }
                             case CategoryOperation::UDI:
-                                $udiValue = InversionUnit::orderBy('id', 'desc')->first()->value * $vulnerableOption['condition'];
-                                return $procedure->value_operation > $udiValue;
+                                $udi = InversionUnit::orderBy('id', 'desc')->first();
+                                if (!is_null($udi)) {
+                                    $udiValue = $uma->value * $vulnerableOption['condition'];
+                                    return (int)$procedure->value_operation > $udiValue;
+                                } else {
+                                    return false;
+                                }
                             case CategoryOperation::DOCUMENT:
                                 foreach ($vulnerableOption['condition'] as $condition) {
                                     if (!$procedure->documents->contains('id', $condition["id"])) {
