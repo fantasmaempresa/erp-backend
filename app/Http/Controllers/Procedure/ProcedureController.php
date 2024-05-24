@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Procedure;
 
 use App\Http\Controllers\ApiController;
+use App\Models\Operation;
 use App\Models\Procedure;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
@@ -28,14 +29,14 @@ class ProcedureController extends ApiController
                 ->with('documents')
                 ->with('client')
                 ->with('operations')
-                ->orderBy('instrument','desc')
+                ->orderBy('instrument', 'desc')
                 ->paginate($paginate);
         } else {
             $response = Procedure::with('grantors')
                 ->with('documents')
                 ->with('client')
                 ->with('operations')
-                ->orderBy('instrument','desc')
+                ->orderBy('instrument', 'desc')
                 ->paginate($paginate);
         }
 
@@ -54,7 +55,6 @@ class ProcedureController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-
         $this->validate($request, Procedure::rules());
         $procedure = new Procedure($request->all());
 
@@ -70,13 +70,32 @@ class ProcedureController extends ApiController
                 $procedure->grantors()->attach($grantor['id']);
             }
 
-            foreach ($request->get('documents') as $grantor) {
-                $procedure->documents()->attach($grantor['id']);
-            }
-
+            $documents = [];
             foreach ($request->get('operations') as $operation) {
                 $procedure->operations()->attach($operation['id']);
+
+                $operation = Operation::find($operation['id']);
+                if (isset($operation->config['documents_required']) && !empty($operation->config['documents_required'])) {
+                    foreach ($operation->config['documents_required'] as $document) {
+                        $documents[] = $document['id'];
+                    }
+                }
+
+                if (!is_null($operation->categoryOperation)) {
+                    if (isset($operation->categoryOperation->config['documents_required']) && !empty($operation->categoryOperation->config['documents_required'])) {
+                        foreach ($operation->categoryOperation->config['documents_required'] as $document) {
+                            $documents[] = $document['id'];
+                        }
+                    }
+                }
             }
+
+            foreach ($request->get('documents') as $grantor) {
+                $documents[] = $grantor['id'];
+            }
+
+            $documents = array_unique($documents);
+            $procedure->documents()->sync($documents);
 
             DB::commit();
         } catch (\Exception $e) {
@@ -123,8 +142,10 @@ class ProcedureController extends ApiController
         $this->validate($request, Procedure::rules($procedure->id));
         DB::begintransaction();
 
-        try{
+        try {
+            $oldDocuments = $procedure->documents()->wherePivot('file', '!=', '')->pluck('documents.id')->toArray();
             $procedure->fill($request->all());
+
             $documents = [];
             $grantors = [];
             $operations = [];
@@ -133,28 +154,42 @@ class ProcedureController extends ApiController
                 $grantors[] = $grantor['id'];
             }
 
-            foreach ($request->get('documents') as $document) {
-                $documents[] = $document['id'];  
-            
-            }
-
             foreach ($request->get('operations') as $operation) {
                 $operations[] = $operation['id'];
+
+                $operation = Operation::find($operation['id']);
+                if (isset($operation->config['documents_required']) && !empty($operation->config['documents_required'])) {
+                    foreach ($operation->config['documents_required'] as $document) {
+                        $documents[] = $document['id'];
+                    }
+                }
+
+                if (!is_null($operation->categoryOperation)) {
+                    if (isset($operation->categoryOperation->config['documents_required']) && !empty($operation->categoryOperation->config['documents_required'])) {
+                        foreach ($operation->categoryOperation->config['documents_required'] as $document) {
+                            $documents[] = $document['id'];
+                        }
+                    }
+                }
+            }
+
+            foreach ($request->get('documents') as $grantor) {
+                $documents[] = $grantor['id'];
             }
 
             $procedure->grantors()->sync($grantors);
-            $procedure->documents()->sync($documents);
             $procedure->operations()->sync($operations);
 
-        }catch (\Exception $e){
+            $documents = array_merge($documents, $oldDocuments);
+            $documents = array_unique($documents);
+            $procedure->documents()->sync($documents);
+            $procedure->save();
+            DB::commit();
+        } catch (\Exception $e) {
             DB::rollBack();
             return $this->errorResponse('error al actualizar --> ' . $e->getMessage(), 409);
         }
-        
-        
-        $procedure->save();
-        DB::commit();
-        
+
         $procedure->grantors;
         $procedure->documents;
         $procedure->operations;
