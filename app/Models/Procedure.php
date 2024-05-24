@@ -151,8 +151,8 @@ class Procedure extends Model
         return $query
             ->select('procedures.*')
             ->join('clients', 'procedures.client_id', '=', 'clients.id')
-            ->join('grantor_procedure', 'procedures.id', '=', 'grantor_procedure.procedure_id')
-            ->join('grantors', 'grantor_procedure.grantor_id', '=', 'grantors.id')
+            ->leftJoin('grantor_procedure', 'procedures.id', '=', 'grantor_procedure.procedure_id')
+            ->leftJoin('grantors', 'grantor_procedure.grantor_id', '=', 'grantors.id')
             ->orWhere('procedures.name', 'like', "%$search%")
             ->orWhere('value_operation', 'like', "%$search%")
             ->orWhere('instrument', 'like', "%$search%")
