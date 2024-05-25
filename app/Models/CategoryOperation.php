@@ -18,17 +18,22 @@ class CategoryOperation extends Model
         'name',
         'description',
         'config',
-        'form'
+        'general_template_id'
     ];
 
     protected $casts = [
         'config' => 'array',
-        'form' => 'array'
+        // 'form' => 'array'
     ];
 
     public function operation()
     {
-        return $this->hasOne(Operation::class);
+        return $this->hasMany(Operation::class);
+    }
+
+    public function generalTemplate()
+    {
+        return $this->belongsTo(GeneralTemplate::class);
     }
 
     public function scopeSearch($query, $search)
@@ -43,7 +48,8 @@ class CategoryOperation extends Model
             'name' => 'required|string|unique:category_operations',
             'description' => 'required|string',
             'config' => 'nullable|array',
-            'form' => 'nullable|array',
+            'general_template_id' => 'nullable|exists:general_templates,id',
+            'documents.*.id' => 'required|exists:documents,id',
         ];
 
         if ($id) {

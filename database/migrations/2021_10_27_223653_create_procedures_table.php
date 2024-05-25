@@ -33,7 +33,6 @@ class CreateProceduresTable extends Migration
             $table->string('construction_meters')->nullable();
             $table->tinyInteger('property_type')->nullable();
             $table->string('appraisal')->nullable();
-            $table->foreignId('operation_id')->constrained(); //Operacion
             $table->foreignId('user_id')->constrained(); //Elaboro
             $table->foreignId('place_id')->constrained(); //Lugar
             $table->foreignId('client_id')->constrained(); //Cliente

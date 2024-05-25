@@ -30,8 +30,6 @@ class RegistrationDataSeeder extends Seeder
         $records = $import->readFile();
 
         foreach ($records as $record) {
-            print_r($record);
-
             $procedure = Procedure::where('name', trim($record['Expediente']))->first();
             $stake = Place::where('name', 'like', "%" . trim($record['Lugar']) . "%")->first();
             if (empty($procedure->id)) {

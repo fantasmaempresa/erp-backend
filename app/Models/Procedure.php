@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 /**
  * version
@@ -48,7 +49,6 @@ class Procedure extends Model
         'construction_meters',
         'property_type',
         'appraisal',
-        'operation_id',
         'user_id',
         'place_id',
         'client_id',
@@ -67,8 +67,8 @@ class Procedure extends Model
 
     protected function getValueOperationAttribute($value)
     {
-        $cleanedValue = preg_replace('/[^0-9]/', '', $value);
-        return (int)$cleanedValue;
+        $cleanedValue = preg_replace('/[^0-9.]/', '', $value);
+        return $cleanedValue;
     }
 
     /**
@@ -81,12 +81,11 @@ class Procedure extends Model
     }
 
     /**
-     * @return BelongsTo
+     * @return BelongsToMany
      */
-    public function operation(): BelongsTo
+    public function operations(): BelongsToMany
     {
-
-        return $this->belongsTo(Operation::class);
+        return $this->belongsToMany(Operation::class);
     }
 
     /**
@@ -129,7 +128,7 @@ class Procedure extends Model
      */
     public function documents(): BelongsToMany
     {
-        return $this->belongsToMany(Document::class)->withTimestamps();
+        return $this->belongsToMany(Document::class)->withTimestamps()->withPivot(['id', 'file']);
     }
 
     /**
@@ -152,15 +151,14 @@ class Procedure extends Model
         return $query
             ->select('procedures.*')
             ->join('clients', 'procedures.client_id', '=', 'clients.id')
-            ->join('grantor_procedure', 'procedures.id', '=', 'grantor_procedure.procedure_id')
-            ->join('grantors', 'grantor_procedure.grantor_id', '=', 'grantors.id')
+            ->leftJoin('grantor_procedure', 'procedures.id', '=', 'grantor_procedure.procedure_id')
+            ->leftJoin('grantors', 'grantor_procedure.grantor_id', '=', 'grantors.id')
             ->orWhere('procedures.name', 'like', "%$search%")
             ->orWhere('value_operation', 'like', "%$search%")
             ->orWhere('instrument', 'like', "%$search%")
             ->orWhere('procedures.date', 'like', "%$search%")
             ->orWhere('volume', 'like', "%$search%")
             ->orWhere('folio_min', 'like', "%$search%")
-            ->orWhere('credit', 'like', "%$search%")
             ->orWhereRaw('CONCAT(clients.name, " ", clients.last_name, " ", clients.mother_last_name) like ?', "%$search%")
             ->orWhereRaw('CONCAT(grantors.name, " ", grantors.father_last_name, " ", grantors.mother_last_name) like ?', "%$search%")
             ->groupBy($columns);
@@ -178,10 +176,10 @@ class Procedure extends Model
     /**
      * @return string[]
      */
-    public static function rules(): array
+    public static function rules($id = null): array
     {
-        return [
-            'name' => 'required|string',
+        $rules = [
+            'name' => 'required|string|unique:procedures,name',
             'value_operation' => 'nullable|string|regex:/^[a-zA-Z0-9\s]+$/',
             'instrument' => 'required|string',
             'date' => 'required|date',
@@ -192,16 +190,22 @@ class Procedure extends Model
             'observation' => 'nullable|string',
             'grantors' => 'required|array',
             'documents' => 'required|array',
+            'operations' => 'required|array',
             'appraisal' => 'nullable|string',
             'way_to_pay' => 'nullable|tinyint',
             'real_estate_folio' => 'nullable|string',
             'meters_land' => 'nullable|string',
             'construction_meters' => 'nullable|string',
             'property_type' => 'nullable|tinyint',
-            'operation_id' => 'required|exists:operations,id',
             'place_id' => 'required|exists:places,id',
             'client_id' => 'required|exists:clients,id',
             'staff_id' => 'required|exists:staff,id',
         ];
+
+        if ($id) {
+            $rules['name'] = ['required', Rule::unique('procedures')->ignore($id)];
+        }
+
+        return $rules;
     }
 }

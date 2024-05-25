@@ -16,6 +16,7 @@ use App\Http\Controllers\Document\DocumentController;
 use App\Http\Controllers\Document\DocumentLinkController;
 use App\Http\Controllers\ExtraHour\ExtraHourController;
 use App\Http\Controllers\FormStructure\FromStructureController;
+use App\Http\Controllers\GeneralTemplate\GeneralTemplateController;
 use App\Http\Controllers\Grantor\GrantorController;
 use App\Http\Controllers\InversionUnit\InversionUnitController;
 use App\Http\Controllers\IsoDocument\IsoDocumentController;
@@ -26,6 +27,7 @@ use App\Http\Controllers\Operation\OperationController;
 use App\Http\Controllers\Perception\PerceptionController;
 use App\Http\Controllers\PhasesProcess\PhasesProcessController;
 use App\Http\Controllers\Place\PlaceController;
+use App\Http\Controllers\Procedure\ProcedureActionController;
 use App\Http\Controllers\Procedure\ProcedureController;
 use App\Http\Controllers\Procedure\ProcedureFilterController;
 use App\Http\Controllers\Procedure\ProcedureValidatorsController;
@@ -161,6 +163,7 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::get('procedure/filter/myProcedures', [ProcedureFilterController::class, 'myProcedures']);
     Route::get('procedure/filter/withoutData', [ProcedureFilterController::class, 'proceduresWithoutData']);
     Route::get('procedure/filter/vulnerableOperations', [ProcedureFilterController::class, 'proceduresVulnerableOperations']);
+    Route::put('procedure/grantors/additionalData/{procedure}', [ProcedureActionController::class, 'grantorsAdditionalData']);
 
     Route::resource('clients', ClientController::class, ['except' => ['create', 'edit']]);
 
@@ -189,6 +192,9 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
 
     //CLIENT LINK ACTIONS
     Route::put('clientLinks/active/{clientLink}', [ClientLinkActionController::class, 'active']);
+
+    //GENERAL TEMPLATE
+    Route::resource('generalTemplate', GeneralTemplateController::class, ['except' => ['create', 'edit']]);
 
     Route::resource('processingIncome', ProcessingIncomeController::class, ['except' => ['create', 'edit']]);
 
