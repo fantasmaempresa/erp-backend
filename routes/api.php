@@ -52,6 +52,12 @@ use App\Http\Controllers\User\UserActionController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\UserLog\UserLogController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
+use App\Http\Controllers\Line\LineController;
+use App\Http\Controllers\Article\ArticleController;
+use App\Http\Controllers\Inventory\InventoryController;
+use App\Http\Controllers\Warehouse\WarehouseController;
+use App\Http\Controllers\OfficeSecurityMeasures\OfficeSecurityMeasuresController;
+use App\Http\Controllers\MovementTracking\MovementTrackingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -167,6 +173,15 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
 
     //PROCEDURE COMMENT
     Route::resource('procedureComment', ProcedureCommentController::class, ['except' => ['create', 'edit']]);
+
+    //INVENTORIES
+    Route::resource('Line',LineController::class);
+    Route::resource('Article',ArticleController::class);
+    Route::resource('Inventory',InventoryController::class);
+    Route::resource('Inventory',InventoryController::class);
+    Route::resource('Warehouse',WarehouseController::class);
+    Route::resource('MovementTracking',MovementTrackingController::class);
+    Route::resource('OfficeSecurityMeasures',OfficeSecurityMeasuresController::class);
 });
 
 
