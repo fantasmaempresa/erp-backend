@@ -213,13 +213,13 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('vulnerableOperation', VulnerableOperationController::class, ['except' => ['create', 'edit']]);
 
     //INVENTORIES
-    Route::resource('Line',LineController::class);
-    Route::resource('Article',ArticleController::class);
-    Route::resource('Inventory',InventoryController::class);
-    Route::resource('Inventory',InventoryController::class);
-    Route::resource('Warehouse',WarehouseController::class);
-    Route::resource('MovementTracking',MovementTrackingController::class);
-    Route::resource('OfficeSecurityMeasures',OfficeSecurityMeasuresController::class);
+    Route::resource('line',LineController::class);
+    Route::resource('article',ArticleController::class);
+    Route::resource('inventory',InventoryController::class);
+    Route::resource('inventory',InventoryController::class);
+    Route::resource('warehouse',WarehouseController::class);
+    Route::resource('movementTracking',MovementTrackingController::class);
+    Route::resource('officeSecurityMeasures',OfficeSecurityMeasuresController::class);
 });
 
 
