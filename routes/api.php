@@ -3,8 +3,10 @@
 use App\Http\Controllers\Appendant\AppendantController;
 use App\Http\Controllers\Auth\AuthActionController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\CategoryOperation\CategoryOperationController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\ClientDocument\ClientDocumentController;
+use App\Http\Controllers\ClientLink\ClientLinkActionController;
 use App\Http\Controllers\ClientLink\ClientLinkController;
 use App\Http\Controllers\Concept\ConceptController;
 use App\Http\Controllers\Deduction\DeductionController;
@@ -14,8 +16,10 @@ use App\Http\Controllers\Document\DocumentController;
 use App\Http\Controllers\Document\DocumentLinkController;
 use App\Http\Controllers\ExtraHour\ExtraHourController;
 use App\Http\Controllers\FormStructure\FromStructureController;
+use App\Http\Controllers\GeneralTemplate\GeneralTemplateController;
 use App\Http\Controllers\Grantor\GrantorController;
 use App\Http\Controllers\InversionUnit\InversionUnitController;
+use App\Http\Controllers\IsoDocument\IsoDocumentController;
 use App\Http\Controllers\NationalConsumerPriceIndex\NationalConsumerPriceIndexController;
 use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\Notification\NotificationFilterController;
@@ -23,10 +27,15 @@ use App\Http\Controllers\Operation\OperationController;
 use App\Http\Controllers\Perception\PerceptionController;
 use App\Http\Controllers\PhasesProcess\PhasesProcessController;
 use App\Http\Controllers\Place\PlaceController;
+use App\Http\Controllers\Procedure\ProcedureActionController;
 use App\Http\Controllers\Procedure\ProcedureController;
+use App\Http\Controllers\Procedure\ProcedureFilterController;
 use App\Http\Controllers\Procedure\ProcedureValidatorsController;
+use App\Http\Controllers\Procedure\RegistrationProcedureDataController;
 use App\Http\Controllers\ProcedureComment\ProcedureCommentController;
 use App\Http\Controllers\Process\ProcessController;
+use App\Http\Controllers\ProcessingIncome\ProcessingIncomeController;
+use App\Http\Controllers\ProcessingIncomeComment\ProcessingIncomeCommentController;
 use App\Http\Controllers\ProcessProject\ProcessProjectController;
 use App\Http\Controllers\Project\ProjectActionController;
 use App\Http\Controllers\Project\ProjectController;
@@ -48,9 +57,12 @@ use App\Http\Controllers\StatusQuote\StatusQuoteController;
 use App\Http\Controllers\TaxDatum\TaxDatumController;
 use App\Http\Controllers\TemplateQuotes\TemplateQuotesController;
 use App\Http\Controllers\TemplateShape\TemplateShapeController;
+use App\Http\Controllers\TypeDisposalOperation\TypeDisposalOperationController;
+use App\Http\Controllers\Unit\UnitController;
 use App\Http\Controllers\User\UserActionController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\UserLog\UserLogController;
+use App\Http\Controllers\VulnerableOperation\VulnerableOperationController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
 use App\Http\Controllers\Line\LineController;
 use App\Http\Controllers\Article\ArticleController;
@@ -90,6 +102,7 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('documents', DocumentController::class, ['except' => ['create', 'edit']]);
     Route::resource('clientDocuments', ClientDocumentController::class, ['except' => ['create', 'edit']]);
     Route::resource('documentLink', DocumentLinkController::class, ['except' => ['create', 'edit']]);
+    Route::post('documentLink/updateAlternative', [DocumentLinkController::class, 'updateAlternative']);
     Route::resource('concepts', ConceptController::class, ['except' => ['create', 'edit']]);
     Route::resource('statusQuotes', StatusQuoteController::class, ['except' => ['create', 'edit']]);
     Route::resource('clientLinks', ClientLinkController::class, ['except' => 'create', 'edit']);
@@ -142,37 +155,62 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('templateShape', TemplateShapeController::class, ['except' => ['create', 'edit']]);
     Route::resource('operations', OperationController::class, ['except' => ['create', 'edit']]);
     Route::resource('procedures', ProcedureController::class, ['except' => ['create', 'edit']]);
+    Route::resource('registrationProcedureData', RegistrationProcedureDataController::class, ['except' => ['create', 'edit', 'update']]);
+    Route::post('registrationProcedureData/updateAlternative/{registrationProcedureData}', [RegistrationProcedureDataController::class, 'update']);
     Route::resource('grantors', GrantorController::class, ['except' => ['create', 'edit']]);
     Route::resource('places', PlaceController::class, ['except' => ['create', 'edit']]);
+    Route::resource('isoDocumentation', IsoDocumentController::class, ['except' => ['create', 'edit']]);
     //GENERATOR REPORTS
     Route::get('report/generator/procedure/shape/{shape}', [ShapeActionController::class, 'generateShape']);
     //ROUTE NOTARY VALIDATORS
     Route::get('procedure/validator/uniqueValue/{name}', [ProcedureValidatorsController::class, 'uniqueValueValidator']);
     Route::get('procedure/validator/uniqueFolioValue/{folio}', [ProcedureValidatorsController::class, 'uniqueFolioValueValidator']);
 
+    Route::get('procedure/filter/myProcedures', [ProcedureFilterController::class, 'myProcedures']);
+    Route::get('procedure/filter/withoutData', [ProcedureFilterController::class, 'proceduresWithoutData']);
+    Route::get('procedure/filter/vulnerableOperations', [ProcedureFilterController::class, 'proceduresVulnerableOperations']);
+    Route::put('procedure/grantors/additionalData/{procedure}', [ProcedureActionController::class, 'grantorsAdditionalData']);
 
     Route::resource('clients', ClientController::class, ['except' => ['create', 'edit']]);
 
     //NATIONAL CONSUMER PRICE INDEX
-    Route::resource('nationalConsumerPriceIndex', NationalConsumerPriceIndexController::class, ['only' => ['index', 'show']]);
-
+    Route::resource('nationalConsumerPriceIndex', NationalConsumerPriceIndexController::class, ['except' => ['create', 'edit']]);
+    
     //INVERSION UNIT
-    Route::resource('inversionUnit', InversionUnitController::class, ['only' => ['index', 'show']]);
-
+    Route::resource('inversionUnit', InversionUnitController::class, ['except' => ['create', 'edit']]);
+    
     //APPENDANT 9
-    Route::resource('appendant', AppendantController::class, ['only' => ['index', 'show']]);
-
+    Route::resource('appendant', AppendantController::class, ['only' => ['index', 'show', 'update']]);
+    
     //RATE
-    Route::resource('rate', RateController::class, ['only' => ['index', 'show']]);
-
+    Route::resource('rate', RateController::class, ['except' => ['create', 'edit']]);
+    
     //TYPE DISPOSAL OPERATION
-    Route::resource('typeDisposalOperation', RateController::class, ['only' => ['index', 'show']]);
-
+    Route::resource('typeDisposalOperation', TypeDisposalOperationController::class, ['except' => ['create', 'edit']]);
+    
     //DISPOSAL REAL ESTATE
     Route::resource('disposalRealEstate', DisposalRealEstateController::class, ['except' => ['create', 'edit']]);
+    Route::get('disposalRealEstate/report/{disposalRealEstate}', [DisposalRealEstateController::class, 'generateReport']);
+
 
     //PROCEDURE COMMENT
     Route::resource('procedureComment', ProcedureCommentController::class, ['except' => ['create', 'edit']]);
+
+    //CLIENT LINK ACTIONS
+    Route::put('clientLinks/active/{clientLink}', [ClientLinkActionController::class, 'active']);
+
+    //GENERAL TEMPLATE
+    Route::resource('generalTemplate', GeneralTemplateController::class, ['except' => ['create', 'edit']]);
+
+    Route::resource('processingIncome', ProcessingIncomeController::class, ['except' => ['create', 'edit']]);
+
+    Route::resource('processingIncomeComment', ProcessingIncomeCommentController::class, ['except' => ['create', 'edit']]);
+
+    Route::resource('categoryOperation', CategoryOperationController::class, ['except' => ['create', 'edit']]);
+
+    Route::resource('unit', UnitController::class, ['except' => ['create', 'edit']]);
+
+    Route::resource('vulnerableOperation', VulnerableOperationController::class, ['except' => ['create', 'edit']]);
 
     //INVENTORIES
     Route::resource('Line',LineController::class);
@@ -200,7 +238,6 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('notifications/filter/getLastUserNotifications', [NotificationFilterController::class, 'getLastUserNotifications']);
     Route::get('notifications/filter/getUncheckUserNotifications', [NotificationFilterController::class, 'getUncheckUserNotifications']);
     Route::get('notifications/filter/getCheckUserNotifications', [NotificationFilterController::class, 'getCheckUserNotifications']);
-
 });
 
 //ROUTES OAUTH AND OPERATIONS LOGIN USERS
