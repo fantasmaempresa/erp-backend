@@ -113,7 +113,7 @@ class OperationController extends ApiController
 
                 if (!is_null($oldCategoryOperation)) {
                     $categoryOperation = CategoryOperation::find($oldCategoryOperation);
-                    if (!is_null($categoryOperation->config['documents_required'])) {
+                    if (isset($categoryOperation->config['documents_required']) && !empty($categoryOperation->config['documents_required'])) {
                         foreach ($categoryOperation->config['documents_required'] as $document) {
                             $docuemntsOld[] = $document['id'];
                         }
