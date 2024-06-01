@@ -70,19 +70,14 @@ class ProcedureFilterController extends ApiController
     {
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
-        $procedures = Procedure::query();
-
-        if (!empty($request->get('search')) && $request->get('search') !== 'null') {
-            $procedures = $procedures->search($request->get('search'));
-        }
-
-        $procedures = $procedures->with('grantors.stake')
+        $procedures = Procedure::with('grantors.stake')
             ->with('documents')
             ->with('client')
             ->orderBy('id', 'desc')->get();
 
-        $procedures = Procedure::all();
-        $filteredProcedures = $procedures->filter(function ($procedure) {
+        $filteredProcedures = $procedures->filter(function ($procedure) use ($request) {
+            $vulnerable = false;
+            //CHECK VULNERABLE OPERATIONS
             foreach ($procedure->operations as $operation) {
                 if (!is_null($operation->categoryOperation)) {
                     $vulnerableOptions = $operation->categoryOperation->config['vulnerable'];
@@ -92,36 +87,49 @@ class ProcedureFilterController extends ApiController
                                 $uma = Unit::orderBy('id', 'desc')->first();
                                 if (!is_null($uma)) {
                                     $umaValue = $uma->value * $vulnerableOption['condition'];
-                                    return (int)$procedure->value_operation > $umaValue;
-                                } else {
-                                    return false;
+                                    $vulnerable = (int)$procedure->value_operation > $umaValue;
                                 }
+                                break;
                             case CategoryOperation::UDI:
                                 $udi = InversionUnit::orderBy('id', 'desc')->first();
                                 if (!is_null($udi)) {
                                     $udiValue = $uma->value * $vulnerableOption['condition'];
-                                    return (int)$procedure->value_operation > $udiValue;
-                                } else {
-                                    return false;
+                                    $vulnerable = (int)$procedure->value_operation > $udiValue;
                                 }
+                                break;
                             case CategoryOperation::DOCUMENT:
                                 foreach ($vulnerableOption['condition'] as $condition) {
                                     if (!$procedure->documents->contains('id', $condition["id"])) {
-                                        return true;
+                                        $vulnerable = true;
                                     }
                                 }
                                 break;
                             case CategoryOperation::OPTION:
-                                return true;
+                                $vulnerable = true;
                                 break;
                         }
                     }
                 }
             }
-            return false;
-        });
 
-        $filteredProcedures = $filteredProcedures->values();
+            // SEARCH
+            $searchTerm = strtoupper($request->get('search'));
+            if (!empty($searchTerm) && $searchTerm !== 'null' && $vulnerable) {
+                $search = str_contains($procedure->name, $searchTerm) ||
+                    str_contains($procedure->value_operation, $searchTerm) ||
+                    str_contains($procedure->instrument, $searchTerm) ||
+                    str_contains($procedure->date, $searchTerm) ||
+                    str_contains($procedure->volume, $searchTerm) ||
+                    str_contains($procedure->folio_min, $searchTerm) ||
+                    str_contains(($procedure->client->name . ' ' . $procedure->client->last_name . ' ' . $procedure->client->mother_last_name), $searchTerm) ||
+                    $this->searchGrantors($procedure, $searchTerm);
+
+                $vulnerable = $search;
+            }
+            return $vulnerable;
+        })->values();
+
+
         $currentPage = Paginator::resolveCurrentPage('page');
         $paginatedExpedient = new LengthAwarePaginator(
             $filteredProcedures->forPage($currentPage, $paginate),
@@ -132,5 +140,26 @@ class ProcedureFilterController extends ApiController
         );
 
         return $this->showList($paginatedExpedient);
+    }
+
+    private function searchGrantors($procedure, $searchTerm)
+    {
+        $found = false;
+        if (!is_null($procedure->grantors)) {
+            foreach ($procedure->grantors as $grantor) {
+                $found = str_contains(
+                    (($grantor->name ?? '') . ' ' .
+                        ($grantor->father_last_name ?? '') . ' ' .
+                        ($grantor->mother_last_name ?? '')),
+                    $searchTerm
+                );
+
+                if ($found) {
+                    break;
+                }
+            }
+        }
+
+        return $found;
     }
 }
