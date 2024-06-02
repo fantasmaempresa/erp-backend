@@ -9,6 +9,11 @@ class VulnerableOperation extends Model
     protected $fillable = [
         'id',
         'data_form',
+        'capital',
+        'constitution',
+        'increase',
+        'capital_decrease',
+        'sale_shares',
         'procedure_id',
         'unit_id',
         'inversion_unit_id'
