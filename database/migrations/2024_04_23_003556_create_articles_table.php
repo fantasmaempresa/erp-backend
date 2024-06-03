@@ -25,8 +25,8 @@ class CreateArticlesTable extends Migration
             $table->string('type');
             $table->string('brand')->nullable();
             $table->boolean('storable');
-            $table->string('purchase_meashure_unit');
-            $table->string('sale_meashure_unit');
+            $table->string('purchase_measure_unit');
+            $table->string('sale_measure_unit');
             $table->timestamps();
         });
     }

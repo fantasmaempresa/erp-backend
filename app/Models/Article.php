@@ -24,8 +24,8 @@ class Article extends Model
             'type',
             'brand',
             'storable',
-            'purchase_meashure_unit',
-            'sale_meashure_unit',
+            'purchase_measure_unit',
+            'sale_measure_unit',
         ];
     
     protected function setBarCodeAttribute($value){
@@ -68,19 +68,19 @@ class Article extends Model
         return strtoupper($value);
     }
 
-    protected function setPurchaseMeashureUnitAttribute($value){
-        $this->attributes['purchase_meashure_unit'] = strtolower($value);
+    protected function setPurchaseMeasureUnitAttribute($value){
+        $this->attributes['purchase_measure_unit'] = strtolower($value);
     }
     
-    protected function getPurchaseMeashureUnitAttribute($value){
+    protected function getPurchaseMeasureUnitAttribute($value){
         return strtoupper($value);
     }
 
     protected function setSaleMeashureUnitAttribute($value){
-        $this->attributes['sale_meashure_unit'] = strtolower($value);
+        $this->attributes['sale_measure_unit'] = strtolower($value);
     }
     
-    protected function getSaleMeashureUnitAttribute($value){
+    protected function getSaleMeasureUnitAttribute($value){
         return strtoupper($value);
     }
 
@@ -98,8 +98,8 @@ class Article extends Model
             'type' => 'required|string|in:Activo,Consumible',
             'brand' => 'nullable|string',
             'storable' => 'required|boolean',
-            'purchase_meashure_unit' => 'required|string',
-            'sale_meashure_unit' => 'required|string',
+            'purchase_measure_unit' => 'required|string',
+            'sale_measure_unit' => 'required|string',
         ];
         $rule['bar_code'] .='|unique:type,Activo';
         return $rule;
