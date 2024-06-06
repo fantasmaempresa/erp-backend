@@ -21,6 +21,11 @@ class CreateVulnerableOperationsTable extends Migration
             $table->string('increase')->nullable();
             $table->string('capital_decrease')->nullable();
             $table->string('sale_shares')->nullable();
+            $table->tinyInteger('way_to_pay')->nullable();
+            $table->string('real_estate_folio')->nullable();
+            $table->string('meters_land')->nullable();
+            $table->string('construction_meters')->nullable();
+            $table->tinyInteger('property_type')->nullable();
             $table->foreignId('procedure_id')->constrained();
             $table->foreignId('unit_id')->nullable()->constrained();
             $table->foreignId('inversion_unit_id')->nullable()->constrained();
