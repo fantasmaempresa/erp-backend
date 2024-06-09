@@ -83,7 +83,11 @@ class Grantor extends Model
 
     protected function setRfcAttribute($value)
     {
-        $this->attributes['rfc'] = strtolower($value);
+        if (is_null($value)) {
+            $this->attributes['rfc'] = $value;
+        } else {
+            $this->attributes['rfc'] = strtolower($value);
+        }
     }
 
     protected function getRfcAttribute($value)
@@ -93,7 +97,11 @@ class Grantor extends Model
 
     protected function setCurpAttribute($value)
     {
-        $this->attributes['curp'] = strtolower($value);
+        if (is_null($value)) {
+            $this->attributes['curp'] = $value;
+        } else {
+            $this->attributes['curp'] = strtolower($value);
+        }
     }
 
     protected function getCurpAttribute($value)
