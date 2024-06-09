@@ -35,6 +35,7 @@ class CreateGrantorsTable extends Migration
             $table->date('birthdate')->nullable();
             $table->string('occupation')->nullable();
             $table->string('type'); //tipo de persona
+            $table->string('economic_activity')->nullable();
             $table->foreignId('stake_id')->constrained(); //participación
             $table->boolean('beneficiary')->default(Grantor::NO_BENEFICIARY);
             $table->timestamps();

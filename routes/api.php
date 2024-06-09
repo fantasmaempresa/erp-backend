@@ -18,6 +18,7 @@ use App\Http\Controllers\ExtraHour\ExtraHourController;
 use App\Http\Controllers\FormStructure\FromStructureController;
 use App\Http\Controllers\GeneralTemplate\GeneralTemplateController;
 use App\Http\Controllers\Grantor\GrantorController;
+use App\Http\Controllers\GrantorLink\GrantorLinkController;
 use App\Http\Controllers\InversionUnit\InversionUnitController;
 use App\Http\Controllers\IsoDocument\IsoDocumentController;
 use App\Http\Controllers\NationalConsumerPriceIndex\NationalConsumerPriceIndexController;
@@ -64,6 +65,7 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\UserLog\UserLogController;
 use App\Http\Controllers\VulnerableOperation\VulnerableOperationController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
+use App\Models\GrantorLink;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -205,6 +207,8 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('unit', UnitController::class, ['except' => ['create', 'edit']]);
 
     Route::resource('vulnerableOperation', VulnerableOperationController::class, ['except' => ['create', 'edit']]);
+
+    Route::resource('grantorLink', GrantorLinkController::class, ['except' => ['create', 'edit']]);
 });
 
 

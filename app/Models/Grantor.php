@@ -46,6 +46,7 @@ class Grantor extends Model
         'birthdate',
         'occupation',
         'type',
+        'economic_activity',
         'stake_id',
         'beneficiary',
     ];
@@ -185,6 +186,14 @@ class Grantor extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function grantorLinks()
+    {
+        return $this->hasMany(GrantorLink::class);
+    }
+
+    /**
      * @param $query
      * @param $search
      *
@@ -206,7 +215,7 @@ class Grantor extends Model
      */
     public static function rules($id = null, $type): array
     {
-        
+
         $rule = [
             'name' => 'required|string',
             'father_last_name' => [Rule::requiredIf($type == self::PHYSICAL_PERSON)],

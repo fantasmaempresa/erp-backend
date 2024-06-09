@@ -1,4 +1,5 @@
 <?php
+
 /**
  * open2code
  */
@@ -27,9 +28,9 @@ class GrantorController extends ApiController
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
-            $response = $this->showList(Grantor::search($request->get('search'))->orderBy('father_last_name')->with('stake')->paginate($paginate));
+            $response = $this->showList(Grantor::search($request->get('search'))->orderBy('father_last_name')->with('stake')->with('grantorLinks')->paginate($paginate));
         } else {
-            $response = $this->showList(Grantor::with('stake')->orderBy('father_last_name')->paginate($paginate));
+            $response = $this->showList(Grantor::with('stake')->with('grantorLinks')->orderBy('father_last_name')->paginate($paginate));
         }
 
         return $response;
@@ -46,7 +47,7 @@ class GrantorController extends ApiController
     {
         $this->validate($request, Grantor::rules(null, $request->get('type')));
         $grantor = new Grantor($request->all());
-        if(!empty($grantor->birthdate)){
+        if (!empty($grantor->birthdate)) {
             $grantor->birthdate = Carbon::parse($grantor->birthdate);
         }
         $grantor->save();
@@ -63,6 +64,7 @@ class GrantorController extends ApiController
      */
     public function show(Grantor $grantor)
     {
+        $grantor->grantorLinks;
         return $this->showOne($grantor);
     }
 
@@ -83,7 +85,7 @@ class GrantorController extends ApiController
             return $this->errorResponse('A different value must be specified to update', 422);
         }
 
-        if(!empty($request->get('birthdate'))){
+        if (!empty($request->get('birthdate'))) {
             $grantor->birthdate = Carbon::parse($request->get('birthdate'));
         }
 

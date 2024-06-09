@@ -22,6 +22,7 @@ class CreateVulnerableOperationsTable extends Migration
             $table->string('capital_decrease')->nullable();
             $table->string('sale_shares')->nullable();
             $table->tinyInteger('way_to_pay')->nullable();
+            $table->string('description_payment_method')->nullable();
             $table->string('real_estate_folio')->nullable();
             $table->string('meters_land')->nullable();
             $table->string('construction_meters')->nullable();

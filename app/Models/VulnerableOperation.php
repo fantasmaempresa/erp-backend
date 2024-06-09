@@ -15,6 +15,7 @@ class VulnerableOperation extends Model
         'capital_decrease',
         'sale_shares',
         'way_to_pay',
+        'description_payment_method',
         'real_estate_folio',
         'meters_land',
         'construction_meters',
