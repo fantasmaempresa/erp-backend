@@ -31,6 +31,7 @@ use App\Http\Controllers\Place\PlaceController;
 use App\Http\Controllers\Procedure\ProcedureActionController;
 use App\Http\Controllers\Procedure\ProcedureController;
 use App\Http\Controllers\Procedure\ProcedureFilterController;
+use App\Http\Controllers\Procedure\ProcedureGraphicController;
 use App\Http\Controllers\Procedure\ProcedureValidatorsController;
 use App\Http\Controllers\Procedure\RegistrationProcedureDataController;
 use App\Http\Controllers\ProcedureComment\ProcedureCommentController;
@@ -209,6 +210,12 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('vulnerableOperation', VulnerableOperationController::class, ['except' => ['create', 'edit']]);
 
     Route::resource('grantorLink', GrantorLinkController::class, ['except' => ['create', 'edit']]);
+
+    //PROCEDURE GRAPHICS
+    Route::get('procedure/graphics/registered', [ProcedureGraphicController::class, 'registredProcedures']);
+    Route::get('procedure/graphics/withoutData', [ProcedureGraphicController::class, 'proceduresWithoutData']);
+    Route::get('procedure/graphics/withoutShape', [ProcedureGraphicController::class, 'proceduresWithoutShape']);
+    Route::get('procedure/graphics/withoutDocument', [ProcedureGraphicController::class, 'procedureWithoutDocument']);
 });
 
 
