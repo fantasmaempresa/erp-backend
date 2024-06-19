@@ -7,6 +7,7 @@
 namespace App\Http\Controllers\Role;
 
 use App\Http\Controllers\ApiController;
+use App\Htttp\Controllers\Article\ArticleController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\ClientLink\ClientLinkController;
 use App\Http\Controllers\Concept\ConceptController;
@@ -17,7 +18,11 @@ use App\Http\Controllers\GeneralTemplate\GeneralTemplateController;
 use App\Http\Controllers\Grantor\GrantorController;
 use App\Http\Controllers\InversionUnit\InversionUnitController;
 use App\Http\Controllers\IsoDocument\IsoDocumentController;
+use App\Http\Controllers\Inventory\InventoryController;
+use App\Http\Controllers\Line\LineController;
+use App\Http\Controllers\MovementTracking\MovementTrackingController;
 use App\Http\Controllers\NationalConsumerPriceIndex\NationalConsumerPriceIndexController;
+use App\Http\Controllers\OfficeSecurityMeasures\OfficeSecurityMeasuresController;
 use App\Http\Controllers\Operation\OperationController;
 use App\Http\Controllers\Place\PlaceController;
 use App\Http\Controllers\Procedure\ProcedureController;
@@ -46,6 +51,7 @@ use App\Http\Controllers\User\UserActionController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\UserFilterController;
 use App\Http\Controllers\VulnerableOperation\VulnerableOperationController;
+use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
 use App\Models\Role;
 use App\Models\User;
@@ -354,6 +360,50 @@ class RoleActionController extends ApiController
             'controllers' => [
                 IsoDocumentController::class
             ]
+        ],[
+            'label' => 'Inventario',
+            'icon' => 'storage',
+            'route' => './inventories',
+            'dropdowns' => [
+                [
+                    'label' => 'Linea',
+                    'route' => './line',
+                    'icon' => 'person',
+                ],
+                [
+                    'label' => 'Artículo',
+                    'route' => './article',
+                    'icon' => 'person',
+                ],
+                [
+                    'label' => 'Inventarios',
+                    'route' => './inventory',
+                    'icon' => 'person',
+                ],
+                [
+                    'label' => 'Almacenes',
+                    'route' => './warehouse',
+                    'icon' => 'person',
+                ],
+                [
+                    'label' => 'Seguimiento de Movimientos',
+                    'route' => './movementTracking',
+                    'icon' => 'person',
+                ],
+                [
+                    'label' => 'Medidas de Segurdad de la Oficina',
+                    'route' => './officeSecurityMeasures',
+                    'icon' => 'person',
+                ],
+            ],
+            'controllers' => [
+                ArticleController::class,
+                InventoryController::class,
+                LineController::class,
+                MovementTrackingController::class,
+                OfficeSecurityMeasuresController::class,
+                WarehouseController::class,
+            ],
         ],
         [
             'label' => 'Configuración',
