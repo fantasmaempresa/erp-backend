@@ -15,18 +15,11 @@ class CreateVulnerableOperationsTable extends Migration
     {
         Schema::create('vulnerable_operations', function (Blueprint $table) {
             $table->id();
-            $table->json('data_form');
-            $table->string('capital')->nullable();
-            $table->string('constitution')->nullable();
-            $table->string('increase')->nullable();
-            $table->string('capital_decrease')->nullable();
-            $table->string('sale_shares')->nullable();
-            $table->tinyInteger('way_to_pay')->nullable();
-            $table->string('description_payment_method')->nullable();
-            $table->string('real_estate_folio')->nullable();
-            $table->string('meters_land')->nullable();
-            $table->string('construction_meters')->nullable();
-            $table->tinyInteger('property_type')->nullable();
+            $table->string('type_category')->nullable();
+            $table->string('type_vulnerable_operation')->nullable();
+            $table->json('grantor_first_id')->nullable();
+            $table->json('grantor_second_id')->nullable();
+            $table->json('vulnerable_operation_data')->nullable();
             $table->foreignId('procedure_id')->constrained();
             $table->foreignId('unit_id')->nullable()->constrained();
             $table->foreignId('inversion_unit_id')->nullable()->constrained();

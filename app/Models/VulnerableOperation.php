@@ -8,25 +8,20 @@ class VulnerableOperation extends Model
 {
     protected $fillable = [
         'id',
-        'data_form',
-        'capital',
-        'constitution',
-        'increase',
-        'capital_decrease',
-        'sale_shares',
-        'way_to_pay',
-        'description_payment_method',
-        'real_estate_folio',
-        'meters_land',
-        'construction_meters',
-        'property_type',
+        'type_category',
+        'type_vulnerable_operation',
+        'grantor_first_id',
+        'grantor_second_id',
+        'vulnerable_operation_data',
         'procedure_id',
         'unit_id',
         'inversion_unit_id'
     ];
 
     protected $casts = [
-        'data_form' => 'array',
+        'grantor_first_id' => 'array',
+        'grantor_second_id' => 'array',
+        'vulnerable_operation_data' => 'array',
     ];
 
     public function procedure()
@@ -57,7 +52,6 @@ class VulnerableOperation extends Model
     public static function rules()
     {
         return [
-            'data_form' => 'required|array',
             'procedure_id' => 'required|exists:procedures,id',
             'unit_id' => 'nullable|exists:units,id',
             'inversion_unit_id' => 'nullable|exists:units,id',
