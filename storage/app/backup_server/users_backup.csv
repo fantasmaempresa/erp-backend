@@ -1,0 +1,25 @@
+id|name|email|email_verified_at|password|config|online|locked|role_id|remember_token|created_at|updated_at
+1|admin|admin@admin.com||$2y$10$Y4uXnTAigKDgFfUgFexBc.pDz4OZgbbDU59ffTZxx34IVsfjVDGWS||1|0|1|||2024-06-11 10:09:07
+2|Norma Romero Cortes|norma@admin.com||$2y$10$S8zt3f/kjnxKce6wlv71Re6EAX5TxEk3NXlequ3zin6s8NqLvoXT2||0|0|1|||
+3|Norma Alma Cortes Caballero|normac@admin.com||$2y$10$deI9oGYprRZc2xCAT8svJOoOnI4eN1rKSXFUeMUToD02Jyf2hYr6.||0|0|1|||
+4|alex|metalico900@gmail.com||$2y$10$laaDSOKDopMrHBFemi4abug.OqVqVt75.kRKXbCaTsowD58ym8CMO||0|0|1|||
+5|test|test@test.com||$2y$10$j022soWGfcZ3WCbSkNffx.I3I9JO69TlN7PEa1SHZznBmOOIJ3/Ny||1|0|2|||2024-04-26 15:47:42
+6|backup_sicom|backup_sicom@backup_sicom.com||$2y$10$00ZaL.CHBMPueQOxobXTX.sZPbMUlThcCrP5kjgX/3xqlEteVlkKq||0|0|1|||
+7|ivonne suarez|ivonne.suarez@notaria4puebla.com.mx||$2y$10$VjslwPStTFLCA90l.5D.9uUBarVJuw2V.0RGj64xasBXzZVmq/IB6|"{""profile"": {""image"": ""6627eb6561a1a.jpeg""}}"|0|0|2|||2024-05-09 16:08:59
+8|Marco Antonio Flores Gil|contabilidad@notaria4puebla.com.mx||$2y$10$ok3cCSW/yXs62N60wvxtvuThUkBG..J0iKom/5TqaA7oOFxy0/.ja||0|0|2|||
+9|Yhasmin Pérez Pérez|yhasmin.perez@notaria4puebla.com.mx||$2y$10$d197q6euAOidTGWC/BSNIenJyxqeF4snrZj4KbrtkwbXRrtqg0HnG||1|0|2|||2024-04-25 13:07:24
+11|Lesly Paola Martínez Montiel|lesly_martinez@notaria4puebla.com.mx||$2y$10$E3AvvDQpw5EDKw1VK3Y0.ezA73zxXYWV92WifN77v9oPASberI.ea||1|0|2|||2024-04-05 13:29:09
+12|montserrat rodríguez salamanca|montserrat_rodriguez@notaria4puebla.com.mx||$2y$10$K9UKn7otrtdbSuCkmq6V5.VbdISo4ahUId5M6KkySiOs5BN.dcwwK|"{""profile"": {""image"": ""661ef2e4c1a53.jpeg""}}"|0|0|2|||2024-06-18 18:03:23
+13|María Fernanda Aguila Zempoaltecatl|maria_aguila@notaria4puebla.com.mx||$2y$10$wUN.nV4wzo7DDPhMVeuKQ.IFMotaxROes1ioUsElVGvWXCDT/oVie||0|0|2|||
+14|jose pablo rabines toxqui|jose_rabines@notaria4puebla.com.mx||$2y$10$hdwOjlFZ33Dz0FV6RwGH6.j/d0n2agtkDAUuHyuYmrtAFtFKsHsRi|"{""profile"": {""image"": ""6627e8923275c.jpeg""}}"|0|0|2|||2024-06-19 18:00:06
+16|Edith Salamanca Contreras|edith.salamanca@notaria4puebla.com.mx||$2y$10$VCellxZEOoc1tI8S0zFLsO4ExexAhJDI.GNeoVxcpXga6vc62K3SW||0|0|2|||
+17|Elda Rosa Rios Melendez|elda.rios@notaria4puebla.com.mx||$2y$10$y6tg9rcT.dp/nZN/.sEhT.5Rx9VeobP8x51RBq76ernsnZWSkjHzq||0|0|2|||
+18|José Pellegrin Romero|jose.pellegrin@notaria4puebla.com.mx||$2y$10$yjusEk3E1vBPZZGjSqQppe0ldunzAY/fpFRkrFgkcfOzI4EE1pzWW||1|0|1|||2024-04-23 12:10:50
+19|sebastian vargas barrera|sebastian.barrera@notaria4puebla.com.mx||$2y$10$vk2bQARF5ETrMOpQWNvTXOOX4yD1Kx8nqyw9PlbQxC0cw6vBtN296|"{""test"": ""test"", ""profile"": {""image"": ""6627e8c10fecd.jpg""}}"|1|0|1||2024-04-05 16:34:24|2024-04-23 11:01:39
+20|ana lariza juárez herrera|lariza_juarez@notaria4puebla.com.mx||$2y$10$2tXYVSnZG/.iJloN6XO9xOoL0YVyXgw3vZ1t75AKSqpwjEX3EZWEW|"{""test"": ""test""}"|1|0|2||2024-04-09 12:33:48|2024-04-09 12:34:49
+21|gabriel alexandro Ávila garcía|gabriel_avila@notaria4puebla.com.mx||$2y$10$8sxEnp8LF8A9EBj3A0czje3jpqvZR2sKdBkqOlMPG4D5DqOi4qrRG|"{""test"": ""test""}"|1|0|3||2024-04-12 18:14:34|2024-04-12 18:29:03
+22|gabriel apreza sandoval|gabriel_apreza@notaria4puebla.com.mx||$2y$10$iG0pdq9EHiUX7nHc7/bWseGtQBQ68hR0WKiNSE5FEPo7h92lO7rG2|"{""test"": ""test""}"|0|0|3||2024-04-17 16:38:44|2024-04-17 16:38:44
+23|miguel cortés martínez|miguel_cortes@notaria4puebla.com.mx||$2y$10$rvnAWHsvIeZvh9JSoenNv.m342/OyEnBM76YyUdOLzvkadi82tIgm|"{""test"": ""test"", ""profile"": {""image"": ""66282fefd6468.jpeg""}}"|1|0|2||2024-04-23 13:58:38|2024-04-23 16:02:23
+24|lesli martínez trinidad|lesli_martinez@notaria4puebla.com.mx||$2y$10$UGZzx.DQH/cTdUsr93SJYupckhX6Mg.gT28tZbMMnkOLlR.3kniVu|"{""test"": ""test""}"|0|0|2||2024-04-23 14:00:51|2024-06-04 16:34:48
+25|josefina valentin venancio|josefina_valentin@notaria4puebla.com.mx||$2y$10$C1Ukz1TVp6OL8LUrEZ72h.Tn9ql1l3IOU.hp/Y76ZNKgJfffGexTK|"{""test"": ""test""}"|0|0|2||2024-04-23 14:03:45|2024-06-10 18:10:15
+26|fernanda tapia menzoda|fernanda_tapia@notaria4puebla.com.mx||$2y$10$9LGQ1YXyY9YUBem1bigJee89tNXHjqSvonMdxI3y1p8dqB6AJ/3nS|"{""test"": ""test"", ""profile"": {""image"": ""66688385d2097.jpeg""}}"|1|0|2||2024-06-11 10:17:05|2024-06-11 11:04:13

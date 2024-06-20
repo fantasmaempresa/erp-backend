@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: erp_backup
+-- Host: 127.0.0.1    Database: erp_backup_2
 -- ------------------------------------------------------
 -- Server version	5.5.5-10.4.24-MariaDB
 
@@ -21,12 +21,12 @@
 
 LOCK TABLES `work_areas` WRITE;
 /*!40000 ALTER TABLE `work_areas` DISABLE KEYS */;
-INSERT INTO `work_areas` (`id`, `name`, `description`, `config`, `created_at`, `updated_at`) VALUES (12,'auxiliar de direcciÓn administrativa','personal a cargo de la direcciÓn administrativa','{\"test\": \"test\"}','2024-04-12 19:15:17','2024-04-12 19:15:17'),(13,'auxiliar de asesor','personal encargado de ser soporte al crear proyectos notariales','{\"test\": \"test\"}','2024-04-23 19:41:04','2024-04-23 19:41:04');
+INSERT INTO `work_areas` (`id`, `name`, `description`, `config`, `created_at`, `updated_at`) VALUES (12,'auxiliar de direcciÓn administrativa','personal a cargo de la direcciÓn administrativa','{\"test\": \"test\"}','2024-04-12 19:15:17','2024-04-12 19:15:17'),(13,'auxiliar de asesor','personal encargado de ser soporte al crear proyectos notariales','{\"test\": \"test\"}','2024-04-23 19:41:04','2024-04-23 19:41:04'),(14,'mesa de control','revisa que la información y los tiempos de trámites externos sean correctos','{\"test\": \"test\"}','2024-06-11 16:13:36','2024-06-11 16:13:36');
 /*!40000 ALTER TABLE `work_areas` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Dumping events for database 'erp_backup'
+-- Dumping events for database 'erp_backup_2'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -38,4 +38,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-04 17:28:19
+-- Dump completed on 2024-06-19 22:55:38

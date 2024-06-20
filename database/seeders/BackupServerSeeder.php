@@ -15,8 +15,10 @@ class BackupServerSeeder extends Seeder
     {
         $this->call([
             SqlFileSeeder::class,
+            UserBackupSeeder::class,
             GrantorBackupSeeder::class,
-            ProcedureBackupSeeder::class
+            ProcedureBackupSeeder::class,
+            DocumentProcedureBackupSeeder::class
         ]);
     }
 }

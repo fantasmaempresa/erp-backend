@@ -43,6 +43,12 @@ class ProcedureBackupSeeder extends Seeder
         DB::beginTransaction();
         try {
             foreach ($procedures as $procedure) {
+                //PROCEDURE
+                $procedureToInsert = Procedure::where('name', trim($procedure['name']))->first();
+                if (!is_null($procedureToInsert)) {
+                    continue;
+                }
+
                 $procedureToInsert = $procedure;
                 unset($procedureToInsert['operation_id']);
                 unset($procedureToInsert['id']);
@@ -51,17 +57,16 @@ class ProcedureBackupSeeder extends Seeder
                 $procedureToInsert['folio_min'] = (!empty($procedureToInsert['folio_min'])) ? $procedureToInsert['folio_min'] : null;
                 $procedureToInsert['credit'] = (!empty($procedureToInsert['credit'])) ? $procedureToInsert['credit'] : null;
                 $procedureToInsert['observation'] = (!empty($procedureToInsert['observation'])) ? $procedureToInsert['observation'] : null;
-                $procedureToInsert['user_id'] = 6;
 
                 $procedureToInsert = Procedure::create($procedureToInsert);
                 $procedureToInsert->operations()->attach($procedure['operation_id']);
 
                 //GRANTOR_PROCEDURE
-                $grantorProcedure = $grantorProcedure->where('procedure_id', $procedure['id'])->values();
-                foreach ($grantorProcedure as $grantor) {
+                $gpb = $grantorProcedure->where('procedure_id', $procedure['id'])->values();
+                foreach ($gpb as $grantor) {
                     $grantorB = $grantorsBackup->where('id', $grantor['grantor_id'])->first();
                     $grantorS = Grantor::where('name', $grantorB['name'])->first();
-                    
+
                     $procedureToInsert->grantors()->attach($grantorS->id);
                 }
 
