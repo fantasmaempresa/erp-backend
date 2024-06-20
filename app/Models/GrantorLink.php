@@ -12,8 +12,24 @@ class GrantorLink extends Model
         'name',
         'father_last_name',
         'mother_last_name',
+        'email',
         'rfc',
-        'address',
+        'curp',
+        'civil_status',
+        'municipality',
+        'colony',
+        'no_int',
+        'no_ext',
+        'no_locality',
+        'phone',
+        'locality',
+        'zipcode',
+        'place_of_birth',
+        'birthdate',
+        'occupation',
+        'economic_activity',
+        'stake_id',
+        'beneficiary',
         'grantor_id',
     ];
 
@@ -71,15 +87,80 @@ class GrantorLink extends Model
         return strtoupper($value);
     }
 
-    public function setAddressAttribute($value)
+    protected function setCurpAttribute($value)
     {
-        $this->attributes['address'] = strtolower($value);
+        if (is_null($value)) {
+            $this->attributes['curp'] = $value;
+        } else {
+            $this->attributes['curp'] = strtolower($value);
+        }
     }
 
-    public function getAddressAttribute($value)
+    protected function getCurpAttribute($value)
     {
         return strtoupper($value);
     }
+
+    protected function setCivilStatusAttribute($value)
+    {
+        $this->attributes['civil_status'] = strtolower($value);
+    }
+
+    protected function getCivilStatusAttribute($value)
+    {
+        return strtoupper($value);
+    }
+
+    protected function setMunicipalityAttribute($value)
+    {
+        $this->attributes['municipality'] = strtolower($value);
+    }
+
+    protected function getMunicipalityAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
+    protected function setColonyAttribute($value)
+    {
+        $this->attributes['colony'] = strtolower($value);
+    }
+
+    protected function getColonyAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
+    protected function setLocalityAttribute($value)
+    {
+        $this->attributes['locality'] = strtolower($value);
+    }
+
+    protected function getLocalityAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
+    protected function setPlaceOfBirthAttribute($value)
+    {
+        $this->attributes['place_of_birth'] = strtolower($value);
+    }
+
+    protected function getPlaceOfBirthAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
+    protected function setOccupationAttribute($value)
+    {
+        $this->attributes['occupation'] = strtolower($value);
+    }
+
+    protected function getOccupationAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
 
     public function scopeSearch($query, $search)
     {
