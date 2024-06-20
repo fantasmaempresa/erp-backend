@@ -15,6 +15,7 @@ class StakeSeeder extends Seeder
     public function run()
     {
         $stakes = [
+            "DESCONOCIDO",
             "ADQUIRENTE",
             "GESTOR OFICIOSO",
             "ENAJENANTE",

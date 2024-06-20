@@ -54,7 +54,7 @@ class VulnerableOperation extends Model
         return [
             'procedure_id' => 'required|exists:procedures,id',
             'unit_id' => 'nullable|exists:units,id',
-            'inversion_unit_id' => 'nullable|exists:units,id',
+            'inversion_unit_id' => 'nullable|exists:inversion_units,id',
         ];
     }
 }

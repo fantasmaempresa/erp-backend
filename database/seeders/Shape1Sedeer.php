@@ -43,9 +43,10 @@ class Shape1Sedeer extends Seeder
                 $shape->notary = empty($record['Notario']) ? 'bk' : $record['Notario'];
                 $shape->scriptures = empty($record['Escritura']) ? 'bk' : $record['Escritura'];
                 $shape->property_account = empty($record['Cuenta']) ? 'bk' : $record['Cuenta'];
-                $date = empty($record['FechaFirma'])
+                $date = empty($record['FechaFirma']) ? '' : explode(' ', $record['FechaFirma'])[0]; 
+                $date = empty($date)
                     ? Carbon::today()
-                    : Carbon::createFromFormat('d/m/Y', $record['FechaFirma'])->format('Y-m-d');
+                    : Carbon::createFromFormat('d/m/Y', $date)->format('Y-m-d');
                 $shape->signature_date = $date;
                 $shape->departure = empty($record['Partida']) ? 'bk' : $record['Partida'];
                 $shape->inscription = empty($record['Inscripcion']) ? 'bk' : $record['Inscripcion'];

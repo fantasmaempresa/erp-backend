@@ -40,12 +40,13 @@ class RegistrationDataSeeder extends Seeder
             try {
                 $register = new RegistrationProcedureData();
 
-                if (empty($record['Fecha'])) {
-                    $register->date = null;
-                } else {
-                    $fecha = Carbon::createFromFormat('d/m/Y', $record['Fecha']);
-                    $register->date = $fecha->format('Y-m-d');
-                }
+                // if (empty($record['Fecha'])) {
+                //     $register->date = null;
+                // } else {
+                //     $fecha = Carbon::createFromFormat('d/m/Y', $record['Fecha']);
+                //     $register->date = $fecha->format('Y-m-d');
+                // }
+                $register->date = empty($record['Fecha']) ? null : Carbon::createFromFormat('d/m/Y', explode(' ', $record['Fecha'])[0]);
                 $register->inscription = trim($record['Inscripcion']);
                 $register->sheets = $record['Fojas'];
                 $register->took = $record['Tomo'];

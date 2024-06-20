@@ -47,13 +47,13 @@ class DatabaseSeeder extends Seeder
                 GrantorSeeder::class,
                 Shape1Sedeer::class,
                 Shape2Sedder::class,
+                RegistrationDataSeeder::class, 
                 AppendantSeeder::class,
                 InversionUnitSeeder::class,
                 NCPISeeder::class,
                 RateSeeder::class,
                 TypeDisposalOperationSeeder::class,
                 EmployesNotarySeeder::class,
-                RegistrationDataSeeder::class, 
                 CategoryOperationSeeder::class,
                 UnitSeeder::class
             ]

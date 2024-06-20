@@ -21,6 +21,8 @@ class VulnerableOperationController extends ApiController
             $vulnerableOperations = VulnerableOperation::search($request->get('search'))->with(['procedure'])->paginate($paginate);
         } else if ($request->has('procedure_id')) {
             $vulnerableOperations = VulnerableOperation::where('procedure_id', $request->get('procedure_id'))->with(['procedure'])->paginate($paginate);
+        }else{
+            $vulnerableOperations = VulnerableOperation::with(['procedure'])->paginate($paginate);
         }
 
         return $this->showList($vulnerableOperations);

@@ -220,6 +220,9 @@ class OperationSedeer extends Seeder
             ['id' => 202, 'name' => "RECTI, SERVI, SUBDIVI, CV Y EREC", 'description' => 'RECTI, SERVI, SUBDIVI, CV Y EREC'],
             ['id' => 203, 'name' => "SEGREGACIÓN, ERECCIÓN Y CV", 'description' => 'SEGREGACIÓN, ERECCIÓN Y CV'],
             ['id' => 204, 'name' => "REVERSIÓN DE PROPIEDAD Y EXTINCIÓN DE FI", 'description' => 'REVERSIÓN DE PROPIEDAD Y EXTINCIÓN DE FI'],
+            ['id' => 205, 'name' => "COMPRA VENTA Y APERTURA DE CREDITO", 'description' => 'COMPRA VENTA Y APERTURA DE CREDITO'],
+            ['id' => 206, 'name' => "AMPLIACION DE CONST. Y C-V.", 'description' => 'AMPLIACION DE CONST. Y C-V.'],
+            ['id' => 207, 'name' => "RENUNCIA DE USUFRUCTO VITALICIO", 'description' => 'RENUNCIA DE USUFRUCTO VITALICIO'],
         ];
 
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
