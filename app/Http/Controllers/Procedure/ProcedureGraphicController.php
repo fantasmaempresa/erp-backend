@@ -196,17 +196,17 @@ class ProcedureGraphicController extends ApiController
                 ->where('procedures.user_id', $user->id)
                 ->select('procedures.id')
                 ->groupBy('procedures.id')
-                ->toSql();
+                ->get();
 
-            dd($proceduresW);
 
             $proceduresT = Procedure::join('document_procedure', 'procedures.id', '=', 'document_procedure.procedure_id')
                 ->where('document_procedure.file', '!=', '')
                 ->where('procedures.user_id', $user->id)
                 ->select('procedures.id')
                 ->groupBy('procedures.id')
-                ->get();
+                ->toSql();
 
+            dd($proceduresT);
 
             $lables = ['Tramites sin documentos', 'Tramites con documentos'];
             $data = [$proceduresW->count(), $proceduresT->count()];
