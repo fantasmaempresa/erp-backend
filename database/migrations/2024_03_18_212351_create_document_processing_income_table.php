@@ -19,6 +19,7 @@ class CreateDocumentProcessingIncomeTable extends Migration
             $table->foreignId('processing_income_id')->constrained();
             $table->string('file')->nullable();
             $table->tinyInteger('type')->nullable();
+            $table->timestamps();
         });
     }
 

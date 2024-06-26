@@ -18,6 +18,7 @@ class CreateDocumentVulnerableOperationTable extends Migration
             $table->foreignId('document_id')->constrained();
             $table->foreignId('vulnerable_operation_id')->constrained();
             $table->string('file')->nullable();
+            $table->timestamps();
         });
     }
 
