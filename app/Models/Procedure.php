@@ -19,7 +19,8 @@ use Illuminate\Validation\Rule;
 class Procedure extends Model
 {
     use HasFactory;
-
+    
+    const NOT_ASSIGNED = 'not assigned';
     const IN_PROCESS = 1;
 
     const TRANSFER = 1;
@@ -135,6 +136,21 @@ class Procedure extends Model
     }
 
     /**
+     * @return HasMany
+     */
+    public function registrationProcedureData()
+    {
+        return $this->hasMany(RegistrationProcedureData::class);
+    }
+    
+    /**
+     * @return HasMany
+     */
+    public function processingIncome()
+    {
+        return $this->hasMany(ProcessingIncome::class);
+    }
+    /**
      * @param $query
      * @param $search
      *
@@ -154,6 +170,7 @@ class Procedure extends Model
             ->orWhere('procedures.date', 'like', "%$search%")
             ->orWhere('volume', 'like', "%$search%")
             ->orWhere('folio_min', 'like', "%$search%")
+            ->orWhere('folio_max', 'like', "%$search%")
             ->orWhereRaw('CONCAT(clients.name, " ", clients.last_name, " ", clients.mother_last_name) like ?', "%$search%")
             ->orWhereRaw('CONCAT(grantors.name, " ", grantors.father_last_name, " ", grantors.mother_last_name) like ?', "%$search%")
             ->groupBy($columns);
@@ -176,11 +193,14 @@ class Procedure extends Model
         $rules = [
             'name' => 'required|string|unique:procedures,name',
             'value_operation' => 'nullable|string|regex:/^[a-zA-Z0-9\s]+$/',
-            'instrument' => 'required|string',
+            // 'instrument' => 'required|string',
+            'instrument' => 'nullable|string',
             'date' => 'required|date',
-            'volume' => 'required|string',
+            // 'volume' => 'required|string',
+            'volume' => 'nullable|string',
             'folio_min' => 'nullable|string',
-            'folio_max' => 'required|string',
+            // 'folio_max' => 'required|string',
+            'folio_max' => 'nullable|string',
             'credit' => 'nullable|string',
             'observation' => 'nullable|string',
             'grantors' => 'required|array',

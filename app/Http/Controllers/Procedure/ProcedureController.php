@@ -24,18 +24,26 @@ class ProcedureController extends ApiController
 
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
             $response = Procedure::search($request->get('search'))
+                ->with('user')
                 ->with('grantors.stake')
                 ->with('documents')
                 ->with('client')
                 ->with('operations')
-                ->orderBy('instrument','desc')
+                ->with('comments')
+                ->with('registrationProcedureData')
+                ->with('processingIncome')
+                ->orderBy('instrument', 'desc')
                 ->paginate($paginate);
         } else {
-            $response = Procedure::with('grantors')
+            $response = Procedure::with('grantors.stake')
+                ->with('user')
                 ->with('documents')
                 ->with('client')
                 ->with('operations')
-                ->orderBy('instrument','desc')
+                ->with('comments')
+                ->with('registrationProcedureData')
+                ->with('processingIncome')
+                ->orderBy('instrument', 'desc')
                 ->paginate($paginate);
         }
 
@@ -99,15 +107,15 @@ class ProcedureController extends ApiController
      *
      * @return JsonResponse
      */
-        public function show(Procedure $procedure)
-        {
-            $procedure->grantors;
-            $procedure->documents;
-            $procedure->operations;
-            $procedure->load('operations.categoryOperation');
+    public function show(Procedure $procedure)
+    {
+        $procedure->grantors;
+        $procedure->documents;
+        $procedure->operations;
+        $procedure->load('operations.categoryOperation');
 
-            return $this->showOne($procedure);
-        }
+        return $this->showOne($procedure);
+    }
 
 
     /**
@@ -124,7 +132,7 @@ class ProcedureController extends ApiController
         $this->validate($request, Procedure::rules($procedure->id));
         DB::begintransaction();
 
-        try{
+        try {
             $procedure->fill($request->all());
             $documents = [];
             $grantors = [];
@@ -135,8 +143,7 @@ class ProcedureController extends ApiController
             }
 
             foreach ($request->get('documents') as $document) {
-                $documents[] = $document['id'];  
-            
+                $documents[] = $document['id'];
             }
 
             foreach ($request->get('operations') as $operation) {
@@ -146,16 +153,15 @@ class ProcedureController extends ApiController
             $procedure->grantors()->sync($grantors);
             $procedure->documents()->sync($documents);
             $procedure->operations()->sync($operations);
-
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             DB::rollBack();
             return $this->errorResponse('error al actualizar --> ' . $e->getMessage(), 409);
         }
-        
-        
+
+
         $procedure->save();
         DB::commit();
-        
+
         $procedure->grantors;
         $procedure->documents;
         $procedure->operations;

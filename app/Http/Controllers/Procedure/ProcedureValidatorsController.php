@@ -36,6 +36,32 @@ class ProcedureValidatorsController extends ApiController
         }
     }
 
+     /**
+     * @param string $name
+     *
+     * @return JsonResponse
+     */
+    public function uniqueValueInstrumentValidator(string $name, Request $request): JsonResponse
+    {
+        $this->validate($request, [
+            'id' => 'nullable|int',
+        ]);
+
+        $id = $request->get('id') ?? null;
+
+        if (is_null($id)) {
+            $procedure = Procedure::where('instrument',  $name)->first();
+        } else {
+            $procedure = Procedure::where('instrument', $name)->where('id', '<>', $id)->first();
+        }
+
+        if (is_null($procedure)) {
+            return $this->showList(true);
+        } else {
+            return $this->showList(false);
+        }
+    }
+
     public function uniqueFolioValueValidator(string $folio, Request $request): JsonResponse
     {
         $this->validate($request, [
@@ -53,7 +79,7 @@ class ProcedureValidatorsController extends ApiController
         }
 
         $procedure_range_folio = Procedure::where('folio_min', '>', $folio)->where('folio_max', '<', $folio)->count();
-
+        
         if (is_null($procedure_folio) && $procedure_range_folio == 0) {
             return $this->showList(true);
         } else {

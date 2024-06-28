@@ -161,6 +161,7 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::get('report/generator/procedure/shape/{shape}', [ShapeActionController::class, 'generateShape']);
     //ROUTE NOTARY VALIDATORS
     Route::get('procedure/validator/uniqueValue/{name}', [ProcedureValidatorsController::class, 'uniqueValueValidator']);
+    Route::get('procedure/validator/uniqueInstrumentValue/{name}', [ProcedureValidatorsController::class, 'uniqueValueInstrumentValidator']);
     Route::get('procedure/validator/uniqueFolioValue/{folio}', [ProcedureValidatorsController::class, 'uniqueFolioValueValidator']);
 
     Route::get('procedure/filter/myProcedures', [ProcedureFilterController::class, 'myProcedures']);
