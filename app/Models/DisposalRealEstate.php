@@ -147,22 +147,34 @@ class DisposalRealEstate extends Model
      */
     public static function getNPCI($month, $year): mixed
     {
-        $npci = NationalConsumerPriceIndex::where('month', $month)->where('year', $year)->first();
-        if ($npci->value == 0) {
-            $newMonth = $month - 1;
-            $newYear = $year;
+        $priceIndex = NationalConsumerPriceIndex::where('month', $month)
+            ->where('year', $year)
+            ->first();
 
-            if ($newMonth == 0) {
-                $newMonth = 12;
-                $newYear = $newYear - 1;
-            }
+        if (is_null($priceIndex) || $priceIndex->value == 0) {
+            $previousMonth = $month == 1 ? 12 : $month - 1;
+            $previousYear = $month == 1 ? $year - 1 : $year;
 
-            return self::getNPCI($newMonth, $newYear);
-        } else {
-            return $npci;
+            return self::getNPCI($previousMonth, $previousYear);
         }
+
+        return $priceIndex;
     }
 
+
+    public static function getRate($disposalDateYear, $cumulative_profit)
+    {
+        $rate = Rate::where('year', $disposalDateYear)
+            ->where('lower_limit', '<=', $cumulative_profit)
+            ->where('upper_limit', '>=', $cumulative_profit)
+            ->first();
+
+        if (is_null($rate)) {
+            return self::getRate($disposalDateYear - 1, $cumulative_profit);
+        }
+
+        return $rate;
+    }
     /**
      * @return string[]
      */
@@ -212,7 +224,7 @@ class DisposalRealEstate extends Model
         $disposalDate = new \DateTime($this->disposal_date);
         $acquisitionDate = new \DateTime($this->acquisition_date);
         $differenceDate = $disposalDate->diff($acquisitionDate);
-        $this->years_passed = $differenceDate->y;
+        $this->years_passed = ($differenceDate->y) ? $differenceDate->y : 1;
 
         $this->depreciation_value = $this->annual_depreciation * $this->years_passed;
         $this->construction_value = $this->value_construction_proportion - $this->depreciation_value;
@@ -246,10 +258,7 @@ class DisposalRealEstate extends Model
         $this->cumulative_profit = $this->tax_base / $this->years_passed;
         $this->not_cumulative_profit = $this->tax_base - $this->cumulative_profit;
 
-        $rate = Rate::where('year', $disposalDate->format('Y'))
-            ->where('lower_limit', '<=', $this->cumulative_profit)
-            ->where('upper_limit', '>=', $this->cumulative_profit)
-            ->first();
+        $rate = self::getRate($disposalDate->format('Y'), $this->cumulative_profit);
 
         $this->rate_id = $rate->id;
         $this->surplus = $this->cumulative_profit - $rate->lower_limit;
@@ -264,7 +273,7 @@ class DisposalRealEstate extends Model
 
     public function acquirerCalcultation($aquire)
     {
-        $grantor = Grantor::find($aquire['id']);
+        $grantor = Grantor::find($aquire['grantor_id']);
         $operationMountValue = $this->disposal_value * .10;
         $taxBase = (($this->fiscal_appraisal - $this->disposal_value) > $operationMountValue) ?
             ($this->fiscal_appraisal - $this->disposal_value) :
