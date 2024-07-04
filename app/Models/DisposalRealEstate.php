@@ -183,8 +183,8 @@ class DisposalRealEstate extends Model
         return [
             'alienating_id' => 'required|int',
             'type_disposal_operation_id' => 'required|int',
-            'disposal_value' => 'required|numeric',
-            'disposal_date' => 'required|date',
+            'disposal_value' => 'required|numeric|gt:acquisition_value',
+            'disposal_date' => 'required|date|after:acquisition_date',
             'acquisition_value' => 'required|numeric',
             'acquisition_date' => 'required|date',
             'real_estate_appraisal' => 'required|numeric',
@@ -225,10 +225,10 @@ class DisposalRealEstate extends Model
         $acquisitionDate = new \DateTime($this->acquisition_date);
         $differenceDate = $disposalDate->diff($acquisitionDate);
         $this->years_passed = ($differenceDate->y) ? $differenceDate->y : 1;
-
+        
         $this->depreciation_value = $this->annual_depreciation * $this->years_passed;
         $this->construction_value = $this->value_construction_proportion - $this->depreciation_value;
-
+        
         $npciDisposal = DisposalRealEstate::getNPCI(
             (int)$disposalDate->format('m') - 1,
             (int)$disposalDate->format('Y')
@@ -237,29 +237,30 @@ class DisposalRealEstate extends Model
             (int)$acquisitionDate->format('m'),
             (int)$acquisitionDate->format('Y')
         );
-
+        
         $this->ncpi_disposal_id = $npciDisposal->id;
         $this->ncpi_acquisition_id = $npciAcquisition->id;
         $this->annex_factor = round(($npciDisposal->value / $npciAcquisition->value), 4);
-
+        
         $appendant = Appendant::where('begin', $this->years_passed)->first();
         $this->appendant_id = $appendant->id;
-
+        
         $this->updated_construction_cost = $this->construction_value * $this->annex_factor;
         $this->updated_land_cost = $this->acquisition_value_transferor * $this->annex_factor;
         $this->updated_total_cost_acquisition = $this->updated_land_cost + $this->updated_construction_cost;
-
+        
         //ISR DISPOSAL
         $this->disposal_value_transferor = $this->disposal_value / $acquirers;
         $this->preventive_notices = $this->improvements + $this->appraisal + $this->commissions + $this->isabi;
         $this->tax_base = $this->disposal_value_transferor
-            - $this->updated_total_cost_acquisition
-            - $this->preventive_notices;
+        - $this->updated_total_cost_acquisition
+        - $this->preventive_notices;
+
         $this->cumulative_profit = $this->tax_base / $this->years_passed;
         $this->not_cumulative_profit = $this->tax_base - $this->cumulative_profit;
-
+        
         $rate = self::getRate($disposalDate->format('Y'), $this->cumulative_profit);
-
+        
         $this->rate_id = $rate->id;
         $this->surplus = $this->cumulative_profit - $rate->lower_limit;
         $this->marginal_tax = $this->surplus * ($rate->surplus / 100);
@@ -270,14 +271,14 @@ class DisposalRealEstate extends Model
         $this->isr_federal_entity = $this->taxable_gain * ($this->rate / 100);
         $this->isr_federation = $this->isr_federal_entity_pay - $this->isr_federal_entity;
     }
-
+    
     public function acquirerCalcultation($aquire)
     {
         $grantor = Grantor::find($aquire['grantor_id']);
         $operationMountValue = $this->disposal_value * .10;
         $taxBase = (($this->fiscal_appraisal - $this->disposal_value) > $operationMountValue) ?
-            ($this->fiscal_appraisal - $this->disposal_value) :
-            0;
+        ($this->fiscal_appraisal - $this->disposal_value) :
+        0;
         $isrAcquisition = $taxBase * ($aquire['rate'] / 100);
 
         $this->acquirers()->attach($grantor, [
