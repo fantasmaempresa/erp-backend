@@ -73,10 +73,31 @@ class ProcedureFilterController extends ApiController
 
         $procedureResults = [];
 
+
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
-            $procedures = Procedure::search($request->get('search'))->with(['grantors', 'documents', 'client']);
+            $procedures = Procedure::search($request->get('search'))->with([
+                'user',
+                'grantors.stake',
+                'documents',
+                'client',
+                'operations',
+                'comments',
+                'registrationProcedureData',
+                'processingIncome'
+            ]);
         } else {
-            $procedures = Procedure::query()->with(['grantors', 'documents', 'client']);
+            $procedures = Procedure::query()->with(
+                [
+                    'user',
+                    'grantors.stake',
+                    'documents',
+                    'client',
+                    'operations',
+                    'comments',
+                    'registrationProcedureData',
+                    'processingIncome'
+                ]
+            );
         }
 
         $procedures->chunk($blockSize, function ($registers) use (&$procedureResults) {

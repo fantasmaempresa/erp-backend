@@ -23,7 +23,7 @@ class CreateProceduresTable extends Migration
             $table->date('date_proceedings')->nullable(); //fecha
             $table->string('volume')->nullable()->default(Procedure::NOT_ASSIGNED); // volumen
             $table->bigInteger('folio_min')->nullable(); //rango bajo de folio
-            $table->bigInteger('folio_max')->nullable()->default(Procedure::NOT_ASSIGNED);; //rango alto de folio
+            $table->bigInteger('folio_max')->nullable(); //rango alto de folio
             $table->string('credit')->nullable(); // credito
             $table->text('observation')->nullable(); // observaciones
             $table->tinyInteger('status')->default(Procedure::IN_PROCESS);

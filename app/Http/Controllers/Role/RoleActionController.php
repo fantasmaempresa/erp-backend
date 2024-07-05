@@ -7,6 +7,7 @@
 namespace App\Http\Controllers\Role;
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\CategoryOperation\CategoryOperationController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\ClientLink\ClientLinkController;
 use App\Http\Controllers\Concept\ConceptController;
@@ -18,6 +19,8 @@ use App\Http\Controllers\Grantor\GrantorController;
 use App\Http\Controllers\InversionUnit\InversionUnitController;
 use App\Http\Controllers\IsoDocument\IsoDocumentController;
 use App\Http\Controllers\NationalConsumerPriceIndex\NationalConsumerPriceIndexController;
+use App\Http\Controllers\Notification\NotificationController;
+use App\Http\Controllers\Notification\NotificationFilterController;
 use App\Http\Controllers\Operation\OperationController;
 use App\Http\Controllers\Place\PlaceController;
 use App\Http\Controllers\Procedure\ProcedureController;
@@ -70,6 +73,8 @@ class RoleActionController extends ApiController
             'controllers' => [
                 UserFilterController::class,
                 UserActionController::class,
+                NotificationFilterController::class,
+                NotificationController::class,
             ],
         ],
         [
@@ -222,6 +227,7 @@ class RoleActionController extends ApiController
                 ],
             ],
             'controllers' => [
+                CategoryOperationController::class,
                 OperationController::class,
                 PlaceController::class,
                 GrantorController::class,

@@ -79,7 +79,7 @@ class ProcedureValidatorsController extends ApiController
         }
 
         $procedure_range_folio = Procedure::where('folio_min', '>', $folio)->where('folio_max', '<', $folio)->count();
-        
+
         if (is_null($procedure_folio) && $procedure_range_folio == 0) {
             return $this->showList(true);
         } else {

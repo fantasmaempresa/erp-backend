@@ -5,6 +5,7 @@ namespace App\Http\Controllers\GrantorLink;
 use App\Http\Controllers\ApiController;
 use App\Models\GrantorLink;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class GrantorLinkController extends ApiController
 {
@@ -43,7 +44,9 @@ class GrantorLinkController extends ApiController
     public function store(Request $request)
     {
         $this->validate($request, GrantorLink::rules());
-        $grantorLink = GrantorLink::create($request->all());
+        $grantorLink = new GrantorLink($request->all());
+        $grantorLink->birthdate = Carbon::parse($grantorLink->birthdate);
+        $grantorLink->save(); 
         return $this->showOne($grantorLink, 200);
     }
 
@@ -73,6 +76,7 @@ class GrantorLinkController extends ApiController
         if ($grantorLink->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);
         }
+        $grantorLink->birthdate = Carbon::parse($grantorLink->birthdate);
         $grantorLink->save();
         return $this->showOne($grantorLink);
     }
