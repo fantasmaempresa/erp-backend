@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use Carbon\Carbon;
+
 
 /**
  * version
@@ -19,7 +21,7 @@ use Illuminate\Validation\Rule;
 class Procedure extends Model
 {
     use HasFactory;
-    
+
     const NOT_ASSIGNED = 'not assigned';
     const IN_PROCESS = 1;
 
@@ -142,7 +144,7 @@ class Procedure extends Model
     {
         return $this->hasMany(RegistrationProcedureData::class);
     }
-    
+
     /**
      * @return HasMany
      */
@@ -169,11 +171,39 @@ class Procedure extends Model
             ->orWhere('instrument', 'like', "%$search%")
             ->orWhere('procedures.date', 'like', "%$search%")
             ->orWhere('volume', 'like', "%$search%")
-            ->orWhere('folio_min', 'like', "%$search%")
-            ->orWhere('folio_max', 'like', "%$search%")
+            ->orWhere('folio_min', '=', $search)
+            ->orWhere('folio_max', '=', $search)
             ->orWhereRaw('CONCAT(clients.name, " ", clients.last_name, " ", clients.mother_last_name) like ?', "%$search%")
             ->orWhereRaw('CONCAT(grantors.name, " ", grantors.father_last_name, " ", grantors.mother_last_name) like ?', "%$search%")
             ->groupBy($columns);
+    }
+
+    public function scopeAdvanceFilter($query, $filters)
+    {
+        if (!empty($filters->book)) {
+            $books = explode(',', $filters->book);
+            foreach ($books as $book) {
+                $query->where('volume', $book);
+            }
+        }
+
+        if (!empty($filters->date_min) && !empty($filters->date_max)) {
+            $date_min = Carbon::parse($filters->date_min);
+            $date_max = Carbon::parse($filters->date_max);
+            $query->whereBetween('date_proceedings', [$date_min, $date_max]);
+        }
+
+        if (!empty($filters->date_min)) {
+            $date_min = Carbon::parse($filters->date_min);
+            $query->where('date_proceedings', $filters->date_min);
+        }
+
+        if (!empty($filters->date_max)) {
+            $date_max = Carbon::parse($filters->date_max);
+            $query->where('date_proceedings', $filters->date_max);
+        }
+
+        return $query;
     }
 
     /**
