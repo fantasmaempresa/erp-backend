@@ -67,6 +67,12 @@ use App\Http\Controllers\UserLog\UserLogController;
 use App\Http\Controllers\VulnerableOperation\VulnerableOperationController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
 use App\Models\GrantorLink;
+use App\Http\Controllers\Line\LineController;
+use App\Http\Controllers\Article\ArticleController;
+use App\Http\Controllers\Inventory\InventoryController;
+use App\Http\Controllers\Warehouse\WarehouseController;
+use App\Http\Controllers\OfficeSecurityMeasures\OfficeSecurityMeasuresController;
+use App\Http\Controllers\MovementTracking\MovementTrackingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -217,6 +223,13 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::get('procedure/graphics/withoutData', [ProcedureGraphicController::class, 'proceduresWithoutData']);
     Route::get('procedure/graphics/withoutShape', [ProcedureGraphicController::class, 'proceduresWithoutShape']);
     Route::get('procedure/graphics/withoutDocument', [ProcedureGraphicController::class, 'procedureWithoutDocument']);
+    //INVENTORIES
+    Route::resource('line',LineController::class);
+    Route::resource('article',ArticleController::class);
+    Route::resource('inventory',InventoryController::class);
+    Route::resource('warehouse',WarehouseController::class);
+    Route::resource('movementTracking',MovementTrackingController::class);
+    Route::resource('officeSecurityMeasures',OfficeSecurityMeasuresController::class);
 });
 
 

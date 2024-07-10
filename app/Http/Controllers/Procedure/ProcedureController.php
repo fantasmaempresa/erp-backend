@@ -23,29 +23,41 @@ class ProcedureController extends ApiController
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
-            $response = Procedure::search($request->get('search'))
-                ->with('user')
+            $query = Procedure::search($request->get('search'))
                 ->with('grantors.stake')
-                ->with('documents')
-                ->with('client')
-                ->with('operations')
-                ->with('comments')
-                ->with('registrationProcedureData')
-                ->with('processingIncome')
-                ->orderBy('instrument', 'desc')
-                ->paginate($paginate);
-        } else {
-            $response = Procedure::with('grantors.stake')
                 ->with('user')
                 ->with('documents')
                 ->with('client')
                 ->with('operations')
                 ->with('comments')
                 ->with('registrationProcedureData')
-                ->with('processingIncome')
-                ->orderBy('instrument', 'desc')
-                ->paginate($paginate);
+                ->with('processingIncome');
+        } else {
+            $query = Procedure::with('grantors.stake')
+                ->with('user')
+                ->with('documents')
+                ->with('client')
+                ->with('operations')
+                ->with('comments')
+                ->with('registrationProcedureData')
+                ->with('processingIncome');
         }
+
+        if (!empty($request->get('superFilter'))) {
+            $query = Procedure::advanceFilter(json_decode($request->get('superFilter')))
+                ->with('grantors.stake')
+                ->with('user')
+                ->with('documents')
+                ->with('client')
+                ->with('operations')
+                ->with('comments')
+                ->with('registrationProcedureData')
+                ->with('processingIncome');
+            // $response = $query->toSql();
+        }
+
+        $response = $query->orderBy('instrument', 'desc')
+            ->paginate($paginate);
 
         return $this->showList($response);
     }
