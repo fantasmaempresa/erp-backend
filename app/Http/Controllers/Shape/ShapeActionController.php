@@ -155,8 +155,8 @@ class ShapeActionController extends ApiController
     {
         if ($templateShapeType == TemplateShape::FORM01) {
             //AMOUNT DATA
-            $auxDataForm = $procedure->shape->data_form;
-
+            $procedure->shape->data_form = is_array($procedure->shape->data_form) ? $procedure->shape->data_form : json_decode($procedure->shape->data_form, true);
+            $auxDataForm = $procedure->shape->data_formdata_form;
             $auxDataForm['value_catastral'] = $this->formatCurrency($procedure->shape->data_form['value_catastral']);
             $procedure->shape->operation_value = $this->formatCurrency($procedure->shape->operation_value);
 
