@@ -36,6 +36,7 @@ class Grantor extends Model
         'civil_status',
         'municipality',
         'colony',
+        'street',
         'no_int',
         'no_ext',
         'no_locality',
@@ -169,6 +170,16 @@ class Grantor extends Model
         return ucfirst($value);
     }
 
+    protected function setStreetAttribute($value)
+    {
+        $this->attributes['street'] = strtolower($value);
+    }
+
+    protected function getStreetAttribute($value)
+    {
+        return strtoupper($value);
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -235,6 +246,7 @@ class Grantor extends Model
             'civil_status' => 'nullable|string',
             'municipality' => [Rule::requiredIf($type == self::PHYSICAL_PERSON)],
             'colony' => [Rule::requiredIf($type == self::PHYSICAL_PERSON)],
+            'street' => [Rule::requiredIf($type == self::PHYSICAL_PERSON)],
             'no_int' => 'nullable|string',
             'no_ext' => [Rule::requiredIf($type == self::PHYSICAL_PERSON)],
             'no_locality' => [Rule::requiredIf($type == self::PHYSICAL_PERSON)],

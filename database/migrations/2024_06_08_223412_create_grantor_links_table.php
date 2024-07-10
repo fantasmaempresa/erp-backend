@@ -25,6 +25,7 @@ class CreateGrantorLinksTable extends Migration
             $table->string('civil_status')->nullable();
             $table->string('municipality');
             $table->string('colony');
+            $table->string('street')->nullable();
             $table->string('no_int')->nullable();
             $table->string('no_ext');
             $table->string('no_locality')->nullable(); // se cambio a estado
