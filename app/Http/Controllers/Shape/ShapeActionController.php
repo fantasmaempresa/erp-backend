@@ -154,6 +154,13 @@ class ShapeActionController extends ApiController
     private function prepareData($procedure, $templateShapeType)
     {
         if ($templateShapeType == TemplateShape::FORM01) {
+            //AMOUNT DATA
+            $auxDataForm = $procedure->shape->data_form;
+
+            $auxDataForm['value_catastral'] = $this->formatCurrency($procedure->shape->data_form['value_catastral']);
+            $procedure->shape->operation_value = $this->formatCurrency($procedure->shape->operation_value);
+
+            $procedure->shape->data_form = $auxDataForm;
             //ALIENATING DATA
             $grantorAlienating = $procedure->shape->grantors()->where('principal', true)->where('grantor_shape.type', Stake::ALIENATING)->first();
             $procedure->shape->alienatingData = $this->grantorAlienating($grantorAlienating, $procedure);
@@ -176,6 +183,9 @@ class ShapeActionController extends ApiController
             $grantorCurp = $grantorAcquirer?->curp ?? $procedure->shape->data_form['acquirer_curp'] ?? null;
             $procedure->shape->acq_curp_s = $this->splitString($grantorCurp, 18, 'ac_curp');
         } else {
+            //AMOUNT DATA
+            $procedure->shape->operation_value = $this->formatCurrency($procedure->shape->operation_value);
+          
             //ALIENATING DATA
             $grantorAlienating = $procedure->shape->grantors()->where('principal', true)->where('grantor_shape.type', Stake::ALIENATING)->first();
             $procedure->shape->alienatingData = $this->grantorAlienating($grantorAlienating, $procedure);
@@ -276,5 +286,15 @@ class ShapeActionController extends ApiController
         }
 
         return $result;
+    }
+
+    private function formatCurrency($number)
+    {
+        if (is_numeric($number)) {
+            $number = (float) $number;
+            return '$' . number_format($number, 2, '.', ',');
+        } else {
+            return $number;
+        }
     }
 }

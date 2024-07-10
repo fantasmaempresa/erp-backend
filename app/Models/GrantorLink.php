@@ -18,6 +18,7 @@ class GrantorLink extends Model
         'civil_status',
         'municipality',
         'colony',
+        'street',
         'no_int',
         'no_ext',
         'no_locality',
