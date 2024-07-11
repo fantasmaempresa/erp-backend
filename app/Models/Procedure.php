@@ -222,7 +222,7 @@ class Procedure extends Model
     {
         $rules = [
             'name' => 'required|string|unique:procedures,name',
-            'value_operation' => 'nullable|string|regex:/^[a-zA-Z0-9\s]+$/',
+            'value_operation' => 'nullable|string|regex:/^[a-zA-Z0-9\s.]+$/',
             // 'instrument' => 'required|string',
             'instrument' => 'nullable|string',
             'date' => 'required|date',

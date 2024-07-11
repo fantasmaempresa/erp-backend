@@ -82,6 +82,7 @@ class ProcedureController extends ApiController
 
         try {
             $procedure->date = Carbon::parse($procedure->date);
+            $procedure->date_proceedings = Carbon::parse($procedure->date_proceedings);
             $procedure->user_id = Auth::id();
             $procedure->save();
 
@@ -146,6 +147,8 @@ class ProcedureController extends ApiController
 
         try {
             $procedure->fill($request->all());
+            $procedure->date = Carbon::parse($procedure->date);
+            $procedure->date_proceedings = Carbon::parse($procedure->date_proceedings);
             $documents = [];
             $grantors = [];
             $operations = [];
