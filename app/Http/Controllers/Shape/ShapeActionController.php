@@ -156,7 +156,7 @@ class ShapeActionController extends ApiController
         if ($templateShapeType == TemplateShape::FORM01) {
             //AMOUNT DATA
             $procedure->shape->data_form = is_array($procedure->shape->data_form) ? $procedure->shape->data_form : json_decode($procedure->shape->data_form, true);
-            $auxDataForm = $procedure->shape->data_formdata_form;
+            $auxDataForm = $procedure->shape->data_form;
             $auxDataForm['value_catastral'] = $this->formatCurrency($procedure->shape->data_form['value_catastral']);
             $procedure->shape->operation_value = $this->formatCurrency($procedure->shape->operation_value);
 
@@ -233,26 +233,26 @@ class ShapeActionController extends ApiController
         $result = [];
         if (isset($grantor)) {
             $result['complete_name'] = strtoupper(($grantor['father_last_name'] ?? '') . " " . ($grantor['mother_last_name'] ?? '') . " " . ($grantor['name'] ?? ''));
-            $result['street'] = strtoupper($grantor['street']) ?? '';
-            $result['outdoor_number'] = strtoupper($grantor['no_ext']) ?? '';
-            $result['interior_number'] = strtoupper($grantor['no_int']) ?? '';
-            $result['colony'] = strtoupper($grantor['colony']) ?? '';
-            $result['locality'] = strtoupper($grantor['locality']) ?? '';
-            $result['municipality'] = strtoupper($grantor['municipality']) ?? '';
-            $result['entity'] = strtoupper($grantor['entity']) ?? '';
-            $result['zipcode'] = strtoupper($grantor['zipcode']) ?? '';
-            $result['phone'] = strtoupper($grantor['phone']) ?? '';
+            $result['street'] = strtoupper($grantor['street'] ?? '');
+            $result['outdoor_number'] = strtoupper($grantor['no_ext'] ?? '');
+            $result['interior_number'] = strtoupper($grantor['no_int'] ?? '');
+            $result['colony'] = strtoupper($grantor['colony'] ?? '');
+            $result['locality'] = strtoupper($grantor['locality'] ?? '');
+            $result['municipality'] = strtoupper($grantor['municipality'] ?? '');
+            $result['entity'] = strtoupper($grantor['entity'] ?? '');
+            $result['zipcode'] = strtoupper($grantor['zipcode'] ?? '');
+            $result['phone'] = strtoupper($grantor['phone'] ?? '');
         } else {
-            $result['complete_name'] = strtoupper($procedure->shape->data_form['alienating_name']) ?? '';
-            $result['street'] = strtoupper($procedure->shape->data_form['alienating_street']) ?? '';
-            $result['outdoor_number'] = strtoupper($procedure->shape->data_form['alienating_outdoor_number']) ?? '';
-            $result['interior_number'] = strtoupper($procedure->shape->data_form['alienating_interior_number']) ?? '';
-            $result['colony'] = strtoupper($procedure->shape->data_form['alienating_colony']) ?? '';
-            $result['locality'] = strtoupper($procedure->shape->data_form['alienating_locality']) ?? '';
-            $result['municipality'] = strtoupper($procedure->shape->data_form['alienating_municipality']) ?? '';
-            $result['entity'] = strtoupper($procedure->shape->data_form['alienating_entity']) ?? '';
-            $result['zipcode'] = strtoupper($procedure->shape->data_form['alienating_zipcode']) ?? '';
-            $result['phone'] = strtoupper($procedure->shape->data_form['alienating_phone']) ?? '';
+            $result['complete_name'] = strtoupper($procedure->shape->data_form['alienating_name'] ?? '');
+            $result['street'] = strtoupper($procedure->shape->data_form['alienating_street'] ?? '');
+            $result['outdoor_number'] = strtoupper($procedure->shape->data_form['alienating_outdoor_number'] ?? '');
+            $result['interior_number'] = strtoupper($procedure->shape->data_form['alienating_interior_number'] ?? '');
+            $result['colony'] = strtoupper($procedure->shape->data_form['alienating_colony'] ?? '');
+            $result['locality'] = strtoupper($procedure->shape->data_form['alienating_locality'] ?? '');
+            $result['municipality'] = strtoupper($procedure->shape->data_form['alienating_municipality'] ?? '');
+            $result['entity'] = strtoupper($procedure->shape->data_form['alienating_entity'] ?? '');
+            $result['zipcode'] = strtoupper($procedure->shape->data_form['alienating_zipcode'] ?? '');
+            $result['phone'] = strtoupper($procedure->shape->data_form['alienating_phone'] ?? '');
         }
         return $result;
     }
@@ -263,26 +263,26 @@ class ShapeActionController extends ApiController
 
         if (isset($grantor)) {
             $result['complete_name'] = strtoupper(($grantor['father_last_name'] ?? '') . " " . ($grantor['mother_last_name'] ?? '') . " " . ($grantor['name'] ?? ''));
-            $result['street'] = strtoupper($grantor['street']) ?? '';
-            $result['outdoor_number'] = strtoupper($grantor['no_ext']) ?? '';
-            $result['interior_number'] = strtoupper($grantor['no_int']) ?? '';
-            $result['colony'] = strtoupper($grantor['colony']) ?? '';
-            $result['locality'] = strtoupper($grantor['locality']) ?? '';
-            $result['municipality'] = strtoupper($grantor['municipality']) ?? '';
-            $result['entity'] = strtoupper($grantor['entity']) ?? '';
-            $result['zipcode'] = strtoupper($grantor['zipcode']) ?? '';
-            $result['phone'] = strtoupper($grantor['phone']) ?? '';
+            $result['street'] = strtoupper($grantor['street'] ?? '');
+            $result['outdoor_number'] = strtoupper($grantor['no_ext'] ?? '');
+            $result['interior_number'] = strtoupper($grantor['no_int'] ?? '');
+            $result['colony'] = strtoupper($grantor['colony'] ?? '');
+            $result['locality'] = strtoupper($grantor['locality'] ?? '');
+            $result['municipality'] = strtoupper($grantor['municipality'] ?? '');
+            $result['entity'] = strtoupper($grantor['entity'] ?? '');
+            $result['zipcode'] = strtoupper($grantor['zipcode'] ?? '');
+            $result['phone'] = strtoupper($grantor['phone'] ?? '');
         } else {
-            $result['complete_name'] = strtoupper($procedure->shape->data_form['alienating_name']) ?? '';
-            $result['street'] = strtoupper($procedure->shape->data_form['acquirer_street']) ?? '';
-            $result['outdoor_number'] = strtoupper($procedure->shape->data_form['acquirer_outdoor_number']) ?? '';
-            $result['interior_number'] = strtoupper($procedure->shape->data_form['acquirer_interior_number']) ?? '';
-            $result['colony'] = strtoupper($procedure->shape->data_form['acquirer_colony']) ?? '';
-            $result['locality'] = strtoupper($procedure->shape->data_form['acquirer_locality']) ?? '';
-            $result['municipality'] = strtoupper($procedure->shape->data_form['acquirer_municipality']) ?? '';
-            $result['entity'] = strtoupper($procedure->shape->data_form['acquirer_entity']) ?? '';
-            $result['zipcode'] = strtoupper($procedure->shape->data_form['acquirer_zipcode']) ?? '';
-            $result['phone'] = strtoupper($procedure->shape->data_form['acquirer_phone']) ?? '';
+            $result['complete_name'] = strtoupper($procedure->shape->data_form['acquirer_name'] ?? '');
+            $result['street'] = strtoupper($procedure->shape->data_form['acquirer_street'] ?? '');
+            $result['outdoor_number'] = strtoupper($procedure->shape->data_form['acquirer_outdoor_number'] ?? '');
+            $result['interior_number'] = strtoupper($procedure->shape->data_form['acquirer_interior_number'] ?? '');
+            $result['colony'] = strtoupper($procedure->shape->data_form['acquirer_colony'] ?? '');
+            $result['locality'] = strtoupper($procedure->shape->data_form['acquirer_locality'] ?? '');
+            $result['municipality'] = strtoupper($procedure->shape->data_form['acquirer_municipality'] ?? '');
+            $result['entity'] = strtoupper($procedure->shape->data_form['acquirer_entity'] ?? '');
+            $result['zipcode'] = strtoupper($procedure->shape->data_form['acquirer_zipcode'] ?? '');
+            $result['phone'] = strtoupper($procedure->shape->data_form['acquirer_phone'] ?? '');
         }
 
         return $result;
