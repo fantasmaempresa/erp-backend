@@ -369,38 +369,38 @@ class RoleActionController extends ApiController
         ],
         [
             'label' => 'Inventario',
-            'icon' => 'storage',
+            'icon' => 'inventory_2',
             'route' => './inventories',
             'dropdowns' => [
                 [
-                    'label' => 'Linea',
+                    'label' => 'Línea',
                     'route' => './line',
-                    'icon' => 'person',
+                    'icon' => 'category',
                 ],
                 [
                     'label' => 'Artículo',
                     'route' => './article',
-                    'icon' => 'person',
+                    'icon' => 'dataset',
                 ],
                 [
                     'label' => 'Inventarios',
                     'route' => './inventory',
-                    'icon' => 'person',
+                    'icon' => 'inventory',
                 ],
                 [
-                    'label' => 'Almacenes',
+                    'label' => 'Almacénes',
                     'route' => './warehouse',
-                    'icon' => 'person',
+                    'icon' => 'warehouse',
                 ],
                 [
                     'label' => 'Seguimiento de Movimientos',
                     'route' => './movementTracking',
-                    'icon' => 'person',
+                    'icon' => 'near_me',
                 ],
                 [
                     'label' => 'Medidas de Segurdad de la Oficina',
                     'route' => './officeSecurityMeasures',
-                    'icon' => 'person',
+                    'icon' => 'receipt',
                 ],
             ],
             'controllers' => [
