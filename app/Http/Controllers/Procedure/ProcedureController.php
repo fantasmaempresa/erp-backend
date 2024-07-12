@@ -31,6 +31,7 @@ class ProcedureController extends ApiController
                 ->with('operations')
                 ->with('comments')
                 ->with('registrationProcedureData')
+                ->with('staff')
                 ->with('processingIncome');
         } else {
             $query = Procedure::with('grantors.stake')
@@ -39,6 +40,7 @@ class ProcedureController extends ApiController
                 ->with('client')
                 ->with('operations')
                 ->with('comments')
+                ->with('staff')
                 ->with('registrationProcedureData')
                 ->with('processingIncome');
         }
@@ -51,6 +53,7 @@ class ProcedureController extends ApiController
                 ->with('client')
                 ->with('operations')
                 ->with('comments')
+                ->with('staff')
                 ->with('registrationProcedureData')
                 ->with('processingIncome');
             // $response = $query->toSql();
