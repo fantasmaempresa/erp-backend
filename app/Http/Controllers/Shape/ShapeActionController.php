@@ -93,8 +93,11 @@ class ShapeActionController extends ApiController
         unset($procedure->shape['procedure']);
         unset($procedure->shape['grantors']);
 
-        // return $this->showList($procedure);
+        $procedure = json_decode($procedure, true);
+        $procedure = $this->traverseAndEvaluate($procedure);
 
+        // return $this->showList($procedure);
+        
         $jsonData = json_encode($procedure);
 
         Storage::put("reports/tempJson.json", $jsonData);
@@ -185,7 +188,7 @@ class ShapeActionController extends ApiController
         } else {
             //AMOUNT DATA
             $procedure->shape->operation_value = $this->formatCurrency($procedure->shape->operation_value);
-          
+
             //ALIENATING DATA
             $grantorAlienating = $procedure->shape->grantors()->where('principal', true)->where('grantor_shape.type', Stake::ALIENATING)->first();
             $procedure->shape->alienatingData = $this->grantorAlienating($grantorAlienating, $procedure);
@@ -296,5 +299,20 @@ class ShapeActionController extends ApiController
         } else {
             return $number;
         }
+    }
+
+    private function traverseAndEvaluate(&$data, $prefix = '')
+    {
+        foreach ($data as $key => $item) {
+            if (is_array($item)) {
+                $data[$key] = $this->traverseAndEvaluate($item, $prefix . $key . '.');
+            } else {
+                if ($item == 'bk') {
+                    $data[$key] = '';
+                }
+            }
+        }
+
+        return $data;
     }
 }
