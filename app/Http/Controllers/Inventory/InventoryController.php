@@ -33,21 +33,6 @@ class InventoryController extends ApiController
     }
 
     /**
-     * @param Request $request
-     *
-     * @return JsonResponse
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function store(Request $request): JsonResponse
-    {
-        $this->validate($request, Inventory::rules());
-        $line = Inventory::create($request->all());
-
-        return $this->showOne($line);
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param Inventory $inventory
@@ -58,28 +43,7 @@ class InventoryController extends ApiController
     {
         return $this->showOne($inventory);
     }
-
-    /**
-     * @param Request $request
-     * @param Inventory $inventory
-     *
-     * @return JsonResponse
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function update(Request $request, Inventory $inventory): JsonResponse
-    {
-        $this->validate($request, Inventory::rules());
-        $inventory->fill($request->all());
-        if ($inventory->isClean()) {
-            return $this->errorResponse('A different value must be specified to update', 422);
-        }
-
-        $inventory->save();
-
-        return $this->showOne($inventory);
-    }
-
+    
     /**
      * Remove the specified resource from storage.
      *

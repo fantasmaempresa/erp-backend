@@ -215,8 +215,7 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     //INVENTORIES
     Route::resource('line',LineController::class);
     Route::resource('article',ArticleController::class);
-    Route::resource('inventory',InventoryController::class);
-    Route::resource('inventory',InventoryController::class);
+    Route::resource('inventory',InventoryController::class,['only' => ['index', 'show']]);
     Route::resource('warehouse',WarehouseController::class);
     Route::resource('movementTracking',MovementTrackingController::class);
     Route::resource('officeSecurityMeasures',OfficeSecurityMeasuresController::class);
