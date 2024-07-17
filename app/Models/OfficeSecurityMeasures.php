@@ -49,7 +49,7 @@ class OfficeSecurityMeasures extends Model
             'staff_id' => 'required|int',
             'article_id' => 'required|int',
             'adquisition_date' => 'required|date',
-            'return_date' => 'required|date',
+            'return_date' => 'nullable|date',
             'adquisition_comments' => 'nullable|string',
             'return_comments' => 'nullable|string',
         ];
