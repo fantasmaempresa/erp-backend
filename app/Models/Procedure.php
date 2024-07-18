@@ -24,9 +24,10 @@ class Procedure extends Model
 
     const NOT_ASSIGNED = 'not assigned';
     const IN_PROCESS = 1;
+    const NO_ACCEPTED = 2;
 
     const TRANSFER = 1;
-    const CHECK = 2;
+    const CHECK = 2;    
     const CASH = 3;
 
     const LAND = 1;
@@ -38,11 +39,11 @@ class Procedure extends Model
         'name', //Número de expediente
         'value_operation',
         'date_proceedings',
-        'instrument',
+        // 'instrument',
         'date',
-        'volume',
-        'folio_min',
-        'folio_max',
+        // 'volume',
+        // 'folio_min',
+        // 'folio_max',
         'credit',
         'observation',
         'status',
@@ -152,6 +153,15 @@ class Procedure extends Model
     {
         return $this->hasMany(ProcessingIncome::class);
     }
+
+    /**
+     * @return HasOne
+     */
+    public function folio()
+    {
+        return $this->hasOne(Folio::class)->with('book');
+    }
+
     /**
      * @param $query
      * @param $search
@@ -168,11 +178,11 @@ class Procedure extends Model
             ->leftJoin('grantors', 'grantor_procedure.grantor_id', '=', 'grantors.id')
             ->orWhere('procedures.name', 'like', "%$search%")
             ->orWhere('value_operation', 'like', "%$search%")
-            ->orWhere('instrument', 'like', "%$search%")
+            // ->orWhere('instrument', 'like', "%$search%")
             ->orWhere('procedures.date', 'like', "%$search%")
-            ->orWhere('volume', 'like', "%$search%")
-            ->orWhere('folio_min', '=', $search)
-            ->orWhere('folio_max', '=', $search)
+            // ->orWhere('volume', 'like', "%$search%")
+            // ->orWhere('folio_min', '=', $search)
+            // ->orWhere('folio_max', '=', $search)
             ->orWhereRaw('CONCAT(clients.name, " ", clients.last_name, " ", clients.mother_last_name) like ?', "%$search%")
             ->orWhereRaw('CONCAT(grantors.name, " ", grantors.father_last_name, " ", grantors.mother_last_name) like ?', "%$search%")
             ->groupBy($columns);
@@ -227,10 +237,10 @@ class Procedure extends Model
             'instrument' => 'nullable|string',
             'date' => 'required|date',
             // 'volume' => 'required|string',
-            'volume' => 'nullable|string',
-            'folio_min' => 'nullable|string',
+            // 'volume' => 'nullable|string',
+            // 'folio_min' => 'nullable|string',
             // 'folio_max' => 'required|string',
-            'folio_max' => 'nullable|string',
+            // 'folio_max' => 'nullable|string',
             'credit' => 'nullable|string',
             'observation' => 'nullable|string',
             'grantors' => 'required|array',
@@ -245,6 +255,7 @@ class Procedure extends Model
             'place_id' => 'required|exists:places,id',
             'client_id' => 'required|exists:clients,id',
             'staff_id' => 'required|exists:staff,id',
+            
         ];
 
         if ($id) {

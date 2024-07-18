@@ -9,7 +9,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Validation\Rule;
 
 /**
  * @access  public
@@ -95,7 +94,12 @@ Document extends Model
 
     public function vulnerableOptions()
     {
-        return $this->hasMany(VulnerableOption::class);
+        return $this->hasMany(VulnerableOperation::class);
+    }
+
+    public function books()
+    {
+        return $this->hasMany(Book::class);
     }
 
     /**
