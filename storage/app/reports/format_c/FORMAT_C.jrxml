@@ -717,7 +717,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
-				<text><![CDATA[230 333]]></text>
+				<text><![CDATA[(222) 230 33 30]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="50" y="643" width="147" height="10" uuid="715191cc-7d0f-41ad-a662-1939e570ea7e"/>
