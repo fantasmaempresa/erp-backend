@@ -1473,7 +1473,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6"/>
 				</textElement>
-				<text><![CDATA[230 333]]></text>
+				<text><![CDATA[(222) 230 33 30]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="2" y="209" width="76" height="16" uuid="485086c7-ec65-4aad-b23e-874170840e06"/>

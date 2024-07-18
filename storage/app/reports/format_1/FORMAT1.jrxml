@@ -1873,7 +1873,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				<textElement>
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
-				<text><![CDATA[230 333]]></text>
+				<text><![CDATA[(222) 230 33 30]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="34" y="312" width="537" height="12" uuid="f27869c5-ac59-4f02-a035-1509592bc363"/>
