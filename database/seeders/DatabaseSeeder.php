@@ -51,6 +51,7 @@ class DatabaseSeeder extends Seeder
                 // UnitSeeder::class,
                 // BookSeeder::class,
                 FolioSeeder::class,
+                FixGrantorProcedure::class
             ]
         );
     }

@@ -28,9 +28,9 @@ class GrantorController extends ApiController
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
-            $response = $this->showList(Grantor::search($request->get('search'))->orderBy('father_last_name')->with('stake')->with('grantorLinks')->paginate($paginate));
+            $response = $this->showList(Grantor::search($request->get('search'))->orderBy('father_last_name')->with('grantorLinks')->paginate($paginate));
         } else {
-            $response = $this->showList(Grantor::with('stake')->with('grantorLinks')->orderBy('father_last_name')->paginate($paginate));
+            $response = $this->showList(Grantor::with('grantorLinks')->orderBy('father_last_name')->paginate($paginate));
         }
 
         return $response;

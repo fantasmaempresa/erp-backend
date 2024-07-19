@@ -48,7 +48,6 @@ class Grantor extends Model
         'occupation',
         'type',
         'economic_activity',
-        'stake_id',
         'beneficiary',
     ];
 
@@ -180,20 +179,13 @@ class Grantor extends Model
         return strtoupper($value);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function stake()
-    {
-        return $this->belongsTo(Stake::class);
-    }
 
     /**
      * @return BelongsToMany
      */
     public function procedures(): BelongsToMany
     {
-        return $this->belongsToMany(Procedure::class);
+        return $this->belongsToMany(Procedure::class)->withPivot(['percentage', 'amount', 'stake_id'])->withTimestamps();
     }
 
     /**
@@ -256,7 +248,6 @@ class Grantor extends Model
             'place_of_birth' => 'nullable|string',
             'birthdate' => 'required|date',
             'occupation' => 'nullable|string',
-            'stake_id' => 'required|exists:stakes,id',
             'beneficiary' => 'required|boolean',
         ];
 

@@ -64,7 +64,7 @@ class ProcedureController extends ApiController
 
         $response = $query->paginate($paginate);
         // $query->orderBy('instrument', 'desc')
-            
+
 
         return $this->showList($response);
     }
@@ -95,7 +95,7 @@ class ProcedureController extends ApiController
 
             //Agregar otrogantes
             foreach ($request->get('grantors') as $grantor) {
-                $procedure->grantors()->attach($grantor['id']);
+                $procedure->grantors()->attach($grantor['id'], ['stake_id' => $grantor['stake_id']]);
             }
 
             foreach ($request->get('documents') as $grantor) {
@@ -161,7 +161,7 @@ class ProcedureController extends ApiController
             $operations = [];
 
             foreach ($request->get('grantors') as $grantor) {
-                $grantors[] = $grantor['id'];
+                $grantors[$grantor['id']] = ['stake_id' => $grantor['stake_id']];
             }
 
             foreach ($request->get('documents') as $document) {

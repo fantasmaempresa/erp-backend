@@ -119,7 +119,7 @@ class Procedure extends Model
      */
     public function grantors(): BelongsToMany
     {
-        return $this->belongsToMany(Grantor::class)->withPivot(['percentage', 'amount']);
+        return $this->belongsToMany(Grantor::class)->withPivot(['percentage', 'amount', 'stake_id'])->withTimestamps();
     }
 
     /**
@@ -244,6 +244,8 @@ class Procedure extends Model
             'credit' => 'nullable|string',
             'observation' => 'nullable|string',
             'grantors' => 'required|array',
+            'grantors.*.id' => 'required|exists:grantors,id',
+            'grantors.*.stake_id' => 'required|exists:stakes,id',
             'documents' => 'required|array',
             'operations' => 'required|array',
             'appraisal' => 'nullable|string',
