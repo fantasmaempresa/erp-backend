@@ -14,17 +14,17 @@ class OfficeSecurityMeasures extends Model
             'id',
             'staff_id',
             'article_id',
-            'adquisition_date',
+            'acquisition_date',
             'return_date',
-            'adquisition_comments',
+            'acquisition_comments',
             'return_comments',
         ];
     
-    protected function setAdquisitionCommentsAttribute($value){
-        $this->attributes['adquisition_comments'] = strtolower($value);
+    protected function setAcquisitionCommentsAttribute($value){
+        $this->attributes['acquisition_comments'] = strtolower($value);
     }
 
-    protected function getAdquisitionCommentsAttribute($value){
+    protected function getAcquisitionCommentsAttribute($value){
         return strtoupper($value);
     }
 
@@ -48,9 +48,9 @@ class OfficeSecurityMeasures extends Model
         $rule = [
             'staff_id' => 'required|int',
             'article_id' => 'required|int',
-            'adquisition_date' => 'required|date',
+            'acquisition_date' => 'required|date',
             'return_date' => 'nullable|date',
-            'adquisition_comments' => 'nullable|string',
+            'acquisition_comments' => 'nullable|string',
             'return_comments' => 'nullable|string',
         ];
         return $rule;
