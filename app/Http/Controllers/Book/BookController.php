@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Book;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Folio\FolioUtil;
 use App\Models\Book;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class BookController extends Controller
+class BookController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -16,15 +18,15 @@ class BookController extends Controller
     public function index(Request $request)
     {
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
-        
+
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
             $query = Book::search($request->get('search'));
-        }else {
-            $query = Book::all();
+        } else {
+            $query = Book::query();
         }
 
         $response = $query->orderBy('name', 'desc')->paginate($paginate);
-            
+
 
         return $this->showList($response);
     }
@@ -37,7 +39,18 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $this->validate($request, Book::rules());
+
+        $book = new Book($request->all());
+        $book->date_proceedings = Carbon::parse($book->date_proceedings);
+
+        if (FolioUtil::verifyRangeFolio(new Book(), $book->folio_min, $book->folio_max)) {
+            $book->save();
+        } else {
+            return $this->errorResponse('Los folios estan fuera de rango', 409);
+        }
+
+        return $this->showOne($book);
     }
 
     /**
@@ -60,7 +73,25 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        //
+        $this->validate($request, Book::rules($book->id));
+        
+        $book->fill($request->all());
+        
+        if ($book->isClean()) {
+            return $this->errorResponse('A different value must be specified to update', 422);
+        }
+
+        $book->date_proceedings = Carbon::parse($book->date_proceedings);
+        
+        if (FolioUtil::verifyRangeFolio(new Book(), $book->folio_min, $book->folio_max, $book->id)) {
+            $book->save();
+        } else {
+            return $this->errorResponse('Los folios estan fuera de rango', 409);
+        }
+        
+        $book->save();
+
+        return $this->showOne($book);
     }
 
     /**

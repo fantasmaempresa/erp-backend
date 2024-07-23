@@ -66,9 +66,10 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\UserLog\UserLogController;
 use App\Http\Controllers\VulnerableOperation\VulnerableOperationController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
-use App\Models\GrantorLink;
 use App\Http\Controllers\Line\LineController;
 use App\Http\Controllers\Article\ArticleController;
+use App\Http\Controllers\Book\BookController;
+use App\Http\Controllers\Folio\FolioController;
 use App\Http\Controllers\Inventory\InventoryController;
 use App\Http\Controllers\Warehouse\WarehouseController;
 use App\Http\Controllers\OfficeSecurityMeasures\OfficeSecurityMeasuresController;
@@ -163,6 +164,9 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('grantors', GrantorController::class, ['except' => ['create', 'edit']]);
     Route::resource('places', PlaceController::class, ['except' => ['create', 'edit']]);
     Route::resource('isoDocumentation', IsoDocumentController::class, ['except' => ['create', 'edit']]);
+    Route::resource('book', BookController::class);
+    Route::resource('folio', FolioController::class);
+
     //GENERATOR REPORTS
     Route::get('report/generator/procedure/shape/{shape}', [ShapeActionController::class, 'generateShape']);
     //ROUTE NOTARY VALIDATORS
@@ -179,19 +183,19 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
 
     //NATIONAL CONSUMER PRICE INDEX
     Route::resource('nationalConsumerPriceIndex', NationalConsumerPriceIndexController::class, ['except' => ['create', 'edit']]);
-    
+
     //INVERSION UNIT
     Route::resource('inversionUnit', InversionUnitController::class, ['except' => ['create', 'edit']]);
-    
+
     //APPENDANT 9
     Route::resource('appendant', AppendantController::class, ['only' => ['index', 'show', 'update']]);
-    
+
     //RATE
     Route::resource('rate', RateController::class, ['except' => ['create', 'edit']]);
-    
+
     //TYPE DISPOSAL OPERATION
     Route::resource('typeDisposalOperation', TypeDisposalOperationController::class, ['except' => ['create', 'edit']]);
-    
+
     //DISPOSAL REAL ESTATE
     Route::resource('disposalRealEstate', DisposalRealEstateController::class, ['except' => ['create', 'edit']]);
     Route::get('disposalRealEstate/report/{disposalRealEstate}', [DisposalRealEstateController::class, 'generateReport']);
@@ -224,12 +228,12 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::get('procedure/graphics/withoutShape', [ProcedureGraphicController::class, 'proceduresWithoutShape']);
     Route::get('procedure/graphics/withoutDocument', [ProcedureGraphicController::class, 'procedureWithoutDocument']);
     //INVENTORIES
-    Route::resource('line',LineController::class);
-    Route::resource('article',ArticleController::class);
-    Route::resource('inventory',InventoryController::class);
-    Route::resource('warehouse',WarehouseController::class);
-    Route::resource('movementTracking',MovementTrackingController::class);
-    Route::resource('officeSecurityMeasures',OfficeSecurityMeasuresController::class);
+    Route::resource('line', LineController::class);
+    Route::resource('article', ArticleController::class);
+    Route::resource('inventory', InventoryController::class);
+    Route::resource('warehouse', WarehouseController::class);
+    Route::resource('movementTracking', MovementTrackingController::class);
+    Route::resource('officeSecurityMeasures', OfficeSecurityMeasuresController::class);
 });
 
 

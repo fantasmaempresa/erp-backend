@@ -7,6 +7,7 @@
 namespace App\Http\Controllers\Role;
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Book\BookController;
 use App\Htttp\Controllers\Article\ArticleController;
 use App\Http\Controllers\CategoryOperation\CategoryOperationController;
 use App\Http\Controllers\Client\ClientController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\Concept\ConceptController;
 use App\Http\Controllers\DisposalRealEstate\DisposalRealEstateController;
 use App\Http\Controllers\Document\DocumentController;
 use App\Http\Controllers\Document\DocumentLinkController;
+use App\Http\Controllers\Folio\FolioController;
 use App\Http\Controllers\GeneralTemplate\GeneralTemplateController;
 use App\Http\Controllers\Grantor\GrantorController;
 use App\Http\Controllers\InversionUnit\InversionUnitController;
@@ -202,7 +204,7 @@ class RoleActionController extends ApiController
             ],
         ],
         [
-            'label' => 'Catálogos Notariales',
+            'label' => 'Catálogos Notariales (Administrador)',
             'icon' => 'folder_special',
             'route' => './notary',
             'dropdowns' => [
@@ -211,6 +213,31 @@ class RoleActionController extends ApiController
                     'route' => './category-operation',
                     'icon' => 'folder',
                 ],
+                [
+                    'label' => 'Libros',
+                    'route' => './books',
+                    'icon' => 'folder',
+                ],
+                [
+                    'label' => 'Folios',
+                    'route' => './folios',
+                    'icon' => 'format_list_bulleted',
+                ],
+            ],
+            'controllers' => [
+                CategoryOperationController::class,
+                OperationController::class,
+                DocumentLinkController::class,
+                DocumentController::class,
+                BookController::class,
+                FolioController::class,
+            ],
+        ],
+        [
+            'label' => 'Catálogos Notariales',
+            'icon' => 'folder_special',
+            'route' => './notary',
+            'dropdowns' => [
                 [
                     'label' => 'Operaciones',
                     'route' => './operations',
@@ -233,7 +260,6 @@ class RoleActionController extends ApiController
                 ],
             ],
             'controllers' => [
-                CategoryOperationController::class,
                 OperationController::class,
                 PlaceController::class,
                 GrantorController::class,

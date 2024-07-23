@@ -204,6 +204,11 @@ class Grantor extends Model
         return $this->hasMany(GrantorLink::class);
     }
 
+    public function grantorProcedure()
+    {
+        return $this->hasMany(GrantorProcedure::class);
+    }
+
     /**
      * @param $query
      * @param $search

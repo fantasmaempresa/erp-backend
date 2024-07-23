@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class Book extends Model
@@ -42,9 +41,9 @@ class Book extends Model
     {
 
         $rules = [
-            'name' => 'required|string|unique:books,name',
-            'folio_min' => 'nullable|string|unique:books,folio_min',
-            'folio_max' => 'required|string|unique:books,folio_max',
+            'name' => 'required|int|unique:books,name',
+            'folio_min' => 'nullable|int|unique:books,folio_min',
+            'folio_max' => 'required|int|unique:books,folio_max|gt:folio_min',
             'date_proceedings' => 'required|date',
         ];
 

@@ -25,12 +25,17 @@ class Stake extends Model
         return strtoupper($value);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function grantors()
+    // /**
+    //  * @return \Illuminate\Database\Eloquent\Relations\HasMany
+    //  */
+    // public function grantors()
+    // {
+    //     return $this->hasMany(Grantor::class);
+    // }
+
+    public function grantorprocedure()
     {
-        return $this->hasMany(Grantor::class);
+        return $this->hasMany(GrantorProcedure::class);
     }
 
     /**

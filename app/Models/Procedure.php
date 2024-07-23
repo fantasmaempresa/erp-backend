@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Carbon\Carbon;
-
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 /**
  * version
@@ -39,11 +39,7 @@ class Procedure extends Model
         'name', //Número de expediente
         'value_operation',
         'date_proceedings',
-        // 'instrument',
         'date',
-        // 'volume',
-        // 'folio_min',
-        // 'folio_max',
         'credit',
         'observation',
         'status',
@@ -161,6 +157,7 @@ class Procedure extends Model
     {
         return $this->hasOne(Folio::class)->with('book');
     }
+
 
     /**
      * @param $query
