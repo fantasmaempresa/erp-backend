@@ -24,7 +24,6 @@ class ProcedureController extends ApiController
 
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
             $query = Procedure::search($request->get('search'))
-                ->with('grantors.stake')
                 ->with('user')
                 ->with('documents')
                 ->with('client')
@@ -35,8 +34,7 @@ class ProcedureController extends ApiController
                 ->with('folio')
                 ->with('processingIncome');
         } else {
-            $query = Procedure::with('grantors.stake')
-                ->with('user')
+            $query = Procedure::with('user')
                 ->with('documents')
                 ->with('client')
                 ->with('operations')
@@ -49,7 +47,6 @@ class ProcedureController extends ApiController
 
         if (!empty($request->get('superFilter'))) {
             $query = Procedure::advanceFilter(json_decode($request->get('superFilter')))
-                ->with('grantors.stake')
                 ->with('user')
                 ->with('documents')
                 ->with('client')

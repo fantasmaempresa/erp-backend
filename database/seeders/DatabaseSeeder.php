@@ -49,7 +49,7 @@ class DatabaseSeeder extends Seeder
                 // EmployesNotarySeeder::class,
                 // CategoryOperationSeeder::class,
                 // UnitSeeder::class,
-                // BookSeeder::class,
+                BookSeeder::class,
                 FolioSeeder::class,
                 FixGrantorProcedure::class
             ]
