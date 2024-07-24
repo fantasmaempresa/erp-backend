@@ -33,7 +33,7 @@ class FolioSeeder extends Seeder
             $folio->procedure_id = $data->id;
             $folio->folio_min = $data->folio_min;
             $folio->folio_max = $data->folio_max;
-            $folio->instrument = $data->instrument;
+            $folio->name = $data->instrument;
             $folio->user_id = $data->user_id;
             $folio->save();
             

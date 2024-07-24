@@ -8,8 +8,6 @@ use App\Models\Stake;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -27,9 +25,7 @@ class ProcedureController extends ApiController
 
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
             $query = Procedure::search($request->get('search'))
-            ->with(['grantors' => function ($query) {
-                $query->withPivot('stake_id'); // Eager load stake_id from pivot table
-            }])
+                ->with('grantors.grantorProcedure.stake')
                 ->with('user')
                 ->with('documents')
                 ->with('client')
@@ -41,9 +37,7 @@ class ProcedureController extends ApiController
                 ->with('processingIncome');
         }else if (!empty($request->get('superFilter'))) {
             $query = Procedure::advanceFilter(json_decode($request->get('superFilter')))
-            ->with(['grantors' => function ($query) {
-                $query->withPivot('stake_id'); // Eager load stake_id from pivot table
-            }])
+                ->with('grantors.grantorProcedure.stake')
                 ->with('user')
                 ->with('documents')
                 ->with('client')
@@ -53,7 +47,6 @@ class ProcedureController extends ApiController
                 ->with('folio')
                 ->with('registrationProcedureData')
                 ->with('processingIncome');
-            // $response = $query->toSql();
         }
         else {
             $query = Procedure::with('grantors.grantorProcedure.stake')
@@ -67,28 +60,8 @@ class ProcedureController extends ApiController
                 ->with('registrationProcedureData')
                 ->with('processingIncome');
         }
-
-        // $procedures = $query->get();
-        // $procedures->map(function ($procedure) {
-        //     foreach ($procedure->grantors as $grantor) {
-        //         $stake = Stake::find($grantor->pivot->stake_id);
-        //         $grantor->stake = $stake;
-        //     }
-        //     return $procedure;
-        // });
         $procedures = $query->paginate($paginate);
         
-        // $currentPage = Paginator::resolveCurrentPage('page');
-        // $paginatedProcedures = new LengthAwarePaginator(
-        //     $procedures->forPage($currentPage, $paginate),
-        //     $procedures->count(),
-        //     $paginate,
-        //     $currentPage,
-        //     ['path' => Paginator::resolveCurrentPath()]
-        // );
-
-
-        // return $this->showList($paginatedProcedures);
         return $this->showList($procedures);
     }
 
@@ -143,7 +116,7 @@ class ProcedureController extends ApiController
         return $this->showOne($procedure);
     }
 
-    /**we la 
+    /**
      * Display the specified resource.
      *
      * @param Procedure $procedure
