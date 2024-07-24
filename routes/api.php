@@ -69,6 +69,7 @@ use App\Http\Controllers\WorkArea\WorkAreaController;
 use App\Http\Controllers\Line\LineController;
 use App\Http\Controllers\Article\ArticleController;
 use App\Http\Controllers\Book\BookController;
+use App\Http\Controllers\Folio\FolioActionController;
 use App\Http\Controllers\Folio\FolioController;
 use App\Http\Controllers\Inventory\InventoryController;
 use App\Http\Controllers\Warehouse\WarehouseController;
@@ -234,6 +235,10 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('warehouse', WarehouseController::class);
     Route::resource('movementTracking', MovementTrackingController::class);
     Route::resource('officeSecurityMeasures', OfficeSecurityMeasuresController::class);
+
+    //RECOMMENDATIONS INSTRUMENT AND FOLIO
+    Route::get('folio/recommendation/instrument', [FolioActionController::class, 'intstrumentRecommendation']);
+    Route::get('folio/recommendation/folio', [FolioActionController::class, 'foliosRecommendation']);
 });
 
 
