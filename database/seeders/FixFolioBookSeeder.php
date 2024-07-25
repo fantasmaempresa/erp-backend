@@ -22,6 +22,7 @@ class FixFolioBookSeeder extends Seeder
         //RECORREMOS LOS VOLUMENES PARA ELIMINAR LOS INSTRUMENTOS
         foreach ($books as $book) {
             Folio::where('book_id', $book->id)->delete();
+            BookFolio::where('book_id', $book->id)->delete();
             $book->delete();
         }
 
