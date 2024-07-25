@@ -32,14 +32,27 @@ class FolioActionController extends ApiController
         $book = Book::find($request->get('book_id'));
         $lastFolios = Folio::where('book_id', $request->book_id)->orderBy('folio_min', 'desc')->first();
 
-        $lastFolioNumber = $lastFolios->folio_max;
-        $folio_min = $lastFolioNumber + 1;
+        $folio_min = (!is_null($lastFolios)) ? $lastFolios->folio_max + 1 : $book->folio_min;
         $folio_max = $folio_min + $request->number_of_folios - 1;
 
-        if ($book->folio_min >= $folio_min && $book->folio_max >= $folio_min && $book->folio_min >= $folio_max && $book->folio_max >= $folio_max) {
+        if ($folio_min >= $book->folio_min && $folio_min <=$book->folio_max && $folio_max >= $book->folio_min && $folio_max <= $book->folio_max) {
             return $this->showList(['folio_min' => $folio_min, 'folio_max' => $folio_max]);
-        }else{
+        } else {
             return $this->errorResponse('The folio range is not valid', 422);
         }
+    }
+
+    public function cancelFolio(Folio $folio, Request $request)
+    {
+        $rules = [
+            'folio' => 'required|int',
+            'comment' => 'required|string',
+        ];
+
+        $unusedFolios = (is_null($folio->unused_folios)) ? [] : $folio->unused_folios;
+        $unusedFolios[] = [
+            'folio' => $request->folio,
+            'comment' => $request->comment,
+        ];
     }
 }
