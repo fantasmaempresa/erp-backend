@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Book;
+use App\Models\BookDocument;
 use App\Models\Folio;
 use App\Models\Procedure;
 use Illuminate\Database\Seeder;
@@ -22,7 +23,7 @@ class FixFolioBookSeeder extends Seeder
         //RECORREMOS LOS VOLUMENES PARA ELIMINAR LOS INSTRUMENTOS
         foreach ($books as $book) {
             Folio::where('book_id', $book->id)->delete();
-            BookFolio::where('book_id', $book->id)->delete();
+            BookDocument::where('book_id', $book->id)->delete();
             $book->delete();
         }
 
