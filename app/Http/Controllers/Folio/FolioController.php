@@ -21,10 +21,10 @@ class FolioController extends ApiController
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
             $query = Folio::search($request->get('search'))->with('user')->with('procedure');
         }
-        if (!empty($request->get('view')) && $request->get('view') == 'folios') {
-            $query = Folio::with('user')->with('procedure');
-        } else {
+        if (!empty($request->get('view')) && $request->get('view') == 'dialog') {
             $query = Folio::where('procedure_id', null)->with('user')->with('procedure');
+        } else {
+            $query = Folio::with('user')->with('procedure');            
         }
 
         $response = $query->orderBy('name', 'desc')->paginate($paginate);

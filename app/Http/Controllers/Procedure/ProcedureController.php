@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Procedure;
 
 use App\Http\Controllers\ApiController;
+use App\Models\Folio;
 use App\Models\Procedure;
 use App\Models\Stake;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -60,7 +62,7 @@ class ProcedureController extends ApiController
                 ->with('registrationProcedureData')
                 ->with('processingIncome');
         }
-        $procedures = $query->orderby('name', 'desc')->paginate($paginate);
+        $procedures = $query->orderby('id', 'desc')->paginate($paginate);
         
         return $this->showList($procedures);
     }
@@ -87,13 +89,24 @@ class ProcedureController extends ApiController
             $procedure->date = Carbon::parse($procedure->date);
             $procedure->date_proceedings = Carbon::parse($procedure->date_proceedings);
             $procedure->user_id = Auth::id();
+
             $procedure->save();
 
-            //Agregar otrogantes
-            foreach ($request->get('grantors') as $grantor) {
-                $procedure->grantors()->attach($grantor['id'], ['stake_id' => $grantor['stake_id']]);
+            if (!empty($request->get('folio_id'))) {
+                $folio = Folio::findOrFail($request->get('folio_id'));
+                if ($folio->procedure_id == null) {
+                    $folio->procedure_id = $procedure->id;
+                    $folio->save();
+                }
             }
 
+            //Agregar otrogantes
+            if (!empty($request->get('grantors'))) {
+                foreach ($request->get('grantors') as $grantor) {
+                    $procedure->grantors()->attach($grantor['grantor_id'], ['stake_id' => $grantor['stake_id']]);
+                }
+            }
+            
             foreach ($request->get('documents') as $grantor) {
                 $procedure->documents()->attach($grantor['id']);
             }
@@ -156,8 +169,14 @@ class ProcedureController extends ApiController
             $grantors = [];
             $operations = [];
 
+            if (!empty($request->get('folio_id'))) {
+                $folio = Folio::findOrFail($request->get('folio_id'));
+                    $folio->procedure_id = $procedure->id;
+                    $folio->save();
+            }
+
             foreach ($request->get('grantors') as $grantor) {
-                $grantors[$grantor['id']] = ['stake_id' => $grantor['stake_id']];
+                $grantors[$grantor['grantor_id']] = ['stake_id' => $grantor['stake_id']];
             }
 
             foreach ($request->get('documents') as $document) {

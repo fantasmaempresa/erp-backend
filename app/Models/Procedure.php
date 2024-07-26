@@ -27,7 +27,7 @@ class Procedure extends Model
     const NO_ACCEPTED = 2;
 
     const TRANSFER = 1;
-    const CHECK = 2;    
+    const CHECK = 2;
     const CASH = 3;
 
     const LAND = 1;
@@ -230,21 +230,20 @@ class Procedure extends Model
     public static function rules($id = null): array
     {
         $rules = [
-            'name' => 'required|string|unique:procedures,name',
+            'name' => 'required|unique:procedures,name',
             'value_operation' => 'nullable|string|regex:/^[a-zA-Z0-9\s.]+$/',
-            // 'instrument' => 'required|string',
-            'instrument' => 'nullable|string',
             'date' => 'required|date',
-            // 'volume' => 'required|string',
-            // 'volume' => 'nullable|string',
-            // 'folio_min' => 'nullable|string',
-            // 'folio_max' => 'required|string',
-            // 'folio_max' => 'nullable|string',
             'credit' => 'nullable|string',
             'observation' => 'nullable|string',
-            'grantors' => 'required|array',
-            'grantors.*.id' => 'required|exists:grantors,id',
-            'grantors.*.stake_id' => 'required|exists:stakes,id',
+            'grantors' => 'nullable|array',
+            'grantors.*.grantor_id' =>  [
+                'required_if:grantors,!=,null',
+                'exists:grantors,id',
+            ],
+            'grantors.*.stake_id' => [
+                'required_if:grantors,!=,null',
+                'exists:stakes,id',
+            ],
             'documents' => 'required|array',
             'operations' => 'required|array',
             'appraisal' => 'nullable|string',
@@ -256,7 +255,7 @@ class Procedure extends Model
             'place_id' => 'required|exists:places,id',
             'client_id' => 'required|exists:clients,id',
             'staff_id' => 'required|exists:staff,id',
-            
+            'folio_id' => 'nullable|exists:folios,id',
         ];
 
         if ($id) {
