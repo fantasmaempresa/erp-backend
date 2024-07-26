@@ -52,15 +52,15 @@ class FolioActionController extends ApiController
         $rules = [
             'folio' => 'required|int',
             'comment' => 'required|string',
+            'save' => 'required|boolean',
         ];
 
         $this->validate($request, $rules);
 
         //CHECK IF FOLIO IS IN RANGE
-        if(!($request->get('folio') >= $folio->folio_min && $request->get('folio') <= $folio->folio_max)) {
+        if (!($request->get('folio') >= $folio->folio_min && $request->get('folio') <= $folio->folio_max)) {
             return $this->errorResponse('The folio is not in range', 422);
         }
-
 
         $unusedFolios = (is_null($folio->unused_folios)) ? [] : $folio->unused_folios;
         //CHECK IF FOLIO IS ALREADY CANCELLED
@@ -69,7 +69,7 @@ class FolioActionController extends ApiController
                 return $this->errorResponse('The folio is already cancelled', 422);
             }
         }
-        
+
         $unusedFolios[] = [
             'folio' => $request->get('folio'),
             'date'  => Carbon::now()->format('Y-m-d'),
@@ -85,13 +85,18 @@ class FolioActionController extends ApiController
         if ($this->isFolioRangeValid($folio_min, $folio_max, $book)) {
             $folio->unused_folios = $unusedFolios;
             $folio->folio_max = $folio_max;
-            $folio->save();
+
+            if ($request->get('save')) {
+                $folio->save();
+            }
 
             foreach ($unusedFolios as $key => $unusedFolio) {
                 $unusedFolios[$key]['user'] = User::find($unusedFolio['user_id']);
             }
 
-            return $this->showList($unusedFolios);
+            $folio->unused_folios = $unusedFolios;
+
+            return $this->showList($folio);
         } else {
             return $this->errorResponse('The folio range is not valid', 422);
         }
