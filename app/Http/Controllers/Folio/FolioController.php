@@ -19,9 +19,12 @@ class FolioController extends ApiController
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
-            $query = Folio::search($request->get('search'))->with('user');
+            $query = Folio::search($request->get('search'))->with('user')->with('procedure');
+        }
+        if (!empty($request->get('view')) && $request->get('view') == 'folios') {
+            $query = Folio::with('user')->with('procedure');
         } else {
-            $query = Folio::with('user');
+            $query = Folio::where('procedure_id', null)->with('user')->with('procedure');
         }
 
         $response = $query->orderBy('name', 'desc')->paginate($paginate);
@@ -44,11 +47,14 @@ class FolioController extends ApiController
         $folio = new Folio($request->all());
         $folio->user_id = Auth::user()->id;
 
-        if (FolioUtil::verifyRangeFolio(new Folio(), $folio->folio_min, $folio->folio_max) && 
-        FolioUtil::validateFolioRangeInBook($folio->folio_min, $folio->folio_max, $folio->book_id)) {
-            $folio->save();
+        if (FolioUtil::verifyRangeFolio(new Folio(), $folio->folio_min, $folio->folio_max)) {
+            if (FolioUtil::validateFolioRangeInBook($folio->folio_min, $folio->folio_max, $folio->book_id)) {
+                $folio->save();
+            } else {
+                return $this->errorResponse('Los folios estan fuera de rango de este libro', 422);
+            }
         } else {
-            return $this->errorResponse('Los folios estan fuera de rango', 409);
+            return $this->errorResponse('El rango de folio está ocupado por otro instrumento', 422);
         }
 
         return $this->showOne($folio);
@@ -75,23 +81,25 @@ class FolioController extends ApiController
     public function update(Request $request, Folio $folio)
     {
         $this->validate($request, Folio::rules($folio->id));
-        
+
         $folio->fill($request->all());
-        
+
         if ($folio->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);
         }
 
 
         $folio->user_id = Auth::user()->id;
-        
-        if (FolioUtil::verifyRangeFolio(new Folio(), $folio->folio_min, $folio->folio_max) && 
-        FolioUtil::validateFolioRangeInBook($folio->folio_min, $folio->folio_max, $folio->book_id)) {
+
+        if (
+            FolioUtil::verifyRangeFolio(new Folio(), $folio->folio_min, $folio->folio_max) &&
+            FolioUtil::validateFolioRangeInBook($folio->folio_min, $folio->folio_max, $folio->book_id)
+        ) {
             $folio->save();
         } else {
-            return $this->errorResponse('Los folios estan fuera de rango', 409);
+            return $this->errorResponse('Los folios estan fuera de rango', 422);
         }
-        
+
         $folio->save();
 
         return $this->showOne($folio);

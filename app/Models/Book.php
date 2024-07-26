@@ -28,7 +28,7 @@ class Book extends Model
 
     public function documents()
     {
-        return $this->hasMany(Document::class);
+        return $this->belongsToMany(Document::class)->withTimestamps()->withPivot(['id', 'file']);
     }
 
     public function folios()

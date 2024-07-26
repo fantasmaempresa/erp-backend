@@ -32,4 +32,16 @@ class ProcedureActionController extends ApiController
 
         return $this->showOne($procedure);
     }
+
+    public function expedientRecommendation()
+    {
+        $lastExpedient = Procedure::orderBy('id', 'desc')->first();
+
+        $recomendedExpedient = [
+            'name' => (int)$lastExpedient->name + 1,
+        ];
+
+        return $this->showList($recomendedExpedient);
+    }
+
 }

@@ -25,6 +25,7 @@ use App\Http\Controllers\NationalConsumerPriceIndex\NationalConsumerPriceIndexCo
 use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\Notification\NotificationFilterController;
 use App\Http\Controllers\Operation\OperationController;
+use App\Http\Controllers\Operation\OperationFilterController;
 use App\Http\Controllers\Perception\PerceptionController;
 use App\Http\Controllers\PhasesProcess\PhasesProcessController;
 use App\Http\Controllers\Place\PlaceController;
@@ -159,6 +160,9 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('stake', StakeController::class, ['except' => ['create', 'edit']]);
     Route::resource('templateShape', TemplateShapeController::class, ['except' => ['create', 'edit']]);
     Route::resource('operations', OperationController::class, ['except' => ['create', 'edit']]);
+
+    Route::post('operations/filter/documents', [OperationFilterController::class, 'documentsOperation']);
+    
     Route::resource('procedures', ProcedureController::class, ['except' => ['create', 'edit']]);
     Route::resource('registrationProcedureData', RegistrationProcedureDataController::class, ['except' => ['create', 'edit', 'update']]);
     Route::post('registrationProcedureData/updateAlternative/{registrationProcedureData}', [RegistrationProcedureDataController::class, 'update']);
@@ -237,6 +241,7 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('officeSecurityMeasures', OfficeSecurityMeasuresController::class);
 
     //RECOMMENDATIONS INSTRUMENT AND FOLIO
+    Route::get('procedures/recommendation/expedient', [ProcedureActionController::class, 'expedientRecommendation']);
     Route::get('folio/recommendation/instrument', [FolioActionController::class, 'intstrumentRecommendation']);
     Route::get('folio/recommendation/folio', [FolioActionController::class, 'foliosRecommendation']);
 });

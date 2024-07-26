@@ -15,8 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  *
  * @version 1.0
  */
-class
-Document extends Model
+class Document extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -94,12 +93,12 @@ Document extends Model
 
     public function vulnerableOptions()
     {
-        return $this->hasMany(VulnerableOperation::class);
+        return $this->belongsToMany(VulnerableOperation::class);
     }
 
     public function books()
     {
-        return $this->hasMany(Book::class);
+        return $this->belongsToMany(Book::class);
     }
 
     /**

@@ -8,6 +8,8 @@
 namespace App\Http\Controllers\Document;
 
 use App\Http\Controllers\ApiController;
+use App\Models\Book;
+use App\Models\BookDocument;
 use App\Models\Client;
 use App\Models\ClientDocument;
 use App\Models\ClientLink;
@@ -95,10 +97,22 @@ class DocumentLinkController extends ApiController
             $vulnerableOperation = VulnerableOperation::findOrFail($request->get('client_id'));
             $documents = $vulnerableOperation->documents()->withPivot('file')->withPivot('id')->get();
             $expedient = $documents->map(function ($document) use ($vulnerableOperation) {
-                if(empty($document->pivot->file)){
+                if (empty($document->pivot->file)) {
                     $document->url = null;
-                }else{
+                } else {
                     $document->url = url('storage/app/vulnerable_operation/' . $vulnerableOperation->id . '/expedient/' . $document->pivot->file);
+                }
+
+                return $document;
+            });
+        } else if ($request->get('view') == 'books') {
+            $book = Book::findOrFail($request->get('client_id'));
+            $documents = $book->documents()->withPivot('file')->withPivot('id')->get();
+            $expedient = $documents->map(function ($document) use ($book) {
+                if (empty($document->pivot->file)) {
+                    $document->url = null;
+                } else {
+                    $document->url = url('storage/app/books/' . $book->id . '/expedient/' . $document->pivot->file);
                 }
 
                 return $document;
@@ -152,6 +166,9 @@ class DocumentLinkController extends ApiController
         } else if ($request->get('view') == 'vulnerable_operation') {
             $client = VulnerableOperation::findOrFail($request->get('client_id'));
             $path = 'vulnerable_operation/' . $client->id . '/expedient/';
+        } else if ($request->get('view') == 'books') {
+            $client = book::findOrFail($request->get('client_id'));
+            $path = 'books/' . $client->id . '/expedient/';
         } else {
             return $this->errorResponse('value view not correct', 409);
         }
@@ -223,6 +240,9 @@ class DocumentLinkController extends ApiController
         } else if ($request->get('view') == 'vulnerable_operation') {
             $client = VulnerableOperation::findOrFail($request->get('client_id'));
             $path = 'vulnerable_operation/' . $client->id . '/expedient/';
+        } else if ($request->get('view') == 'books') {
+            $client = VulnerableOperation::findOrFail($request->get('client_id'));
+            $path = 'books/' . $client->id . '/expedient/';
         } else {
             return $this->errorResponse('value view not correct', 409);
         }
@@ -276,10 +296,11 @@ class DocumentLinkController extends ApiController
             $pivot = DocumentProcessingIncome::findOrFail($id);
         } else if ($request->get('view') == 'vulnerable_operation') {
             $pivot = DocumentVulnerableOperation::findOrFail($id);
+        }else if ($request->get('view') == 'books') {
+            $pivot = BookDocument::findOrFail($id);
         } else {
             return $this->errorResponse('value view not correct', 409);
         }
-
 
         DB::beginTransaction();
         try {
@@ -324,6 +345,10 @@ class DocumentLinkController extends ApiController
             $client = VulnerableOperation::findOrFail($request->get('client_id'));
             $path = 'vulnerable_operation/' . $client->id . '/expedient/';
             $pivot = DocumentVulnerableOperation::findOrFail($request->get('document_pivot_id'));
+        }else if ($request->get('view') == 'books') {
+            $client = Book::findOrFail($request->get('client_id'));
+            $path = 'books/' . $client->id . '/expedient/';
+            $pivot = BookDocument::findOrFail($request->get('document_pivot_id'));
         } else {
             return $this->errorResponse('value view not correct', 409);
         }

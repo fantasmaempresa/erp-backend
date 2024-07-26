@@ -60,7 +60,7 @@ class ProcedureController extends ApiController
                 ->with('registrationProcedureData')
                 ->with('processingIncome');
         }
-        $procedures = $query->paginate($paginate);
+        $procedures = $query->orderby('name', 'desc')->paginate($paginate);
         
         return $this->showList($procedures);
     }

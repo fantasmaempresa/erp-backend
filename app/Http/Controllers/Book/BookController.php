@@ -47,7 +47,7 @@ class BookController extends ApiController
         if (FolioUtil::verifyRangeFolio(new Book(), $book->folio_min, $book->folio_max)) {
             $book->save();
         } else {
-            return $this->errorResponse('Los folios estan fuera de rango', 409);
+            return $this->errorResponse('Los folios estan fuera de rango', 422);
         }
 
         return $this->showOne($book);
@@ -86,7 +86,7 @@ class BookController extends ApiController
         if (FolioUtil::verifyRangeFolio(new Book(), $book->folio_min, $book->folio_max, $book->id)) {
             $book->save();
         } else {
-            return $this->errorResponse('Los folios estan fuera de rango', 409);
+            return $this->errorResponse('Los folios estan fuera de rango', 422);
         }
         
         $book->save();
