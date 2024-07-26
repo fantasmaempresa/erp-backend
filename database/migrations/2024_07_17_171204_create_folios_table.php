@@ -18,8 +18,9 @@ class CreateFoliosTable extends Migration
             $table->bigInteger('name')->unique(); //este campo es para el instrumento y debe de ser único y continuo
             $table->bigInteger('folio_min')->nullable(); //rango bajo de folio
             $table->bigInteger('folio_max'); //rango alto de folio
+            $table->json('unused_folios')->nullable(); //folios inutilizados
             $table->foreignId('book_id')->constrained(); //libro
-            $table->foreignId('procedure_id')->constrained()->nullable(); //procedimiento
+            $table->foreignId('procedure_id')->nullable()->constrained(); //procedimiento
             $table->foreignId('user_id')->constrained(); 
             $table->timestamps();
         });

@@ -15,9 +15,14 @@ class Folio extends Model
         'name', //instrument -> procedure
         'folio_min',
         'folio_max',
+        'unused_folios',
         'book_id',
         'procedure_id',
         'user_id',
+    ];
+
+    protected $casts =[
+        'unused_folios' => 'array'
     ];
 
     public function scopeSearch($query, $search): mixed

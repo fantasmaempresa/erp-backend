@@ -242,8 +242,11 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
 
     //RECOMMENDATIONS INSTRUMENT AND FOLIO
     Route::get('procedures/recommendation/expedient', [ProcedureActionController::class, 'expedientRecommendation']);
-    Route::get('folio/recommendation/instrument', [FolioActionController::class, 'intstrumentRecommendation']);
+    Route::get('folio/recommendation/instrument', [FolioActionController::class, 'instrumentRecommendation']);
     Route::get('folio/recommendation/folio', [FolioActionController::class, 'foliosRecommendation']);
+
+    //CANCEL FOLIOS
+    Route::put('folio/cancel/{folio}', [FolioActionController::class, 'cancelFolio']);
 });
 
 
