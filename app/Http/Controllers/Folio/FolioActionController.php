@@ -47,40 +47,58 @@ class FolioActionController extends ApiController
 
     public function cancelFolio(Folio $folio, Request $request)
     {
-        $user = User::findOrFail(Auth::id());
-
         $rules = [
-            'folio' => 'required|int',
-            'comment' => 'required|string',
+            'canceled_folios' => 'required|array',
+            'canceled_folios.*.folio' => 'required|int',
+            'canceled_folios.*.comment' => 'required|string',
+            'canceled_folios.*.user_id' => 'required|int',
             'save' => 'required|boolean',
         ];
 
         $this->validate($request, $rules);
 
-        //CHECK IF FOLIO IS IN RANGE
-        if (!($request->get('folio') >= $folio->folio_min && $request->get('folio') <= $folio->folio_max)) {
-            return $this->errorResponse('The folio is not in range', 422);
+        //CHECK FOLIOS ARE REPETED
+        $foliosAux = collect($request->get('canceled_folios'))->pluck('folio');
+        $folioCounts = $foliosAux->countBy();
+        $duplicates = $folioCounts->filter(function ($count) {
+            return $count > 1;
+        });
+
+        if($duplicates->isNotEmpty()) {
+            return $this->errorResponse('Folios are duplicated', 422);
         }
 
-        $unusedFolios = (is_null($folio->unused_folios)) ? [] : $folio->unused_folios;
-        //CHECK IF FOLIO IS ALREADY CANCELLED
-        foreach ($unusedFolios as $unusedFolio) {
-            if ($unusedFolio['folio'] == $request->get('folio')) {
-                return $this->errorResponse('The folio is already cancelled', 422);
+        //CHECK IF FOLIOS ARE IN RANGE
+        foreach ($request->get('canceled_folios') as $canceledFolio) {
+            if (!($canceledFolio['folio'] >= $folio->folio_min && $canceledFolio['folio'] <= $folio->folio_max)) {
+                return $this->errorResponse('One of folios is not in range', 422);
             }
         }
 
-        $unusedFolios[] = [
-            'folio' => $request->get('folio'),
-            'date'  => Carbon::now()->format('Y-m-d'),
-            'comment' => $request->comment,
-            'user_id' => $user->id,
-        ];
+        $unusedFolios = (is_null($folio->unused_folios)) ? [] : $folio->unused_folios;
+
+        //CHECK IF FOLIOS ARE ALREADY CANCELLED
+        foreach ($request->get('canceled_folios') as $canceledFolio) {
+            foreach ($unusedFolios as $unusedFolio) {
+                if ($unusedFolio['folio'] == $canceledFolio['folio']) {
+                    return $this->errorResponse('One of the folios is already cancelled', 422);
+                }
+            }
+        }
+
+        foreach ($request->get('canceled_folios') as $canceledFolio) {
+            $unusedFolios[] = [
+                'folio' => $canceledFolio['folio'],
+                'date'  => Carbon::now()->format('Y-m-d'),
+                'comment' => $canceledFolio['comment'],
+                'user_id' => $canceledFolio['user_id'],
+            ];
+        }
 
         //NEW FOLIO RANGE
         $book = $folio->book;
         $folio_min = $folio->folio_min;
-        $folio_max = $folio->folio_max + 1;
+        $folio_max = $folio->folio_max + count($request->get('canceled_folios'));
 
         if ($this->isFolioRangeValid($folio_min, $folio_max, $book)) {
             $folio->unused_folios = $unusedFolios;
