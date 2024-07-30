@@ -77,7 +77,7 @@ class ProcedureFilterController extends ApiController
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
             $procedures = Procedure::search($request->get('search'))->with([
                 'user',
-                'grantors.stake',
+                'grantors.grantorProcedure.stake',
                 'documents',
                 'client',
                 'operations',
@@ -89,7 +89,7 @@ class ProcedureFilterController extends ApiController
             $procedures = Procedure::query()->with(
                 [
                     'user',
-                    'grantors.stake',
+                    'grantors.grantorProcedure.stake',
                     'documents',
                     'client',
                     'operations',
