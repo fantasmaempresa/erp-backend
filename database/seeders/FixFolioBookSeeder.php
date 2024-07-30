@@ -27,11 +27,8 @@ class FixFolioBookSeeder extends Seeder
             $book->delete();
         }
 
-        //OBTENEMOS EL ÚLTIMO REGISTRO DE PROCEDURES
-        $procedure = Procedure::orderBy('id', 'desc')->first();
-
         //OBTENEMOS EL REGISTRO MAXIMO DE INSTRUMENTO
-        $folio = Folio::where('procedure_id', $procedure->id)->first();
+        $folio = Folio::orderBy('procedure_id', 'desc')->first();
 
         //OBTENEMOS EL RANGO DE INSTRUMENTOS
         Folio::whereNotBetween('name', [38639, (int)$folio->name])->delete();
