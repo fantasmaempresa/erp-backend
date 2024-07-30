@@ -50,8 +50,8 @@ class Folio extends Model
 
         $rules = [
             'name' => 'required|int|unique:folios,name',
-            'folio_min' => 'nullable|int|unique:folios,folio_min',
-            'folio_max' => 'required|int|unique:folios,folio_max|gt:folio_min',
+            'folio_min' => 'required|int|unique:folios,folio_min',
+            'folio_max' => 'required|int|unique:folios,folio_max',
             'book_id' => 'required|int',
             'procedure_id' => 'nullable|int|unique:folios,procedure_id',
         ];

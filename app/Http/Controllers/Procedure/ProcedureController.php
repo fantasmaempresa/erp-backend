@@ -37,7 +37,7 @@ class ProcedureController extends ApiController
                 ->with('staff')
                 ->with('folio')
                 ->with('processingIncome');
-        }else if (!empty($request->get('superFilter'))) {
+        } else if (!empty($request->get('superFilter'))) {
             $query = Procedure::advanceFilter(json_decode($request->get('superFilter')))
                 ->with('grantors.grantorProcedure.stake')
                 ->with('user')
@@ -49,8 +49,7 @@ class ProcedureController extends ApiController
                 ->with('folio')
                 ->with('registrationProcedureData')
                 ->with('processingIncome');
-        }
-        else {
+        } else {
             $query = Procedure::with('grantors.grantorProcedure.stake')
                 ->with('user')
                 ->with('documents')
@@ -62,8 +61,8 @@ class ProcedureController extends ApiController
                 ->with('registrationProcedureData')
                 ->with('processingIncome');
         }
-        $procedures = $query->orderby('id', 'desc')->paginate($paginate);
-        
+        $procedures = $query->orderby('name', 'desc')->paginate($paginate);
+
         return $this->showList($procedures);
     }
 
@@ -106,7 +105,7 @@ class ProcedureController extends ApiController
                     $procedure->grantors()->attach($grantor['grantor_id'], ['stake_id' => $grantor['stake_id']]);
                 }
             }
-            
+
             foreach ($request->get('documents') as $grantor) {
                 $procedure->documents()->attach($grantor['id']);
             }
@@ -138,7 +137,7 @@ class ProcedureController extends ApiController
      */
     public function show(Procedure $procedure)
     {
-        foreach($procedure->grantors as $grantor) {
+        foreach ($procedure->grantors as $grantor) {
             $grantor->stake_id = $grantor->pivot->stake_id;
             $grantor->grantor_id = $grantor->id;
         }
@@ -174,12 +173,14 @@ class ProcedureController extends ApiController
 
             if (!empty($request->get('folio_id'))) {
                 $folio = Folio::findOrFail($request->get('folio_id'));
-                    $folio->procedure_id = $procedure->id;
-                    $folio->save();
+                $folio->procedure_id = $procedure->id;
+                $folio->save();
             }
 
-            foreach ($request->get('grantors') as $grantor) {
-                $grantors[$grantor['grantor_id']] = ['stake_id' => $grantor['stake_id']];
+            if (!empty($request->get('grantors'))) {
+                foreach ($request->get('grantors') as $grantor) {
+                    $grantors[$grantor['grantor_id']] = ['stake_id' => $grantor['stake_id']];
+                }
             }
 
             foreach ($request->get('documents') as $document) {

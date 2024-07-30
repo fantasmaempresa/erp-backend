@@ -35,10 +35,15 @@ class ProcedureActionController extends ApiController
 
     public function expedientRecommendation()
     {
-        $lastExpedient = Procedure::orderBy('id', 'desc')->first();
+        $lastExpedients = Procedure::where('user_id', '<>', 6)->orderBy('id', 'desc')->get();
+        $auxExpediente =  new Procedure();
+        foreach ($lastExpedients as $lastExpedient) {
+            if((int)$lastExpedient->name > (int)$auxExpediente->name)
+                $auxExpediente = $lastExpedient;
+        }
 
         $recomendedExpedient = [
-            'name' => (int)$lastExpedient->name + 1,
+            'name' => (int)$auxExpediente->name + 1,
         ];
 
         return $this->showList($recomendedExpedient);
