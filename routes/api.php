@@ -233,16 +233,8 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::get('procedure/graphics/withoutShape', [ProcedureGraphicController::class, 'proceduresWithoutShape']);
     Route::get('procedure/graphics/withoutDocument', [ProcedureGraphicController::class, 'procedureWithoutDocument']);
     //INVENTORIES
-<<<<<<< HEAD
-    Route::resource('line',LineController::class);
-    Route::resource('article',ArticleController::class);
-    Route::resource('inventory',InventoryController::class,['only' => ['index', 'show']]);
-    Route::resource('warehouse',WarehouseController::class);
-    Route::resource('movementTracking',MovementTrackingController::class);
-    Route::resource('officeSecurityMeasures',OfficeSecurityMeasuresController::class);
-=======
     Route::resource('line', LineController::class);
-    Route::resource('article', ArticleController::class);
+    Route::resource('inventory',InventoryController::class,['only' => ['index', 'show']]);
     Route::resource('inventory', InventoryController::class);
     Route::resource('warehouse', WarehouseController::class);
     Route::resource('movementTracking', MovementTrackingController::class);
@@ -255,7 +247,6 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
 
     //CANCEL FOLIOS
     Route::put('folio/cancel/{folio}', [FolioActionController::class, 'cancelFolio']);
->>>>>>> b3f61d0f2f1da1c581a647479105798b9ee94ee9
 });
 
 
