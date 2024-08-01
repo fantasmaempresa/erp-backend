@@ -48,12 +48,14 @@ class OperationController extends ApiController
     {
         $this->validate($request, Operation::rules());
         $operation = Operation::create($request->all());
-        $operation->config =
+        if(!empty($request->get('documents'))){
+            $operation->config =
             array_merge(
                 empty($operation->config) ? [] : $operation->config,
                 ['documents_required' => $request->get('documents')]
             );
-
+        }
+        
         $operation->save();
 
         return $this->showOne($operation);

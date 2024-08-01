@@ -30,6 +30,7 @@ use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\Notification\NotificationFilterController;
 use App\Http\Controllers\Operation\OperationController;
 use App\Http\Controllers\Place\PlaceController;
+use App\Http\Controllers\Procedure\ProcedureActionController;
 use App\Http\Controllers\Procedure\ProcedureController;
 use App\Http\Controllers\Procedure\ProcedureFilterController;
 use App\Http\Controllers\Procedure\ProcedureValidatorsController;
@@ -58,6 +59,7 @@ use App\Http\Controllers\User\UserFilterController;
 use App\Http\Controllers\VulnerableOperation\VulnerableOperationController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
+use App\Models\Procedure;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -309,6 +311,7 @@ class RoleActionController extends ApiController
                 ProcessingIncomeCommentController::class,
                 ShapeActionController::class,
                 ProcedureFilterController::class,
+                ProcedureActionController::class,
             ],
         ],
         [
