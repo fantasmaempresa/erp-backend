@@ -59,6 +59,7 @@ use App\Http\Controllers\User\UserFilterController;
 use App\Http\Controllers\VulnerableOperation\VulnerableOperationController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
+use App\Models\Folio;
 use App\Models\Procedure;
 use App\Models\Role;
 use App\Models\User;
@@ -312,6 +313,7 @@ class RoleActionController extends ApiController
                 ShapeActionController::class,
                 ProcedureFilterController::class,
                 ProcedureActionController::class,
+                FolioController::class,
             ],
         ],
         [
