@@ -23,4 +23,11 @@ class TypeDisposalOperation extends Model
       'id',
       'type',
     ];
+
+    public static function rules()
+    {
+        return [
+            'type' => 'required',
+        ];
+    }
 }

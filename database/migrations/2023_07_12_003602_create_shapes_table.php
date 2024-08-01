@@ -18,32 +18,22 @@ class CreateShapesTable extends Migration
             $table->string('folio'); //folio
             $table->string('notary'); //notario --- este podría ser el id del staff 1 u 2
             $table->string('scriptures'); //Escritura
-            $table->string('property_account'); //Cuenta Predial
+            $table->string('property_account')->nullable(); //Cuenta Predial
             $table->date('signature_date'); //Fecha Firma
-            $table->string('departure'); //Partida
-            $table->string('inscription'); //Inscripción
-            $table->string('sheets');//Fojas
-            $table->string('took'); //Tomo
-            $table->string('book'); //Libro
-            $table->string('operation_value'); //ValorOperacion
-//            $table->string('alienating_name'); //Nombre Enajenante
-//            $table->string('alienating_street'); //Calle Enajenante
-//            $table->string('alienating_outdoor_number'); //NoExt Enajenante
-//            $table->string('alienating_interior_number'); //NoInt Enajenante
-//            $table->string('alienating_colony'); //Colonia Enajenante
-//            $table->string('alienating_locality'); //Localidad Enajenante
-//            $table->string('alienating_municipality'); //MunicipioEnajenante
-//            $table->string('alienating_entity'); //Entidad Enajenante
-//            $table->string('alienating_zipcode'); //CodPos Enajenante
-//            $table->string('alienating_phone'); //Telefono Enajenante
-//            $table->string('acquirer_name'); //Nombre Adquiriente
-            $table->text('description'); //Descripcion
+            $table->string('departure')->nullable(); //Partida
+            $table->string('inscription')->nullable(); //Inscripción
+            $table->string('sheets')->nullable(); //Fojas
+            $table->string('took')->nullable(); //Tomo
+            $table->string('book')->nullable(); //Libro
+            $table->string('operation_value')->nullable(); //ValorOperacion
+            $table->text('description')->nullable(); //Descripcion
             $table->string('total'); //Total
             $table->json('data_form'); //Tipo de de trámite
             $table->text('reverse')->nullable(); //Reverso
 
             $table->foreignId('template_shape_id')->constrained(); //Tipo de de trámite
             $table->foreignId('procedure_id')->constrained(); // trámite al que pertenece esta forma
+            $table->foreignId('operation_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

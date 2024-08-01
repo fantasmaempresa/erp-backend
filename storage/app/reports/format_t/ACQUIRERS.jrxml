@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Acquirers" pageWidth="482" pageHeight="842" columnWidth="482" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0affa988-eb62-4435-9ec0-938e8f602bd1">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="FORMA 01\FORMA 01.xml"/>
+	<queryString language="json">
+		<![CDATA[shape.extra.acquirers]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<property name="net.sf.jasperreports.json.field.expression" value="id"/>
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="name"/>
+		<fieldDescription><![CDATA[name]]></fieldDescription>
+	</field>
+	<field name="father_last_name" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="father_last_name"/>
+		<fieldDescription><![CDATA[father_last_name]]></fieldDescription>
+	</field>
+	<field name="mother_last_name" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="mother_last_name"/>
+		<fieldDescription><![CDATA[mother_last_name]]></fieldDescription>
+	</field>
+	<field name="rfc" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="rfc"/>
+		<fieldDescription><![CDATA[rfc]]></fieldDescription>
+	</field>
+	<field name="curp" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="curp"/>
+		<fieldDescription><![CDATA[curp]]></fieldDescription>
+	</field>
+	<field name="civil_status" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="civil_status"/>
+		<fieldDescription><![CDATA[civil_status]]></fieldDescription>
+	</field>
+	<field name="municipality" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="municipality"/>
+		<fieldDescription><![CDATA[municipality]]></fieldDescription>
+	</field>
+	<field name="colony" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="colony"/>
+		<fieldDescription><![CDATA[colony]]></fieldDescription>
+	</field>
+	<field name="no_int" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="no_int"/>
+		<fieldDescription><![CDATA[no_int]]></fieldDescription>
+	</field>
+	<field name="no_ext" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="no_ext"/>
+		<fieldDescription><![CDATA[no_ext]]></fieldDescription>
+	</field>
+	<field name="no_locality" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="no_locality"/>
+		<fieldDescription><![CDATA[no_locality]]></fieldDescription>
+	</field>
+	<field name="phone" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="phone"/>
+		<fieldDescription><![CDATA[phone]]></fieldDescription>
+	</field>
+	<field name="locality" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="locality"/>
+		<fieldDescription><![CDATA[locality]]></fieldDescription>
+	</field>
+	<field name="zipcode" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="zipcode"/>
+		<fieldDescription><![CDATA[zipcode]]></fieldDescription>
+	</field>
+	<field name="place_of_birth" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="place_of_birth"/>
+		<fieldDescription><![CDATA[place_of_birth]]></fieldDescription>
+	</field>
+	<field name="birthdate" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="birthdate"/>
+		<fieldDescription><![CDATA[birthdate]]></fieldDescription>
+	</field>
+	<field name="occupation" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="occupation"/>
+		<fieldDescription><![CDATA[occupation]]></fieldDescription>
+	</field>
+	<field name="type" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="type"/>
+		<fieldDescription><![CDATA[type]]></fieldDescription>
+	</field>
+	<field name="stake_id" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="stake_id"/>
+		<fieldDescription><![CDATA[stake_id]]></fieldDescription>
+	</field>
+	<field name="beneficiary" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="beneficiary"/>
+		<fieldDescription><![CDATA[beneficiary]]></fieldDescription>
+	</field>
+	<field name="created_at" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="created_at"/>
+		<fieldDescription><![CDATA[created_at]]></fieldDescription>
+	</field>
+	<field name="updated_at" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="updated_at"/>
+		<fieldDescription><![CDATA[updated_at]]></fieldDescription>
+	</field>
+	<field name="pivot" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="pivot"/>
+		<fieldDescription><![CDATA[pivot]]></fieldDescription>
+	</field>
+	<title>
+		<band height="10" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="0" width="483" height="10" backcolor="#949494" uuid="9f471ed3-7af9-434b-ac3a-7fd58e780958">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[CONTINUAN DATOS DEL ADQUIRIENTE]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="50" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="4" width="300" height="10" uuid="0da915f8-3a62-49a1-b0a8-74d3df874df7">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{father_last_name} + " " +$F{mother_last_name} + " " + $F{name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="21" width="40" height="10" uuid="4f150676-2fb3-4bff-b220-bae0a78a7573"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<text><![CDATA[RFC:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="40" y="21" width="260" height="10" uuid="84d59c87-4d06-4146-9cb3-ae858df1de67"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{rfc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="38" width="40" height="10" uuid="ea7d3203-dd67-435a-b087-2098c4c2b6b0"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<text><![CDATA[CURP:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="40" y="38" width="260" height="10" uuid="cf5f582a-4d48-4607-9e02-b1ec73daae67"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{curp}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -29,4 +29,14 @@ class Rate extends Model
         'fixed_fee',
         'surplus',
     ];
+
+    public static function rules(){
+        return [
+            'year' => 'required',
+            'lower_limit' => 'required',
+            'upper_limit' => 'required',
+            'fixed_fee' => 'required',
+            'surplus' => 'required',
+        ];
+    }
 }

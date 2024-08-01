@@ -4,6 +4,7 @@
  * OPEN2CODE
  * TypeDisposalOperation Controller
  */
+
 namespace App\Http\Controllers\TypeDisposalOperation;
 
 use App\Http\Controllers\ApiController;
@@ -27,7 +28,15 @@ class TypeDisposalOperationController extends ApiController
     {
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
-        return $this->showList(TypeDisposalOperation::orderBy('id','desc')->paginate($paginate));
+        return $this->showList(TypeDisposalOperation::orderBy('id', 'desc')->paginate($paginate));
+    }
+
+    public function store(Request $request): JsonResponse
+    {
+        $this->validate($request, TypeDisposalOperation::rules());
+        $typeDisposalOperation = TypeDisposalOperation::create($request->all());
+
+        return $this->showOne($typeDisposalOperation);
     }
 
     /**
@@ -40,5 +49,23 @@ class TypeDisposalOperationController extends ApiController
     public function show(TypeDisposalOperation $typeDisposalOperation): JsonResponse
     {
         return $this->showOne($typeDisposalOperation);
+    }
+
+    public function update(Request $request, TypeDisposalOperation $typeDisposalOperation): JsonResponse
+    {
+        $this->validate($request, TypeDisposalOperation::rules());
+        $typeDisposalOperation->fill($request->all());
+        if($typeDisposalOperation->isClean()){
+            return $this->errorResponse('At least one value must change', 422);
+        }
+
+        $typeDisposalOperation->save();
+        return $this->showOne($typeDisposalOperation);
+    }
+
+    public function destroy(TypeDisposalOperation $typeDisposalOperation): JsonResponse
+    {
+        $typeDisposalOperation->delete();
+        return $this->showMessage('Record deleted successfully');
     }
 }

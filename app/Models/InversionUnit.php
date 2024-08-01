@@ -4,10 +4,11 @@
  * OPEN 2 CODE
  * UDIS MODEL
  */
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\Rule;
 
 /**
  * @access  public
@@ -16,14 +17,28 @@ use Illuminate\Database\Eloquent\Model;
  */
 class InversionUnit extends Model
 {
-    public $timestamps = false;
+  public $timestamps = false;
 
-    /**
-     * @var string[]
-     */
-    protected $fillable = [
-      'id',
-      'date',
-      'factor',
+  /**
+   * @var string[]
+   */
+  protected $fillable = [
+    'id',
+    'name',
+    'factor',
+  ];
+
+  public static function rules($id = null)
+  {
+    $rules = [
+      'name' => 'required|unique:inversion_units',
+      'factor' => 'required',
     ];
+
+    if ($id) {
+      $rules['name'] = ['required', Rule::unique('inversion_units')->ignore($id)];
+    }
+
+    return $rules;
+  }
 }

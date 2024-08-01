@@ -8,10 +8,19 @@
 namespace App\Http\Controllers\Document;
 
 use App\Http\Controllers\ApiController;
+use App\Models\Book;
+use App\Models\BookDocument;
 use App\Models\Client;
+use App\Models\ClientDocument;
 use App\Models\ClientLink;
+use App\Models\ClientLinkDocument;
 use App\Models\Document;
+use App\Models\DocumentProcedure;
+use App\Models\DocumentProcessingIncome;
+use App\Models\DocumentVulnerableOperation;
 use App\Models\Procedure;
+use App\Models\ProcessingIncome;
+use App\Models\VulnerableOperation;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -46,7 +55,7 @@ class DocumentLinkController extends ApiController
         if ($request->get('view') == 'client') {
             $client = Client::findOrFail($request->get('client_id'));
 
-            $documents = $client->documents()->withPivot('file')->get();
+            $documents = $client->documents()->withPivot('file')->withPivot('id')->get();
             $expedient = $documents->map(function ($document) use ($client) {
                 $document->url = url('storage/app/clients/' . $client->id . '/expedient/' . $document->pivot->file);
                 return $document;
@@ -54,7 +63,7 @@ class DocumentLinkController extends ApiController
         } elseif ($request->get('view') == 'client_link') {
             $client = ClientLink::findOrFail($request->get('client_id'));
 
-            $documents = $client->documents()->withPivot('file')->get();
+            $documents = $client->documents()->withPivot('file')->withPivot('id')->get();
             $expedient = $documents->map(function ($document) use ($client) {
                 $document->url = url('storage/app/clients_link/' . $client->id . '/expedient/' . $document->pivot->file);
                 return $document;
@@ -62,9 +71,50 @@ class DocumentLinkController extends ApiController
         } elseif ($request->get('view') == 'procedures') {
             $procedure = Procedure::findOrFail($request->get('client_id'));
 
-            $documents = $procedure->documents()->withPivot('file')->get();
+            $documents = $procedure->documents()->withPivot('file')->withPivot('id')->get();
             $expedient = $documents->map(function ($document) use ($procedure) {
-                $document->url = url('storage/app/procedures/' . $procedure->id . '/expedient/' . $document->pivot->file);
+
+                if (empty($document->pivot->file)) {
+                    $document->url = null;
+                } else {
+                    $document->url = url('storage/app/procedures/' . $procedure->id . '/expedient/' . $document->pivot->file);
+                }
+
+                return $document;
+            });
+        } else if ($request->get('view') == 'incomming') {
+            $incoming = ProcessingIncome::findOrFail($request->get('client_id'));
+            $documents = $incoming->documents()->withPivot('file')->withPivot('id')->get();
+            $expedient = $documents->map(function ($document) use ($incoming) {
+                if (empty($document->pivot->file)) {
+                    $document->url = null;
+                } else {
+                    $document->url = url('storage/app/incomming/' . $incoming->id . '/expedient/' . $document->pivot->file);
+                }
+                return $document;
+            });
+        } else if ($request->get('view') == 'vulnerable_operation') {
+            $vulnerableOperation = VulnerableOperation::findOrFail($request->get('client_id'));
+            $documents = $vulnerableOperation->documents()->withPivot('file')->withPivot('id')->get();
+            $expedient = $documents->map(function ($document) use ($vulnerableOperation) {
+                if (empty($document->pivot->file)) {
+                    $document->url = null;
+                } else {
+                    $document->url = url('storage/app/vulnerable_operation/' . $vulnerableOperation->id . '/expedient/' . $document->pivot->file);
+                }
+
+                return $document;
+            });
+        } else if ($request->get('view') == 'books') {
+            $book = Book::findOrFail($request->get('client_id'));
+            $documents = $book->documents()->withPivot('file')->withPivot('id')->get();
+            $expedient = $documents->map(function ($document) use ($book) {
+                if (empty($document->pivot->file)) {
+                    $document->url = null;
+                } else {
+                    $document->url = url('storage/app/books/' . $book->id . '/expedient/' . $document->pivot->file);
+                }
+
                 return $document;
             });
         } else {
@@ -97,22 +147,28 @@ class DocumentLinkController extends ApiController
             'client_id' => 'required|int',
             'document_id' => 'required|int',
             'view' => 'required|string',
-            'file' => 'required|file|max:20048'
+            'file' => 'required|file|max:60048'
         ]);
 
 
         if ($request->get('view') == 'client') {
             $client = Client::findOrFail($request->get('client_id'));
             $path = 'clients/' . $client->id . '/expedient/';
-
         } elseif ($request->get('view') == 'client_link') {
             $client = ClientLink::findOrFail($request->get('client_id'));
             $path = 'clients_link/' . $client->id . '/expedient/';
-
         } elseif ($request->get('view') == 'procedures') {
             $client = Procedure::findOrFail($request->get('client_id'));
             $path = 'procedures/' . $client->id . '/expedient/';
-
+        } else if ($request->get('view') == 'incomming') {
+            $client = ProcessingIncome::findOrFail($request->get('client_id'));
+            $path = 'incomming/' . $client->id . '/expedient/';
+        } else if ($request->get('view') == 'vulnerable_operation') {
+            $client = VulnerableOperation::findOrFail($request->get('client_id'));
+            $path = 'vulnerable_operation/' . $client->id . '/expedient/';
+        } else if ($request->get('view') == 'books') {
+            $client = book::findOrFail($request->get('client_id'));
+            $path = 'books/' . $client->id . '/expedient/';
         } else {
             return $this->errorResponse('value view not correct', 409);
         }
@@ -128,13 +184,11 @@ class DocumentLinkController extends ApiController
             DB::commit();
 
             return $this->showOne($client);
-
         } catch (\Exception $e) {
             DB::rollBack();
 
             return $this->errorResponse('error --> ' . $e->getMessage(), 409);
         }
-
     }
 
     /**
@@ -155,44 +209,95 @@ class DocumentLinkController extends ApiController
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Client $client
+     * @param $id
      *
      * @return JsonResponse
      */
-    public function update(Request $request, Client $client): JsonResponse
+    public function update(Request $request, $id): JsonResponse
     {
+        return $this->showList([$request->all(), $id]);
 
+        $this->validate($request, [
+            'client_id' => 'required|int',
+            'document_id' => 'required|int',
+            'view' => 'required|string',
+            'file' => 'required|file|max:60048'
+        ]);
+
+
+        if ($request->get('view') == 'client') {
+            $client = Client::findOrFail($request->get('client_id'));
+            $path = 'clients/' . $client->id . '/expedient/';
+        } elseif ($request->get('view') == 'client_link') {
+            $client = ClientLink::findOrFail($request->get('client_id'));
+            $path = 'clients_link/' . $client->id . '/expedient/';
+        } elseif ($request->get('view') == 'procedures') {
+            $client = Procedure::findOrFail($request->get('client_id'));
+            $path = 'procedures/' . $client->id . '/expedient/';
+        } elseif ($request->get('view') == 'incomming') {
+            $client = ProcessingIncome::findOrFail($request->get('client_id'));
+            $path = 'incomming/' . $client->id . '/expedient/';
+        } else if ($request->get('view') == 'vulnerable_operation') {
+            $client = VulnerableOperation::findOrFail($request->get('client_id'));
+            $path = 'vulnerable_operation/' . $client->id . '/expedient/';
+        } else if ($request->get('view') == 'books') {
+            $client = VulnerableOperation::findOrFail($request->get('client_id'));
+            $path = 'books/' . $client->id . '/expedient/';
+        } else {
+            return $this->errorResponse('value view not correct', 409);
+        }
+
+        DB::beginTransaction();
+        try {
+            $document = Document::findOrFail($request->get('document_id'));
+            $file = $request->file('file');
+            $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs($path, $fileName);
+            $client->documents()->sync([$document->id], ['file' => $fileName]);
+
+            DB::commit();
+
+            return $this->showOne($client);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return $this->errorResponse('error --> ' . $e->getMessage(), 409);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param int $id //este id es el id del pivot
      *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, $id)
     {
-        $this->validate($request,
+        $this->validate(
+            $request,
             [
                 'view' => 'required|string',
-                'document_id' => 'required|int',
-
+                'client_id' => 'required|int',
             ]
         );
 
         if ($request->get('view') == 'client') {
-            $client = Client::findOrFail($id);
-            $path = 'clients/' . $client->id . '/expedient/';
-
+            //$client = Client::findOrFail($request->get('client_id'));
+            $pivot = ClientDocument::findOrFail($id);
         } elseif ($request->get('view') == 'client_link') {
-            $client = ClientLink::findOrFail($id);
-            $path = 'clients_link/' . $client->id . '/expedient/';
-
-        } elseif ($request->get('view') == 'procedure') {
-            $client = Procedure::findOrFail($id);
-            $path = 'procedures/' . $client->id . '/expedient/';
-
+            //$client = ClientLink::findOrFail($request->get('client_id'));
+            $pivot = ClientLinkDocument::findOrFail($id);
+        } elseif ($request->get('view') == 'procedures') {
+            //$client = Procedure::findOrFail($request->get('client_id'));
+            $pivot = DocumentProcedure::findOrFail($id);
+        } elseif ($request->get('view') == 'incomming') {
+            //$client = Procedure::findOrFail($request->get('client_id'));
+            $pivot = DocumentProcessingIncome::findOrFail($id);
+        } else if ($request->get('view') == 'vulnerable_operation') {
+            $pivot = DocumentVulnerableOperation::findOrFail($id);
+        }else if ($request->get('view') == 'books') {
+            $pivot = BookDocument::findOrFail($id);
         } else {
             return $this->errorResponse('value view not correct', 409);
         }
@@ -200,7 +305,62 @@ class DocumentLinkController extends ApiController
         DB::beginTransaction();
         try {
 
-            $client->documents()->detach();
+            $pivot->delete();
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return $this->errorResponse('error --> ' . $e->getMessage(), 409);
+        }
+    }
+
+    public function updateAlternative(Request $request): JsonResponse
+    {
+        $this->validate($request, [
+            'client_id' => 'required|int',
+            'document_id' => 'required|int',
+            'view' => 'required|string',
+            'file' => 'required|file|max:60048',
+            'document_pivot_id' => 'required|int'
+        ]);
+
+        if ($request->get('view') == 'client') {
+            $client = Client::findOrFail($request->get('client_id'));
+            $path = 'clients/' . $client->id . '/expedient/';
+            $pivot = ClientDocument::findOrFail($request->get('document_pivot_id'));
+        } elseif ($request->get('view') == 'client_link') {
+            $client = ClientLink::findOrFail($request->get('client_id'));
+            $path = 'clients_link/' . $client->id . '/expedient/';
+            $pivot = ClientLinkDocument::findOrFail($request->get('document_pivot_id'));
+        } elseif ($request->get('view') == 'procedures') {
+            $client = Procedure::findOrFail($request->get('client_id'));
+            $path = 'procedures/' . $client->id . '/expedient/';
+            $pivot = DocumentProcedure::findOrFail($request->get('document_pivot_id'));
+        } elseif ($request->get('view') == 'incomming') {
+            $client = ProcessingIncome::findOrFail($request->get('client_id'));
+            $path = 'incomming/' . $client->id . '/expedient/';
+            $pivot = DocumentProcessingIncome::findOrFail($request->get('document_pivot_id'));
+            $client->notify($request->get('document_id'));
+        } else if ($request->get('view') == 'vulnerable_operation') {
+            $client = VulnerableOperation::findOrFail($request->get('client_id'));
+            $path = 'vulnerable_operation/' . $client->id . '/expedient/';
+            $pivot = DocumentVulnerableOperation::findOrFail($request->get('document_pivot_id'));
+        }else if ($request->get('view') == 'books') {
+            $client = Book::findOrFail($request->get('client_id'));
+            $path = 'books/' . $client->id . '/expedient/';
+            $pivot = BookDocument::findOrFail($request->get('document_pivot_id'));
+        } else {
+            return $this->errorResponse('value view not correct', 409);
+        }
+        DB::beginTransaction();
+        try {
+            $file = $request->file('file');
+            $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs($path, $fileName);
+            $pivot->file = $fileName;
+            $pivot->save();
+            DB::commit();
+            return $this->showOne($pivot);
         } catch (Exception $e) {
             DB::rollBack();
 

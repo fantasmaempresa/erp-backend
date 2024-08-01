@@ -18,18 +18,21 @@ use App\Http\Controllers\ExtraHour\ExtraHourController;
 use App\Http\Controllers\FormStructure\FromStructureController;
 use App\Http\Controllers\GeneralTemplate\GeneralTemplateController;
 use App\Http\Controllers\Grantor\GrantorController;
+use App\Http\Controllers\GrantorLink\GrantorLinkController;
 use App\Http\Controllers\InversionUnit\InversionUnitController;
 use App\Http\Controllers\IsoDocument\IsoDocumentController;
 use App\Http\Controllers\NationalConsumerPriceIndex\NationalConsumerPriceIndexController;
 use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\Notification\NotificationFilterController;
 use App\Http\Controllers\Operation\OperationController;
+use App\Http\Controllers\Operation\OperationFilterController;
 use App\Http\Controllers\Perception\PerceptionController;
 use App\Http\Controllers\PhasesProcess\PhasesProcessController;
 use App\Http\Controllers\Place\PlaceController;
 use App\Http\Controllers\Procedure\ProcedureActionController;
 use App\Http\Controllers\Procedure\ProcedureController;
 use App\Http\Controllers\Procedure\ProcedureFilterController;
+use App\Http\Controllers\Procedure\ProcedureGraphicController;
 use App\Http\Controllers\Procedure\ProcedureValidatorsController;
 use App\Http\Controllers\Procedure\RegistrationProcedureDataController;
 use App\Http\Controllers\ProcedureComment\ProcedureCommentController;
@@ -66,6 +69,9 @@ use App\Http\Controllers\VulnerableOperation\VulnerableOperationController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
 use App\Http\Controllers\Line\LineController;
 use App\Http\Controllers\Article\ArticleController;
+use App\Http\Controllers\Book\BookController;
+use App\Http\Controllers\Folio\FolioActionController;
+use App\Http\Controllers\Folio\FolioController;
 use App\Http\Controllers\Inventory\InventoryController;
 use App\Http\Controllers\Warehouse\WarehouseController;
 use App\Http\Controllers\OfficeSecurityMeasures\OfficeSecurityMeasuresController;
@@ -154,16 +160,23 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('stake', StakeController::class, ['except' => ['create', 'edit']]);
     Route::resource('templateShape', TemplateShapeController::class, ['except' => ['create', 'edit']]);
     Route::resource('operations', OperationController::class, ['except' => ['create', 'edit']]);
+
+    Route::post('operations/filter/documents', [OperationFilterController::class, 'documentsOperation']);
+    
     Route::resource('procedures', ProcedureController::class, ['except' => ['create', 'edit']]);
     Route::resource('registrationProcedureData', RegistrationProcedureDataController::class, ['except' => ['create', 'edit', 'update']]);
     Route::post('registrationProcedureData/updateAlternative/{registrationProcedureData}', [RegistrationProcedureDataController::class, 'update']);
     Route::resource('grantors', GrantorController::class, ['except' => ['create', 'edit']]);
     Route::resource('places', PlaceController::class, ['except' => ['create', 'edit']]);
     Route::resource('isoDocumentation', IsoDocumentController::class, ['except' => ['create', 'edit']]);
+    Route::resource('book', BookController::class);
+    Route::resource('folio', FolioController::class);
+
     //GENERATOR REPORTS
     Route::get('report/generator/procedure/shape/{shape}', [ShapeActionController::class, 'generateShape']);
     //ROUTE NOTARY VALIDATORS
     Route::get('procedure/validator/uniqueValue/{name}', [ProcedureValidatorsController::class, 'uniqueValueValidator']);
+    Route::get('procedure/validator/uniqueInstrumentValue/{name}', [ProcedureValidatorsController::class, 'uniqueValueInstrumentValidator']);
     Route::get('procedure/validator/uniqueFolioValue/{folio}', [ProcedureValidatorsController::class, 'uniqueFolioValueValidator']);
 
     Route::get('procedure/filter/myProcedures', [ProcedureFilterController::class, 'myProcedures']);
@@ -175,19 +188,19 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
 
     //NATIONAL CONSUMER PRICE INDEX
     Route::resource('nationalConsumerPriceIndex', NationalConsumerPriceIndexController::class, ['except' => ['create', 'edit']]);
-    
+
     //INVERSION UNIT
     Route::resource('inversionUnit', InversionUnitController::class, ['except' => ['create', 'edit']]);
-    
+
     //APPENDANT 9
     Route::resource('appendant', AppendantController::class, ['only' => ['index', 'show', 'update']]);
-    
+
     //RATE
     Route::resource('rate', RateController::class, ['except' => ['create', 'edit']]);
-    
+
     //TYPE DISPOSAL OPERATION
     Route::resource('typeDisposalOperation', TypeDisposalOperationController::class, ['except' => ['create', 'edit']]);
-    
+
     //DISPOSAL REAL ESTATE
     Route::resource('disposalRealEstate', DisposalRealEstateController::class, ['except' => ['create', 'edit']]);
     Route::get('disposalRealEstate/report/{disposalRealEstate}', [DisposalRealEstateController::class, 'generateReport']);
@@ -212,13 +225,37 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
 
     Route::resource('vulnerableOperation', VulnerableOperationController::class, ['except' => ['create', 'edit']]);
 
+    Route::resource('grantorLink', GrantorLinkController::class, ['except' => ['create', 'edit']]);
+
+    //PROCEDURE GRAPHICS
+    Route::get('procedure/graphics/registered', [ProcedureGraphicController::class, 'registredProcedures']);
+    Route::get('procedure/graphics/withoutData', [ProcedureGraphicController::class, 'proceduresWithoutData']);
+    Route::get('procedure/graphics/withoutShape', [ProcedureGraphicController::class, 'proceduresWithoutShape']);
+    Route::get('procedure/graphics/withoutDocument', [ProcedureGraphicController::class, 'procedureWithoutDocument']);
     //INVENTORIES
+<<<<<<< HEAD
     Route::resource('line',LineController::class);
     Route::resource('article',ArticleController::class);
     Route::resource('inventory',InventoryController::class,['only' => ['index', 'show']]);
     Route::resource('warehouse',WarehouseController::class);
     Route::resource('movementTracking',MovementTrackingController::class);
     Route::resource('officeSecurityMeasures',OfficeSecurityMeasuresController::class);
+=======
+    Route::resource('line', LineController::class);
+    Route::resource('article', ArticleController::class);
+    Route::resource('inventory', InventoryController::class);
+    Route::resource('warehouse', WarehouseController::class);
+    Route::resource('movementTracking', MovementTrackingController::class);
+    Route::resource('officeSecurityMeasures', OfficeSecurityMeasuresController::class);
+
+    //RECOMMENDATIONS INSTRUMENT AND FOLIO
+    Route::get('procedures/recommendation/expedient', [ProcedureActionController::class, 'expedientRecommendation']);
+    Route::get('folio/recommendation/instrument', [FolioActionController::class, 'instrumentRecommendation']);
+    Route::get('folio/recommendation/folio', [FolioActionController::class, 'foliosRecommendation']);
+
+    //CANCEL FOLIOS
+    Route::put('folio/cancel/{folio}', [FolioActionController::class, 'cancelFolio']);
+>>>>>>> b3f61d0f2f1da1c581a647479105798b9ee94ee9
 });
 
 
@@ -241,5 +278,3 @@ Route::group(['middleware' => ['auth:api']], function () {
 
 //ROUTES OAUTH AND OPERATIONS LOGIN USERS
 Route::post('oauth/token', [AuthController::class, 'issueToken']);
-
-

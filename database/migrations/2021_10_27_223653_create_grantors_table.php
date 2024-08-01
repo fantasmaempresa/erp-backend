@@ -17,23 +17,26 @@ class CreateGrantorsTable extends Migration
         Schema::create('grantors', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('father_last_name');
-            $table->string('mother_last_name');
-            $table->string('rfc')->unique();
-            $table->string('curp')->unique();
-            $table->string('civil_status');
-            $table->string('municipality');
-            $table->string('colony');
+            $table->string('father_last_name')->nullable();
+            $table->string('mother_last_name')->nullable();
+            $table->string('email')->unique()->nullable();
+            $table->string('rfc')->nullable()->unique();
+            $table->string('curp')->nullable()->unique();
+            $table->string('civil_status')->nullable();
+            $table->string('municipality')->nullable();
+            $table->string('colony')->nullable();
+            $table->string('street')->nullable();
             $table->string('no_int')->nullable();
-            $table->string('no_ext');
-            $table->string('no_locality');
-            $table->string('phone');
-            $table->string('locality');
-            $table->string('zipcode');
-            $table->string('place_of_birth');
-            $table->date('birthdate');
-            $table->string('occupation');
+            $table->string('no_ext')->nullable();
+            $table->string('no_locality')->nullable(); // se cambio a estado
+            $table->string('phone')->nullable();
+            $table->string('locality')->nullable();
+            $table->string('zipcode')->nullable();
+            $table->string('place_of_birth')->nullable();
+            $table->date('birthdate')->nullable();
+            $table->string('occupation')->nullable();
             $table->string('type'); //tipo de persona
+            $table->string('economic_activity')->nullable();
             $table->foreignId('stake_id')->constrained(); //participación
             $table->boolean('beneficiary')->default(Grantor::NO_BENEFICIARY);
             $table->timestamps();

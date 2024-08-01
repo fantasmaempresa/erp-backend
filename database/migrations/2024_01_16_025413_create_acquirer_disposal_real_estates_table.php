@@ -25,6 +25,8 @@ class CreateAcquirerDisposalRealEstatesTable extends Migration
             $table->decimal('tax_base', 20, 4);
             $table->decimal('rate', 20, 4);
             $table->decimal('isr_acquisition', 20, 4);
+            $table->decimal('fiscal_appraisal', 20, 4);
+            $table->decimal('disposal_value', 20, 4);
             $table->unsignedBigInteger('acquirer_id');
             $table->foreignId('disposal_real_estate_id')->constrained();
 

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Procedure;
 
 use App\Http\Controllers\ApiController;
+use App\Models\Folio;
 use App\Models\Procedure;
+use App\Models\Stake;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,19 +26,44 @@ class ProcedureController extends ApiController
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
-            $response = Procedure::search($request->get('search'))
-                ->with('grantors')
+            $query = Procedure::search($request->get('search'))
+                ->with('grantors.grantorProcedure.stake')
+                ->with('user')
                 ->with('documents')
-                ->orderBy('id','desc')
-                ->paginate($paginate);
+                ->with('client')
+                ->with('operations')
+                ->with('comments')
+                ->with('registrationProcedureData')
+                ->with('staff')
+                ->with('folio')
+                ->with('processingIncome');
+        } else if (!empty($request->get('superFilter'))) {
+            $query = Procedure::advanceFilter(json_decode($request->get('superFilter')))
+                ->with('grantors.grantorProcedure.stake')
+                ->with('user')
+                ->with('documents')
+                ->with('client')
+                ->with('operations')
+                ->with('comments')
+                ->with('staff')
+                ->with('folio')
+                ->with('registrationProcedureData')
+                ->with('processingIncome');
         } else {
-            $response = Procedure::with('grantors')
+            $query = Procedure::with('grantors.grantorProcedure.stake')
+                ->with('user')
                 ->with('documents')
-                ->orderBy('id','desc')
-                ->paginate($paginate);
+                ->with('client')
+                ->with('operations')
+                ->with('comments')
+                ->with('staff')
+                ->with('folio')
+                ->with('registrationProcedureData')
+                ->with('processingIncome');
         }
+        $procedures = $query->orderby('name', 'desc')->paginate($paginate);
 
-        return $this->showList($response);
+        return $this->showList($procedures);
     }
 
 
@@ -57,18 +85,33 @@ class ProcedureController extends ApiController
         DB::begintransaction();
 
         try {
-            $procedure->date_proceedings = Carbon::parse($procedure->date_proceedings);
             $procedure->date = Carbon::parse($procedure->date);
+            $procedure->date_proceedings = Carbon::parse($procedure->date_proceedings);
             $procedure->user_id = Auth::id();
+
             $procedure->save();
 
+            if (!empty($request->get('folio_id'))) {
+                $folio = Folio::findOrFail($request->get('folio_id'));
+                if ($folio->procedure_id == null) {
+                    $folio->procedure_id = $procedure->id;
+                    $folio->save();
+                }
+            }
+
             //Agregar otrogantes
-            foreach ($request->get('grantors') as $grantor) {
-                $procedure->grantors()->attach($grantor['id']);
+            if (!empty($request->get('grantors'))) {
+                foreach ($request->get('grantors') as $grantor) {
+                    $procedure->grantors()->attach($grantor['grantor_id'], ['stake_id' => $grantor['stake_id']]);
+                }
             }
 
             foreach ($request->get('documents') as $grantor) {
                 $procedure->documents()->attach($grantor['id']);
+            }
+
+            foreach ($request->get('operations') as $operation) {
+                $procedure->operations()->attach($operation['id']);
             }
 
             DB::commit();
@@ -80,6 +123,7 @@ class ProcedureController extends ApiController
 
         $procedure->grantors;
         $procedure->documents;
+        $procedure->operations;
 
         return $this->showOne($procedure);
     }
@@ -93,8 +137,13 @@ class ProcedureController extends ApiController
      */
     public function show(Procedure $procedure)
     {
-        $procedure->grantors;
+        foreach ($procedure->grantors as $grantor) {
+            $grantor->stake_id = $grantor->pivot->stake_id;
+            $grantor->grantor_id = $grantor->id;
+        }
         $procedure->documents;
+        $procedure->operations;
+        $procedure->load('operations.categoryOperation');
 
         return $this->showOne($procedure);
     }
@@ -111,13 +160,52 @@ class ProcedureController extends ApiController
     public function update(Request $request, Procedure $procedure): JsonResponse
     {
 
-        $this->validate($request, Procedure::rules());
-        $procedure->fill($request->all());
-        if ($procedure->isClean()) {
-            return $this->errorResponse('A different value must be specified to update', 422);
+        $this->validate($request, Procedure::rules($procedure->id));
+        DB::begintransaction();
+
+        try {
+            $procedure->fill($request->all());
+            $procedure->date = Carbon::parse($procedure->date);
+            $procedure->date_proceedings = Carbon::parse($procedure->date_proceedings);
+            $documents = [];
+            $grantors = [];
+            $operations = [];
+
+            if (!empty($request->get('folio_id'))) {
+                $folio = Folio::findOrFail($request->get('folio_id'));
+                $folio->procedure_id = $procedure->id;
+                $folio->save();
+            }
+
+            if (!empty($request->get('grantors'))) {
+                foreach ($request->get('grantors') as $grantor) {
+                    $grantors[$grantor['grantor_id']] = ['stake_id' => $grantor['stake_id']];
+                }
+            }
+
+            foreach ($request->get('documents') as $document) {
+                $documents[] = $document['id'];
+            }
+
+            foreach ($request->get('operations') as $operation) {
+                $operations[] = $operation['id'];
+            }
+
+            $procedure->grantors()->sync($grantors);
+            $procedure->documents()->sync($documents);
+            $procedure->operations()->sync($operations);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse('error al actualizar --> ' . $e->getMessage(), 409);
         }
 
+
         $procedure->save();
+        DB::commit();
+
+        $procedure->grantors;
+        $procedure->documents;
+        $procedure->operations;
 
         return $this->showOne($procedure);
     }

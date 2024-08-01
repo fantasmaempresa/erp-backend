@@ -62,6 +62,7 @@ class CreateDisposalRealEstatesTable extends Migration
 
             $table->foreignId('type_disposal_operation_id')->constrained();
             $table->foreignId('rate_id')->constrained();
+            $table->foreignId('appendant_id')->constrained();
             $table->foreign('alienating_id')->references('id')->on('grantors');
             $table->foreign('ncpi_disposal_id')->references('id')->on('national_consumer_price_indices');
             $table->foreign('ncpi_acquisition_id')->references('id')->on('national_consumer_price_indices');

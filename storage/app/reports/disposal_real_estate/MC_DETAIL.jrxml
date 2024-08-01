@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MC_DETAIL" pageWidth="580" pageHeight="842" columnWidth="580" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="20" uuid="809c7285-af94-47f6-b60d-b2728711a8f8">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="REPORTE MODULO CUENTAS\daMCuentas.xml"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<queryString language="json">
+		<![CDATA[acquirers]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<property name="net.sf.jasperreports.json.field.expression" value="id"/>
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="name"/>
+		<fieldDescription><![CDATA[name]]></fieldDescription>
+	</field>
+	<field name="father_last_name" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="father_last_name"/>
+		<fieldDescription><![CDATA[father_last_name]]></fieldDescription>
+	</field>
+	<field name="mother_last_name" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="mother_last_name"/>
+		<fieldDescription><![CDATA[mother_last_name]]></fieldDescription>
+	</field>
+	<field name="rfc" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="rfc"/>
+		<fieldDescription><![CDATA[rfc]]></fieldDescription>
+	</field>
+	<field name="curp" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="curp"/>
+		<fieldDescription><![CDATA[curp]]></fieldDescription>
+	</field>
+	<field name="civil_status" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="civil_status"/>
+		<fieldDescription><![CDATA[civil_status]]></fieldDescription>
+	</field>
+	<field name="municipality" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="municipality"/>
+		<fieldDescription><![CDATA[municipality]]></fieldDescription>
+	</field>
+	<field name="colony" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="colony"/>
+		<fieldDescription><![CDATA[colony]]></fieldDescription>
+	</field>
+	<field name="no_int" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="no_int"/>
+		<fieldDescription><![CDATA[no_int]]></fieldDescription>
+	</field>
+	<field name="no_ext" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="no_ext"/>
+		<fieldDescription><![CDATA[no_ext]]></fieldDescription>
+	</field>
+	<field name="no_locality" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="no_locality"/>
+		<fieldDescription><![CDATA[no_locality]]></fieldDescription>
+	</field>
+	<field name="phone" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="phone"/>
+		<fieldDescription><![CDATA[phone]]></fieldDescription>
+	</field>
+	<field name="locality" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="locality"/>
+		<fieldDescription><![CDATA[locality]]></fieldDescription>
+	</field>
+	<field name="zipcode" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="zipcode"/>
+		<fieldDescription><![CDATA[zipcode]]></fieldDescription>
+	</field>
+	<field name="place_of_birth" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="place_of_birth"/>
+		<fieldDescription><![CDATA[place_of_birth]]></fieldDescription>
+	</field>
+	<field name="birthdate" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="birthdate"/>
+		<fieldDescription><![CDATA[birthdate]]></fieldDescription>
+	</field>
+	<field name="occupation" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="occupation"/>
+		<fieldDescription><![CDATA[occupation]]></fieldDescription>
+	</field>
+	<field name="type" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="type"/>
+		<fieldDescription><![CDATA[type]]></fieldDescription>
+	</field>
+	<field name="stake_id" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="stake_id"/>
+		<fieldDescription><![CDATA[stake_id]]></fieldDescription>
+	</field>
+	<field name="beneficiary" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="beneficiary"/>
+		<fieldDescription><![CDATA[beneficiary]]></fieldDescription>
+	</field>
+	<field name="created_at" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="created_at"/>
+		<fieldDescription><![CDATA[created_at]]></fieldDescription>
+	</field>
+	<field name="updated_at" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="updated_at"/>
+		<fieldDescription><![CDATA[updated_at]]></fieldDescription>
+	</field>
+	<field name="pivot" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="pivot"/>
+		<fieldDescription><![CDATA[pivot]]></fieldDescription>
+	</field>
+	<field name="proportion" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="pivot.proportion"/>
+		<fieldDescription><![CDATA[pivot.proportion]]></fieldDescription>
+	</field>
+	<field name="disposal_value" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="pivot.disposal_value"/>
+		<fieldDescription><![CDATA[pivot.disposal_value]]></fieldDescription>
+	</field>
+	<field name="fiscal_appraisal" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="pivot.fiscal_appraisal"/>
+		<fieldDescription><![CDATA[pivot.fiscal_appraisal]]></fieldDescription>
+	</field>
+	<field name="rate" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="pivot.rate"/>
+		<fieldDescription><![CDATA[pivot.rate]]></fieldDescription>
+	</field>
+	<field name="isr_acquisition" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="pivot.isr_acquisition"/>
+		<fieldDescription><![CDATA[pivot.isr_acquisition]]></fieldDescription>
+	</field>
+	<detail>
+		<band height="133" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<staticText>
+				<reportElement x="0" y="10" width="270" height="15" uuid="d2c49032-7dde-4384-bd04-3944f64854ff">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Nombre Adquiriente]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="270" y="10" width="310" height="15" uuid="fc64ea27-4035-4d3a-9436-c5c1e48c0d6a">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box rightPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{name} + " " + $F{father_last_name} + " " + $F{mother_last_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="25" width="270" height="15" uuid="6144a7fb-c2bd-435d-88ea-935624f8b69e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Proporción]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="270" y="25" width="310" height="15" uuid="a724b933-aaea-4b8e-8f43-9fe0dc1cdda8"/>
+				<box rightPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proportion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="40" width="270" height="15" uuid="ae86d261-c2c3-4aa7-966c-464e4afedd7b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Valor de Contraprestación]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="270" y="40" width="310" height="15" uuid="ab7d5390-5fc8-46ef-9845-3ac37ae8a7c1"/>
+				<box rightPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{disposal_value}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="55" width="270" height="15" uuid="c05d1b04-c410-4e07-804d-2f61b04be3ff">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Porcentaje de Incremento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="70" width="270" height="15" uuid="f79d2361-3a5e-4c80-9ae2-84f6e2f173e8">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Avaluo Fiscal]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="270" y="70" width="310" height="15" uuid="9a7f9164-9c10-4286-a980-c098280b0876"/>
+				<box rightPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fiscal_appraisal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="85" width="270" height="15" uuid="a74ae907-8886-4a38-bd6f-25e7fb62e355">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Valor de operación]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="270" y="85" width="310" height="15" uuid="964c6e5d-da10-4e8b-a892-76f6a4dd26eb"/>
+				<box rightPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{disposal_value}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="100" width="270" height="15" uuid="93e6cc23-d44d-446d-b336-f956377ddcb4">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Tasa Fija]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="115" width="270" height="15" uuid="406b53ee-ccf1-4aa7-bdc7-b998cf88601a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box leftPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[ISR por adquisición]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="270" y="100" width="310" height="15" uuid="d0b9ecb6-326c-4005-86b8-f9c657b993cf"/>
+				<box rightPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{rate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="115" width="310" height="15" uuid="4fc97a94-e849-495f-9b26-709cc59f18ef"/>
+				<box rightPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{isr_acquisition}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -2,6 +2,7 @@
 /*
  * OPEN 2 CODE PROCEDURE MODEL
  */
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,6 +10,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 /**
  * version
@@ -17,34 +22,48 @@ class Procedure extends Model
 {
     use HasFactory;
 
+    const NOT_ASSIGNED = 'not assigned';
     const IN_PROCESS = 1;
+    const NO_ACCEPTED = 2;
+
+    const TRANSFER = 1;
+    const CHECK = 2;
+    const CASH = 3;
+
+    const LAND = 1;
+    const HOUSE_ROOM = 2;
+    const LOCAL = 3;
 
     protected $fillable = [
         'id',
         'name', //Número de expediente
         'value_operation',
         'date_proceedings',
-        'instrument',
         'date',
-        'volume',
-        'folio_min',
-        'folio_max',
         'credit',
         'observation',
         'status',
-        'operation_id',
+        'appraisal',
         'user_id',
         'place_id',
         'client_id',
         'staff_id',
     ];
 
-    protected function setNameAttribute($value){
+    protected function setNameAttribute($value)
+    {
         $this->attributes['name'] = strtolower($value);
     }
-    
-    protected function getNameAttribute($value){
+
+    protected function getNameAttribute($value)
+    {
         return strtoupper($value);
+    }
+
+    protected function getValueOperationAttribute($value)
+    {
+        $cleanedValue = preg_replace('/[^0-9.]/', '', $value);
+        return $cleanedValue;
     }
 
     /**
@@ -57,12 +76,11 @@ class Procedure extends Model
     }
 
     /**
-     * @return BelongsTo
+     * @return BelongsToMany
      */
-    public function operation(): BelongsTo
+    public function operations(): BelongsToMany
     {
-
-        return $this->belongsTo(Operation::class);
+        return $this->belongsToMany(Operation::class);
     }
 
     /**
@@ -97,7 +115,7 @@ class Procedure extends Model
      */
     public function grantors(): BelongsToMany
     {
-        return $this->belongsToMany(Grantor::class);
+        return $this->belongsToMany(Grantor::class)->withPivot(['percentage', 'amount', 'stake_id'])->withTimestamps();
     }
 
     /**
@@ -105,7 +123,7 @@ class Procedure extends Model
      */
     public function documents(): BelongsToMany
     {
-        return $this->belongsToMany(Document::class);
+        return $this->belongsToMany(Document::class)->withTimestamps()->withPivot(['id', 'file']);
     }
 
     /**
@@ -113,8 +131,33 @@ class Procedure extends Model
      */
     public function comments(): HasMany
     {
-        return$this->hasMany(ProcedureComment::class);
+        return $this->hasMany(ProcedureComment::class);
     }
+
+    /**
+     * @return HasMany
+     */
+    public function registrationProcedureData()
+    {
+        return $this->hasMany(RegistrationProcedureData::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function processingIncome()
+    {
+        return $this->hasMany(ProcessingIncome::class);
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function folio()
+    {
+        return $this->hasOne(Folio::class)->with('book');
+    }
+
 
     /**
      * @param $query
@@ -124,15 +167,52 @@ class Procedure extends Model
      */
     public function scopeSearch($query, $search): mixed
     {
+        $columns = DB::getSchemaBuilder()->getColumnListing('procedures');
         return $query
-            ->orWhere('name', 'like', "%$search%")
+            ->select('procedures.*')
+            ->join('clients', 'procedures.client_id', '=', 'clients.id')
+            ->join('folios', 'procedures.id', '=', 'folios.procedure_id')
+            ->join('books', 'folios.book_id', '=', 'books.id')
+            ->leftJoin('grantor_procedure', 'procedures.id', '=', 'grantor_procedure.procedure_id')
+            ->leftJoin('grantors', 'grantor_procedure.grantor_id', '=', 'grantors.id')
+            ->orWhere('procedures.name', 'like', "%$search%")
             ->orWhere('value_operation', 'like', "%$search%")
-            ->orWhere('date_proceedings', 'like', "%$search%")
-            ->orWhere('instrument', 'like', "%$search%")
-            ->orWhere('date', 'like', "%$search%")
-            ->orWhere('volume', 'like', "%$search%")
-            ->orWhere('folio_min', 'like', "%$search%")
-            ->orWhere('credit', 'like', "%$search%");
+            ->orWhere('procedures.date', 'like', "%$search%")
+            ->orWhere('books.name', 'like', "%$search%")
+            ->orWhere('folios.name', 'like', "%$search%")
+            ->orWhere('folios.folio_min', '=', $search)
+            ->orWhere('folios.folio_max', '=', $search)
+            ->orWhereRaw('CONCAT(clients.name, " ", clients.last_name, " ", clients.mother_last_name) like ?', "%$search%")
+            ->orWhereRaw('CONCAT(grantors.name, " ", grantors.father_last_name, " ", grantors.mother_last_name) like ?', "%$search%")
+            ->groupBy($columns);
+    }
+
+    public function scopeAdvanceFilter($query, $filters)
+    {
+        if (!empty($filters->book)) {
+            $books = explode(',', $filters->book);
+            foreach ($books as $book) {
+                $query->where('volume', $book);
+            }
+        }
+
+        if (!empty($filters->date_min) && !empty($filters->date_max)) {
+            $date_min = Carbon::parse($filters->date_min);
+            $date_max = Carbon::parse($filters->date_max);
+            $query->whereBetween('date_proceedings', [$date_min, $date_max]);
+        }
+
+        if (!empty($filters->date_min)) {
+            $date_min = Carbon::parse($filters->date_min);
+            $query->where('date_proceedings', $filters->date_min);
+        }
+
+        if (!empty($filters->date_max)) {
+            $date_max = Carbon::parse($filters->date_max);
+            $query->where('date_proceedings', $filters->date_max);
+        }
+
+        return $query;
     }
 
     /**
@@ -147,27 +227,41 @@ class Procedure extends Model
     /**
      * @return string[]
      */
-    public static function rules(): array
+    public static function rules($id = null): array
     {
-        return [
-            'name' => 'required|string',
-            'value_operation' => 'required|string',
-            'date_proceedings' => 'required|string',
-            'instrument' => 'required|string',
+        $rules = [
+            'name' => 'required|unique:procedures,name',
+            'value_operation' => 'nullable|string|regex:/^[a-zA-Z0-9\s.]+$/',
             'date' => 'required|date',
-            'volume' => 'required|string',
-            'folio_min' => 'nullable|string',
-            'folio_max' => 'required|string',
             'credit' => 'nullable|string',
-            'observation' => 'required|string',
-            'grantors' => 'required|array',
+            'observation' => 'nullable|string',
+            'grantors' => 'nullable|array',
+            'grantors.*.grantor_id' =>  [
+                'required_if:grantors,!=,null',
+                'exists:grantors,id',
+            ],
+            'grantors.*.stake_id' => [
+                'required_if:grantors,!=,null',
+                'exists:stakes,id',
+            ],
             'documents' => 'required|array',
-            'operation_id' => 'required|exists:operations,id',
-//            'user_id' => 'required|exists:users,id',
+            'operations' => 'required|array',
+            'appraisal' => 'nullable|string',
+            'way_to_pay' => 'nullable|tinyint',
+            'real_estate_folio' => 'nullable|string',
+            'meters_land' => 'nullable|string',
+            'construction_meters' => 'nullable|string',
+            'property_type' => 'nullable|tinyint',
             'place_id' => 'required|exists:places,id',
             'client_id' => 'required|exists:clients,id',
             'staff_id' => 'required|exists:staff,id',
+            'folio_id' => 'nullable|exists:folios,id',
         ];
-    }
 
+        if ($id) {
+            $rules['name'] = ['required', Rule::unique('procedures')->ignore($id)];
+        }
+
+        return $rules;
+    }
 }

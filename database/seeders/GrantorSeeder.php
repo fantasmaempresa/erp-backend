@@ -12,6 +12,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
+
 class GrantorSeeder extends Seeder
 {
     /**
@@ -32,12 +33,13 @@ class GrantorSeeder extends Seeder
         foreach ($records as $record) {
 
             try {
-                $stake = Stake::where('name', trim($record['Participacion']))->first();
+                $stake = Stake::where('name', 'like', "%" . trim($record['Participacion']) . "%")->first();
                 $procedure = Procedure::where('name', trim($record['Expediente']))->first();
-                if (empty($stake->id) || empty($procedure->id)) {
+                if (empty($procedure->id)) {
                     print_r("salto -------> " . trim($record['Participacion']) . ' ' . trim($record['Expediente']) . " \n");
                     continue;
                 }
+
                 $grantor = new Grantor();
 
                 $grantor->name = trim($record['Otorgante']);
@@ -58,7 +60,7 @@ class GrantorSeeder extends Seeder
                 $grantor->birthdate = Carbon::today();
                 $grantor->occupation = 'bk';
                 $grantor->type = 'bk';
-                $grantor->stake_id = $stake->id;
+                $grantor->stake_id = empty($stake) ? 1 : $stake->id;
                 $grantor->beneficiary = trim($record['Beneficiario']) == "FALSO" ? false : true;
                 $grantor->save();
                 $grantor->procedures()->attach($procedure->id);

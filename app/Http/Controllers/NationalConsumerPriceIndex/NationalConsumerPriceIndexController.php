@@ -33,6 +33,21 @@ class NationalConsumerPriceIndexController extends ApiController
     }
 
     /**
+     * Creates a new NationalConsumerPriceIndex from the given request data.
+     *
+     * @param Request $request The request data to create the NationalConsumerPriceIndex
+     * @throws Some_Exception_Class description of exception
+     * @return JsonResponse
+     */
+    public function store(Request $request): JsonResponse
+    {
+        $this->validate($request, NationalConsumerPriceIndex::rules());
+        $nationalConsumerPriceIndex = NationalConsumerPriceIndex::create($request->all());
+
+        return $this->showOne($nationalConsumerPriceIndex);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param NationalConsumerPriceIndex $nationalConsumerPriceIndex
@@ -42,5 +57,32 @@ class NationalConsumerPriceIndexController extends ApiController
     public function show(NationalConsumerPriceIndex $nationalConsumerPriceIndex): JsonResponse
     {
         return $this->showOne($nationalConsumerPriceIndex);
+    }
+
+
+    /**
+     * Update a national consumer price index.
+     *
+     * @param Request $request The request data
+     * @param NationalConsumerPriceIndex $nationalConsumerPriceIndex The national consumer price index to update
+     * @return JsonResponse
+     */
+    public function update(Request $request, NationalConsumerPriceIndex $nationalConsumerPriceIndex): JsonResponse
+    {
+        $this->validate($request, NationalConsumerPriceIndex::rules());
+        $nationalConsumerPriceIndex->fill($request->all());
+        if ($nationalConsumerPriceIndex->isClean()) {
+            return $this->errorResponse('A different value must be specified to update', 422);
+        }
+
+        $nationalConsumerPriceIndex->save();
+
+        return $this->showOne($nationalConsumerPriceIndex);
+    }
+
+    public function destroy(NationalConsumerPriceIndex $nationalConsumerPriceIndex): JsonResponse
+    {
+        $nationalConsumerPriceIndex->delete();
+        return $this->showMessage('Record deleted successfully');
     }
 }

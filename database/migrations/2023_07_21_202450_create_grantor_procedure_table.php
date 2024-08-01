@@ -17,6 +17,9 @@ class CreateGrantorProcedureTable extends Migration
             $table->id();
             $table->foreignId('grantor_id')->constrained();
             $table->foreignId('procedure_id')->constrained();
+            $table->foreignId('stake_id')->constrained();
+            $table->decimal('percentage', 15, 4)->nullable();
+            $table->decimal('amount', 15, 4)->nullable();
             $table->timestamps();
         });
     }

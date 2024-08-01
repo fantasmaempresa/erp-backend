@@ -9,15 +9,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Validation\Rule;
 
 /**
  * @access  public
  *
  * @version 1.0
  */
-class
-Document extends Model
+class Document extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -29,21 +27,29 @@ Document extends Model
         'name',
         'description',
         'quote',
+        'config',
     ];
 
-    protected function setNameAttribute($value){
+    protected $casts = [
+        'config' => 'array',
+    ];
+    protected function setNameAttribute($value)
+    {
         $this->attributes['name'] = strtolower($value);
     }
-    
-    protected function getNameAttribute($value){
+
+    protected function getNameAttribute($value)
+    {
         return strtoupper($value);
     }
 
-    protected function setDescriptionAttribute($value){
+    protected function setDescriptionAttribute($value)
+    {
         $this->attributes['description'] = strtolower($value);
     }
-    
-    protected function getDescriptionAttribute($value){
+
+    protected function getDescriptionAttribute($value)
+    {
         return strtoupper($value);
     }
 
@@ -66,7 +72,7 @@ Document extends Model
      */
     public function client(): BelongsToMany
     {
-        return $this->belongsToMany(Client::class);
+        return $this->belongsToMany(Client::class)->withTimestamps();
     }
 
     /**
@@ -74,7 +80,7 @@ Document extends Model
      */
     public function procedures(): BelongsToMany
     {
-        return $this->belongsToMany(Procedure::class);
+        return $this->belongsToMany(Procedure::class)->withTimestamps();
     }
 
     /**
@@ -82,7 +88,17 @@ Document extends Model
      */
     public function clientLink(): BelongsToMany
     {
-        return $this->belongsToMany(ClientLink::class);
+        return $this->belongsToMany(ClientLink::class)->withTimestamps();
+    }
+
+    public function vulnerableOptions()
+    {
+        return $this->belongsToMany(VulnerableOperation::class);
+    }
+
+    public function books()
+    {
+        return $this->belongsToMany(Book::class);
     }
 
     /**

@@ -6,10 +6,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @version
@@ -58,12 +58,26 @@ class DisposalRealEstate extends Model
         'rate',
         'isr_federal_entity',
         'isr_federation',
+        'appendant_id',
         'ncpi_disposal_id',
         'ncpi_acquisition_id',
         'alienating_id',
         'type_disposal_operation_id',
         'rate_id',
     ];
+
+    public function scopeSearch($query, $search)
+    {
+        $columns = DB::getSchemaBuilder()->getColumnListing('disposal_real_estates');
+        $query->select('disposal_real_estates.*')
+            ->join('grantors as alienating', 'disposal_real_estates.alienating_id', '=', 'alienating.id')
+            ->join('acquirer_disposal_real_estates', 'disposal_real_estates.id', '=', 'acquirer_disposal_real_estates.disposal_real_estate_id')
+            ->join('grantors as acquirer', 'acquirer_disposal_real_estates.acquirer_id', '=', 'acquirer.id')
+            ->where(function ($query) use ($search) {
+                $query->orWhereRaw('CONCAT(acquirer.name, " ", acquirer.father_last_name, " ", acquirer.mother_last_name) like ?', "%$search%")
+                    ->orWhereRaw('CONCAT(alienating.name, " ", alienating.father_last_name, " ", alienating.mother_last_name) like ?', "%$search%");
+            })->groupBy($columns);
+    }
 
     /**
      * @return BelongsTo
@@ -100,9 +114,15 @@ class DisposalRealEstate extends Model
     /**
      * @return BelongsTo
      */
-    public function rate(): BelongsTo
+    public function rates(): BelongsTo
     {
-        return $this->belongsTo(Rate::class);
+        return $this->belongsTo(Rate::class, 'rate_id');
+    }
+
+    public function appendant(): BelongsTo
+    {
+
+        return $this->belongsTo(Appendant::class);
     }
 
     /**
@@ -116,7 +136,7 @@ class DisposalRealEstate extends Model
             'disposal_real_estate_id',
             'acquirer_id'
         )
-            ->withPivot(['proportion', 'operation_mount_value', 'tax_base', 'rate', 'isr_acquisition']);
+            ->withPivot(['proportion', 'operation_mount_value', 'tax_base', 'rate', 'isr_acquisition', 'fiscal_appraisal', 'disposal_value']);
     }
 
     /**
@@ -127,22 +147,34 @@ class DisposalRealEstate extends Model
      */
     public static function getNPCI($month, $year): mixed
     {
-        $npci = NationalConsumerPriceIndex::where('month', $month)->where('year', $year)->first();
-        if ($npci->value == 0) {
-            $newMonth = $month - 1;
-            $newYear = $year;
+        $priceIndex = NationalConsumerPriceIndex::where('month', $month)
+            ->where('year', $year)
+            ->first();
 
-            if ($newMonth == 0) {
-                $newMonth = 12;
-                $newYear = $newYear - 1;
-            }
+        if (is_null($priceIndex) || $priceIndex->value == 0) {
+            $previousMonth = $month == 1 ? 12 : $month - 1;
+            $previousYear = $month == 1 ? $year - 1 : $year;
 
-            return self::getNPCI($newMonth, $newYear);
-        } else {
-            return $npci;
+            return self::getNPCI($previousMonth, $previousYear);
         }
+
+        return $priceIndex;
     }
 
+
+    public static function getRate($disposalDateYear, $cumulative_profit)
+    {
+        $rate = Rate::where('year', $disposalDateYear)
+            ->where('lower_limit', '<=', $cumulative_profit)
+            ->where('upper_limit', '>=', $cumulative_profit)
+            ->first();
+
+        if (is_null($rate)) {
+            return self::getRate($disposalDateYear - 1, $cumulative_profit);
+        }
+
+        return $rate;
+    }
     /**
      * @return string[]
      */
@@ -151,8 +183,8 @@ class DisposalRealEstate extends Model
         return [
             'alienating_id' => 'required|int',
             'type_disposal_operation_id' => 'required|int',
-            'disposal_value' => 'required|numeric',
-            'disposal_date' => 'required|date',
+            'disposal_value' => 'required|numeric|gt:acquisition_value',
+            'disposal_date' => 'required|date|after:acquisition_date',
             'acquisition_value' => 'required|numeric',
             'acquisition_date' => 'required|date',
             'real_estate_appraisal' => 'required|numeric',
@@ -192,11 +224,11 @@ class DisposalRealEstate extends Model
         $disposalDate = new \DateTime($this->disposal_date);
         $acquisitionDate = new \DateTime($this->acquisition_date);
         $differenceDate = $disposalDate->diff($acquisitionDate);
-        $this->years_passed = $differenceDate->y;
-
+        $this->years_passed = ($differenceDate->y) ? $differenceDate->y : 1;
+        
         $this->depreciation_value = $this->annual_depreciation * $this->years_passed;
         $this->construction_value = $this->value_construction_proportion - $this->depreciation_value;
-
+        
         $npciDisposal = DisposalRealEstate::getNPCI(
             (int)$disposalDate->format('m') - 1,
             (int)$disposalDate->format('Y')
@@ -205,29 +237,30 @@ class DisposalRealEstate extends Model
             (int)$acquisitionDate->format('m'),
             (int)$acquisitionDate->format('Y')
         );
-
+        
         $this->ncpi_disposal_id = $npciDisposal->id;
         $this->ncpi_acquisition_id = $npciAcquisition->id;
         $this->annex_factor = round(($npciDisposal->value / $npciAcquisition->value), 4);
-
+        
+        $appendant = Appendant::where('begin', $this->years_passed)->first();
+        $this->appendant_id = $appendant->id;
+        
         $this->updated_construction_cost = $this->construction_value * $this->annex_factor;
         $this->updated_land_cost = $this->acquisition_value_transferor * $this->annex_factor;
         $this->updated_total_cost_acquisition = $this->updated_land_cost + $this->updated_construction_cost;
-
+        
         //ISR DISPOSAL
         $this->disposal_value_transferor = $this->disposal_value / $acquirers;
         $this->preventive_notices = $this->improvements + $this->appraisal + $this->commissions + $this->isabi;
         $this->tax_base = $this->disposal_value_transferor
-            - $this->updated_total_cost_acquisition
-            - $this->preventive_notices;
+        - $this->updated_total_cost_acquisition
+        - $this->preventive_notices;
+
         $this->cumulative_profit = $this->tax_base / $this->years_passed;
         $this->not_cumulative_profit = $this->tax_base - $this->cumulative_profit;
-
-        $rate = Rate::where('year', $disposalDate->format('Y'))
-            ->where('lower_limit', '<=', $this->cumulative_profit)
-            ->where('upper_limit', '>=', $this->cumulative_profit)
-            ->first();
-
+        
+        $rate = self::getRate($disposalDate->format('Y'), $this->cumulative_profit);
+        
         $this->rate_id = $rate->id;
         $this->surplus = $this->cumulative_profit - $rate->lower_limit;
         $this->marginal_tax = $this->surplus * ($rate->surplus / 100);
@@ -238,14 +271,14 @@ class DisposalRealEstate extends Model
         $this->isr_federal_entity = $this->taxable_gain * ($this->rate / 100);
         $this->isr_federation = $this->isr_federal_entity_pay - $this->isr_federal_entity;
     }
-
+    
     public function acquirerCalcultation($aquire)
     {
-        $grantor = Grantor::find($aquire['id']);
+        $grantor = Grantor::find($aquire['grantor_id']);
         $operationMountValue = $this->disposal_value * .10;
         $taxBase = (($this->fiscal_appraisal - $this->disposal_value) > $operationMountValue) ?
-            ($this->fiscal_appraisal - $this->disposal_value) :
-            0;
+        ($this->fiscal_appraisal - $this->disposal_value) :
+        0;
         $isrAcquisition = $taxBase * ($aquire['rate'] / 100);
 
         $this->acquirers()->attach($grantor, [
@@ -254,6 +287,8 @@ class DisposalRealEstate extends Model
             'tax_base' => $taxBase,
             'rate' => $aquire['rate'],
             'isr_acquisition' => $isrAcquisition,
+            'fiscal_appraisal' => $this->fiscal_appraisal,
+            'disposal_value' => $this->disposal_value_transferor,
         ]);
     }
 }

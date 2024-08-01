@@ -30,6 +30,25 @@ class AppendantController extends ApiController
     }
 
     /**
+     * A description of the entire PHP function.
+     *
+     * @param Request $request description
+     * @param Appendant $appendant description
+     * @throws Some_Exception_Class description of exception
+     * @return Some_Return_Value
+     */
+    public function update(Request $request, Appendant $appendant)
+    {
+        $this->validate($request, Appendant::rules());
+        $appendant->fill($request->all());
+        if($appendant->isClean()){
+            return $this->errorResponse('A different value must be specified to update', 422);
+        }
+        $appendant->save();
+        return $this->showOne($appendant);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param Appendant $appendant

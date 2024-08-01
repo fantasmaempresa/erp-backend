@@ -17,6 +17,8 @@ class CreateOperationsTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
+            $table->json('config')->nullable();
+            $table->foreignId('category_operation_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

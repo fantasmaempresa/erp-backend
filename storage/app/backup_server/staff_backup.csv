@@ -1,0 +1,22 @@
+id|name|last_name|mother_last_name|email|phone|nickname|extra_information|work_area_id|user_id|created_at|updated_at
+1|norma|romero|cortes|normaromero@notaria4puebla.com.mx|2221714964|notario mtra. norma|[]|1|2|2024-04-02 15:13:37|2024-04-02 15:13:37
+2|norma alma|cortes|caballero|normacortes@notaria4puebla.com.mx|2221714965|notario auxiliar mtra. norma|[]|2|3|2024-04-02 15:13:37|2024-04-02 15:13:37
+3|backup|sicom| |backup@sicom.com.mx|2221714967|usuario para ligar el backup de sicom|[]|2|6|2024-04-02 15:13:37|2024-04-02 15:13:37
+4|verónica ivonne|tellez|suárez|ivonne.suarez@notaria4puebla.com.mx|2226754552|ivonne|[]|7|7|2024-04-02 15:21:38|2024-04-02 15:21:38
+5|marco antonio|flores|gil|contabilidad@notaria4puebla.com.mx|2224265154|conta marco|[]|6|8|2024-04-02 15:21:38|2024-04-02 15:21:38
+6|yhasmin|pérez|pérez|yhasmin.perez@notaria4puebla.com.mx|2481739059|yhas|[]|10|9|2024-04-02 15:21:38|2024-04-02 15:21:38
+8|lesly paola|martínez|montiel|lesly_martinez@notaria4puebla.com.mx|2214373550|lesly|[]|5|11|2024-04-02 15:21:38|2024-04-02 15:21:38
+9|montserrat|rodríguez|salamanca|montserrat_rodriguez@notaria4puebla.com.mx|2481795919|monse|[]|8|12|2024-04-02 15:21:38|2024-04-02 15:21:38
+10|maría fernanda|aguila|zempoaltecatl|maria_aguila@notaria4puebla.com.mx|2226954897|fer|[]|5|13|2024-04-02 15:21:38|2024-04-02 15:21:38
+11|jose pablo|rabines|toxqui|jose_rabines@notaria4puebla.com.mx|2227196511|pablo|[]|11|14|2024-04-02 15:21:38|2024-04-02 15:21:38
+13|edith|salamanca|contreras|edith.salamanca@notaria4puebla.com.mx|2484894833|conta edith|[]|10|16|2024-04-02 15:21:38|2024-04-02 15:21:38
+14|elda rosa|rios|melendez|elda.rios@notaria4puebla.com.mx|2227501790|mtra. elda|[]|3|17|2024-04-02 15:21:38|2024-04-02 15:21:38
+15|josé|pellegrin|romero|jose.pellegrin@notaria4puebla.com.mx|2221253911|josesito|[]|9|18|2024-04-02 15:21:38|2024-04-02 15:21:38
+16|ana lariza|juÁrez|herrera|lariza_juarez@notaria4puebla.com.mx|2228134908|lari||12|20|2024-04-12 13:16:41|2024-04-12 13:16:53
+17|sebastian|vargas|barrera|sebastian.barrera@notaria4puebla.com.mx|2222553102|sebas||8|19|2024-04-12 13:17:45|2024-04-12 13:17:54
+18|gabriel alexandro|Ávila|garcía|gabriel_avila@notaria4puebla.com.mx|2224173516|gabi||4|21|2024-04-12 18:13:22|2024-04-12 18:14:52
+19|gabriel|aprez|sandoval|gabriel_apreza@notaria4puebla.com.mx|2228334068|gabriel||4|22|2024-04-17 16:38:11|2024-04-17 16:39:08
+20|miguel|cortés|martínez|miguel_cortes@notaria4puebla.com.mx|2221831746|miguelito||13|23|2024-04-23 13:56:33|2024-04-23 14:10:20
+21|lesli|martínez|trinidad|lesli_martinez@notaria4puebla.com.mx|2451221643|lesli||13|24|2024-04-23 14:04:47|2024-04-23 14:10:30
+22|josefina|valentin|venancio|josefina_valentin@notaria4puebla.com.mx|2216593056|josefina||12|25|2024-04-23 14:09:29|2024-04-23 14:10:40
+23|fernanda|tapia|mendoza|fernanda_tapia@notaria4puebla.com.mx|2213996752|fer||14|26|2024-06-11 10:16:11|2024-06-11 10:17:22

@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Operation extends Model
@@ -19,6 +18,12 @@ class Operation extends Model
         'id',
         'name',
         'description',
+        'config',
+        'category_operation_id'
+    ];
+
+    protected $casts = [
+        'config' => 'array',
     ];
 
     protected function setNameAttribute($value){
@@ -35,6 +40,11 @@ class Operation extends Model
     
     protected function getDescriptionAttribute($value){
         return strtoupper($value);
+    }
+
+    public function categoryOperation(): BelongsTo
+    {
+        return $this->belongsTo(CategoryOperation::class);
     }
 
 
@@ -66,6 +76,9 @@ class Operation extends Model
         return [
             'name' => 'required|string',
             'description' => 'nullable|string',
+            'documents.*.id' => 'required|exists:documents,id',
+            'category_operation_id' => 'exists:category_operations,id',
+            'config' => 'array',
         ];
     }
 }

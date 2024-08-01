@@ -21,6 +21,7 @@ class Shape2Sedder extends Seeder
      */
     public function run()
     {
+        
 
         $import = new ImportCSV(Storage::path('backup_sicom/forma_2.csv'), delimeter: '|');
         $records = $import->readFile();
@@ -41,9 +42,10 @@ class Shape2Sedder extends Seeder
                 $shape->notary = empty($record['Notario']) ? 'bk' : $record['Notario'];
                 $shape->scriptures = empty($record['Escritura']) ? 'bk' : $record['Escritura'];
                 $shape->property_account = empty($record['Cuenta']) ? 'bk' : $record['Cuenta'];
-                $date = empty($record['FechaFirma'])
+                $date = empty($record['FechaFirma']) ? '' : explode(' ', $record['FechaFirma'])[0]; 
+                $date = empty($date)
                     ? Carbon::today()
-                    : Carbon::createFromFormat('d/m/Y', $record['FechaFirma'])->format('Y-m-d');
+                    : Carbon::createFromFormat('d/m/Y', $date)->format('Y-m-d');
                 $shape->signature_date = $date;
                 $shape->departure = empty($record['Partida']) ? 'bk' : $record['Partida'];
                 $shape->inscription = empty($record['Inscripcion']) ? 'bk' : $record['Inscripcion'];
@@ -68,7 +70,6 @@ class Shape2Sedder extends Seeder
                     'alienating_zipcode' => $record['CodPos1'],
                     'alienating_phone' => $record['Telefono1'],
                     'acquirer_name' => $record['Nombre2'],
-
                     'type' => $record['Tipo'],
                     'index' => $record['Indice'],
                     'property' => $record['Inmueble'],

@@ -29,13 +29,20 @@ class ProcedureSeeder extends Seeder
         $records = $import->readFile();
 
         foreach ($records as $record) {
-            print_r($record);
             try {
+                $date_proceedings = explode(' ', $record['FechaExp']);
+                $date = explode(' ', $record['Fecha']);
 
-                $date_proceedings = Carbon::createFromFormat('d/m/Y', $record['FechaExp'])->format('Y-m-d');
-                $date = Carbon::createFromFormat('d/m/Y', $record['Fecha'])->format('Y-m-d');
+                if (empty($date[0]) && !empty($date_proceedings[0])) {
+                    $date[0] = $date_proceedings[0];
+                }
+                // print_r($date_proceedings[0]);
+                // print_r("\n");
+                // print_r($date[0]);
+
+                $date_proceedings = Carbon::createFromFormat('d/m/Y', $date_proceedings[0])->format('Y-m-d');
+                $date = Carbon::createFromFormat('d/m/Y', $date[0])->format('Y-m-d');
                 $procedure = new Procedure();
-
                 $procedure->name = trim($record['Expediente']);
                 $procedure->value_operation = trim($record['ValorOperacion']);
                 $procedure->date_proceedings = $date_proceedings;
@@ -46,22 +53,28 @@ class ProcedureSeeder extends Seeder
                 $procedure->folio_max = trim($record['Folio2']);
                 $procedure->credit = trim($record['Credito']);
                 $procedure->observation = trim($record['Observaciones']);
-                $procedure->operation_id = (int)$record['Operacion'];
                 $procedure->user_id = 6;
                 $procedure->place_id = (int) $record['Lugar'];
                 $procedure->client_id = 1;
                 $procedure->staff_id = 3;
-
                 $procedure->save();
+                
+                $procedure->operations()->attach((int)$record['Operacion']);
             } catch (IOException|ReaderNotOpenedException $e) {
-                print_r($procedure);
                 print_r("Fallo seeder ---> ", $e->getMessage());
             } catch (QueryException $exception) {
+                print_r("SALTO 1---> \n");
+                print_r($record);
                 print_r($exception->getMessage());
+                print_r("<--------------------> \n");
+
                 continue;
             } catch (InvalidFormatException $exception) {
+                print_r("SALTO 2--->\n");
+                print_r($record);
                 continue;
             }
         }
     }
 }
+

@@ -23,6 +23,9 @@ class ClientLink extends Model
 {
     use HasFactory;
 
+    const ACTIVE = true;
+    const INACTIVE = false;
+
     protected $fillable = [
         'id',
         'name',
@@ -35,6 +38,7 @@ class ClientLink extends Model
         'rfc',
         'profession',
         'degree',
+        'active',
         'user_id',
         'client_id',
     ];
@@ -184,7 +188,7 @@ class ClientLink extends Model
      */
     public function documents(): BelongsToMany
     {
-        return $this->belongsToMany(Document::class);
+        return $this->belongsToMany(Document::class)->withTimestamps();
     }
 
     /**
@@ -195,7 +199,7 @@ class ClientLink extends Model
      */
     public function scopeSearch($query, $search): mixed
     {
-        return $query->orWhere('name', 'like', "%$search%")
+        return $query->orWhereRaw('CONCAT(name, " ", last_name, " ", mother_last_name) like ?', "%$search%")
             ->orWhere('phone', 'like', "%$search%")
             ->orWhere('nickname', 'like', "%$search%")
             ->orWhere('address', 'like', "%$search%")

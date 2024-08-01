@@ -1,4 +1,5 @@
 <?php
+
 /**
  * open2code
  */
@@ -27,9 +28,9 @@ class GrantorController extends ApiController
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
-            $response = $this->showList(Grantor::search($request->get('search'))->orderBy('id','desc')->paginate($paginate));
+            $response = $this->showList(Grantor::search($request->get('search'))->orderBy('father_last_name')->with('grantorLinks')->paginate($paginate));
         } else {
-            $response = $this->showList(Grantor::with('stake')->orderBy('id','desc')->paginate($paginate));
+            $response = $this->showList(Grantor::with('grantorLinks')->orderBy('father_last_name')->paginate($paginate));
         }
 
         return $response;
@@ -44,9 +45,11 @@ class GrantorController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $this->validate($request, Grantor::rules());
+        $this->validate($request, Grantor::rules(null, $request->get('type')));
         $grantor = new Grantor($request->all());
-        $grantor->birthdate = Carbon::parse($grantor->birthdate);
+        if (!empty($grantor->birthdate)) {
+            $grantor->birthdate = Carbon::parse($grantor->birthdate);
+        }
         $grantor->save();
 
         return $this->showOne($grantor);
@@ -61,6 +64,7 @@ class GrantorController extends ApiController
      */
     public function show(Grantor $grantor)
     {
+        $grantor->grantorLinks;
         return $this->showOne($grantor);
     }
 
@@ -75,10 +79,14 @@ class GrantorController extends ApiController
      */
     public function update(Request $request, Grantor $grantor): JsonResponse
     {
-        $this->validate($request, Grantor::rules());
+        $this->validate($request, Grantor::rules($grantor->id, $request->get('type')));
         $grantor->fill($request->all());
         if ($grantor->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);
+        }
+
+        if (!empty($request->get('birthdate'))) {
+            $grantor->birthdate = Carbon::parse($request->get('birthdate'));
         }
 
         $grantor->save();
