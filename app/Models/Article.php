@@ -91,7 +91,7 @@ class Article extends Model
             'description' => 'required|string',
             'name' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'line_id' => 'required|string|exists:lines,id',
+            'line_id' => 'required|exists:lines,id',
             'purchase_cost' => 'nullable|numeric',
             'sale_cost' => 'nullable|numeric',
             'type' => 'required|int',
