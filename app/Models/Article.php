@@ -56,14 +56,6 @@ class Article extends Model
         return strtoupper($value);
     }
 
-    protected function setTypeAttribute($value){
-        $this->attributes['type'] = strtolower($value);
-    }
-    
-    protected function getTypeAttribute($value){
-        return strtoupper($value);
-    }
-
     protected function setBrandAttribute($value){
         $this->attributes['brand'] = strtolower($value);
     }
