@@ -5,10 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Validation\Rule;
 
 class Article extends Model
 {
     use HasFactory;
+
+    const ACTIVE = 1;
+    const CONSUMABLE = 2;
 
     protected $fillable
         = [
@@ -84,24 +88,27 @@ class Article extends Model
         return strtoupper($value);
     }
 
-    public static function rules($id = null): array
+    public static function rules($id = null, $type): array
     {
         $rule = [
             'billable' => 'required|boolean',
-            'bar_code' => 'required|string',
+            'bar_code' => [
+                'unique:articles,bar_code',
+                Rule::requiredIf($type == self::ACTIVE)
+            ], // Activo,Consumible
             'description' => 'required|string',
             'name' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'line_id' => 'required|string',
-            'purchase_cost' => 'nullable|float|default:0',
-            'sale_cost' => 'nullable|float|default:0',
-            'type' => 'required|string|in:Activo,Consumible',
+            'purchase_cost' => 'nullable|numeric',
+            'sale_cost' => 'nullable|numeric',
+            'type' => 'required|int',
             'brand' => 'nullable|string',
             'storable' => 'required|boolean',
             'purchase_measure_unit' => 'required|string',
             'sale_measure_unit' => 'required|string',
         ];
-        $rule['bar_code'] .='|unique:type,Activo';
+
         return $rule;
     }
 

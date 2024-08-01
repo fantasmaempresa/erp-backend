@@ -41,8 +41,10 @@ class ArticleController extends ApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $this->validate($request, Article::rules());
+        $this->validate($request, Article::rules(id: null,type: $request->get('type')));
         $article = Article::create($request->all());
+        $purchaseCost = $request->input('purchase_cost', 0);
+        $purchaseCost = $request->input('sale_cost', 0);
 
         return $this->showOne($article);
     }
@@ -69,7 +71,7 @@ class ArticleController extends ApiController
      */
     public function update(Request $request, Article $article): JsonResponse
     {
-        $this->validate($request, Article::rules());
+        $this->validate($request, Article::rules(id: null,type: $request->get('type')));
         $article->fill($request->all());
         if ($article->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);

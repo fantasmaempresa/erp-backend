@@ -234,8 +234,8 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::get('procedure/graphics/withoutDocument', [ProcedureGraphicController::class, 'procedureWithoutDocument']);
     //INVENTORIES
     Route::resource('line', LineController::class);
-    Route::resource('inventory',InventoryController::class,['only' => ['index', 'show']]);
-    Route::resource('inventory', InventoryController::class);
+    Route::resource('inventory',InventoryController::class);
+    Route::resource('article',ArticleController::class);
     Route::resource('warehouse', WarehouseController::class);
     Route::resource('movementTracking', MovementTrackingController::class);
     Route::resource('officeSecurityMeasures', OfficeSecurityMeasuresController::class);

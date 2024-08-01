@@ -17,12 +17,13 @@ class CreateArticlesTable extends Migration
             $table->id();
             $table->boolean('billable')->default(false);
             $table->string('bar_code');
+            $table->string('description');
             $table->string('name');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->foreignId('line_id')->constrained();
             $table->float('purchase_cost')->nullable();
             $table->float('sale_cost')->nullable();
-            $table->string('type');
+            $table->integer('type');
             $table->string('brand')->nullable();
             $table->boolean('storable');
             $table->string('purchase_measure_unit');
