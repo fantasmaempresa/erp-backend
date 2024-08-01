@@ -19,6 +19,7 @@ use App\Http\Controllers\Document\DocumentLinkController;
 use App\Http\Controllers\Folio\FolioController;
 use App\Http\Controllers\GeneralTemplate\GeneralTemplateController;
 use App\Http\Controllers\Grantor\GrantorController;
+use App\Http\Controllers\GrantorLink\GrantorLinkController;
 use App\Http\Controllers\InversionUnit\InversionUnitController;
 use App\Http\Controllers\IsoDocument\IsoDocumentController;
 use App\Http\Controllers\Inventory\InventoryController;
@@ -270,6 +271,7 @@ class RoleActionController extends ApiController
                 StakeController::class,
                 DocumentLinkController::class,
                 DocumentController::class,
+                GrantorLinkController::class,
             ],
         ],
         [
