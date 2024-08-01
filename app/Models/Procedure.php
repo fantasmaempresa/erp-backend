@@ -170,9 +170,9 @@ class Procedure extends Model
         $columns = DB::getSchemaBuilder()->getColumnListing('procedures');
         return $query
             ->select('procedures.*')
-            ->join('clients', 'procedures.client_id', '=', 'clients.id')
-            ->join('folios', 'procedures.id', '=', 'folios.procedure_id')
-            ->join('books', 'folios.book_id', '=', 'books.id')
+            ->leftJoin('clients', 'procedures.client_id', '=', 'clients.id')
+            ->leftJoin('folios', 'procedures.id', '=', 'folios.procedure_id')
+            ->leftJoin('books', 'folios.book_id', '=', 'books.id')
             ->leftJoin('grantor_procedure', 'procedures.id', '=', 'grantor_procedure.procedure_id')
             ->leftJoin('grantors', 'grantor_procedure.grantor_id', '=', 'grantors.id')
             ->orWhere('procedures.name', 'like', "%$search%")
