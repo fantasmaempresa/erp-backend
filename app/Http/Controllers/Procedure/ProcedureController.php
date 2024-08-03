@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Procedure;
 use App\Http\Controllers\ApiController;
 use App\Models\Folio;
 use App\Models\Procedure;
+use App\Models\Role;
 use App\Models\Stake;
 use Carbon\Carbon;
 use Exception;
@@ -144,6 +145,7 @@ class ProcedureController extends ApiController
         $procedure->documents;
         $procedure->operations;
         $procedure->load('operations.categoryOperation');
+        $procedure->load('folio.book');
 
         return $this->showOne($procedure);
     }
@@ -161,6 +163,13 @@ class ProcedureController extends ApiController
     {
 
         $this->validate($request, Procedure::rules($procedure->id));
+
+        $user = Auth::user();
+
+        if ($procedure->user_id != 6 && $user->role_id != Role::$ADMIN && $user->id != $procedure->user_id) {
+            return $this->errorResponse('No puede editar este proceso, por favor informar al propietario del registro', 422);
+        }
+
         DB::begintransaction();
 
         try {

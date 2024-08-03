@@ -30,6 +30,7 @@ use App\Http\Controllers\OfficeSecurityMeasures\OfficeSecurityMeasuresController
 use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\Notification\NotificationFilterController;
 use App\Http\Controllers\Operation\OperationController;
+use App\Http\Controllers\Operation\OperationFilterController;
 use App\Http\Controllers\Place\PlaceController;
 use App\Http\Controllers\Procedure\ProcedureActionController;
 use App\Http\Controllers\Procedure\ProcedureController;
@@ -316,6 +317,8 @@ class RoleActionController extends ApiController
                 ProcedureFilterController::class,
                 ProcedureActionController::class,
                 FolioController::class,
+                DocumentController::class,
+                OperationFilterController::class,
             ],
         ],
         [

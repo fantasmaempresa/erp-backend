@@ -27,10 +27,9 @@ class Folio extends Model
 
     public function scopeSearch($query, $search): mixed
     {
-        return $query->orWhere('name', 'like', "%$search%")
+        return $query->orWhere('name', $search)
             ->orWhere('folio_min', $search)
-            ->orWhere('folio_max', $search)
-            ->orWhere('date_proceedings', $search);
+            ->orWhere('folio_max', $search);
     }
 
     public function procedure(){
