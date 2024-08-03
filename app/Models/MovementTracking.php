@@ -9,6 +9,12 @@ class MovementTracking extends Model
 {
     use HasFactory;
 
+    const INITIAL_INVENTORY = 1;
+    const SALE = 2;
+    const PURCHASE = 3;
+    const OFFICE_SECURITY_MEASURE = 4;
+    const WAREHOUSE_TRANSFER = 5;
+
     protected $fillable
         = [
             'id',
@@ -36,12 +42,24 @@ class MovementTracking extends Model
     public static function rules($id = null): array
     {
         $rule = [
-            'article_id' => 'required|int',
-            'warehouse_id' => 'required|int',
+            'article_id' => 'required|exists:articles,id',
+            'warehouse_id' => 'required|exists:warehouses,id',
             'amount' => 'required|int',
             'reason' => 'required|string|in:Inventario Inicial, Venta, Compra, Resguardo, Traslado Almacén'
         ];
         return $rule;
     }
 
+    /**
+     * @param $query
+     * @param $search
+     *
+     * @return mixed
+     */
+    public function scopeSearch($query, $search): mixed
+    {
+        return $query->orWhere('article_id', 'like', "%$search%")
+            ->orWhere('warehouse_id', 'like', "%$search%")
+            ->orWhere('reason', 'like', "%$search%");
+    }
 }
