@@ -33,4 +33,12 @@ class Inventory extends Model
         ];
         return $rule;
     }
+
+    /**
+     * @return HasMany
+     */
+    public function warehouse(): HasMany
+    {
+        return $this->HasMany(Warehouse::class);
+    }
 }

@@ -73,6 +73,7 @@ use App\Http\Controllers\Book\BookController;
 use App\Http\Controllers\Folio\FolioActionController;
 use App\Http\Controllers\Folio\FolioController;
 use App\Http\Controllers\Inventory\InventoryController;
+use App\Http\Controllers\Inventory\InventoryActionController;
 use App\Http\Controllers\Warehouse\WarehouseController;
 use App\Http\Controllers\OfficeSecurityMeasures\OfficeSecurityMeasuresController;
 use App\Http\Controllers\MovementTracking\MovementTrackingController;
@@ -232,9 +233,11 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::get('procedure/graphics/withoutData', [ProcedureGraphicController::class, 'proceduresWithoutData']);
     Route::get('procedure/graphics/withoutShape', [ProcedureGraphicController::class, 'proceduresWithoutShape']);
     Route::get('procedure/graphics/withoutDocument', [ProcedureGraphicController::class, 'procedureWithoutDocument']);
+
     //INVENTORIES
     Route::resource('line', LineController::class);
     Route::resource('inventory',InventoryController::class);
+    Route::post('inventory/warehouse-item-transfer', [InventoryActionController::class, 'warehouseItemTransfer']);
     Route::resource('article',ArticleController::class);
     Route::resource('warehouse', WarehouseController::class);
     Route::resource('movementTracking', MovementTrackingController::class);
