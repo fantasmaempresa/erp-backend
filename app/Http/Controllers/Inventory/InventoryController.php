@@ -45,6 +45,21 @@ class InventoryController extends ApiController
     }
     
     /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function store(Request $request): JsonResponse
+    {
+        $this->validate($request, Inventory::rules());
+        $inventory = Inventory::create($request->all());
+
+        return $this->showOne($inventory);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param Inventory $inventory
