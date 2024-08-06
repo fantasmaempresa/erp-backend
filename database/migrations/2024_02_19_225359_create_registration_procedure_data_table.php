@@ -25,6 +25,7 @@ class CreateRegistrationProcedureDataTable extends Migration
             $table->string('folio_electronic_merchant')->nullable();// folio mercantil electrónico
             $table->string('nci')->nullable();// NCI
             $table->string('url_file')->nullable();//  archivo
+            $table->json('data')->nullable();
             $table->text('description')->nullable();//  descripción
             $table->foreignId('document_id')->nullable()->constrained(); // Documento
             $table->foreignId('procedure_id')->constrained(); // Trámite
