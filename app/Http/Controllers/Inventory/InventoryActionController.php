@@ -6,6 +6,7 @@ use App\Http\Controllers\ApiController;
 use App\Models\Inventory;
 use App\Models\Article;
 use App\Models\OfficeSecurityMeasures;
+
 use Illuminate\Http\Request;
 
 class InventoryActionController extends ApiController
@@ -29,14 +30,16 @@ class InventoryActionController extends ApiController
     //Pendiente de creacion del funcionamiento de la operacion
     public function removeArticleFromInventory(Request $request){
         $inventoryEntry = Inventory::where('id', $request->input('id'))
+        ->where('article_id', $request->input('article_id'))
         ->first();
 
         if(!$inventoryEntry){
-            return $this->showMessage('Article removed successfully');
-        } else {
-            $inventoryEntry->amount += $request->input('amount');
-            $inventoryEntry->save();
-        }
+            return $this->errorResponse(['The article does not exist in the warehouse inventory'], 422);
+        } else if(newInventoryEntry->amount < $request->input('amount')) {
+            return $this->errorResponse(['Not enough inventory to remove'], 422);
+        } else if(newInventoryEntry->amount == $request->input('amount')) {
+            $inventoryEntry->delete();
+        } 
         
         return $this->showMessage('Article removed successfully');
     }

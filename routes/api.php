@@ -237,8 +237,11 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     //INVENTORIES
     Route::resource('line', LineController::class);
     Route::resource('inventory',InventoryController::class);
-    Route::post('inventory/add-article-to-inventory', [InventoryActionController::class, 'addArticleToInventory']);
-    Route::post('inventory/inventory-warehouse-item-transfer', [InventoryActionController::class, 'inventoryWarehouseItemTransfer']);
+
+    Route::post('inventory/action/addArticleToInventory', [InventoryActionController::class, 'addArticleToInventory']);
+    Route::post('inventory/action/removeArticleFromInventory', [InventoryActionController::class, 'removeArticleFromInventory']);
+    Route::post('inventory/action/inventoryWarehouseItemTransfer', [InventoryActionController::class, 'inventoryWarehouseItemTransfer']);
+    
     Route::resource('article',ArticleController::class);
     Route::resource('warehouse', WarehouseController::class);
     Route::resource('movementTracking', MovementTrackingController::class);
