@@ -273,6 +273,7 @@ class RoleActionController extends ApiController
                 DocumentLinkController::class,
                 DocumentController::class,
                 GrantorLinkController::class,
+                CategoryOperationController::class,
             ],
         ],
         [

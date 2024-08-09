@@ -98,6 +98,7 @@ class ProcedureController extends ApiController
                     $folio->procedure_id = $procedure->id;
                     $folio->save();
                 }
+                $procedure->status = Procedure::ACCEPTED;
             }
 
             //Agregar otrogantes
