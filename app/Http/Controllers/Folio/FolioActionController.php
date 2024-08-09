@@ -8,7 +8,7 @@ use App\Models\Folio;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class FolioActionController extends ApiController
 {
@@ -64,7 +64,7 @@ class FolioActionController extends ApiController
             return $count > 1;
         });
 
-        if($duplicates->isNotEmpty()) {
+        if ($duplicates->isNotEmpty()) {
             return $this->errorResponse('Folios are duplicated', 422);
         }
 
@@ -110,10 +110,84 @@ class FolioActionController extends ApiController
         }
     }
 
-
     private function isFolioRangeValid($folio_min, $folio_max, $book)
     {
         return $folio_min >= $book->folio_min && $folio_min <= $book->folio_max
             && $folio_max >= $book->folio_min && $folio_max <= $book->folio_max;
+    }
+
+    public function unusedFolios(Request $request)
+    {
+        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+        $blockSize = 50;
+
+        $books = Book::orderBy('name', 'asc');
+        $booksResult = [];
+
+        $books->chunk($blockSize, function ($books) use (&$booksResult) {
+            foreach ($books as $book) {
+                $folios = $book->folios()->orderBy('folio_min', 'asc')->get();
+                $foliosCount = $folios->count();
+                $folioAux = [];
+    
+                $previousMinFolio = 0;
+                $previousMaxFolio = 0;
+    
+                foreach ($folios as $key => $folio) {
+                    $folio->procedure;
+                    if ($key === 0) {
+                        if ($folio->folio_min > $book->folio_min) {
+                            $folioAux[] = [
+                                'name' => '',
+                                'folio_min' => $book->folio_min,
+                                'folio_max' => $folio->folio_min - 1,
+                            ];
+                        }
+                        $folioAux[] = $folio;
+                        $previousMinFolio = $folio->folio_min;
+                        $previousMaxFolio = $folio->folio_max;
+                    } elseif ($key === $foliosCount - 1) {
+                        if ($folio->folio_min > $previousMaxFolio + 1) {
+                            $folioAux[] = [
+                                'name' => '',
+                                'folio_min' => $previousMaxFolio + 1,
+                                'folio_max' => $folio->folio_min - 1,
+                            ];
+                        }
+                        $folioAux[] = $folio;
+                        if ($folio->folio_max < $book->folio_max) {
+                            $folioAux[] = [
+                                'name' => '',
+                                'folio_min' => $folio->folio_max + 1,
+                                'folio_max' => $book->folio_max,
+                            ];
+                        }
+                    } else {
+                        if ($folio->folio_min > $previousMaxFolio + 1) {
+                            $folioAux[] = [
+                                'name' => '',
+                                'folio_min' => $previousMinFolio + 1,
+                                'folio_max' => $folio->folio_min - 1,
+                            ];
+                        }
+                        $folioAux[] = $folio;
+                        $previousMinFolio = $folio->folio_min;
+                        $previousMaxFolio = $folio->folio_max;
+                    }
+                }
+                $book->folios = $folioAux;
+                $booksResult[] = $book;
+            }
+        });
+        
+        $page = $request->input('page', 1);
+        $offset = ($page - 1) * $paginate;
+        $itemsPaginados = array_slice($booksResult, $offset, $paginate);
+        $paginador = new LengthAwarePaginator($itemsPaginados, count($booksResult), $paginate, $page, [
+            'path' => $request->url(),
+            'query' => $request->query(),
+        ]);
+
+        return $this->showList($paginador);
     }
 }
