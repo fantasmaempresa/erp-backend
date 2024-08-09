@@ -247,6 +247,9 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
 
     //CANCEL FOLIOS
     Route::put('folio/cancel/{folio}', [FolioActionController::class, 'cancelFolio']);
+
+    //UNUSED FOLIOS
+    Route::get('folios/unused', [FolioActionController::class, 'unusedFolios']);
 });
 
 
