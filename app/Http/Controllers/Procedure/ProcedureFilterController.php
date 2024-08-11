@@ -137,7 +137,7 @@ class ProcedureFilterController extends ApiController
                         case CategoryOperation::UDI:
                             $udi = InversionUnit::orderBy('id', 'desc')->first();
                             if (!is_null($udi)) {
-                                $udiValue = $uma->value * $vulnerableOption['condition'];
+                                $udiValue = $udi->value * $vulnerableOption['condition'];
                                 $vulnerable = (int)$procedure->value_operation > $udiValue;
                             }
                             break;
