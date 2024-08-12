@@ -116,8 +116,10 @@ class FolioActionController extends ApiController
             && $folio_max >= $book->folio_min && $folio_max <= $book->folio_max;
     }
 
-    public function unusedFolios(Book $book)
+    public function unusedFolios(Book $book, Request $request)
     {
+        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+
         $folios = $book->folios()->orderBy('folio_min', 'asc')->get();
         $foliosCount = $folios->count();
         $folioAux = [];
@@ -176,7 +178,16 @@ class FolioActionController extends ApiController
             }
         }
         $book->folios = $folioAux;
-        return $this->showList($book);
+
+        $page = $request->input('page', 1);
+        $offset = ($page - 1) * $paginate;
+        $itemsPaginados = array_slice([$book], $offset, $paginate);
+        $paginador = new LengthAwarePaginator($itemsPaginados, count([$book]), $paginate, $page, [
+            'path' => $request->url(),
+            'query' => $request->query(),
+        ]);
+
+        return $this->showList($paginador);
     }
 
     public function unusedInstruments(Request $request)
