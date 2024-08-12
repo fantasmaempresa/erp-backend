@@ -251,7 +251,9 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::put('folio/cancel/{folio}', [FolioActionController::class, 'cancelFolio']);
 
     //UNUSED FOLIOS
-    Route::get('folios/unused', [FolioActionController::class, 'unusedFolios']);
+    Route::get('folio/unused/{book}', [FolioActionController::class, 'unusedFolios']);
+    Route::get('folio/unused/count/{book}', [FolioActionController::class, 'foliosCount']);
+    Route::get('folio/instrument/unused', [FolioActionController::class, 'unusedInstruments']);
 });
 
 

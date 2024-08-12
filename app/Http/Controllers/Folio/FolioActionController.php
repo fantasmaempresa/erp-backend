@@ -116,78 +116,137 @@ class FolioActionController extends ApiController
             && $folio_max >= $book->folio_min && $folio_max <= $book->folio_max;
     }
 
-    public function unusedFolios(Request $request)
+    public function unusedFolios(Book $book)
+    {
+        $folios = $book->folios()->orderBy('folio_min', 'asc')->get();
+        $foliosCount = $folios->count();
+        $folioAux = [];
+
+        $previousMaxFolio = 0;
+
+        foreach ($folios as $key => $folio) {
+            $folio->procedure;
+
+            if (is_null($folio->procedure)) {
+                $folio->color = 2;
+            } else {
+                $folio->color = 1;
+            }
+
+            if ($key === 0) {
+                if ($folio->folio_min > $book->folio_min) {
+                    $folioAux[] = [
+                        'name' => '',
+                        'folio_min' => $book->folio_min,
+                        'folio_max' => $folio->folio_min - 1,
+                        'color' => 3,
+                    ];
+                }
+                $folioAux[] = $folio;
+                $previousMaxFolio = $folio->folio_max;
+            } elseif ($key === $foliosCount - 1) {
+                if ($folio->folio_min > $previousMaxFolio + 1) {
+                    $folioAux[] = [
+                        'name' => '',
+                        'folio_min' => $previousMaxFolio + 1,
+                        'folio_max' => $folio->folio_min - 1,
+                        'color' => 3,
+                    ];
+                }
+                $folioAux[] = $folio;
+                if ($folio->folio_max < $book->folio_max) {
+                    $folioAux[] = [
+                        'name' => '',
+                        'folio_min' => $folio->folio_max + 1,
+                        'folio_max' => $book->folio_max,
+                        'color' => 3,
+                    ];
+                }
+            } else {
+                if ($folio->folio_min > $previousMaxFolio + 1) {
+                    $folioAux[] = [
+                        'name' => '',
+                        'folio_min' => $previousMaxFolio + 1,
+                        'folio_max' => $folio->folio_min - 1,
+                        'color' => 3,
+                    ];
+                }
+                $folioAux[] = $folio;
+                $previousMaxFolio = $folio->folio_max;
+            }
+        }
+        $book->folios = $folioAux;
+        return $this->showList($book);
+    }
+
+    public function unusedInstruments(Request $request)
     {
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
-        $blockSize = 50;
+        $blockSize = 150;
 
-        $books = Book::orderBy('name', 'asc');
-        $booksResult = [];
+        $folios = Folio::orderBy('name', 'asc');
+        $foliosResult = [];
 
-        $books->chunk($blockSize, function ($books) use (&$booksResult) {
-            foreach ($books as $book) {
-                $folios = $book->folios()->orderBy('folio_min', 'asc')->get();
-                $foliosCount = $folios->count();
-                $folioAux = [];
-    
-                $previousMinFolio = 0;
-                $previousMaxFolio = 0;
-    
-                foreach ($folios as $key => $folio) {
-                    $folio->procedure;
-                    if ($key === 0) {
-                        if ($folio->folio_min > $book->folio_min) {
-                            $folioAux[] = [
-                                'name' => '',
-                                'folio_min' => $book->folio_min,
-                                'folio_max' => $folio->folio_min - 1,
-                            ];
-                        }
-                        $folioAux[] = $folio;
-                        $previousMinFolio = $folio->folio_min;
-                        $previousMaxFolio = $folio->folio_max;
-                    } elseif ($key === $foliosCount - 1) {
-                        if ($folio->folio_min > $previousMaxFolio + 1) {
-                            $folioAux[] = [
-                                'name' => '',
-                                'folio_min' => $previousMaxFolio + 1,
-                                'folio_max' => $folio->folio_min - 1,
-                            ];
-                        }
-                        $folioAux[] = $folio;
-                        if ($folio->folio_max < $book->folio_max) {
-                            $folioAux[] = [
-                                'name' => '',
-                                'folio_min' => $folio->folio_max + 1,
-                                'folio_max' => $book->folio_max,
-                            ];
-                        }
-                    } else {
-                        if ($folio->folio_min > $previousMaxFolio + 1) {
-                            $folioAux[] = [
-                                'name' => '',
-                                'folio_min' => $previousMinFolio + 1,
-                                'folio_max' => $folio->folio_min - 1,
-                            ];
-                        }
-                        $folioAux[] = $folio;
-                        $previousMinFolio = $folio->folio_min;
-                        $previousMaxFolio = $folio->folio_max;
+        $folios->chunk($blockSize, function ($folios) use (&$foliosResult) {
+            foreach ($folios as $key => $folio) {
+                if ($key === 0) {
+                    $foliosResult[] = $folio;
+                } else {
+                    while ((int) $folio->name > $previousInstrumentNumber + 1) {
+                        $foliosResult[] = [
+                            'name' => $previousInstrumentNumber + 1,
+                        ];
+                        $previousInstrumentNumber++;
                     }
+                    $foliosResult[] = $folio;
                 }
-                $book->folios = $folioAux;
-                $booksResult[] = $book;
+                $previousInstrumentNumber = (int) $folio->name;
             }
         });
-        
+
         $page = $request->input('page', 1);
         $offset = ($page - 1) * $paginate;
-        $itemsPaginados = array_slice($booksResult, $offset, $paginate);
-        $paginador = new LengthAwarePaginator($itemsPaginados, count($booksResult), $paginate, $page, [
+        $itemsPaginados = array_slice($foliosResult, $offset, $paginate);
+        $paginador = new LengthAwarePaginator($itemsPaginados, count($foliosResult), $paginate, $page, [
             'path' => $request->url(),
             'query' => $request->query(),
         ]);
 
         return $this->showList($paginador);
+    }
+
+    public function foliosCount(Book $book)
+    {
+        $folios = $book->folios()->orderBy('folio_min', 'asc')->get();
+        $foliosCount = $folios->count();
+        $foliosUnusedCount = 0;
+
+        $previousMaxFolio = 0;
+
+        foreach ($folios as $index => $currentFolio) {
+            if ($index === 0) {
+                if ($currentFolio->folio_min > $book->folio_min) {
+                    $foliosUnusedCount++;
+                }
+                $previousMaxFolio = $currentFolio->folio_max;
+            } elseif ($index === $foliosCount - 1) {
+                if ($currentFolio->folio_min > $previousMaxFolio + 1) {
+                    $foliosUnusedCount++;
+                }
+                if ($currentFolio->folio_max < $book->folio_max) {
+                    $foliosUnusedCount++;
+                }
+            } else {
+                if ($currentFolio->folio_min > $previousMaxFolio + 1) {
+                    $foliosUnusedCount++;
+                }
+                $previousMaxFolio = $currentFolio->folio_max;
+            }
+        }
+
+        return $this->showList([
+            'folios_count' => $foliosCount,
+            'folios_unused_count' => $foliosUnusedCount,
+        ]);
     }
 }
