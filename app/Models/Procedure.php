@@ -25,7 +25,7 @@ class Procedure extends Model
     const NOT_ASSIGNED = 'not assigned';
     const IN_PROCESS = 1;
     const NO_ACCEPTED = 2;
-    const ACCEPTED = 3; 
+    const ACCEPTED = 3;
 
     const TRANSFER = 1;
     const CHECK = 2;
@@ -190,27 +190,24 @@ class Procedure extends Model
 
     public function scopeAdvanceFilter($query, $filters)
     {
+        if (!empty($filters->grantor_id)) {
+            $query->whereHas('grantors', function ($query) use ($filters) {
+                $query->whereIn('grantors.id', array_column($filters->grantor_id, 'id'));
+            });
+        }
+
+        if (!empty($filters->client_id)) {
+            $query->whereIn('client_id', array_column($filters->client_id, 'id'));
+        }
+
+        if (!empty($filters->user_id)) {
+            $query->whereIn('user_id', array_column($filters->user_id, 'id'));
+        }
+
         if (!empty($filters->book)) {
-            $books = explode(',', $filters->book);
-            foreach ($books as $book) {
-                $query->where('volume', $book);
-            }
-        }
-
-        if (!empty($filters->date_min) && !empty($filters->date_max)) {
-            $date_min = Carbon::parse($filters->date_min);
-            $date_max = Carbon::parse($filters->date_max);
-            $query->whereBetween('date_proceedings', [$date_min, $date_max]);
-        }
-
-        if (!empty($filters->date_min)) {
-            $date_min = Carbon::parse($filters->date_min);
-            $query->where('date_proceedings', $filters->date_min);
-        }
-
-        if (!empty($filters->date_max)) {
-            $date_max = Carbon::parse($filters->date_max);
-            $query->where('date_proceedings', $filters->date_max);
+            $query->whereHas('folio', function ($query) use ($filters) {
+                $query->whereIn('book_id', array_column($filters->book, 'id'));
+            });
         }
 
         return $query;

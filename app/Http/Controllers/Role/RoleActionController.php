@@ -320,6 +320,7 @@ class RoleActionController extends ApiController
                 FolioController::class,
                 DocumentController::class,
                 OperationFilterController::class,
+                BookController::class,
             ],
         ],
         [

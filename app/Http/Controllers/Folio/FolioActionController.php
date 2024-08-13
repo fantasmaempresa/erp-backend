@@ -181,7 +181,7 @@ class FolioActionController extends ApiController
 
         $page = $request->input('page', 1);
         $offset = ($page - 1) * $paginate;
-        $itemsPaginados = array_slice([$book], $offset, $paginate);
+        $itemsPaginados = array_slice($folioAux, $offset, $paginate);
         $paginador = new LengthAwarePaginator($itemsPaginados, count([$book]), $paginate, $page, [
             'path' => $request->url(),
             'query' => $request->query(),
