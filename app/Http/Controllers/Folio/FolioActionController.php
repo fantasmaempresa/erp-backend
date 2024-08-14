@@ -182,7 +182,7 @@ class FolioActionController extends ApiController
         $page = $request->input('page', 1);
         $offset = ($page - 1) * $paginate;
         $itemsPaginados = array_slice($folioAux, $offset, $paginate);
-        $paginador = new LengthAwarePaginator($itemsPaginados, count([$book]), $paginate, $page, [
+        $paginador = new LengthAwarePaginator($itemsPaginados, count($folioAux), $paginate, $page, [
             'path' => $request->url(),
             'query' => $request->query(),
         ]);
@@ -195,7 +195,7 @@ class FolioActionController extends ApiController
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
         $blockSize = 150;
 
-        $folios = Folio::orderBy('name', 'asc');
+        $folios = Folio::orderBy('name', 'desc');
         $foliosResult = [];
 
         $folios->chunk($blockSize, function ($folios) use (&$foliosResult) {
@@ -229,34 +229,27 @@ class FolioActionController extends ApiController
     public function foliosCount(Book $book)
     {
         $folios = $book->folios()->orderBy('folio_min', 'asc')->get();
-        $foliosCount = $folios->count();
+        $foliosUsed = 0;
+        $foliosWithoutProcedure = 0;
         $foliosUnusedCount = 0;
 
-        $previousMaxFolio = 0;
 
-        foreach ($folios as $index => $currentFolio) {
-            if ($index === 0) {
-                if ($currentFolio->folio_min > $book->folio_min) {
-                    $foliosUnusedCount++;
-                }
-                $previousMaxFolio = $currentFolio->folio_max;
-            } elseif ($index === $foliosCount - 1) {
-                if ($currentFolio->folio_min > $previousMaxFolio + 1) {
-                    $foliosUnusedCount++;
-                }
-                if ($currentFolio->folio_max < $book->folio_max) {
-                    $foliosUnusedCount++;
+        for ($folio = $book->folio_min; $folio <= $book->folio_max; $folio++) {
+            $folioCheck = $folios->where('folio_min', '<=', $folio)->where('folio_max', '>=', $folio)->first();
+            if(!is_null($folioCheck)) {
+                if($folioCheck->procedure_id > 0) {
+                    $foliosUsed++;
+                } else {
+                    $foliosWithoutProcedure++;
                 }
             } else {
-                if ($currentFolio->folio_min > $previousMaxFolio + 1) {
-                    $foliosUnusedCount++;
-                }
-                $previousMaxFolio = $currentFolio->folio_max;
+                $foliosUnusedCount++;
             }
         }
 
         return $this->showList([
-            'folios_count' => $foliosCount,
+            'folios_used_count' => $foliosUsed,
+            'folios_without_procedure_count' => $foliosWithoutProcedure,
             'folios_unused_count' => $foliosUnusedCount,
         ]);
     }
