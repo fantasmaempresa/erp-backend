@@ -14,7 +14,7 @@ class Warehouse extends Model
         = [
             'id',
             'name',
-            'adress',
+            'address',
             'type',
             'status',
         ];
@@ -26,11 +26,11 @@ class Warehouse extends Model
         return strtoupper($value);
     }
 
-    protected function setAdressAttribute($value){
-        $this->attributes['adress'] = strtolower($value);
+    protected function setAddressAttribute($value){
+        $this->attributes['address'] = strtolower($value);
     }
     
-    protected function getAdressAttribute($value){
+    protected function getAddressAttribute($value){
         return strtoupper($value);
     }
 
@@ -62,7 +62,7 @@ class Warehouse extends Model
     {
         $rule = [
             'name' => 'required|string',
-            'adress' => 'required|string',
+            'address' => 'required|string',
             'type' => 'required|string',
             'status' => 'required|string',
         ];
