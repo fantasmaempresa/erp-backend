@@ -201,17 +201,34 @@ class FolioActionController extends ApiController
         $folios->chunk($blockSize, function ($folios) use (&$foliosResult) {
             foreach ($folios as $key => $folio) {
                 if ($key === 0) {
-                    $foliosResult[] = $folio;
+                    $foliosResult[] = [
+                        'id' => $folio->id,
+                        'name' => $folio->name,
+                        'folio_min' => $folio->folio_min,
+                        'folio_max' => $folio->folio_max,
+                        'procedure_id' => $folio->procedure_id,
+                    ];
                 } else {
-                    while ((int) $folio->name > $previousInstrumentNumber + 1) {
+
+                    while ($folio->name !== $previousInstrumentNumber - 1) {
                         $foliosResult[] = [
-                            'name' => $previousInstrumentNumber + 1,
+                            'id' => null,
+                            'name' => $previousInstrumentNumber - 1,
+                            'folio_min' => null,
+                            'folio_max' => null,
+                            'procedure_id' => null,
                         ];
-                        $previousInstrumentNumber++;
+                        $previousInstrumentNumber--;
                     }
-                    $foliosResult[] = $folio;
+                    $foliosResult[] = [
+                        'id' => $folio->id,
+                        'name' => $folio->name,
+                        'folio_min' => $folio->folio_min,
+                        'folio_max' => $folio->folio_max,
+                        'procedure_id' => $folio->procedure_id,
+                    ];
                 }
-                $previousInstrumentNumber = (int) $folio->name;
+                $previousInstrumentNumber = $folio->name;
             }
         });
 
@@ -236,8 +253,8 @@ class FolioActionController extends ApiController
 
         for ($folio = $book->folio_min; $folio <= $book->folio_max; $folio++) {
             $folioCheck = $folios->where('folio_min', '<=', $folio)->where('folio_max', '>=', $folio)->first();
-            if(!is_null($folioCheck)) {
-                if($folioCheck->procedure_id > 0) {
+            if (!is_null($folioCheck)) {
+                if ($folioCheck->procedure_id > 0) {
                     $foliosUsed++;
                 } else {
                     $foliosWithoutProcedure++;
