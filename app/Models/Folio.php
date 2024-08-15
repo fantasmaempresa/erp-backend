@@ -31,6 +31,17 @@ class Folio extends Model
             ->orWhere('folio_min', $search)
             ->orWhere('folio_max', $search);
     }
+    public function scopeAdvanceFilter($query, $filters){
+        
+        if (!empty($filters->only_errors)) {
+            $query->where('unused_folios', '<>', null);
+        }
+
+        if (!empty($filters->only_unassigned)) {
+            $query->where('procedure_id', null);
+        }
+
+    }
 
     public function procedure(){
         return $this->belongsTo(Procedure::class);

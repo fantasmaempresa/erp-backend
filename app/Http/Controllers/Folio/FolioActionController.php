@@ -79,7 +79,7 @@ class FolioActionController extends ApiController
         $newFolios = 0;
 
         foreach ($unusedFolios as $key => $unusedFolio) {
-            if (is_null($unusedFolio['date'])) {
+            if (empty($unusedFolio['date'])) {
                 $newFolios++;
                 $unusedFolios[$key]['date'] = Carbon::now()->format('Y-m-d');
             }

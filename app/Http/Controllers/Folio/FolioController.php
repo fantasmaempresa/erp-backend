@@ -21,6 +21,9 @@ class FolioController extends ApiController
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
             $query = Folio::search($request->get('search'))->with('user')->with('procedure');
         }
+        else if (!empty($request->get('superFilter'))){
+            $query = Folio::advanceFilter(json_decode($request->get('superFilter')))->with('user')->with('procedure');
+        }
         else if (!empty($request->get('view')) && $request->get('view') == 'dialog') {
             $query = Folio::where('procedure_id', null)->with('user')->with('procedure');
         } else {
