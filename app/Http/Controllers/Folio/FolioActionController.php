@@ -216,7 +216,7 @@ class FolioActionController extends ApiController
                             'name' => $previousInstrumentNumber - 1,
                             'folio_min' => null,
                             'folio_max' => null,
-                            'procedure_id' => null,
+                            'procedure_id' => -1,
                         ];
                         $previousInstrumentNumber--;
                     }
