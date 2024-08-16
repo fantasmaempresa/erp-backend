@@ -193,24 +193,18 @@ class FolioActionController extends ApiController
     public function unusedInstruments(Request $request)
     {
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+        $filter = empty($request->get('superFilter')) ? null : $request->get('superFilter');
+
         $blockSize = 150;
 
         $folios = Folio::orderBy('name', 'desc');
         $foliosResult = [];
 
-        $folios->chunk($blockSize, function ($folios) use (&$foliosResult) {
-            foreach ($folios as $key => $folio) {
-                if ($key === 0) {
-                    $foliosResult[] = [
-                        'id' => $folio->id,
-                        'name' => $folio->name,
-                        'folio_min' => $folio->folio_min,
-                        'folio_max' => $folio->folio_max,
-                        'procedure_id' => $folio->procedure_id,
-                    ];
-                } else {
-
-                    while ($folio->name !== $previousInstrumentNumber - 1) {
+        $folios->chunk($blockSize, function ($folios) use (&$foliosResult, $filter) {
+            $previousInstrumentNumber = null;
+            foreach ($folios as $folio) {
+                if ($filter === null) {
+                    while ($previousInstrumentNumber !== null && $folio->name !== $previousInstrumentNumber - 1) {
                         $foliosResult[] = [
                             'id' => null,
                             'name' => $previousInstrumentNumber - 1,
@@ -220,6 +214,7 @@ class FolioActionController extends ApiController
                         ];
                         $previousInstrumentNumber--;
                     }
+
                     $foliosResult[] = [
                         'id' => $folio->id,
                         'name' => $folio->name,
@@ -227,6 +222,25 @@ class FolioActionController extends ApiController
                         'folio_max' => $folio->folio_max,
                         'procedure_id' => $folio->procedure_id,
                     ];
+                } elseif ($filter === 'only_unassigned' && $folio->procedure_id === null) {
+                    $foliosResult[] = [
+                        'id' => $folio->id,
+                        'name' => $folio->name,
+                        'folio_min' => $folio->folio_min,
+                        'folio_max' => $folio->folio_max,
+                        'procedure_id' => $folio->procedure_id,
+                    ];
+                } elseif ($filter === 'only_errors') {
+                    while ($previousInstrumentNumber !== null && $folio->name !== $previousInstrumentNumber - 1) {
+                        $foliosResult[] = [
+                            'id' => null,
+                            'name' => $previousInstrumentNumber - 1,
+                            'folio_min' => null,
+                            'folio_max' => null,
+                            'procedure_id' => -1,
+                        ];
+                        $previousInstrumentNumber--;
+                    }
                 }
                 $previousInstrumentNumber = $folio->name;
             }
