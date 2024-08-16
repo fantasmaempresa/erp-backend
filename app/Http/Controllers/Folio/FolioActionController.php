@@ -193,17 +193,17 @@ class FolioActionController extends ApiController
     public function unusedInstruments(Request $request)
     {
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
-        $filter = empty($request->get('superFilter')) ? null : $request->get('superFilter');
+        $filters = empty($request->get('superFilter')) ? null : json_decode($request->get('superFilter'));
 
         $blockSize = 150;
 
         $folios = Folio::orderBy('name', 'desc');
         $foliosResult = [];
 
-        $folios->chunk($blockSize, function ($folios) use (&$foliosResult, $filter) {
+        $folios->chunk($blockSize, function ($folios) use (&$foliosResult, $filters) {
             $previousInstrumentNumber = null;
             foreach ($folios as $folio) {
-                if ($filter === null) {
+                if ($filters === null) {
                     while ($previousInstrumentNumber !== null && $folio->name !== $previousInstrumentNumber - 1) {
                         $foliosResult[] = [
                             'id' => null,
@@ -222,7 +222,7 @@ class FolioActionController extends ApiController
                         'folio_max' => $folio->folio_max,
                         'procedure_id' => $folio->procedure_id,
                     ];
-                } elseif ($filter === 'only_unassigned' && $folio->procedure_id === null) {
+                } elseif (!empty($filters->only_unassigned) && $folio->procedure_id === null) {
                     $foliosResult[] = [
                         'id' => $folio->id,
                         'name' => $folio->name,
@@ -230,7 +230,7 @@ class FolioActionController extends ApiController
                         'folio_max' => $folio->folio_max,
                         'procedure_id' => $folio->procedure_id,
                     ];
-                } elseif ($filter === 'only_errors') {
+                } elseif (!empty($filters->only_errors)) {
                     while ($previousInstrumentNumber !== null && $folio->name !== $previousInstrumentNumber - 1) {
                         $foliosResult[] = [
                             'id' => null,
