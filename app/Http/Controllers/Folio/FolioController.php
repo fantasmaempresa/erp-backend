@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Folio;
 
 use App\Http\Controllers\ApiController;
 use App\Models\Folio;
-use Illuminate\Http\Request;
+use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class FolioController extends ApiController
 {
@@ -116,8 +117,21 @@ class FolioController extends ApiController
      */
     public function destroy(Folio $folio)
     {
+        $user = Auth::user();
+
+        if($user->role_id != Role::$ADMIN){
+            return $this->errorResponse('No tiene permisos para realizar esta accion', 422);
+        }
+
+        if($folio->procedure_id != null){
+            
+            return $this->errorResponse('No se puede eliminar un folio asociado a un proceso', 422);
+        }
+        
         $folio->delete();
 
         return $this->showMessage('Record deleted successfully');
     }
+
+    
 }

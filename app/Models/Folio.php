@@ -70,7 +70,7 @@ class Folio extends Model
             $rules['name'] = ['required', Rule::unique('folios')->ignore($id)];
             $rules['folio_min'] = ['required', Rule::unique('folios')->ignore($id)];
             $rules['folio_max'] = ['required', Rule::unique('folios')->ignore($id)];
-            $rules['procedure_id'] = ['required', Rule::unique('folios')->ignore($id)];
+            $rules['procedure_id'] = ['nullable', Rule::unique('folios')->ignore($id)];
         }
 
         return $rules;

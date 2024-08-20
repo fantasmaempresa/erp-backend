@@ -70,6 +70,7 @@ use App\Http\Controllers\WorkArea\WorkAreaController;
 use App\Http\Controllers\Line\LineController;
 use App\Http\Controllers\Article\ArticleController;
 use App\Http\Controllers\Book\BookController;
+use App\Http\Controllers\Document\DocumentActionControler;
 use App\Http\Controllers\Folio\FolioActionController;
 use App\Http\Controllers\Folio\FolioController;
 use App\Http\Controllers\Inventory\InventoryController;
@@ -109,6 +110,7 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('clientDocuments', ClientDocumentController::class, ['except' => ['create', 'edit']]);
     Route::resource('documentLink', DocumentLinkController::class, ['except' => ['create', 'edit']]);
     Route::post('documentLink/updateAlternative', [DocumentLinkController::class, 'updateAlternative']);
+    Route::get('documentLink/filter/getAppendix', [DocumentActionControler::class, 'getAppendix']);
     Route::resource('concepts', ConceptController::class, ['except' => ['create', 'edit']]);
     Route::resource('statusQuotes', StatusQuoteController::class, ['except' => ['create', 'edit']]);
     Route::resource('clientLinks', ClientLinkController::class, ['except' => 'create', 'edit']);
@@ -254,6 +256,7 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::get('folio/unused/{book}', [FolioActionController::class, 'unusedFolios']);
     Route::get('folio/unused/count/{book}', [FolioActionController::class, 'foliosCount']);
     Route::get('folio/instrument/unused', [FolioActionController::class, 'unusedInstruments']);
+    Route::get('folio/procedure/unused/{folio}', [FolioActionController::class, 'unsetProcedure']);
 });
 
 

@@ -9,6 +9,8 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use App\Models\Role;
+use Illuminate\Support\Facades\Auth;
 
 class FolioActionController extends ApiController
 {
@@ -283,5 +285,17 @@ class FolioActionController extends ApiController
             'folios_without_procedure_count' => $foliosWithoutProcedure,
             'folios_unused_count' => $foliosUnusedCount,
         ]);
+    }
+
+    public function unsetProcedure(Folio $folio){
+        
+        $user = Auth::user();
+
+        if($user->role_id != Role::$ADMIN){
+            return $this->errorResponse('No tiene permisos para realizar esta accion', 422);
+        }
+
+        $folio->procedure_id = null;
+        $folio->save();
     }
 }

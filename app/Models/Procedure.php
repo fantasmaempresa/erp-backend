@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 /**
@@ -157,6 +158,14 @@ class Procedure extends Model
     public function folio()
     {
         return $this->hasOne(Folio::class)->with('book');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function vulnerableOperation(): HasOne
+    {
+        return $this->hasOne(VulnerableOperation::class);
     }
 
 
