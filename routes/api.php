@@ -76,6 +76,7 @@ use App\Http\Controllers\Inventory\InventoryController;
 use App\Http\Controllers\Warehouse\WarehouseController;
 use App\Http\Controllers\OfficeSecurityMeasures\OfficeSecurityMeasuresController;
 use App\Http\Controllers\MovementTracking\MovementTrackingController;
+use App\Http\Controllers\Procedure\ProcedureReportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -254,6 +255,9 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::get('folio/unused/{book}', [FolioActionController::class, 'unusedFolios']);
     Route::get('folio/unused/count/{book}', [FolioActionController::class, 'foliosCount']);
     Route::get('folio/instrument/unused', [FolioActionController::class, 'unusedInstruments']);
+
+    //FOLIO REPORT
+    Route::get('procedure/report/controlFolio', [ProcedureReportController::class, 'folioContol']);
 });
 
 

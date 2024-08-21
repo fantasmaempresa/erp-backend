@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FOLIO_CONTROL" pageWidth="1008" pageHeight="612" orientation="Landscape" columnWidth="968" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" uuid="60ecd6c5-1776-4005-b8f2-4fb350f662ba">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="FOLIO_CONTROL\daFolio.xml"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<queryString language="JSON">
+		<![CDATA[]]>
+	</queryString>
+	<field name="instrument" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="instrument"/>
+		<fieldDescription><![CDATA[instrument]]></fieldDescription>
+	</field>
+	<field name="date" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="date"/>
+		<fieldDescription><![CDATA[date]]></fieldDescription>
+	</field>
+	<field name="book" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="book"/>
+		<fieldDescription><![CDATA[book]]></fieldDescription>
+	</field>
+	<field name="folios" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="folios"/>
+		<fieldDescription><![CDATA[folios]]></fieldDescription>
+	</field>
+	<field name="grantor" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="grantor"/>
+		<fieldDescription><![CDATA[grantor]]></fieldDescription>
+	</field>
+	<field name="operations" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="operations"/>
+		<fieldDescription><![CDATA[operations]]></fieldDescription>
+	</field>
+	<field name="canceled_folios" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="canceled_folios"/>
+		<fieldDescription><![CDATA[canceled_folios]]></fieldDescription>
+	</field>
+	<field name="canceled_folios_users" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="canceled_folios_users"/>
+		<fieldDescription><![CDATA[canceled_folios_users]]></fieldDescription>
+	</field>
+	<field name="record" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="record"/>
+		<fieldDescription><![CDATA[record]]></fieldDescription>
+	</field>
+	<field name="registration" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="registration"/>
+		<fieldDescription><![CDATA[registration]]></fieldDescription>
+	</field>
+	<title>
+		<band height="116" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="970" height="20" uuid="458073e7-1360-461a-9a19-ec063525eec4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Libro de control de Folios o Índice]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="970" height="20" uuid="c28492d8-2692-43f0-bd5e-fa1e37d08620"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Notaria Pública No. 4]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="39" width="970" height="20" uuid="4a229631-d81f-4737-9e9d-534939ca7891"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lic. Norma Romero Cortes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="59" width="970" height="20" uuid="1e0b0a20-bf77-4318-b282-d5f0b37dd6e7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Puebla, Puebla.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="800" y="90" width="170" height="20" uuid="426bfaa0-4b0f-4c3c-9333-184f6474674f">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de Operación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="560" y="90" width="240" height="20" uuid="f6f3debd-95bd-41cd-84d6-01b23e5a8c0d">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Otorgante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="170" y="91" width="70" height="20" uuid="52df6e89-21fb-4236-a084-c3dfb6263605">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Folios]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="90" width="50" height="20" uuid="24f56fa5-a1d6-4ae9-8a49-81ae7b3587dd">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Libro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="65" y="90" width="55" height="20" uuid="77306b73-db07-4418-b4b4-ccf6e8c388fa">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="90" width="65" height="20" uuid="f3a18f8c-1477-4e24-b31c-68d1665653f1">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Instrumento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="91" width="100" height="20" uuid="392f7138-9dd1-4458-a9c4-83b7efcf8b0a">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Folios cancelados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="91" width="100" height="20" uuid="813d54d8-e293-43e4-b932-8d2fd47d9955">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Usuarios]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="91" width="60" height="20" uuid="52fe7ab6-f9a6-4315-aeaa-df9852fa45ce">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Expediente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="500" y="91" width="60" height="20" uuid="0ae625f5-db82-46dc-abdf-eef3dd347ef6">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Registro]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="36" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="65" height="30" uuid="f416ef1b-b45a-40f4-b9e1-e08f680c0015">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ddbe8cf9-3214-45e2-8fb8-c117fb54f24f"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{instrument}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="65" y="0" width="55" height="30" uuid="be97aec7-0128-4cf7-b052-beb24ecf194a"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="0" width="50" height="30" uuid="4dc4a18d-3d14-4c5f-b8ca-ce67c6ad0a92"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{book}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="0" width="70" height="30" uuid="cdace1cc-52d3-4ade-bf60-73a8d9343b76"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{folios}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="560" y="0" width="240" height="30" uuid="82b193c5-d137-4206-a763-b42b5fe37f4d"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{grantor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="800" y="0" width="170" height="30" uuid="f24cc592-e927-4707-8835-2ea1222be11f"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{operations}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="0" width="100" height="30" uuid="af388215-c9fc-4486-a521-37258f7c6c09"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{canceled_folios}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="0" width="100" height="30" uuid="be0f5892-9772-4830-bd5a-36e2fa1d6e97"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{canceled_folios_users}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="0" width="60" height="30" uuid="d50e75e4-3542-4562-917c-f5b6d8c3fc26"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{record}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="500" y="0" width="60" height="30" uuid="b2aee9d8-c3d6-4ff5-8d8f-3ea3e1541379"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{registration}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
