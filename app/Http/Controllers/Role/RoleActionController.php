@@ -35,6 +35,7 @@ use App\Http\Controllers\Place\PlaceController;
 use App\Http\Controllers\Procedure\ProcedureActionController;
 use App\Http\Controllers\Procedure\ProcedureController;
 use App\Http\Controllers\Procedure\ProcedureFilterController;
+use App\Http\Controllers\Procedure\ProcedureReportController;
 use App\Http\Controllers\Procedure\ProcedureValidatorsController;
 use App\Http\Controllers\Procedure\RegistrationProcedureDataController;
 use App\Http\Controllers\ProcedureComment\ProcedureCommentController;
@@ -296,6 +297,11 @@ class RoleActionController extends ApiController
                     'route' => './proceduresVulnerableOperations',
                     'icon' => 'campaign',
                 ],
+                [
+                    'label' => 'Reportes',
+                    'route' => './reports',
+                    'icon' => 'summarize',
+                ],
             ],
             'controllers' => [
                 ShapeController::class,
@@ -321,6 +327,7 @@ class RoleActionController extends ApiController
                 DocumentController::class,
                 OperationFilterController::class,
                 BookController::class,
+                ProcedureReportController::class,
             ],
         ],
         [
