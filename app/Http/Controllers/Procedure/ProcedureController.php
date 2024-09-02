@@ -139,15 +139,18 @@ class ProcedureController extends ApiController
      */
     public function show(Procedure $procedure)
     {
-        foreach ($procedure->grantors as $grantor) {
-            $grantor->stake_id = $grantor->pivot->stake_id;
-            $grantor->grantor_id = $grantor->id;
-        }
         $procedure->documents;
         $procedure->operations;
         $procedure->load('operations.categoryOperation');
         $procedure->load('folio.book');
-
+        $procedure->load('grantors.grantorProcedure.stake');
+        $procedure->grantors->map(function ($grantor) {
+            $grantor->stake_id = $grantor->pivot->stake_id;
+            $grantor->grantor_id = $grantor->id;
+            $grantor->stake = Stake::find($grantor->pivot->stake_id);
+            return $grantor;
+        });
+        
         return $this->showOne($procedure);
     }
 
