@@ -74,6 +74,7 @@ use App\Http\Controllers\Folio\FolioActionController;
 use App\Http\Controllers\Folio\FolioController;
 use App\Http\Controllers\Inventory\InventoryController;
 use App\Http\Controllers\Inventory\InventoryActionController;
+use App\Http\Controllers\Inventory\InventoryFilterController;
 use App\Http\Controllers\Warehouse\WarehouseController;
 use App\Http\Controllers\OfficeSecurityMeasures\OfficeSecurityMeasuresController;
 use App\Http\Controllers\MovementTracking\MovementTrackingController;
@@ -241,6 +242,8 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::post('inventory/action/addArticleToInventory', [InventoryActionController::class, 'addArticleToInventory']);
     Route::post('inventory/action/removeArticleFromInventory', [InventoryActionController::class, 'removeArticleFromInventory']);
     Route::post('inventory/action/inventoryWarehouseItemTransfer', [InventoryActionController::class, 'inventoryWarehouseItemTransfer']);
+
+    Route::get('inventory/filter/getWarehouseInventory', [InventoryFilterController::class , 'getWarehouseInventory']);
     
     Route::resource('article',ArticleController::class);
     Route::resource('warehouse', WarehouseController::class);

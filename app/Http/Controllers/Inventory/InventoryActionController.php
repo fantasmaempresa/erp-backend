@@ -6,6 +6,7 @@ use App\Http\Controllers\ApiController;
 use App\Models\Inventory;
 use App\Models\Article;
 use App\Models\OfficeSecurityMeasures;
+use App\Models\MovementTracking;
 
 use Illuminate\Http\Request;
 
@@ -19,9 +20,11 @@ class InventoryActionController extends ApiController
 
         if(!$inventoryEntry){
             $this->newInventoryEntry($request->input('article_id') , $request->input('warehouse_id') , $request->input('amount'));
+            $this->newMovementTrackingEntry($request->input('article_id'), $request->input('warehouse_id'), $request->input('amount'), "Article Added");
         } else {
             $inventoryEntry->amount += $request->input('amount');
             $inventoryEntry->save();
+            $this->newMovementTrackingEntry($request->input('article_id'), $request->input('warehouse_id'), $request->input('amount'), "Article Added");
         }
 
         return $this->showMessage('Article added successfully');
@@ -98,5 +101,25 @@ class InventoryActionController extends ApiController
         $newWarehouseArticle->warehouse_id = $warehouse_id;
         $newWarehouseArticle->amount = $amount;
         $newWarehouseArticle->save();
+    }
+
+    private function newMovementTrackingEntry($article_id, $warehouse_id, $amount, $reason){
+        $newMovementTrackingEntry = new MovementTracking();
+        $newMovementTrackingEntry->article_id = $article_id;
+        $newMovementTrackingEntry->warehouse_id = $warehouse_id;
+        $newMovementTrackingEntry->amount = $amount;
+        $newMovementTrackingEntry->reason = $reason;
+        $newMovementTrackingEntry->save();
+    }
+
+    private function newOfficeSecurityMeasuresEntry($staff_id, $article_id, $acquisition_date ,$return_date ,$acquisition_comments ,$return_comments){
+        $newOfficeSecurityMeasure = new OfficeSecurityMeasure();
+        $newOfficeSecurityMeasure->staff_id = $staff_id;
+        $newOfficeSecurityMeasure->article_id = $article_id;
+        $newOfficeSecurityMeasure->acquisition_date = $acquisition_date;
+        $newOfficeSecurityMeasure->return_date = $return_date;
+        $newOfficeSecurityMeasure->acquisition_comments = $acquisition_comments;
+        $newOfficeSecurityMeasure->return_comments = $return_comments;
+        $newOfficeSecurityMeasure->save();
     }
 }
