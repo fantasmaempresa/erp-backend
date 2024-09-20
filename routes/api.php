@@ -77,6 +77,7 @@ use App\Http\Controllers\Inventory\InventoryActionController;
 use App\Http\Controllers\Inventory\InventoryFilterController;
 use App\Http\Controllers\Warehouse\WarehouseController;
 use App\Http\Controllers\OfficeSecurityMeasures\OfficeSecurityMeasuresController;
+use App\Http\Controllers\OfficeSecurityMeasures\OfficeSecurityMeasuresFilterController;
 use App\Http\Controllers\MovementTracking\MovementTrackingController;
 use Illuminate\Support\Facades\Route;
 
