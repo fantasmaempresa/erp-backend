@@ -239,16 +239,18 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('line', LineController::class);
     Route::resource('inventory',InventoryController::class);
 
-    Route::post('inventory/action/addArticleToInventory', [InventoryActionController::class, 'addArticleToInventory']);
-    Route::post('inventory/action/removeArticleFromInventory', [InventoryActionController::class, 'removeArticleFromInventory']);
-    Route::post('inventory/action/inventoryWarehouseItemTransfer', [InventoryActionController::class, 'inventoryWarehouseItemTransfer']);
-
+    Route::post('inventory/action/initialInventory', [InventoryActionController::class, 'initialInventory']);
+    Route::post('inventory/action/purchase', [InventoryActionController::class, 'purchase']);
+    Route::post('inventory/action/sale', [InventoryActionController::class, 'sale']);
+    Route::post('inventory/action/warehouseTransfer', [InventoryActionController::class, 'warehouseTransfer']);
     Route::get('inventory/filter/getWarehouseInventory', [InventoryFilterController::class , 'getWarehouseInventory']);
     
     Route::resource('article',ArticleController::class);
     Route::resource('warehouse', WarehouseController::class);
     Route::resource('movementTracking', MovementTrackingController::class);
+
     Route::resource('officeSecurityMeasures', OfficeSecurityMeasuresController::class);
+    Route::get('officeSecurityMeasures/filter/getStaffOfficeSecurityMeasures', OfficeSecurityMeasuresFilterController::class, 'getStaffOfficeSecurityMeasures');
 
     //RECOMMENDATIONS INSTRUMENT AND FOLIO
     Route::get('procedures/recommendation/expedient', [ProcedureActionController::class, 'expedientRecommendation']);

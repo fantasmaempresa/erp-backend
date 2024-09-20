@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Inventory;
 
 use App\Http\Controllers\ApiController;
 use App\Models\Inventory;
-use App\Models\Article;
 use App\Models\OfficeSecurityMeasures;
 
 use Illuminate\Http\Request;
