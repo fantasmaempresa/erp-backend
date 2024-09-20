@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Inventory;
+namespace App\Http\Controllers\OfficeSecurityMeasures;
 
 use App\Http\Controllers\ApiController;
 use App\Models\Staff;
-use App\Models\Article;
-use App\Models\Warehouse;
 use App\Models\OfficeSecurityMeasures;
 use App\Models\MovementTracking;
 

@@ -251,7 +251,7 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('movementTracking', MovementTrackingController::class);
 
     Route::resource('officeSecurityMeasures', OfficeSecurityMeasuresController::class);
-    Route::get('officeSecurityMeasures/filter/getStaffOfficeSecurityMeasures', OfficeSecurityMeasuresFilterController::class, 'getStaffOfficeSecurityMeasures');
+    Route::get('officeSecurityMeasures/filter/getStaffOfficeSecurityMeasures', [OfficeSecurityMeasuresFilterController::class, 'getStaffOfficeSecurityMeasures']);
 
     //RECOMMENDATIONS INSTRUMENT AND FOLIO
     Route::get('procedures/recommendation/expedient', [ProcedureActionController::class, 'expedientRecommendation']);
