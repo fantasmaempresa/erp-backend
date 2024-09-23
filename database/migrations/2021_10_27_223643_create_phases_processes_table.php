@@ -28,6 +28,7 @@ class CreatePhasesProcessesTable extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->json('form');
+            $table->tinyInteger('type_form');
             $table->boolean('payments')->default(\App\Models\PhasesProcess::$noPayment);
             $table->boolean('notification')->default(\App\Models\PhasesProcess::$noNotification);
             $table->timestamps();

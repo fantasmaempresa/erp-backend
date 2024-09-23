@@ -39,29 +39,30 @@ class Project extends Model
         'id',
         'name',
         'description',
-        'estimate_end_date',
-        'folio',
         'config',
         'finished',
         'user_id',
         'client_id',
-        'procedure_id',
         'project_quote_id',
     ];
 
-    protected function setNameAttribute($value){
+    protected function setNameAttribute($value)
+    {
         $this->attributes['name'] = strtolower($value);
     }
-    
-    protected function getNameAttribute($value){
+
+    protected function getNameAttribute($value)
+    {
         return strtoupper($value);
     }
 
-    protected function setDescriptionAttribute($value){
+    protected function setDescriptionAttribute($value)
+    {
         $this->attributes['description'] = strtolower($value);
     }
-    
-    protected function getDescriptionAttribute($value){
+
+    protected function getDescriptionAttribute($value)
+    {
         return strtoupper($value);
     }
 
@@ -84,14 +85,11 @@ class Project extends Model
         return [
             'name' => 'required|string',
             'description' => 'nullable|string',
-            'estimate_end_date' => 'nullable|date',
             'quotes' => 'nullable|array',
-            'folio' => 'nullable|string',
             'project_quote_id' => 'required|int',
             'config' => 'required|array',
-//            'user_id' => 'required|int',
+            // 'user_id' => 'required|int',
             'client_id' => 'nullable|int',
-            'procedure_id' => 'required|int',
         ];
     }
 
@@ -156,7 +154,7 @@ class Project extends Model
      */
     public function processProject(): HasMany
     {
-//        return $this->hasManyThrough(DetailProjectProcessProject::class, ProcessProject::class);
+        //        return $this->hasManyThrough(DetailProjectProcessProject::class, ProcessProject::class);
         return $this->hasMany(ProcessProject::class);
     }
 
