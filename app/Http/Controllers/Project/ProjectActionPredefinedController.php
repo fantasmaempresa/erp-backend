@@ -14,7 +14,8 @@ class ProjectActionPredefinedController extends ApiController
         'DomainTransfer' => DomainTransferController::class,
     ];
 
-    public function executePhase(Project $project, Process $process, Request $request) {
+    public function executePhase(Project $project, Process $process, Request $request)
+    {
         $this->validate($request, [
             'nameProcess' => 'required|string',
             'namePhase' => 'required|string',
@@ -24,7 +25,7 @@ class ProjectActionPredefinedController extends ApiController
         if (!isset($this->PROCESS_PREDEFINED[$request->get('nameProcess')])) {
             return $this->errorResponse('Processo no encontrado', 404);
         }
-        
+
         $classDispacher = $this->PROCESS_PREDEFINED[$request->get('nameProcess')];
         $dispatcher = new $classDispacher;
 
@@ -34,10 +35,18 @@ class ProjectActionPredefinedController extends ApiController
 
         $this->validate($request, $dispatcher->getValidatorRequestPhase('namePhase'));
 
-        return $dispatcher->executePhase($request->get('namePhase'), [$project, $process, $request->get('data')]);
+        return $dispatcher->executePhase(
+            $request->get('namePhase'),
+            [
+                'project' => $project,
+                'process' => $process,
+                'data' => $request->get('data')
+            ]
+        );
     }
 
-    public function getStructureFormat(Project $project, Process $process, Request $request) {
+    public function getStructureFormat(Project $project, Process $process, Request $request)
+    {
         $this->validate($request, [
             'nameProcess' => 'required|string',
             'namePhase' => 'required|string',

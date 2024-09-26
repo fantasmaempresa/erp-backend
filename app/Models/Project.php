@@ -42,7 +42,9 @@ class Project extends Model
         'config',
         'finished',
         'user_id',
+        'staff_id',
         'client_id',
+        'procedure_id',
         'project_quote_id',
     ];
 
@@ -88,7 +90,7 @@ class Project extends Model
             'quotes' => 'nullable|array',
             'project_quote_id' => 'required|int',
             'config' => 'required|array',
-            // 'user_id' => 'required|int',
+            'staff_id' => 'required|int',
             'client_id' => 'nullable|int',
         ];
     }
@@ -156,6 +158,10 @@ class Project extends Model
     {
         //        return $this->hasManyThrough(DetailProjectProcessProject::class, ProcessProject::class);
         return $this->hasMany(ProcessProject::class);
+    }
+
+    public function staff(){    
+        return $this->belongsTo(Staff::class);
     }
 
 
