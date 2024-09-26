@@ -6,7 +6,7 @@ use App\Http\Controllers\ApiController;
 use App\Models\Procedure;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Auth;
 
 class DomainTransferController extends ApiController
 {
@@ -66,27 +66,36 @@ class DomainTransferController extends ApiController
 
     public function startProject(array $args)
     {
-
-        $procedure = new Procedure($args);
-        $procedure->status = Procedure::NO_ACCEPTED;
+        $data = $args['data'];
+        $procedure = new Procedure($data);
+        $procedure->status = Procedure::IN_PROCESS;
         $procedure->date = Carbon::now();
-
+        $procedure->client_id = $args['project']->client_id;
+        $procedure->staff_id = $args['project']->staff_id;
+        $procedure->user_id = Auth::id();
+        DB::begintransaction();
         try {
-            if (!empty($args['grantors'])) {
-                foreach ($args['grantors'] as $item) {
+            $procedure->save();
+            if (!empty($data['grantors'])) {
+                foreach ($data['grantors'] as $item) {
                     $procedure->grantors()->attach($item['grantor']['id'], ['stake_id' => $item['stake']['id']]);
                 }
             }
-
-            foreach ($args['operations'] as $operation) {
-                $procedure->operations()->attach($operation['id']);
+            
+            foreach ($data['operations'] as $operation) {
+                $procedure->operations()->attach($operation);
+                // $procedure->operations()->attach($operation['id']); //regresar cuando se haga el fix
             }
 
+            $args['project']->procedure_id = $procedure->id;
+            $args['project']->save();
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
             return $this->errorResponse('error al almacenar información --> ' . $e->getMessage(), 409);
         }
+
+        return $this->showOne($procedure);
     }
 
     public function generateFirstPreventiveNotice(array $args) {}

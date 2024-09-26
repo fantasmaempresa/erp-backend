@@ -42,6 +42,8 @@ DROP COLUMN procedure_id;
             $table->boolean('finished')->default(\App\Models\Project::$UNFINISHED);
             // $table->foreignId('procedure_id')->constrained(); //trámite
             $table->foreignId('user_id')->constrained(); //Usuario quien inicio el proyecto
+            $table->foreignId('staff_id')->constrained(); //Persona responsable del proyecto
+            $table->foreignId('procedure_id')->nullable()->constrained(); //Persona responsable del proyecto
             $table->foreignId('client_id')->nullable()->constrained();
             $table->foreignId('project_quote_id')->nullable()->constrained();
             $table->timestamps();
