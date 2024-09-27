@@ -76,6 +76,11 @@ class RegistrationProcedureDataController extends ApiController
     {
         $this->validate($request, RegistrationProcedureData::rules());
         $registrationProcedureData = new RegistrationProcedureData($request->all());
+        $registrationProcedureData->data = json_decode($request->get('data'), true);
+
+        if (RegistrationProcedureData::validateData($registrationProcedureData->data)){
+            return $this->errorResponse('la información no puede ser guardada, verifique los datos de registro', 422);
+        }
 
         DB::begintransaction();
 
@@ -124,6 +129,11 @@ class RegistrationProcedureDataController extends ApiController
     {
         $this->validate($request, RegistrationProcedureData::rules());
         $registrationProcedureData->fill($request->all());
+        $registrationProcedureData->data = json_decode($request->get('data'), true);
+
+        if (RegistrationProcedureData::validateData($registrationProcedureData->data)){
+            return $this->errorResponse('la información no puede ser guardada, verifique los datos de registro', 422);
+        }
         $registrationProcedureData->date = Carbon::parse($registrationProcedureData->date);
         $registrationProcedureData->user_id = Auth::id();
         

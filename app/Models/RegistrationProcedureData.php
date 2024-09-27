@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Validator;
 
 class RegistrationProcedureData extends Model
 {
@@ -21,11 +22,16 @@ class RegistrationProcedureData extends Model
         'folio_electronic_merchant',
         'nci',
         'description',
+        'data',
         'url_file',
         'document_id',
         'procedure_id',
         'place_id',
         'user_id',
+    ];
+
+    protected $casts = [
+        'data' => 'array',
     ];
 
     /**
@@ -94,9 +100,38 @@ class RegistrationProcedureData extends Model
             'folio_electronic_merchant' => 'nullable|string',
             'description' => 'nullable|string',
             'nci' => 'nullable|string',
+            'data' => 'required|json',
             'procedure_id' => 'required|exists:procedures,id',
             'place_id' => 'required|exists:procedures,id',
             'document_id' => 'nullable|exists:documents,id',
         ];
+    }
+
+    static function validateData(array $data)
+    {
+        $rules = [
+            '*.inscription' => 'nullable|string',
+            '*.sheets' => 'nullable|string',
+            '*.took' => 'nullable|string',
+            '*.book' => 'nullable|string',
+            '*.departure' => 'nullable|string',
+            '*.folio_real_estate' => 'nullable|string',
+            '*.folio_electronic_merchant' => 'nullable|string',
+            '*.nci' => 'nullable|string',
+        ];
+
+        $messages = [
+            '*.required' => 'El campo :attribute es obligatorio.',
+            '*.integer' => 'El campo :attribute debe ser un número entero.',
+            '*.string' => 'El campo :attribute debe ser una cadena de texto.',
+        ];
+
+        $validator = Validator::make($data, $rules, $messages);
+
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+
+        return false;
     }
 }

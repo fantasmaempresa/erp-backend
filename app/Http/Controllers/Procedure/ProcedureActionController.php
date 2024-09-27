@@ -38,7 +38,7 @@ class ProcedureActionController extends ApiController
         $lastExpedients = Procedure::where('user_id', '<>', 6)->orderBy('id', 'desc')->get();
         $auxExpediente =  new Procedure();
         foreach ($lastExpedients as $lastExpedient) {
-            if((int)$lastExpedient->name > (int)$auxExpediente->name)
+            if ((int)$lastExpedient->name > (int)$auxExpediente->name)
                 $auxExpediente = $lastExpedient;
         }
 
@@ -49,4 +49,27 @@ class ProcedureActionController extends ApiController
         return $this->showList($recomendedExpedient);
     }
 
+    public function notPassedExpedient(Request $request)
+    {
+        $this->validate($request, [
+            "id" => "required|exists:procedures,id",
+            "description" => "required|string",
+        ]);
+
+        $procedure =  Procedure::findOrFail($request->get('id'));
+        $procedure->load('folio');
+        if ($procedure->status === Procedure::NO_ACCEPTED){
+            return $this->errorResponse('El expediente ya fue cancelado', 422);
+        }
+
+        if ($procedure->folio){
+            return $this->errorResponse('No se puede cancelar un expediente con un instrumento asignado', 422);
+        }
+
+        $procedure->status = Procedure::NO_ACCEPTED;
+        $procedure->observation = $procedure->observation . "\n --- NO PASO: " . $request->get('description') . ' --- ';
+        $procedure->save();
+
+        return $this->showOne($procedure);
+    }
 }

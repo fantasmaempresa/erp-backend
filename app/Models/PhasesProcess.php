@@ -8,9 +8,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Validation\Rule;
+
 
 /**
  * @access  public
@@ -19,16 +18,19 @@ use Illuminate\Validation\Rule;
  */
 class PhasesProcess extends Model
 {
+
+    /* */
     public static bool $notification = true;
     public static bool $noNotification = false;
-
-//    public static bool $supervision = true;
-//    public static bool $noSupervision = false;
 
     public static bool $payment = true;
     public static bool $noPayment = false;
 
+    public static int $TYPE_PHASE_CREATE_FORM = 1;
+    public static int $TYPE_PHASE_PREDEFINED_FORM = 2;
+
     /**
+     * 
      * The attributes that are mass assignable.
      *
      * @var string[]
@@ -39,27 +41,32 @@ class PhasesProcess extends Model
         'name',
         'description',
         'form',
+        'type_form',
         'payments',
         'notification',
         'supervision',
     ];
 
-    protected function setNameAttribute($value){
+    protected function setNameAttribute($value)
+    {
         $this->attributes['name'] = strtolower($value);
     }
-    
-    protected function getNameAttribute($value){
+
+    protected function getNameAttribute($value)
+    {
         return strtoupper($value);
     }
 
-    protected function setDescriptionAttribute($value){
+    protected function setDescriptionAttribute($value)
+    {
         $this->attributes['description'] = strtolower($value);
     }
-    
-    protected function getDescriptionAttribute($value){
+
+    protected function getDescriptionAttribute($value)
+    {
         return strtoupper($value);
     }
-    
+
 
     /**
      * The attributes that should be cast.
@@ -77,13 +84,18 @@ class PhasesProcess extends Model
      */
     public static function rules(): array
     {
+        $allowedTypes = [
+            self::$TYPE_PHASE_CREATE_FORM,
+            self::$TYPE_PHASE_PREDEFINED_FORM
+        ];
+
         return [
             'name' => 'required|string',
             'description' => 'nullable|string',
             'form' => 'required|array',
             'payments' => 'nullable|bool',
             'notification' => 'nullable|bool',
-//            'supervision' => 'nullable|bool',
+            'type_form' => 'required|int',
         ];
     }
 
@@ -94,13 +106,4 @@ class PhasesProcess extends Model
     {
         return $this->belongsToMany(Process::class);
     }
-
-    /**
-     * @return BelongsToMany
-     */
-//    public function roles(): BelongsToMany
-//    {
-//        return $this->belongsToMany(Role::class);
-//    }
-
 }

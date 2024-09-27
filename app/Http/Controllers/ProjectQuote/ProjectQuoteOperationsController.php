@@ -9,8 +9,6 @@ namespace App\Http\Controllers\ProjectQuote;
 
 use App\Http\Controllers\ApiController;
 use App\Models\Concept;
-use App\Models\ProjectQuote;
-use Dflydev\DotAccessData\Data;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -121,7 +119,7 @@ class ProjectQuoteOperationsController extends ApiController
                 foreach ($opTotal as $field) {
                     $result['operation_total']['subtotal'] = $total;
                     if (!isset($result['operation_total']['total'])) {
-                        $result['operation_total']['total'] = $total;
+                        $result['operation_total']['total'] = 0;
                     }
                     if (empty($field['concepts'])) {
                         $result['operation_total']['description'][] = null;

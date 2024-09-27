@@ -27,10 +27,20 @@ class Folio extends Model
 
     public function scopeSearch($query, $search): mixed
     {
-        return $query->orWhere('name', 'like', "%$search%")
+        return $query->orWhere('name', $search)
             ->orWhere('folio_min', $search)
-            ->orWhere('folio_max', $search)
-            ->orWhere('date_proceedings', $search);
+            ->orWhere('folio_max', $search);
+    }
+    public function scopeAdvanceFilter($query, $filters){
+        
+        if (!empty($filters->only_errors)) {
+            $query->where('unused_folios', '<>', null);
+        }
+
+        if (!empty($filters->only_unassigned)) {
+            $query->where('procedure_id', null);
+        }
+
     }
 
     public function procedure(){
@@ -60,7 +70,7 @@ class Folio extends Model
             $rules['name'] = ['required', Rule::unique('folios')->ignore($id)];
             $rules['folio_min'] = ['required', Rule::unique('folios')->ignore($id)];
             $rules['folio_max'] = ['required', Rule::unique('folios')->ignore($id)];
-            $rules['procedure_id'] = ['required', Rule::unique('folios')->ignore($id)];
+            $rules['procedure_id'] = ['nullable', Rule::unique('folios')->ignore($id)];
         }
 
         return $rules;

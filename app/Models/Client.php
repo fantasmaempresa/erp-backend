@@ -197,6 +197,11 @@ class Client extends Model
         return $this->belongsToMany(Document::class)->withTimestamps();
     }
 
+    public function clientLink(): HasMany
+    {
+        return $this->hasMany(ClientLink::class);
+    }
+
     /**
      * @param $query
      * @param $search

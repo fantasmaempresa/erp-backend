@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Procedure;
 use App\Http\Controllers\ApiController;
 use App\Models\Folio;
 use App\Models\Procedure;
+use App\Models\Role;
 use App\Models\Stake;
 use Carbon\Carbon;
-use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -66,7 +66,6 @@ class ProcedureController extends ApiController
         return $this->showList($procedures);
     }
 
-
     /**
      * Store a newly created resource in storage.
      *
@@ -97,17 +96,19 @@ class ProcedureController extends ApiController
                     $folio->procedure_id = $procedure->id;
                     $folio->save();
                 }
+                $procedure->status = Procedure::ACCEPTED;
             }
 
             //Agregar otrogantes
             if (!empty($request->get('grantors'))) {
-                foreach ($request->get('grantors') as $grantor) {
-                    $procedure->grantors()->attach($grantor['grantor_id'], ['stake_id' => $grantor['stake_id']]);
+                foreach ($request->get('grantors') as $item) {
+                    
+                    $procedure->grantors()->attach($item['grantor']['id'], ['stake_id' => $item['stake']['id']]);
                 }
             }
 
-            foreach ($request->get('documents') as $grantor) {
-                $procedure->documents()->attach($grantor['id']);
+            foreach ($request->get('documents') as $document) {
+                $procedure->documents()->attach($document['id']);
             }
 
             foreach ($request->get('operations') as $operation) {
@@ -137,14 +138,17 @@ class ProcedureController extends ApiController
      */
     public function show(Procedure $procedure)
     {
-        foreach ($procedure->grantors as $grantor) {
-            $grantor->stake_id = $grantor->pivot->stake_id;
-            $grantor->grantor_id = $grantor->id;
-        }
         $procedure->documents;
         $procedure->operations;
         $procedure->load('operations.categoryOperation');
-
+        $procedure->load('folio.book');
+        $procedure->load('grantors.grantorProcedure.stake');
+        $procedure->grantors->map(function ($grantor) {
+            $grantor->grantor = ['name' => $grantor->name, 'id' => $grantor->id];
+            $grantor->stake = Stake::find($grantor->pivot->stake_id);
+            return $grantor;
+        });
+        
         return $this->showOne($procedure);
     }
 
@@ -161,6 +165,13 @@ class ProcedureController extends ApiController
     {
 
         $this->validate($request, Procedure::rules($procedure->id));
+
+        $user = Auth::user();
+
+        if ($procedure->user_id != 6 && $user->role_id != Role::$ADMIN && $user->id != $procedure->user_id) {
+            return $this->errorResponse('No puede editar este proceso, por favor informar al propietario del registro', 422);
+        }
+
         DB::begintransaction();
 
         try {

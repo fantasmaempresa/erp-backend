@@ -70,6 +70,7 @@ use App\Http\Controllers\WorkArea\WorkAreaController;
 use App\Http\Controllers\Line\LineController;
 use App\Http\Controllers\Article\ArticleController;
 use App\Http\Controllers\Book\BookController;
+use App\Http\Controllers\Document\DocumentActionControler;
 use App\Http\Controllers\Folio\FolioActionController;
 use App\Http\Controllers\Folio\FolioController;
 use App\Http\Controllers\Inventory\InventoryController;
@@ -79,6 +80,8 @@ use App\Http\Controllers\Warehouse\WarehouseController;
 use App\Http\Controllers\OfficeSecurityMeasures\OfficeSecurityMeasuresController;
 use App\Http\Controllers\OfficeSecurityMeasures\OfficeSecurityMeasuresFilterController;
 use App\Http\Controllers\MovementTracking\MovementTrackingController;
+use App\Http\Controllers\Procedure\ProcedureReportController;
+use App\Http\Controllers\Project\ProjectActionPredefinedController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -112,6 +115,7 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::resource('clientDocuments', ClientDocumentController::class, ['except' => ['create', 'edit']]);
     Route::resource('documentLink', DocumentLinkController::class, ['except' => ['create', 'edit']]);
     Route::post('documentLink/updateAlternative', [DocumentLinkController::class, 'updateAlternative']);
+    Route::get('documentLink/filter/getAppendix', [DocumentActionControler::class, 'getAppendix']);
     Route::resource('concepts', ConceptController::class, ['except' => ['create', 'edit']]);
     Route::resource('statusQuotes', StatusQuoteController::class, ['except' => ['create', 'edit']]);
     Route::resource('clientLinks', ClientLinkController::class, ['except' => 'create', 'edit']);
@@ -132,10 +136,13 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::get('projects/action/finish/project/{project}', [ProjectActionController::class, 'finishProject']);
 
     Route::get('projects/filter/myProjects', [ProjectFilterController::class, 'getMyProjects']);
-    //zTODO agregar más datos de configuración para el front, por si debe de poner el formulario para solo vista o dejar
+    //TODO agregar más datos de configuración para el front, por si debe de poner el formulario para solo vista o dejar
     // que ingrese los datos
     Route::get('projects/filter/currentForm/project/{project}/process/{process}', [ProjectFilterController::class, 'getCurrentPhaseForm']);
     Route::get('projects/filter/resumeProcess/project/{project}/process/{process}', [ProjectFilterController::class, 'getResumeProject']);
+    //PROJECT PREDEFINED ROUTES
+    Route::post('projects/predefined/phase/execute/project/{project}/process/{process}', [ProjectActionPredefinedController::class, 'executePhase']);
+    Route::post('projects/predefined/phase/getStructureFormat/project/{project}/process/{process}', [ProjectActionPredefinedController::class, 'getStructureFormat']);
 
     //PROJECT QUOTES ROUTES
     Route::resource('projectQuotes', ProjectQuoteController::class, ['except' => ['create', 'edit']]);
@@ -186,6 +193,8 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::get('procedure/filter/withoutData', [ProcedureFilterController::class, 'proceduresWithoutData']);
     Route::get('procedure/filter/vulnerableOperations', [ProcedureFilterController::class, 'proceduresVulnerableOperations']);
     Route::put('procedure/grantors/additionalData/{procedure}', [ProcedureActionController::class, 'grantorsAdditionalData']);
+    
+    Route::post('procedures/action/notPassedExpedient', [ProcedureActionController::class, 'notPassedExpedient']);
 
     Route::resource('clients', ClientController::class, ['except' => ['create', 'edit']]);
 
@@ -260,6 +269,15 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
 
     //CANCEL FOLIOS
     Route::put('folio/cancel/{folio}', [FolioActionController::class, 'cancelFolio']);
+
+    //UNUSED FOLIOS
+    Route::get('folio/unused/{book}', [FolioActionController::class, 'unusedFolios']);
+    Route::get('folio/unused/count/{book}', [FolioActionController::class, 'foliosCount']);
+    Route::get('folio/instrument/unused', [FolioActionController::class, 'unusedInstruments']);
+
+    //FOLIO REPORT
+    Route::get('procedure/report/controlFolio', [ProcedureReportController::class, 'folioContol']);
+    Route::get('folio/procedure/unused/{folio}', [FolioActionController::class, 'unsetProcedure']);
 });
 
 

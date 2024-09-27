@@ -9,6 +9,7 @@ namespace App\Http\Controllers\Project;
 use App\Http\Controllers\ApiController;
 use App\Models\DetailProject;
 use App\Models\DetailProjectProcessProject;
+use App\Models\PhasesProcess;
 use App\Models\Process;
 use App\Models\Project;
 use App\Models\Role;
@@ -34,7 +35,6 @@ class ProjectFilterController extends ApiController
     {
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
         $user = User::findOrFail(Auth::id());
-
         // phpcs:ignore
         if ($user->role_id == Role::$ADMIN) {
             $projects = Project::where('finished', '<>', Project::$FINISHED)
@@ -44,12 +44,9 @@ class ProjectFilterController extends ApiController
         } else {
             $projects = $user->projects()->where('finished', '<>', Project::$FINISHED)->with('process')->with('processProjectThrough')
                 ->paginate($paginate);
-
             if (count($projects) == 0) {
                 $projectsAux = Project::where('finished', '<>', Project::$FINISHED)->get();
-
                 $resultProjectsID = [];
-
                 foreach ($projectsAux as $project) {
                     foreach ($project->config as $config) {
                         foreach ($config['phases'] as $phase) {
@@ -62,7 +59,6 @@ class ProjectFilterController extends ApiController
                                     continue(4);
                                 }
                             }
-
                             foreach ($phase['involved']['work_group'] as $work_group) {
                                 if (($work_group['user'] && $work_group['id'] == $user->id) ||
                                     (!$work_group['user'] &&
@@ -75,7 +71,6 @@ class ProjectFilterController extends ApiController
                         }
                     }
                 }
-
                 if (count($resultProjectsID) > 0) {
                     $projects = Project::whereIn('id', $resultProjectsID)
                         ->with('process')
@@ -84,7 +79,6 @@ class ProjectFilterController extends ApiController
                 }
             }
         }
-
         return $this->showList($projects);
     }
 
@@ -117,31 +111,31 @@ class ProjectFilterController extends ApiController
     {
 
         $currentProcess = $this->getCurrentProcess($project, $process);
-
         if (is_bool($currentProcess)) {
             // phpcs:ignore
             return $this->errorResponse('El proceso [' . $process->name . '] no se encuenta asiganado a este proyecto [' . $project->name . ']', 409);
         }
-
         $user = User::findOrFail(Auth::id());
-
         $currentDetail = $this->getCurrentProcessDetail($currentProcess);
 
         if (is_bool($currentDetail)) {
             return $this->errorResponse('El proceso finalizo o aún no ha inicado', 409);
         }
-
         $response = $this->errorResponse('este usuario no tiene permisos para ver el formulario actual', 409);
-
         // phpcs:ignore
         if (isset($currentDetail->form_data['rules'])) {
-
             // phpcs:ignore]
+            $phaseR['values_form'] = $currentDetail->form_data['values_form'] ?? [];
             $phaseR['form'] = $currentDetail->form_data['form'];
+            $phaseR['type_form'] = $currentDetail->form_data['type_form'] ?? PhasesProcess::$TYPE_PHASE_PREDEFINED_FORM;
             $phaseR['controls'] = ['next' => false, 'prev' => false, 'supervision' => false, 'saveData' => false, 'completeProcess' => false];
-
             $isSupervisor = false;
             // phpcs:ignore
+
+            //TODO: agregar más vaildadciones para que pueda seguir llenando información antes de que sea supervizado, 
+            //TODO: agregar validación para que sino es supervisado el mismo capturista pueda pasar de fase
+            //TODO: Agregar Función para no supervisar y marcar errores
+
             foreach ($currentDetail->form_data['rules']['supervisor'] as $supervisor) {
                 //si es supervisor por usuario verficio que ya lo haya hecho en caso contrario desactivo su control
                 // phpcs:ignore
@@ -159,14 +153,19 @@ class ProjectFilterController extends ApiController
                     $isSupervisor = true;
                     break;
                 }
-
             }
 
             if ($isSupervisor) {
                 //Revisa que el formulario ya tenga datos para que pueda supervisar sino mandar negativo el botón
-                foreach ($currentDetail->form_data['form'] as $field) {
-                    if (!isset($field['value']) && empty($field['value'])) {
+                if($currentDetail->form_data['type_form'] == PhasesProcess::$TYPE_PHASE_PREDEFINED_FORM){
+                    if (empty($currentDetail->form_data['values_form'])) {
                         $phaseR['controls']['supervision'] = false;
+                    }
+                }else if ($currentDetail->form_data['type_form'] == PhasesProcess::$TYPE_PHASE_CREATE_FORM) {
+                    foreach ($currentDetail->form_data['form'] as $field) {
+                        if (!isset($field['value']) && empty($field['value'])) {
+                            $phaseR['controls']['supervision'] = false;
+                        }
                     }
                 }
 
@@ -186,11 +185,9 @@ class ProjectFilterController extends ApiController
             $workGroups = $this->checkContinueNextPhase($currentDetail->form_data['rules']['work_group'], $user);
             // phpcs:ignore
             $supervisors = $this->checkContinueNextPhase($currentDetail->form_data['rules']['supervisor'], $user);
-
             if ($workGroups && $supervisors && $isSupervisor) {
                 $phaseR['controls']['next'] = true;
                 $phaseR['controls']['prev'] = true;
-
                 //Revisa que si exista una siguiente phase
                 foreach ($project->config as $config) {
                     if ($config['process']['id'] == $process->id) {
@@ -205,11 +202,8 @@ class ProjectFilterController extends ApiController
                     }
                 }
             }
-
             $response = $this->showList($phaseR);
-
         }
-
         return $response;
     }
 

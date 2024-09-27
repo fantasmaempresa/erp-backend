@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CODE
  * ProjectAction Controller
@@ -79,7 +80,7 @@ class ProjectActionController extends ApiController
         }
 
 
-//        $process->finished = Project::$INPROGRESS;
+        //        $process->finished = Project::$INPROGRESS;
         $project->process()->updateExistingPivot($process->id, ['status' => Process::$START]);
         $process->save();
 
@@ -205,7 +206,9 @@ class ProjectActionController extends ApiController
                 true,
                 [
                     // phpcs:ignore
+                    'type_form' => $currentDetail->form_data['type_form'],
                     'form' => $currentDetail->form_data['form'],
+                    'values_form' => $currentDetail->form_data['values_form'] ?? [],
                     'rules' => [
                         'supervisor' => $supervisors,
                         // phpcs:ignore
@@ -268,7 +271,6 @@ class ProjectActionController extends ApiController
      */
     public function saveDataFormPhase(Request $request, Project $project, Process $process): JsonResponse
     {
-
         $this->validate($request, [
             'form' => 'required|array',
         ]);
@@ -282,29 +284,36 @@ class ProjectActionController extends ApiController
         $currentDetail = $this->getCurrentDetailProcessProject($currentProcess);
         $user = User::findOrFail(Auth::id());
 
-
+        // return $this->showList([$currentDetail, $request->get('form')], 500);
         // phpcs:ignore
-        if (count($request->get('form')) != count($currentDetail->form_data['form'])) {
-            return $this->errorResponse('la cantidad de campos no concide', 409);
-        }
+        $values_form = [];
+        if (!empty($currentDetail->form_data['type_form']) && $currentDetail->form_data['type_form'] == PhasesProcess::$TYPE_PHASE_PREDEFINED_FORM) {
+            $form = $currentDetail->form_data['form'];
+            $values_form = $request->get('form');
 
-        $countEqualsFields = 0;
-        // phpcs:ignore
-        $form = $currentDetail->form_data['form'];
-        foreach ($request->get('form') as $key => $value) {
+        } elseif (empty($currentDetail->form_data['type_form']) || $currentDetail->form_data['type_form'] == PhasesProcess::$TYPE_PHASE_CREATE_FORM) {
+            if (count($request->get('form')) != count($currentDetail->form_data['form'])) {
+                return $this->errorResponse('la cantidad de campos no concide', 409);
+            }
+
+            $countEqualsFields = 0;
             // phpcs:ignore
-            foreach ($currentDetail->form_data['form'] as $_key => $field) {
-                if ($field['key'] == $key) {
-                    $form[$_key]['value'] = $value;
-                    $countEqualsFields++;
-                    continue(2);
+            $form = $currentDetail->form_data['form'];
+            foreach ($request->get('form') as $key => $value) {
+                // phpcs:ignore
+                foreach ($currentDetail->form_data['form'] as $_key => $field) {
+                    if ($field['key'] == $key) {
+                        $form[$_key]['value'] = $value;
+                        $countEqualsFields++;
+                        continue (2);
+                    }
                 }
             }
-        }
-
-        // phpcs:ignore
-        if ($countEqualsFields != count($currentDetail->form_data['form'])) {
-            return $this->errorResponse('falta un campo o un dato del formulario');
+    
+            // phpcs:ignore
+            if ($countEqualsFields != count($currentDetail->form_data['form'])) {
+                return $this->errorResponse('falta un campo o un dato del formulario', 409);
+            }
         }
 
         // phpcs:ignore
@@ -316,8 +325,9 @@ class ProjectActionController extends ApiController
                 true,
                 [
                     // phpcs:ignore
-                    //'form' => $request->get('form'),
+                    'type_form' => $currentDetail->form_data['type_form'] ?? PhasesProcess::$TYPE_PHASE_CREATE_FORM,
                     'form' => $form,
+                    'values_form' => $currentDetail->form_data['type_form'] == PhasesProcess::$TYPE_PHASE_CREATE_FORM ?  $form : $values_form,
                     'rules' => [
                         // phpcs:ignore
                         'supervisor' => $currentDetail->form_data['rules']['supervisor'],
@@ -503,7 +513,6 @@ class ProjectActionController extends ApiController
                 $currentDetailProcessProject->save();
                 $project = $this->newDetailProject($project, $currentProcess, $nextPhase, $currentInvolved);
                 DB::commit();
-
             } catch (QueryException $e) {
                 DB::rollBack();
 
@@ -530,7 +539,7 @@ class ProjectActionController extends ApiController
         // phpcs:ignore
         $detailProject->phases_process_id = $phasesProcess->id;
         // phpcs:ignore
-        $detailProject->form_data = ['form' => $phasesProcess->form, 'rules' => $currentInvolved];
+        $detailProject->form_data = ['form' => $phasesProcess->form, 'rules' => $currentInvolved, 'type_form' =>  $phasesProcess->type_form, 'values_form' => []];
         $detailProject->save();
         $detailProject->processProject()->attach($currentProcess->pivot->id);
         foreach ($project->process as $pProcess) {
@@ -583,8 +592,5 @@ class ProjectActionController extends ApiController
         $project->save();
 
         return $this->showOne($project);
-
     }
-
-
 }

@@ -37,9 +37,9 @@ class ProjectController extends ApiController
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
-            $response = $this->showList(Project::search($request->get('search'))->orderBy('id','desc')->paginate($paginate));
+            $response = $this->showList(Project::search($request->get('search'))->with('procedure')->with('staff')->with('client')->orderBy('id', 'desc')->paginate($paginate));
         } else {
-            $response = $this->showList(Project::orderBy('id','desc')->paginate($paginate));
+            $response = $this->showList(Project::with('procedure')->with('staff')->with('client')->orderBy('id', 'desc')->paginate($paginate));
         }
 
         return $response;
@@ -99,7 +99,7 @@ class ProjectController extends ApiController
         $project->users;
         $project->user;
         $project->client;
-        $project->procedure;
+        $project->staff;
         $project->projectQuote;
         $roles = [];
 
@@ -181,7 +181,7 @@ class ProjectController extends ApiController
         DB::beginTransaction();
         try {
 
-            foreach ($project->processProject as $detail){
+            foreach ($project->processProject as $detail) {
                 $detail->detailProject()->detach();
             }
 

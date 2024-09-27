@@ -19,6 +19,7 @@ use App\Http\Controllers\Document\DocumentLinkController;
 use App\Http\Controllers\Folio\FolioController;
 use App\Http\Controllers\GeneralTemplate\GeneralTemplateController;
 use App\Http\Controllers\Grantor\GrantorController;
+use App\Http\Controllers\GrantorLink\GrantorLinkController;
 use App\Http\Controllers\InversionUnit\InversionUnitController;
 use App\Http\Controllers\IsoDocument\IsoDocumentController;
 use App\Http\Controllers\Inventory\InventoryController;
@@ -29,10 +30,12 @@ use App\Http\Controllers\OfficeSecurityMeasures\OfficeSecurityMeasuresController
 use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\Notification\NotificationFilterController;
 use App\Http\Controllers\Operation\OperationController;
+use App\Http\Controllers\Operation\OperationFilterController;
 use App\Http\Controllers\Place\PlaceController;
 use App\Http\Controllers\Procedure\ProcedureActionController;
 use App\Http\Controllers\Procedure\ProcedureController;
 use App\Http\Controllers\Procedure\ProcedureFilterController;
+use App\Http\Controllers\Procedure\ProcedureReportController;
 use App\Http\Controllers\Procedure\ProcedureValidatorsController;
 use App\Http\Controllers\Procedure\RegistrationProcedureDataController;
 use App\Http\Controllers\ProcedureComment\ProcedureCommentController;
@@ -59,6 +62,7 @@ use App\Http\Controllers\User\UserFilterController;
 use App\Http\Controllers\VulnerableOperation\VulnerableOperationController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
+use App\Models\Folio;
 use App\Models\Procedure;
 use App\Models\Role;
 use App\Models\User;
@@ -269,6 +273,8 @@ class RoleActionController extends ApiController
                 StakeController::class,
                 DocumentLinkController::class,
                 DocumentController::class,
+                GrantorLinkController::class,
+                CategoryOperationController::class,
             ],
         ],
         [
@@ -291,6 +297,11 @@ class RoleActionController extends ApiController
                     'route' => './proceduresVulnerableOperations',
                     'icon' => 'campaign',
                 ],
+                [
+                    'label' => 'Reportes',
+                    'route' => './reports',
+                    'icon' => 'summarize',
+                ],
             ],
             'controllers' => [
                 ShapeController::class,
@@ -312,6 +323,11 @@ class RoleActionController extends ApiController
                 ShapeActionController::class,
                 ProcedureFilterController::class,
                 ProcedureActionController::class,
+                FolioController::class,
+                DocumentController::class,
+                OperationFilterController::class,
+                BookController::class,
+                ProcedureReportController::class,
             ],
         ],
         [
