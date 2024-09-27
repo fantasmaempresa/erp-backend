@@ -65,6 +65,8 @@ class ProjectActionPredefinedController extends ApiController
             return $this->errorResponse('Esta fase no genera documentos', 404);
         }
 
-        return $dispatcher->getPahsesWithFormat($request->get('namePhase'), $request->get('data'));
+        $dispatcher->getPahsesWithFormat($request->get('namePhase'));
+        return $dispatcher->executePhase($request->get('namePhase'),[$project, $process, $request->get('data')]);
+        // return $dispatcher->getPahsesWithFormat($request->get('namePhase'), $request->get('data')); 
     }
 }

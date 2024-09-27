@@ -3,18 +3,31 @@
 namespace App\Http\Controllers\Project\PredefinedProjects;
 
 use App\Http\Controllers\ApiController;
+use App\Models\Grantor;
+use App\Models\Operation;
 use App\Models\Procedure;
+use App\Models\Stake;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
 class DomainTransferController extends ApiController
 {
 
-    public function getPahsesWithFormat(string $namePashes = null)
+    public function getPahsesWithFormatR(string $namePashes = null)
     {
         $pahseswithFormat = [
             'generateFirstPreventiveNotice' => [$this, 'getFormatFirstPreventiveNotice'],
+        ];
+
+        return $namePashes ? $pahseswithFormat[$namePashes] ?? [] : $pahseswithFormat;
+    }
+
+    public function getPahsesWithFormat(string $namePashes = null)
+    {
+        $pahseswithFormat = [
+            'generateFirstPreventiveNotice' => [$this, 'generateFirstPreventiveNotice'],
         ];
 
         return $namePashes ? $pahseswithFormat[$namePashes] ?? [] : $pahseswithFormat;
@@ -24,7 +37,7 @@ class DomainTransferController extends ApiController
     {
         $pahses = [
             'start' => [$this, 'startProject'],
-            'generateFirstPreventiveNotice' => [$this, 'startProject'],
+            'generateFirstPreventiveNotice' => [$this, 'generateFirstPreventiveNotice'],
         ];
 
         return $namePashes ? $pahses[$namePashes] ?? [] : $pahses;
@@ -97,7 +110,25 @@ class DomainTransferController extends ApiController
         return $this->showOne($procedure);
     }
 
-    public function generateFirstPreventiveNotice(array $args) {}
+    public function generateFirstPreventiveNotice(...$args) {
+        $project = $args[0][1];
+        dd($project);
+        $reportTextData = json_decode(Storage::get('reports/first_notice/FirstNotice.json'));
+
+        $operations = Operation::all();
+        $stakes = Stake::all();
+        $grantors = Grantor::all();
+
+        $reportTextData['data'] = [
+            'operations' => $operations,
+            'stakes' => $stakes,
+            'grantors' => $grantors
+        ];
+
+        return $reportTextData;
+    }
 
     public function getFormatFirstPreventiveNotice() {}
+
+    
 }
