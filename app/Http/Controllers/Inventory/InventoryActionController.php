@@ -14,7 +14,8 @@ class InventoryActionController extends ApiController
     public function initialInventory(Request $request){
         $this->validate($request,[
             "article_id"=>"required|exists:articles,id",
-            "warehouse_id"=>"required|exists:warehouses,id"
+            "warehouse_id"=>"required|exists:warehouses,id",
+            "amount"=>"required|int"
         ]);
         $inventoryEntry = Inventory::where('warehouse_id', $request->input('warehouse_id'))
             ->where('article_id', $request->input('article_id'))
@@ -24,8 +25,8 @@ class InventoryActionController extends ApiController
         } else{
             $article=Article::where('id', $request->input('article_id'))->first();
             if($article){
-                $this->newInventoryEntry($request->input('article_id') , $request->input('warehouse_id') ,0);
-                $this->newMovementTrackingEntry($request->input('article_id'), $request->input('warehouse_id'),0 , "Initial Inventory");
+                $this->newInventoryEntry($request->input('article_id') , $request->input('warehouse_id'), $request->input('amount'));
+                $this->newMovementTrackingEntry($request->input('article_id'), $request->input('warehouse_id'), $request->input('amount'), "Initial Inventory");
             } else{
                 return $this->errorResponse(['The article does not exists'], 422);
             }
