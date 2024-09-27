@@ -32,11 +32,10 @@ class InventoryController extends ApiController
 
         if ($request->get('view') == 'inventory') {
             $warehouseId = $request->input('warehouse_id');
-            $response = Inventory::where('warehouse_id', $warehouseId)->orderBy('id','desc')->paginate($paginate);
-            if ($response->isEmpty()) {
-                return $this->errorResponse(['The warehouse is empty'], 422);
-            }
-        } 
+            $response = $this->showList(Inventory::where('warehouse_id', $warehouseId)->orderBy('id','desc')->paginate($paginate));
+        } else {
+            return $this->errorResponse('value view not correct', 409);
+        }
         return $response;
     }
 
