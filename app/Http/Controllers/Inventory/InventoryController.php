@@ -21,14 +21,22 @@ class InventoryController extends ApiController
      */
     public function index(Request $request): JsonResponse
     {
+
+        $this->validate($request, [
+            'warehouse_id' => 'required|int', 
+            'view' => 'required|string'
+        ]);
+
+
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
-        if (!empty($request->get('search')) && $request->get('search') !== 'null') {
-            $response = $this->showList(Inventory::search($request->get('search'))->orderBy('id','desc')->paginate($paginate));
-        } else {
-            $response = $this->showList(Inventory::orderBy('id','desc')->paginate($paginate));
-        }
-
+        if ($request->get('view') == 'inventory') {
+            $warehouseId = $request->input('warehouse_id');
+            $response = Inventory::where('warehouse_id', $warehouseId)->orderBy('id','desc')->paginate($paginate);
+            if ($response->isEmpty()) {
+                return $this->errorResponse(['The warehouse is empty'], 422);
+            }
+        } 
         return $response;
     }
 
