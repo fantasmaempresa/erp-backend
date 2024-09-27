@@ -146,7 +146,8 @@ class ProjectFilterController extends ApiController
                     }
                     $isSupervisor = true;
                     break;
-                } else if (!$supervisor['user'] && $user->role->id == $supervisor['id']) {
+                }
+                if (!$supervisor['user'] && $user->role->id == $supervisor['id']) {
                     if (!isset($supervisor['supervision'])) {
                         $phaseR['controls']['supervision'] = true;
                     }
@@ -185,6 +186,9 @@ class ProjectFilterController extends ApiController
             $workGroups = $this->checkContinueNextPhase($currentDetail->form_data['rules']['work_group'], $user);
             // phpcs:ignore
             $supervisors = $this->checkContinueNextPhase($currentDetail->form_data['rules']['supervisor'], $user);
+
+            // return $this->showList([$workGroups, $supervisors, $isSupervisor], 409);
+
             if ($workGroups && $supervisors && $isSupervisor) {
                 $phaseR['controls']['next'] = true;
                 $phaseR['controls']['prev'] = true;
@@ -267,13 +271,13 @@ class ProjectFilterController extends ApiController
         }
 
         //Esto verifica si el usuario en cuestión ya hizo su colaboración como supervisor o como grupo de trabajo
-//        foreach ($rules as $supervisor) {
-//            if (($supervisor['user'] && $supervisor['id'] === $user->id) ||
-//                (!$supervisor['user'] && $supervisor['id'] === $user->role->id)) {
-//                $continue = true;
-//                break;
-//            }
-//        }
+       foreach ($rules as $supervisor) {
+           if (($supervisor['user'] && $supervisor['id'] === $user->id) ||
+               (!$supervisor['user'] && $supervisor['id'] === $user->role->id)) {
+               $continue = true;
+               break;
+           }
+       }
 
         return $continue;
     }
