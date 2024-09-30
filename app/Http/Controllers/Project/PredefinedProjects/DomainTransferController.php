@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Project\PredefinedProjects;
 
 use App\Http\Controllers\ApiController;
-use App\Models\Grantor;
-use App\Models\Operation;
 use App\Models\Procedure;
 use App\Models\Stake;
 use Illuminate\Support\Facades\DB;
@@ -15,10 +13,10 @@ use Illuminate\Support\Facades\Auth;
 class DomainTransferController extends ApiController
 {
 
-    public function getPahsesWithFormatR(string $namePashes = null)
+    public function getPahsesWithFormatReport(string $namePashes = null)
     {
         $pahseswithFormat = [
-            'generateFirstPreventiveNotice' => [$this, 'getFormatFirstPreventiveNotice'],
+            'getFormatFirstPreventiveNotice' => [$this, 'getFormatFirstPreventiveNotice'],
         ];
 
         return $namePashes ? $pahseswithFormat[$namePashes] ?? [] : $pahseswithFormat;
@@ -38,6 +36,7 @@ class DomainTransferController extends ApiController
         $pahses = [
             'start' => [$this, 'startProject'],
             'generateFirstPreventiveNotice' => [$this, 'generateFirstPreventiveNotice'],
+            'getFormatFirstPreventiveNotice' => [$this, 'getFormatFirstPreventiveNotice'],
         ];
 
         return $namePashes ? $pahses[$namePashes] ?? [] : $pahses;
@@ -141,7 +140,12 @@ class DomainTransferController extends ApiController
         return $reportTextData;
     }
 
-    public function getFormatFirstPreventiveNotice() {}
-
-    
+    public function getFormatFirstPreventiveNotice() {
+        return [
+            "parameters" => [],
+            "jasperPath" => Storage::path('reports/first_notice/FirstNotice.jasper'),
+            "output" => Storage::path('reports/first_notice/FirstNotice.rtf'),
+            "documentType" => "rtf",
+        ];
+    }
 }
