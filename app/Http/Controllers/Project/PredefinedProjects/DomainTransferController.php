@@ -96,8 +96,7 @@ class DomainTransferController extends ApiController
             }
             
             foreach ($data['operations'] as $operation) {
-                $procedure->operations()->attach($operation);
-                // $procedure->operations()->attach($operation['id']); //regresar cuando se haga el fix
+                $procedure->operations()->attach($operation['id']); 
             }
 
             $args['project']->procedure_id = $procedure->id;

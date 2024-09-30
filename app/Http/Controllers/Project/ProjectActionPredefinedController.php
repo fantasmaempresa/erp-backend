@@ -34,7 +34,8 @@ class ProjectActionPredefinedController extends ApiController
         }
 
         $this->validate($request, $dispatcher->getValidatorRequestPhase('namePhase'));
-
+        
+        //TODO Validar si la fase se puede ejecutar. quizás sea mejor cambiar el orden de lanzamiento de las peticiones desde el front
         return $dispatcher->executePhase(
             $request->get('namePhase'),
             [
