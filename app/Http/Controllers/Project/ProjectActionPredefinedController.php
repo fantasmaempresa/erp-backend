@@ -65,7 +65,7 @@ class ProjectActionPredefinedController extends ApiController
         }
 
         $dispatcher->getPahsesWithFormat($request->get('namePhase'));
-        return $dispatcher->executePhase($request->get('namePhase'),[$project, $process, $request->get('data')]);
+        return $dispatcher->executePhase($request->get('namePhase'), $project, $process, $request->get('data'));
         // return $dispatcher->getPahsesWithFormat($request->get('namePhase'), $request->get('data')); 
     }
 }

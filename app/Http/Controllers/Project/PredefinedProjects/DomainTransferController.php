@@ -112,18 +112,31 @@ class DomainTransferController extends ApiController
     }
 
     public function generateFirstPreventiveNotice(...$args) {
-        $project = $args[0][1];
-        dd($project);
+        $project = $args[0];
         $reportTextData = json_decode(Storage::get('reports/first_notice/FirstNotice.json'));
 
-        $operations = Operation::all();
-        $stakes = Stake::all();
-        $grantors = Grantor::all();
+        $operations = $project->procedure->operations->map(function ($operation) {
+            return [
+                'name' => $operation->name,
+                'description' => $operation->description,
+            ];
+        });
+        $grantors = $project->procedure->grantors->map(function ($grantor) {
+            $stake = Stake::find($grantor->pivot->stake_id);
 
-        $reportTextData['data'] = [
-            'operations' => $operations,
-            'stakes' => $stakes,
-            'grantors' => $grantors
+            return [
+                'name' => $grantor->name,
+                'father_last_name' => $grantor->father_last_name,
+                'mother_last_name' => $grantor->mother_last_name,
+                'satke' => [
+                    'name' => $stake->name
+                ]
+            ];
+        });
+
+        $reportTextData->data = [
+            "operations" => $operations,
+            "grantors" => $grantors
         ];
 
         return $reportTextData;
