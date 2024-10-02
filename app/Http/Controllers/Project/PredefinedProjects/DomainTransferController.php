@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Project\PredefinedProjects;
 
 use App\Http\Controllers\ApiController;
-use App\Models\Grantor;
-use App\Models\Operation;
 use App\Models\Procedure;
 use App\Models\Stake;
 use Illuminate\Support\Facades\DB;
