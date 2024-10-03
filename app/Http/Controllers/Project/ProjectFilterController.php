@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CODE
  * ProjectFilter Controller
@@ -56,7 +57,7 @@ class ProjectFilterController extends ApiController
                                         $supervisor['id'] == $user->role->id)
                                 ) {
                                     $resultProjectsID[] = $project->id;
-                                    continue(4);
+                                    continue (4);
                                 }
                             }
                             foreach ($phase['involved']['work_group'] as $work_group) {
@@ -65,7 +66,7 @@ class ProjectFilterController extends ApiController
                                         $work_group['id'] == $user->role->id)
                                 ) {
                                     $resultProjectsID[] = $project->id;
-                                    continue(4);
+                                    continue (4);
                                 }
                             }
                         }
@@ -94,7 +95,7 @@ class ProjectFilterController extends ApiController
             ->with('processProject')
             ->with('detailProject')
             ->get();
-        foreach ($detailProjectProcess as $detail){
+        foreach ($detailProjectProcess as $detail) {
             $detail->detailProject->phase;
         }
 
@@ -128,84 +129,9 @@ class ProjectFilterController extends ApiController
             $phaseR['values_form'] = $currentDetail->form_data['values_form'] ?? [];
             $phaseR['form'] = $currentDetail->form_data['form'];
             $phaseR['type_form'] = $currentDetail->form_data['type_form'] ?? PhasesProcess::$TYPE_PHASE_PREDEFINED_FORM;
-            $phaseR['controls'] = ['next' => false, 'prev' => false, 'supervision' => false, 'saveData' => false, 'completeProcess' => false];
-            $isSupervisor = false;
+            $phaseR['controls'] = $this->getControlsCurrentForm($project, $process);
             // phpcs:ignore
 
-            //TODO: agregar más vaildadciones para que pueda seguir llenando información antes de que sea supervizado, 
-            //TODO: agregar validación para que sino es supervisado el mismo capturista pueda pasar de fase
-            //TODO: Agregar Función para no supervisar y marcar errores
-
-            foreach ($currentDetail->form_data['rules']['supervisor'] as $supervisor) {
-                //si es supervisor por usuario verficio que ya lo haya hecho en caso contrario desactivo su control
-                // phpcs:ignore
-                if ($supervisor['user'] && $user->id == $supervisor['id']) {
-                    // phpcs:ignore
-                    if (!isset($supervisor['supervision'])) {
-                        $phaseR['controls']['supervision'] = true;
-                    }
-                    $isSupervisor = true;
-                    break;
-                }
-                if (!$supervisor['user'] && $user->role->id == $supervisor['id']) {
-                    if (!isset($supervisor['supervision'])) {
-                        $phaseR['controls']['supervision'] = true;
-                    }
-                    $isSupervisor = true;
-                    break;
-                }
-            }
-
-            if ($isSupervisor) {
-                //Revisa que el formulario ya tenga datos para que pueda supervisar sino mandar negativo el botón
-                if($currentDetail->form_data['type_form'] == PhasesProcess::$TYPE_PHASE_PREDEFINED_FORM){
-                    if (empty($currentDetail->form_data['values_form'])) {
-                        $phaseR['controls']['supervision'] = false;
-                    }
-                }else if ($currentDetail->form_data['type_form'] == PhasesProcess::$TYPE_PHASE_CREATE_FORM) {
-                    foreach ($currentDetail->form_data['form'] as $field) {
-                        if (!isset($field['value']) && empty($field['value'])) {
-                            $phaseR['controls']['supervision'] = false;
-                        }
-                    }
-                }
-
-            } else {
-                foreach ($currentDetail->form_data['rules']['work_group'] as $workGroup) {
-                    // phpcs:ignore
-                    if (($workGroup['user'] && $user->id === $workGroup['id']) || (!$workGroup['user'] && $user->role->id === $workGroup['id'])) {
-                        // phpcs:ignore
-                        if (!isset($workGroup['supervision'])) {
-                            $phaseR['controls']['saveData'] = true;
-                            break;
-                        }
-                    }
-                }
-            }
-            // phpcs:ignore
-            $workGroups = $this->checkContinueNextPhase($currentDetail->form_data['rules']['work_group'], $user);
-            // phpcs:ignore
-            $supervisors = $this->checkContinueNextPhase($currentDetail->form_data['rules']['supervisor'], $user);
-
-            // return $this->showList([$workGroups, $supervisors, $isSupervisor], 409);
-
-            if ($workGroups && $supervisors && $isSupervisor) {
-                $phaseR['controls']['next'] = true;
-                $phaseR['controls']['prev'] = true;
-                //Revisa que si exista una siguiente phase
-                foreach ($project->config as $config) {
-                    if ($config['process']['id'] == $process->id) {
-                        foreach ($config['phases'] as $key => $phase) {
-                            if ($currentDetail->phases_process_id == $phase['phase']['id']) {
-                                if ($key == (count($config['phases']) - 1)) {
-                                    $phaseR['controls']['next'] = false;
-                                    $phaseR['controls']['completeProcess'] = true;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
             $response = $this->showList($phaseR);
         }
         return $response;
@@ -271,14 +197,100 @@ class ProjectFilterController extends ApiController
         }
 
         //Esto verifica si el usuario en cuestión ya hizo su colaboración como supervisor o como grupo de trabajo
-       foreach ($rules as $supervisor) {
-           if (($supervisor['user'] && $supervisor['id'] === $user->id) ||
-               (!$supervisor['user'] && $supervisor['id'] === $user->role->id)) {
-               $continue = true;
-               break;
-           }
-       }
+        foreach ($rules as $supervisor) {
+            if (($supervisor['user'] && $supervisor['id'] === $user->id) ||
+                (!$supervisor['user'] && $supervisor['id'] === $user->role->id)
+            ) {
+                $continue = true;
+                break;
+            }
+        }
 
         return $continue;
+    }
+
+    public function getControlsCurrentForm(Project $project, Process $process): array
+    {
+
+        
+        $currentProcess = $this->getCurrentProcess($project, $process);
+        $user = User::findOrFail(Auth::id());
+        $currentDetail = $this->getCurrentProcessDetail($currentProcess);
+        $isSupervisor = false;
+        $controls = ['next' => false, 'prev' => false, 'supervision' => false, 'saveData' => false, 'completeProcess' => false];
+        //TODO: agregar más vaildadciones para que pueda seguir llenando información antes de que sea supervizado, 
+        //TODO: agregar validación para que sino es supervisado el mismo capturista pueda pasar de fase
+        //TODO: Agregar Función para no supervisar y marcar errores
+
+        foreach ($currentDetail->form_data['rules']['supervisor'] as $supervisor) {
+            //si es supervisor por usuario verficio que ya lo haya hecho en caso contrario desactivo su control
+            // phpcs:ignore
+            if ($supervisor['user'] && $user->id == $supervisor['id']) {
+                // phpcs:ignore
+                if (!isset($supervisor['supervision'])) {
+                    $controls['supervision'] = true;
+                }
+                $isSupervisor = true;
+                break;
+            }
+            if (!$supervisor['user'] && $user->role->id == $supervisor['id']) {
+                if (!isset($supervisor['supervision'])) {
+                    $controls['supervision'] = true;
+                }
+                $isSupervisor = true;
+                break;
+            }
+        }
+
+        if ($isSupervisor) {
+            //Revisa que el formulario ya tenga datos para que pueda supervisar sino mandar negativo el botón
+            if ($currentDetail->form_data['type_form'] == PhasesProcess::$TYPE_PHASE_PREDEFINED_FORM) {
+                if (empty($currentDetail->form_data['values_form'])) {
+                    $controls['supervision'] = false;
+                }
+            } else if ($currentDetail->form_data['type_form'] == PhasesProcess::$TYPE_PHASE_CREATE_FORM) {
+                foreach ($currentDetail->form_data['form'] as $field) {
+                    if (!isset($field['value']) && empty($field['value'])) {
+                        $controls['supervision'] = false;
+                    }
+                }
+            }
+        } else {
+            foreach ($currentDetail->form_data['rules']['work_group'] as $workGroup) {
+                // phpcs:ignore
+                if (($workGroup['user'] && $user->id === $workGroup['id']) || (!$workGroup['user'] && $user->role->id === $workGroup['id'])) {
+                    // phpcs:ignore
+                    if (!isset($workGroup['supervision'])) {
+                        $controls['saveData'] = true;
+                        break;
+                    }
+                }
+            }
+        }
+        // phpcs:ignore
+        $workGroups = $this->checkContinueNextPhase($currentDetail->form_data['rules']['work_group'], $user);
+        // phpcs:ignore
+        $supervisors = $this->checkContinueNextPhase($currentDetail->form_data['rules']['supervisor'], $user);
+
+        // return $this->showList([$workGroups, $supervisors, $isSupervisor], 409);
+
+        if ($workGroups && $supervisors && $isSupervisor) {
+            $controls['next'] = true;
+            $controls['prev'] = true;
+            //Revisa que si exista una siguiente phase
+            foreach ($project->config as $config) {
+                if ($config['process']['id'] == $process->id) {
+                    foreach ($config['phases'] as $key => $phase) {
+                        if ($currentDetail->phases_process_id == $phase['phase']['id']) {
+                            if ($key == (count($config['phases']) - 1)) {
+                                $controls['next'] = false;
+                                $controls['completeProcess'] = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return $controls;
     }
 }

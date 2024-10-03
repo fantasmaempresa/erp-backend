@@ -20,6 +20,9 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Events\NotificationEvent;
+use App\Events\ProjectActionsEvent;
+use App\Models\Role;
 
 /**
  * @access  public
@@ -84,6 +87,19 @@ class ProjectActionController extends ApiController
         $project->process()->updateExistingPivot($process->id, ['status' => Process::$START]);
         $process->save();
 
+        $notification = $this->createNotification([
+            'title' => 'Proyecto comenzado!',
+            'message' => "El proyecto " . $project->name . "se ha iniciado"
+        ]);
+
+        $this->sendNotification(
+            $notification,
+            null,
+            new NotificationEvent($notification, 0, Role::$ADMIN, [])
+        );
+
+        event(new ProjectActionsEvent(Project::getActionSystem(Project::$RELOAD_MY_PROJECT_ACTION, 'startProject'), $project, $process));
+
         return $this->showList($this->newDetailProject($project, $currentProcess, $currentPhase, $currentInvolved));
     }
 
@@ -100,11 +116,24 @@ class ProjectActionController extends ApiController
             $project->finished = Project::$FINISHED;
             $project->save();
             DB::commit();
+            $notification = $this->createNotification([
+                'title' => 'Proyecto ha sido terminado',
+                'message' => "El proyecto " . $project->name . "ha sido terminado"
+            ]);
+
+            $this->sendNotification(
+                $notification,
+                null,
+                new NotificationEvent($notification, 0, Role::$ADMIN, [])
+            );
+
+            event(new ProjectActionsEvent(Project::getActionSystem(Project::$RELOAD_MY_PROJECT_ACTION, 'finishProject'), $project, null));
+            event(new ProjectActionsEvent(Project::getActionSystem(Project::$RELOAD_CURRENT_FORM_ACTION, 'finishProject'), $project, null));
+
         } catch (QueryException $exception) {
             DB::rollBack();
             return $this->errorResponse($exception->getMessage(), 409);
         }
-
 
         return $this->successResponse('Project finished');
     }
@@ -162,6 +191,18 @@ class ProjectActionController extends ApiController
         $response = $this->newDetailProjectProcess($project, $process, $request->get('comment'), $request->get('prev'));
         if ($response) {
             $response = $this->showList($response);
+            $notification = $this->createNotification([
+                'title' => 'Salto de fase',
+                'message' => 'Proyecto ' . $project->name . ' avanzo de fase en el proceso ' . $process->name
+            ]);
+    
+            $this->sendNotification(
+                $notification,
+                null,
+                new NotificationEvent($notification, 0, 0, [])
+            );
+    
+            event(new ProjectActionsEvent(Project::getActionSystem(Project::$RELOAD_CURRENT_FORM_ACTION, 'skipPhase'), $project, $process));
         } else {
             $response = $this->errorResponse('No existe una previa o siguiente fase', 409);
         }
@@ -290,7 +331,6 @@ class ProjectActionController extends ApiController
         if (!empty($currentDetail->form_data['type_form']) && $currentDetail->form_data['type_form'] == PhasesProcess::$TYPE_PHASE_PREDEFINED_FORM) {
             $form = $currentDetail->form_data['form'];
             $values_form = $request->get('form');
-
         } elseif (empty($currentDetail->form_data['type_form']) || $currentDetail->form_data['type_form'] == PhasesProcess::$TYPE_PHASE_CREATE_FORM) {
             if (count($request->get('form')) != count($currentDetail->form_data['form'])) {
                 return $this->errorResponse('la cantidad de campos no concide', 409);
@@ -309,7 +349,7 @@ class ProjectActionController extends ApiController
                     }
                 }
             }
-    
+
             // phpcs:ignore
             if ($countEqualsFields != count($currentDetail->form_data['form'])) {
                 return $this->errorResponse('falta un campo o un dato del formulario', 409);
@@ -339,6 +379,7 @@ class ProjectActionController extends ApiController
             return $this->errorResponse('Este usuario no puede contribuir en esta fase', 409);
         }
 
+        event(new ProjectActionsEvent(Project::getActionSystem(Project::$RELOAD_CURRENT_FORM_ACTION, 'saveFormData'), $project, $process));
         return $this->successResponse('Formulario guardado con éxito', 200);
     }
 
