@@ -11,64 +11,52 @@
 		<![CDATA[]]>
 	</queryString>
 	<field name="parragraph_1" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="content.parragraph_1"/>
-		<fieldDescription><![CDATA[content.parragraph_1]]></fieldDescription>
+		<property name="net.sf.jasperreports.json.field.expression" value="content[0].text"/>
+		<fieldDescription><![CDATA[content[0].text]]></fieldDescription>
 	</field>
 	<field name="parragraph_2" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="content.parragraph_2"/>
-		<fieldDescription><![CDATA[content.parragraph_2]]></fieldDescription>
+		<property name="net.sf.jasperreports.json.field.expression" value="content[1].text"/>
+		<fieldDescription><![CDATA[content[1].text]]></fieldDescription>
 	</field>
 	<field name="parragraph_3" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="content.parragraph_3"/>
-		<fieldDescription><![CDATA[content.parragraph_3]]></fieldDescription>
+		<property name="net.sf.jasperreports.json.field.expression" value="content[2].text"/>
+		<fieldDescription><![CDATA[content[2].text]]></fieldDescription>
 	</field>
 	<field name="parragraph_4" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="content.parragraph_4"/>
-		<fieldDescription><![CDATA[content.parragraph_4]]></fieldDescription>
+		<property name="net.sf.jasperreports.json.field.expression" value="content[3].text"/>
+		<fieldDescription><![CDATA[content[3].text]]></fieldDescription>
 	</field>
 	<field name="parragraph_5" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="content.parragraph_5"/>
-		<fieldDescription><![CDATA[content.parragraph_5]]></fieldDescription>
+		<property name="net.sf.jasperreports.json.field.expression" value="content[4].text"/>
+		<fieldDescription><![CDATA[content[4].text]]></fieldDescription>
 	</field>
 	<field name="parragraph_6" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="content.parragraph_6"/>
-		<fieldDescription><![CDATA[content.parragraph_6]]></fieldDescription>
+		<property name="net.sf.jasperreports.json.field.expression" value="content[5].text"/>
+		<fieldDescription><![CDATA[content[5].text]]></fieldDescription>
 	</field>
 	<field name="parragraph_7" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="content.parragraph_7"/>
-		<fieldDescription><![CDATA[content.parragraph_7]]></fieldDescription>
+		<property name="net.sf.jasperreports.json.field.expression" value="content[6].text"/>
+		<fieldDescription><![CDATA[content[6].text]]></fieldDescription>
 	</field>
 	<field name="parragraph_8" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="content.parragraph_8"/>
-		<fieldDescription><![CDATA[content.parragraph_8]]></fieldDescription>
+		<property name="net.sf.jasperreports.json.field.expression" value="content[7].text"/>
+		<fieldDescription><![CDATA[content[7].text]]></fieldDescription>
 	</field>
 	<field name="parragraph_9" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="content.parragraph_9"/>
-		<fieldDescription><![CDATA[content.parragraph_9]]></fieldDescription>
+		<property name="net.sf.jasperreports.json.field.expression" value="content[8].text"/>
+		<fieldDescription><![CDATA[content[8].text]]></fieldDescription>
 	</field>
 	<field name="parragraph_10" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="content.parragraph_10"/>
-		<fieldDescription><![CDATA[content.parragraph_10]]></fieldDescription>
+		<property name="net.sf.jasperreports.json.field.expression" value="content[9].text"/>
+		<fieldDescription><![CDATA[content[9].text]]></fieldDescription>
 	</field>
 	<field name="parragraph_11" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="content.parragraph_11"/>
-		<fieldDescription><![CDATA[content.parragraph_11]]></fieldDescription>
+		<property name="net.sf.jasperreports.json.field.expression" value="content[10].text"/>
+		<fieldDescription><![CDATA[content[10].text]]></fieldDescription>
 	</field>
 	<field name="parragraph_12" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="content.parragraph_12"/>
-		<fieldDescription><![CDATA[content.parragraph_12]]></fieldDescription>
-	</field>
-	<field name="parragraph_13" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="content.parragraph_13"/>
-		<fieldDescription><![CDATA[content.parragraph_13]]></fieldDescription>
-	</field>
-	<field name="parragraph_14" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="content.parragraph_14"/>
-		<fieldDescription><![CDATA[content.parragraph_14]]></fieldDescription>
-	</field>
-	<field name="parragraph_15" class="java.lang.String">
-		<property name="net.sf.jasperreports.json.field.expression" value="content.parragraph_15"/>
-		<fieldDescription><![CDATA[content.parragraph_15]]></fieldDescription>
+		<property name="net.sf.jasperreports.json.field.expression" value="content[11].text"/>
+		<fieldDescription><![CDATA[content[11].text]]></fieldDescription>
 	</field>
 	<detail>
 		<band height="722" splitType="Stretch">
@@ -103,7 +91,7 @@
 					<property name="com.jaspersoft.studio.unit.firstLineIndent" value="cm"/>
 				</reportElement>
 				<textElement textAlignment="Justified">
-					<font fontName="Arial" size="11"/>
+					<font fontName="Arial" size="10"/>
 					<paragraph firstLineIndent="28"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{parragraph_3}]]></textFieldExpression>
@@ -119,86 +107,69 @@
 				<textFieldExpression><![CDATA[$F{parragraph_4}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="270" width="455" height="30" uuid="2a32617e-81a7-4ba2-8f40-bc8659430fb6"/>
+				<reportElement x="0" y="270" width="455" height="80" uuid="2a32617e-81a7-4ba2-8f40-bc8659430fb6"/>
 				<textElement textAlignment="Justified">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{parragraph_5}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="300" width="455" height="30" uuid="8f379237-c685-4352-9544-3de90f23272d"/>
+				<reportElement x="0" y="350" width="455" height="80" uuid="8f379237-c685-4352-9544-3de90f23272d"/>
 				<textElement textAlignment="Justified">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{parragraph_6}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="330" width="455" height="30" uuid="d1680c66-5936-4e92-a2a4-370104bb5aab"/>
+				<reportElement x="0" y="430" width="455" height="80" uuid="d1680c66-5936-4e92-a2a4-370104bb5aab"/>
 				<textElement textAlignment="Justified">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{parragraph_7}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="360" width="455" height="30" uuid="14526a95-ab12-4666-b061-47bdae3c380c"/>
-				<textElement textAlignment="Justified">
+				<reportElement x="0" y="530" width="455" height="20" uuid="14526a95-ab12-4666-b061-47bdae3c380c"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{parragraph_8}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="390" width="455" height="60" uuid="15455a89-555d-4a60-bd04-825d2b33216e">
+				<reportElement x="0" y="590" width="455" height="20" uuid="15455a89-555d-4a60-bd04-825d2b33216e">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<textElement textAlignment="Justified">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{parragraph_9}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="450" width="455" height="30" uuid="f077165c-7c0f-4bb6-ac30-e1d71180a20c"/>
-				<textElement textAlignment="Justified"/>
+				<reportElement x="0" y="610" width="455" height="20" uuid="f077165c-7c0f-4bb6-ac30-e1d71180a20c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{parragraph_10}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="500" width="455" height="30" uuid="190dc437-4c26-42fb-a14c-ac49c06d767f"/>
+				<reportElement x="0" y="665" width="190" height="20" uuid="190dc437-4c26-42fb-a14c-ac49c06d767f"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{parragraph_11}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="550" width="455" height="15" uuid="0ac60809-6455-456b-868b-b0c0ce4acc75"/>
+				<reportElement x="0" y="570" width="455" height="15" uuid="0ac60809-6455-456b-868b-b0c0ce4acc75"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<text><![CDATA[A T E N T A M E N T E]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="0" y="609" width="455" height="15" uuid="cf9b0c82-d3dd-4e5f-9a91-d2e275aea34e"/>
-				<textElement textAlignment="Center">
+				<reportElement x="0" y="690" width="190" height="20" uuid="9b57a465-9e4e-4399-9d2b-d04b99983759"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{parragraph_12}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="624" width="455" height="15" uuid="c6e30627-6f5e-4fc2-8273-14f0ac983ae0"/>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{parragraph_13}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="683" width="100" height="15" uuid="1e5706e6-56f2-405e-bb96-5b6dfcf4798c"/>
-				<textElement>
-					<font fontName="Arial" size="9"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{parragraph_14}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="698" width="100" height="15" uuid="78a9ed03-fb9c-4294-99ad-838c49336e39"/>
-				<textElement>
-					<font fontName="Arial" size="9"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{parragraph_15}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
