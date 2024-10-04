@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Project\PredefinedProjects;
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Report\FirstPreventiveNoticeController;
 use App\Models\Procedure;
-use App\Models\Stake;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
 class DomainTransferController extends ApiController
@@ -111,64 +110,13 @@ class DomainTransferController extends ApiController
 
     public function generateFirstPreventiveNotice(...$args)
     {
-        $project = $args[0];
-        $reportTextData = json_decode(Storage::get('reports/first_notice/FirstNotice.json'));
-
-        $operations = $project->procedure->operations->map(function ($operation) {
-            return [
-                $operation->name,
-                $operation->description,
-            ];
-        });
-        $grantors = $project->procedure->grantors->map(function ($grantor) {
-            $stake = Stake::find($grantor->pivot->stake_id);
-
-            return [
-                $grantor->name .
-                    ((!is_null($grantor->father_last_name) || $grantor->father_last_name != "BK") ? '' : ' ' . $grantor->father_last_name) .
-                    ((!is_null($grantor->mother_last_name) || $grantor->mother_last_name != "BK") ? '' : ' ' . $grantor->mother_last_name),
-                $stake->name
-            ];
-        });
-
-        //PLACE
-        $reportTextData->content[1]->text = $reportTextData->content[1]->text . $project->procedure->place->name;
-
-        //OPERATIONS
-        $operationText = (count($operations) > 1) ? 'las operaciones de ' : 'la operación de ';
-        $asciiList = 97;
-        foreach ($operations as $operation) {
-            $operationText .= chr($asciiList) . ').- ' . $operation[0] . ' ';
-            $asciiList++;
-        }
-        $operationText .= ', ';
-        $reportTextData->content[3]->text = str_replace('_', $operationText, $reportTextData->content[3]->text);
-
-        //GRANTORS
-        $grantorText = "";
-        foreach ($grantors as $grantor) {
-            $grantorText .= $grantor[1] . ': ' . $grantor[0] . " \n \n";
-        }
-        $reportTextData->content[4]->text = $grantorText;
-
-        //EXPEDIENT
-        $reportTextData->content[11]->text = str_replace('_', $project->procedure->name, $reportTextData->content[11]->text);
-
-        $reportTextData->data = [
-            "operations" => $operations,
-            "grantors" => $grantors
-        ];
-
-        return $reportTextData;
+        $firstPreventiveNotice = new FirstPreventiveNoticeController();
+        return $firstPreventiveNotice->getStructure(...$args);
     }
 
     public function getFormatFirstPreventiveNotice()
     {
-        return [
-            "parameters" => [],
-            "jasperPath" => Storage::path('reports/first_notice/FirstNotice.jasper'),
-            "output" => Storage::path('reports/first_notice/FirstNotice.rtf'),
-            "documentType" => "rtf",
-        ];
+        $firstPreventiveNotice = new FirstPreventiveNoticeController();
+        return $firstPreventiveNotice->getDocument();
     }
 }
