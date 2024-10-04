@@ -7,6 +7,7 @@
 
 namespace App\Http\Controllers\Project;
 
+use App\Events\ProjectActionsEvent;
 use App\Models\Role;
 use App\Models\User;
 use Exception;
@@ -84,6 +85,8 @@ class ProjectController extends ApiController
         $project->client;
         $project->procedure;
         $project->projectQuote;
+
+        event(new ProjectActionsEvent(Project::getActionSystem(Project::$RELOAD_MY_PROJECT_ACTION, 'create_project'), $project, null));
 
         return $this->showOne($project);
     }

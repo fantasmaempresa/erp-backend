@@ -28,6 +28,9 @@ class Project extends Model
     public static int $INPROGRESS = 2;
     public static int $NOSTART = 3;
 
+    public static int $RELOAD_CURRENT_FORM_ACTION = 0;
+    public static int $RELOAD_MY_PROJECT_ACTION = 1;
+
 
     /**
      * The attributes that are mass assignable.
@@ -245,5 +248,26 @@ class Project extends Model
         }
 
         return $processUsers;
+    }
+
+    /**
+     * @param int $action
+     *
+     * @return array
+     */
+    public static function getActionSystem(int $command, ?string $action): array
+    {
+        $commands = [
+            self::$RELOAD_CURRENT_FORM_ACTION => [
+                'command' => 'reload_current_form',
+                'action' => $action,
+            ],
+            self::$RELOAD_MY_PROJECT_ACTION => [
+                'command' =>'reload_my_project',
+                'action' => $action,
+            ],
+        ];
+
+        return $commands[$command] ?? [];
     }
 }

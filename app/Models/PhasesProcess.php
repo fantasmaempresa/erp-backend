@@ -28,6 +28,7 @@ class PhasesProcess extends Model
 
     public static int $TYPE_PHASE_CREATE_FORM = 1;
     public static int $TYPE_PHASE_PREDEFINED_FORM = 2;
+    public static int $TYPE_PHASE_PREDEFINED_FORM_WITH_FORMART = 3;
 
     /**
      * 
@@ -45,6 +46,7 @@ class PhasesProcess extends Model
         'payments',
         'notification',
         'supervision',
+        'withFormat',
     ];
 
     protected function setNameAttribute($value)
@@ -75,6 +77,7 @@ class PhasesProcess extends Model
      */
     protected $casts = [
         'form' => 'array',
+        'withFormat' => 'array',
     ];
 
     /**
@@ -84,18 +87,14 @@ class PhasesProcess extends Model
      */
     public static function rules(): array
     {
-        $allowedTypes = [
-            self::$TYPE_PHASE_CREATE_FORM,
-            self::$TYPE_PHASE_PREDEFINED_FORM
-        ];
-
         return [
             'name' => 'required|string',
             'description' => 'nullable|string',
             'form' => 'required|array',
             'payments' => 'nullable|bool',
             'notification' => 'nullable|bool',
-            'type_form' => 'required|int',
+            'type_form' => 'required|int|min:1|max:3',
+            'withFormat' => 'required_if:type_form,=,3|array',
         ];
     }
 
