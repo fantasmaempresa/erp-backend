@@ -7,6 +7,7 @@
 namespace App\Http\Controllers\Role;
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Article\ArticleController as ArticleArticleController;
 use App\Http\Controllers\Book\BookController;
 use App\Htttp\Controllers\Article\ArticleController;
 use App\Http\Controllers\CategoryOperation\CategoryOperationController;
@@ -35,6 +36,7 @@ use App\Http\Controllers\Place\PlaceController;
 use App\Http\Controllers\Procedure\ProcedureActionController;
 use App\Http\Controllers\Procedure\ProcedureController;
 use App\Http\Controllers\Procedure\ProcedureFilterController;
+use App\Http\Controllers\Procedure\ProcedureGraphicController;
 use App\Http\Controllers\Procedure\ProcedureReportController;
 use App\Http\Controllers\Procedure\ProcedureValidatorsController;
 use App\Http\Controllers\Procedure\RegistrationProcedureDataController;
@@ -42,6 +44,7 @@ use App\Http\Controllers\ProcedureComment\ProcedureCommentController;
 use App\Http\Controllers\ProcessingIncome\ProcessingIncomeController;
 use App\Http\Controllers\ProcessingIncomeComment\ProcessingIncomeCommentController;
 use App\Http\Controllers\Project\ProjectActionController;
+use App\Http\Controllers\Project\ProjectActionPredefinedController;
 use App\Http\Controllers\Project\ProjectController;
 use App\Http\Controllers\Project\ProjectFilterController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteController;
@@ -207,6 +210,7 @@ class RoleActionController extends ApiController
                 ProjectController::class,
                 ProjectActionController::class,
                 ProjectFilterController::class,
+                ProjectActionPredefinedController::class,
             ],
         ],
         [
@@ -504,7 +508,9 @@ class RoleActionController extends ApiController
                     'label' => 'Home',
                     'route' => './dashboard',
                     'icon' => 'home',
-                    'controllers' => [],
+                    'controllers' => [
+                        ProcedureGraphicController::class,
+                    ],
                 ],
             ],
         ];
