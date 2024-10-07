@@ -6,6 +6,7 @@ use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Project\PredefinedProjects\DomainTransferController;
 use App\Models\Process;
 use App\Models\Project;
+use App\Models\ReportConfiguration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Open2code\Pdf\jasper\Report;
@@ -72,7 +73,7 @@ class ProjectActionPredefinedController extends ApiController
         // return $dispatcher->getPahsesWithFormat($request->get('namePhase'), $request->get('data')); 
     }
 
-    public function getFormat(Request $request)
+    public function getReportFormat(Request $request)
     {
         $this->validate($request, [
             'nameProcess' => 'required|string',
@@ -108,5 +109,23 @@ class ProjectActionPredefinedController extends ApiController
         Storage::delete("reports/tempJson.json");
 
         return ($result['success'] || $reportParams['documentType'] == "rtf") ? $this->downloadFile($reportParams['output']) : $this->errorResponse($result['message'], 500);
+    }
+
+    public function saveFormat(Project $project, Request $request)
+    {
+        $this->validate($request, [
+            'nameProcess' => 'required|string',
+            'namePhase' => 'required|string',
+            'data' => 'required|array',
+        ]);
+
+        $reportConfiguration = new ReportConfiguration();
+        $reportConfiguration->data = $request->get('data');
+        $reportConfiguration->name_process = $request->get('nameProcess');
+        $reportConfiguration->name_phase = $request->get('namePhase');
+        $reportConfiguration->project_id = $project->id;
+        $reportConfiguration->save();
+
+        return $this->showOne($reportConfiguration);
     }
 }
