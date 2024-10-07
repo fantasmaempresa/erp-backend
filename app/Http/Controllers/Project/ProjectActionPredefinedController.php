@@ -111,7 +111,7 @@ class ProjectActionPredefinedController extends ApiController
         return ($result['success'] || $reportParams['documentType'] == "rtf") ? $this->downloadFile($reportParams['output']) : $this->errorResponse($result['message'], 500);
     }
 
-    public function saveFormat(Project $project, Request $request)
+    public function saveFormat(Project $project, Process $process, Request $request)
     {
         $this->validate($request, [
             'nameProcess' => 'required|string',
@@ -124,8 +124,25 @@ class ProjectActionPredefinedController extends ApiController
         $reportConfiguration->name_process = $request->get('nameProcess');
         $reportConfiguration->name_phase = $request->get('namePhase');
         $reportConfiguration->project_id = $project->id;
+        $reportConfiguration->process_id = $process->id;
         $reportConfiguration->save();
 
         return $this->showOne($reportConfiguration);
     }
+
+     public function getInfoProject(Project $project, Process $process, Request $request){
+        $this->validate($request, [
+            'nameProcess' => 'required|string',
+            'namePhase' => 'required|string',
+            'data' => 'nullable|array',
+        ]);
+        
+        // TODO si es necesario se manda el proceso y la phase por si se quiere personalizar la respuesta al front
+        $project->procedure;
+
+        return $this->showList([
+            'project' => $project,
+            'process' => $process,
+        ]);
+     }
 }

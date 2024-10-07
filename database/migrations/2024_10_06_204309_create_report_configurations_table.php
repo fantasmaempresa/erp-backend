@@ -19,6 +19,7 @@ class CreateReportConfigurationsTable extends Migration
             $table->string('name_process');
             $table->string('name_phase');
             $table->foreignId('project_id')->constrained();
+            $table->foreignId('process_id')->constrained();
         });
     }
 

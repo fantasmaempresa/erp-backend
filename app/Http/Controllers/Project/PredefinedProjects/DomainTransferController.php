@@ -35,7 +35,7 @@ class DomainTransferController extends ApiController
         $pahses = [
             'start' => [$this, 'startProject'],
             'generateFirstPreventiveNotice' => [$this, 'generateFirstPreventiveNotice'],
-            'getFormatFirstPreventiveNotice' => [$this, 'getFormatFirstPreventiveNotice'],
+            'generateShape' => [$this, 'generateShape'],
         ];
 
         return $namePashes ? $pahses[$namePashes] ?? [] : $pahses;
@@ -119,4 +119,6 @@ class DomainTransferController extends ApiController
         $firstPreventiveNotice = new FirstPreventiveNoticeController();
         return $firstPreventiveNotice->getDocument();
     }
+
+    public function generateShape() {}
 }

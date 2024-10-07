@@ -14,6 +14,7 @@ class ReportConfiguration extends Model
         'name_process',
         'name_phase',
         'project_id',
+        'process_id',
     ];
 
     protected $casts = [
@@ -23,5 +24,10 @@ class ReportConfiguration extends Model
     public function project()
     {
         return $this->belongsTo(Project::class);
+    }
+
+    public function process()
+    {
+        return $this->belongsTo(Process::class);
     }
 }
