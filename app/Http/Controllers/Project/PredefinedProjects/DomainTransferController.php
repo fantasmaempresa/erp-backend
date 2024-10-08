@@ -35,6 +35,7 @@ class DomainTransferController extends ApiController
         $pahses = [
             'start' => [$this, 'startProject'],
             'generateFirstPreventiveNotice' => [$this, 'generateFirstPreventiveNotice'],
+            'getFormatFirstPreventiveNotice' => [$this, 'getFormatFirstPreventiveNotice'],
             'generateShape' => [$this, 'generateShape'],
         ];
 
