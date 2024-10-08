@@ -21,29 +21,31 @@ class FirstPreventiveNoticeController extends Controller
         $grantors = $project->procedure->grantors->map(function ($grantor) {
             $stake = Stake::find($grantor->pivot->stake_id);
 
-            return [
+            return array_values(array_filter([
                 $grantor->name .
-                    ((!is_null($grantor->father_last_name) || $grantor->father_last_name != "BK") ? '' : ' ' . $grantor->father_last_name) .
-                    ((!is_null($grantor->mother_last_name) || $grantor->mother_last_name != "BK") ? '' : ' ' . $grantor->mother_last_name),
-                $stake->name,
-                $grantor->occupation,
-                $grantor->email,
-                $grantor->rfc,
-                $grantor->curp,
-                $grantor->civil_status,
-                $grantor->municipality,
-                $grantor->colony,
-                $grantor->street,
-                $grantor->no_int,
-                $grantor->no_ext,
-                $grantor->no_locality,
-                $grantor->phone,
-                $grantor->locality,
-                $grantor->zipcode,
-                $grantor->place_of_birth,
-                $grantor->birthdate,
-                $grantor->economic_activity,
-            ];
+                    ((isset($grantor->father_last_name) && $grantor->father_last_name !== "BK") ? ' ' . $grantor->father_last_name : '') .
+                    ((isset($grantor->mother_last_name) && $grantor->mother_last_name !== "BK") ? ' ' . $grantor->mother_last_name : ''),
+                $stake->name ?? '-',
+                $grantor->occupation ?? '-',
+                $grantor->email ?? '',
+                $grantor->rfc ?? '',
+                $grantor->curp ?? '',
+                $grantor->civil_status ?? '',
+                $grantor->municipality ?? '',
+                $grantor->colony ?? '',
+                $grantor->street ?? '',
+                $grantor->no_int ?? '',
+                $grantor->no_ext ?? '',
+                $grantor->no_locality ?? '',
+                $grantor->phone ?? '',
+                $grantor->locality ?? '',
+                $grantor->zipcode ?? '',
+                $grantor->place_of_birth ?? '',
+                $grantor->birthdate ?? '',
+                $grantor->economic_activity ?? ''
+            ], function ($value) {
+                return !is_null($value) && $value !== '' && $value !== 'bk';
+            }));
         });
 
         // PLACE
@@ -88,9 +90,20 @@ class FirstPreventiveNoticeController extends Controller
             'sheets' => [$project->procedure->place->name]
         ];
 
+        //PROCEDURE DATA
+        $procedureData = array_values(array_filter([
+            $project->procedure->name,
+            $project->procedure->value_operation,
+            $project->procedure->date_proceedings,
+            $project->procedure->date,
+            $project->procedure->credit,
+            $project->procedure->observation,
+            $project->procedure->status
+        ]));
+
         $dataConfig[] = [
             'title' => 'expedient',
-            'sheets' => [$project->procedure->name]
+            'sheets' => $procedureData
         ];
 
         $reportTextData->data = $dataConfig;
