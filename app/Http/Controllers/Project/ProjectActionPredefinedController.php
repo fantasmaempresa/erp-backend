@@ -119,24 +119,37 @@ class ProjectActionPredefinedController extends ApiController
             'data' => 'required|array',
         ]);
 
-        $reportConfiguration = new ReportConfiguration();
-        $reportConfiguration->data = $request->get('data');
-        $reportConfiguration->name_process = $request->get('nameProcess');
-        $reportConfiguration->name_phase = $request->get('namePhase');
-        $reportConfiguration->project_id = $project->id;
-        $reportConfiguration->process_id = $process->id;
+        //CHECK IF ALREADY EXISTS
+        $reportConfiguration = ReportConfiguration::where('project_id', $project->id)
+            ->where('process_id', $process->id)
+            ->where('name_process', $request->get('nameProcess'))
+            ->where('name_phase', $request->get('namePhase'))
+            ->first();
+
+        if (is_null($reportConfiguration)) {
+            $reportConfiguration = new ReportConfiguration();
+            $reportConfiguration->data = $request->get('data');
+            $reportConfiguration->name_process = $request->get('nameProcess');
+            $reportConfiguration->name_phase = $request->get('namePhase');
+            $reportConfiguration->project_id = $project->id;
+            $reportConfiguration->process_id = $process->id;
+        } else {
+            $reportConfiguration->data = $request->get('data');
+        }
+
         $reportConfiguration->save();
 
         return $this->showOne($reportConfiguration);
     }
 
-     public function getInfoProject(Project $project, Process $process, Request $request){
+    public function getInfoProject(Project $project, Process $process, Request $request)
+    {
         $this->validate($request, [
             'nameProcess' => 'required|string',
             'namePhase' => 'required|string',
             'data' => 'nullable|array',
         ]);
-        
+
         // TODO si es necesario se manda el proceso y la phase por si se quiere personalizar la respuesta al front
         $project->procedure;
 
@@ -144,5 +157,5 @@ class ProjectActionPredefinedController extends ApiController
             'project' => $project,
             'process' => $process,
         ]);
-     }
+    }
 }
