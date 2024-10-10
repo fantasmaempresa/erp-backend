@@ -58,10 +58,10 @@
 		<property name="net.sf.jasperreports.json.field.expression" value="content[11].text"/>
 		<fieldDescription><![CDATA[content[11].text]]></fieldDescription>
 	</field>
-	<detail>
-		<band height="722" splitType="Stretch">
+	<title>
+		<band height="112">
 			<textField>
-				<reportElement x="300" y="0" width="155" height="40" uuid="607670d2-ee20-4b35-813c-20d8b5966031">
+				<reportElement x="300" y="4" width="155" height="40" uuid="607670d2-ee20-4b35-813c-20d8b5966031">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Right" markup="html">
@@ -70,7 +70,7 @@
 				<textFieldExpression><![CDATA[$F{parragraph_1}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="50" width="260" height="35" uuid="969b0bf9-ceaa-475e-852e-fb86f3e09120">
+				<reportElement x="0" y="54" width="260" height="35" uuid="969b0bf9-ceaa-475e-852e-fb86f3e09120">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement markup="html">
@@ -79,63 +79,40 @@
 				<textFieldExpression><![CDATA[$F{parragraph_2}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="85" width="260" height="15" uuid="2e7c3c23-514d-448e-b0c7-1317486fab42"/>
+				<reportElement x="0" y="89" width="260" height="15" uuid="2e7c3c23-514d-448e-b0c7-1317486fab42"/>
 				<textElement>
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<text><![CDATA[P R E S E N T E]]></text>
 			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="267" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="110" width="455" height="80" uuid="5a2b0143-bda3-452a-a4d7-b1a8faac485a">
+				<reportElement x="0" y="10" width="455" height="240" uuid="5a2b0143-bda3-452a-a4d7-b1a8faac485a">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.firstLineIndent" value="cm"/>
 				</reportElement>
 				<textElement textAlignment="Justified" markup="html">
 					<font fontName="Arial" size="10"/>
-					<paragraph firstLineIndent="28"/>
+					<paragraph firstLineIndent="0"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{parragraph_3}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{parragraph_3} + "<br> <br>" +$F{parragraph_4} + "<br> <br>" + $F{parragraph_5} + "<br> <br>" + $F{parragraph_6} + "<br> <br>" + $F{parragraph_7}]]></textFieldExpression>
 			</textField>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band height="201">
 			<textField>
-				<reportElement x="0" y="190" width="455" height="80" uuid="7309b6a3-ff0f-475b-912a-f16c63d7fff6">
-					<property name="com.jaspersoft.studio.unit.firstLineIndent" value="cm"/>
-				</reportElement>
-				<textElement textAlignment="Justified" markup="html">
-					<font fontName="Arial"/>
-					<paragraph firstLineIndent="28"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{parragraph_4}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="270" width="455" height="80" uuid="2a32617e-81a7-4ba2-8f40-bc8659430fb6"/>
-				<textElement textAlignment="Justified" markup="html">
-					<font fontName="Arial"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{parragraph_5}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="350" width="455" height="80" uuid="8f379237-c685-4352-9544-3de90f23272d"/>
-				<textElement textAlignment="Justified" markup="html">
-					<font fontName="Arial"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{parragraph_6}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="430" width="455" height="80" uuid="d1680c66-5936-4e92-a2a4-370104bb5aab"/>
-				<textElement textAlignment="Justified" markup="html">
-					<font fontName="Arial"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{parragraph_7}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="530" width="455" height="20" uuid="14526a95-ab12-4666-b061-47bdae3c380c"/>
+				<reportElement x="0" y="8" width="455" height="20" uuid="14526a95-ab12-4666-b061-47bdae3c380c"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle" markup="html">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{parragraph_8}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="590" width="455" height="20" uuid="15455a89-555d-4a60-bd04-825d2b33216e">
+				<reportElement x="0" y="68" width="455" height="20" uuid="15455a89-555d-4a60-bd04-825d2b33216e">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
@@ -144,33 +121,33 @@
 				<textFieldExpression><![CDATA[$F{parragraph_9}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="610" width="455" height="20" uuid="f077165c-7c0f-4bb6-ac30-e1d71180a20c"/>
+				<reportElement x="0" y="88" width="455" height="20" uuid="f077165c-7c0f-4bb6-ac30-e1d71180a20c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{parragraph_10}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="665" width="190" height="20" uuid="190dc437-4c26-42fb-a14c-ac49c06d767f"/>
+				<reportElement x="0" y="143" width="190" height="20" uuid="190dc437-4c26-42fb-a14c-ac49c06d767f"/>
 				<textElement verticalAlignment="Middle" markup="html">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{parragraph_11}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="570" width="455" height="15" uuid="0ac60809-6455-456b-868b-b0c0ce4acc75"/>
+				<reportElement x="0" y="48" width="455" height="15" uuid="0ac60809-6455-456b-868b-b0c0ce4acc75"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<text><![CDATA[A T E N T A M E N T E]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="0" y="690" width="190" height="20" uuid="9b57a465-9e4e-4399-9d2b-d04b99983759"/>
+				<reportElement x="0" y="168" width="190" height="20" uuid="9b57a465-9e4e-4399-9d2b-d04b99983759"/>
 				<textElement verticalAlignment="Middle" markup="html">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{parragraph_12}]]></textFieldExpression>
 			</textField>
 		</band>
-	</detail>
+	</lastPageFooter>
 </jasperReport>
