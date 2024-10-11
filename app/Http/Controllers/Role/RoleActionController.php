@@ -17,6 +17,7 @@ use App\Http\Controllers\Concept\ConceptController;
 use App\Http\Controllers\DisposalRealEstate\DisposalRealEstateController;
 use App\Http\Controllers\Document\DocumentController;
 use App\Http\Controllers\Document\DocumentLinkController;
+use App\Http\Controllers\Folio\FolioActionController;
 use App\Http\Controllers\Folio\FolioController;
 use App\Http\Controllers\GeneralTemplate\GeneralTemplateController;
 use App\Http\Controllers\Grantor\GrantorController;
@@ -211,6 +212,8 @@ class RoleActionController extends ApiController
                 ProjectActionController::class,
                 ProjectFilterController::class,
                 ProjectActionPredefinedController::class,
+                FolioController::class,
+                FolioActionController::class
             ],
         ],
         [
