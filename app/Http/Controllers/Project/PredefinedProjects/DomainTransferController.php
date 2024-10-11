@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Project\PredefinedProjects;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Folio\FolioUtil;
+use App\Http\Controllers\Report\BuySellController;
 use App\Http\Controllers\Report\FirstPreventiveNoticeController;
 use App\Models\Folio;
 use App\Models\Procedure;
@@ -18,6 +19,7 @@ class DomainTransferController extends ApiController
     {
         $pahseswithFormat = [
             'getFormatFirstPreventiveNotice' => [$this, 'getFormatFirstPreventiveNotice'],
+            'getFormatBuySell' => [$this, 'getFormatBuySell'],
         ];
 
         return $namePashes ? $pahseswithFormat[$namePashes] ?? [] : $pahseswithFormat;
@@ -27,6 +29,7 @@ class DomainTransferController extends ApiController
     {
         $pahseswithFormat = [
             'generateFirstPreventiveNotice' => [$this, 'generateFirstPreventiveNotice'],
+            'generateBuySell' => [$this, 'generateBuySell'],
         ];
 
         return $namePashes ? $pahseswithFormat[$namePashes] ?? [] : $pahseswithFormat;
@@ -39,6 +42,9 @@ class DomainTransferController extends ApiController
             'generateFirstPreventiveNotice' => [$this, 'generateFirstPreventiveNotice'],
             'getFormatFirstPreventiveNotice' => [$this, 'getFormatFirstPreventiveNotice'],
             'generateFolio' => [$this, 'generateFolio'],
+            'generateBuySell' => [$this, 'generateBuySell'],
+            'getFormatBuySell' => [$this, 'getFormatBuySell'],
+            'generateShape' => [$this, 'generateShape'],
         ];
 
         return $namePashes ? $pahses[$namePashes] ?? [] : $pahses;
@@ -118,6 +124,7 @@ class DomainTransferController extends ApiController
         return $this->showOne($procedure);
     }
 
+    // FIRST PREVENTIVE NOTICE REPORT
     public function generateFirstPreventiveNotice(...$args)
     {
         $firstPreventiveNotice = new FirstPreventiveNoticeController();
@@ -129,6 +136,19 @@ class DomainTransferController extends ApiController
         $firstPreventiveNotice = new FirstPreventiveNoticeController();
         return $firstPreventiveNotice->getDocument();
     }
+    // END FIRST PREVENTIVE NOTICE REPORT
+
+    // BUY SELL REPORT
+    public function generateBuySell(...$args) {
+        $buySell = new BuySellController();
+        return $buySell->getStructure(...$args);
+    }
+
+    public function getFormatBuySell() {
+        $buySell = new BuySellController();
+        return $buySell->getDocument();
+    }
+    // END BUY SELL REPORT
 
     public function generateFolio(array $args)
     {
