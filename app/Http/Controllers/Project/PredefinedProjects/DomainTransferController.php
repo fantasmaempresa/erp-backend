@@ -97,6 +97,7 @@ class DomainTransferController extends ApiController
         $procedure = new Procedure($data);
         $procedure->status = Procedure::IN_PROCESS;
         $procedure->date = Carbon::now();
+        $procedure->date_appraisal = $procedure->date_appraisal ? Carbon::parse($procedure->date_appraisal) : null;
         $procedure->client_id = $args['project']->client_id;
         $procedure->staff_id = $args['project']->staff_id;
         $procedure->user_id = Auth::id();
