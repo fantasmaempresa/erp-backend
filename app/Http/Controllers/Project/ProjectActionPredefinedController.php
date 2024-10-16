@@ -118,7 +118,7 @@ class ProjectActionPredefinedController extends ApiController
             'namePhase' => 'required|string',
             'data' => 'required|array',
         ]);
-
+        
         //CHECK IF ALREADY EXISTS
         $reportConfiguration = ReportConfiguration::where('project_id', $project->id)
             ->where('process_id', $process->id)

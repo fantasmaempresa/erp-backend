@@ -83,7 +83,6 @@ class ShapeController extends ApiController
         DB::beginTransaction();
         try {
             $shape = new Shape($request->all());
-
             //TODO verificar que el fomulario que viene sea el mismo que el de la plantilla
             //        if (!$shape->verifyForm()) {
             //            return $this->errorResponse('this form format not valid', 422);

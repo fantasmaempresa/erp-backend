@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Project\PredefinedProjects;
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Folio\FolioUtil;
 use App\Http\Controllers\Report\BuySellController;
 use App\Http\Controllers\Report\FirstPreventiveNoticeController;
+use App\Models\Folio;
 use App\Models\Procedure;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -39,6 +41,7 @@ class DomainTransferController extends ApiController
             'start' => [$this, 'startProject'],
             'generateFirstPreventiveNotice' => [$this, 'generateFirstPreventiveNotice'],
             'getFormatFirstPreventiveNotice' => [$this, 'getFormatFirstPreventiveNotice'],
+            'generateFolio' => [$this, 'generateFolio'],
             'generateBuySell' => [$this, 'generateBuySell'],
             'getFormatBuySell' => [$this, 'getFormatBuySell'],
             'generateShape' => [$this, 'generateShape'],
@@ -65,6 +68,13 @@ class DomainTransferController extends ApiController
                 'operations' => 'required|array',
                 'staff_id' => 'required|exists:staff,id',
             ],
+            'generateFolio' => [
+                'name' => 'required|int|unique:folios,name',
+                'folio_min' => 'required|int|unique:folios,folio_min',
+                'folio_max' => 'required|int|unique:folios,folio_max',
+                'book_id' => 'required|int',
+                'procedure_id' => 'required|int|unique:folios,procedure_id',
+            ],
         ];
 
         return $rules[$namePhae] ?? [];
@@ -87,6 +97,7 @@ class DomainTransferController extends ApiController
         $procedure = new Procedure($data);
         $procedure->status = Procedure::IN_PROCESS;
         $procedure->date = Carbon::now();
+        $procedure->date_appraisal = $procedure->date_appraisal ? Carbon::parse($procedure->date_appraisal) : null;
         $procedure->client_id = $args['project']->client_id;
         $procedure->staff_id = $args['project']->staff_id;
         $procedure->user_id = Auth::id();
@@ -140,5 +151,26 @@ class DomainTransferController extends ApiController
     }
     // END BUY SELL REPORT
 
-    public function generateShape() {}
+    public function generateFolio(array $args)
+    {
+        $folio = new Folio($args['data']);
+        $folio->user_id = Auth::user()->id;
+
+        if (empty($args['project']->procedure_id)) {
+            return $this->errorResponse('El proyecto no tiene asociado un procedimiento', 404);
+        }
+
+        $folio->procedure_id = $args['project']->procedure_id;
+        if (FolioUtil::verifyRangeFolio(new Folio(), $folio->folio_min, $folio->folio_max)) {
+            if (FolioUtil::validateFolioRangeInBook($folio->folio_min, $folio->folio_max, $folio->book_id)) {
+                $folio->save();
+            } else {
+                return $this->errorResponse('Los folios estan fuera de rango de este libro', 422);
+            }
+        } else {
+            return $this->errorResponse('El rango de folio está ocupado por otro instrumento', 422);
+        }
+
+        return $this->showOne($folio);
+    }
 }

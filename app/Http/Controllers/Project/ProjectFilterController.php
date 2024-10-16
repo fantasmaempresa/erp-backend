@@ -118,6 +118,7 @@ class ProjectFilterController extends ApiController
         }
         $user = User::findOrFail(Auth::id());
         $currentDetail = $this->getCurrentProcessDetail($currentProcess);
+        return $this->showList([$currentDetail,$currentProcess], 409);
 
         if (is_bool($currentDetail)) {
             return $this->errorResponse('El proceso finalizo o aún no ha inicado', 409);
@@ -130,6 +131,7 @@ class ProjectFilterController extends ApiController
             $phaseR['form'] = $currentDetail->form_data['form'];
             $phaseR['type_form'] = $currentDetail->form_data['type_form'] ?? PhasesProcess::$TYPE_PHASE_PREDEFINED_FORM;
             $phaseR['controls'] = $this->getControlsCurrentForm($project, $process);
+            $phaseR['procedure'] = $project->procedure;
             // phpcs:ignore
 
             $response = $this->showList($phaseR);
@@ -222,9 +224,8 @@ class ProjectFilterController extends ApiController
         //TODO: agregar validación para que sino es supervisado el mismo capturista pueda pasar de fase
         //TODO: Agregar Función para no supervisar y marcar errores
 
+        //Verifica que el usuario que solicita el formulario 
         foreach ($currentDetail->form_data['rules']['supervisor'] as $supervisor) {
-            //si es supervisor por usuario verficio que ya lo haya hecho en caso contrario desactivo su control
-            // phpcs:ignore
             if ($supervisor['user'] && $user->id == $supervisor['id']) {
                 // phpcs:ignore
                 if (!isset($supervisor['supervision'])) {
@@ -244,9 +245,11 @@ class ProjectFilterController extends ApiController
 
         if ($isSupervisor) {
             //Revisa que el formulario ya tenga datos para que pueda supervisar sino mandar negativo el botón
+            //Se activa el boton de guardar información por si quiere actualizar
             if ($currentDetail->form_data['type_form'] == PhasesProcess::$TYPE_PHASE_PREDEFINED_FORM) {
                 if (empty($currentDetail->form_data['values_form'])) {
                     $controls['supervision'] = false;
+                    $controls['saveData'] = true;
                 }
             } else if ($currentDetail->form_data['type_form'] == PhasesProcess::$TYPE_PHASE_CREATE_FORM) {
                 foreach ($currentDetail->form_data['form'] as $field) {
@@ -272,10 +275,10 @@ class ProjectFilterController extends ApiController
         // phpcs:ignore
         $supervisors = $this->checkContinueNextPhase($currentDetail->form_data['rules']['supervisor'], $user);
 
-        // return $this->showList([$workGroups, $supervisors, $isSupervisor], 409);
 
         if ($workGroups && $supervisors && $isSupervisor) {
             $controls['next'] = true;
+            //TODO: revisar que esta fase tenga un previo antes de activar el botón
             $controls['prev'] = true;
             //Revisa que si exista una siguiente phase
             foreach ($project->config as $config) {
