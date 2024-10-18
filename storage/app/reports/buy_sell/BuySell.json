@@ -3,12 +3,12 @@
         {
             "id": 0,
             "name": "Volumen",
-            "text": "VOLUMEN NÚMERO: _"
+            "text": "VOLUMEN NÚMERO _"
         },
         {
             "id": 1,
             "name": "Instrumento",
-            "text": "INSTRUMENTO NÚMERO: _"
+            "text": "INSTRUMENTO NÚMERO _"
         },
         {
             "id": 2,
@@ -18,7 +18,7 @@
         {
             "id": 3,
             "name": "Introducción",
-            "text": "Yo Doctora en Derecho Norma Romero Cortés, TITULAR DE LA NOTARÍA PÚBLICA NÚMERO CUATRO, DE ESTA CIUDAD , en ejercicio procedo a redactar la escritura de COMPRA-VENTA, que celebran de una parte como vendedor _; y de la otra como comprador _,  los cuales se sujetan al tenor de los siguientes antecedentes, declaraciones y  cláusulas:"
+            "text": "Yo Doctora en Derecho Norma Romero Cortés, TITULAR DE LA NOTARÍA PÚBLICA NÚMERO CUATRO, DE ESTA CIUDAD , en ejercicio procedo a redactar la escritura de _,  los cuales se sujetan al tenor de los siguientes antecedentes, declaraciones y  cláusulas:"
         },
         {
             "id": 4,
