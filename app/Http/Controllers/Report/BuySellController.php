@@ -42,18 +42,7 @@ class BuySellController extends Controller
         $reportTextData->content[3]->text = str_replace('_', $operationGrantorText, $reportTextData->content[3]->text);
 
         // DATA CONFIGURATION
-        $dataConfig = [];
-        $dataOperation['title'] = 'operations';
-        $dataOperation['sheets'] = $operations->toArray();
-        $dataConfig[] = $dataOperation;
-
-        $grantorNumber = 1;
-        foreach ($grantors as $grantor) {
-            $dataGrantor['title'] = 'gantors' . $grantorNumber;
-            $dataGrantor['sheets'] = $grantor;
-            $dataConfig[] = $dataGrantor;
-            $grantorNumber++;
-        }
+        $dataConfig = ReportUtils::configureData($operations, $grantors);
 
         $dataConfig[] = [
             'title' => 'procedure',

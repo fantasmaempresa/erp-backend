@@ -6,6 +6,7 @@ use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Folio\FolioUtil;
 use App\Http\Controllers\Report\BuySellController;
 use App\Http\Controllers\Report\FirstPreventiveNoticeController;
+use App\Http\Controllers\Report\SecondPreventiveNoticeController;
 use App\Models\Folio;
 use App\Models\Procedure;
 use Illuminate\Support\Facades\DB;
@@ -19,6 +20,7 @@ class DomainTransferController extends ApiController
     {
         $pahseswithFormat = [
             'getFormatFirstPreventiveNotice' => [$this, 'getFormatFirstPreventiveNotice'],
+            'getFormatSecondPreventiveNotice' => [$this, 'getFormatSecondPreventiveNotice'],
             'getFormatBuySell' => [$this, 'getFormatBuySell'],
         ];
 
@@ -29,6 +31,7 @@ class DomainTransferController extends ApiController
     {
         $pahseswithFormat = [
             'generateFirstPreventiveNotice' => [$this, 'generateFirstPreventiveNotice'],
+            'generateSecondPreventiveNotice' => [$this, 'generateSecondPreventiveNotice'],
             'generateBuySell' => [$this, 'generateBuySell'],
         ];
 
@@ -41,6 +44,8 @@ class DomainTransferController extends ApiController
             'start' => [$this, 'startProject'],
             'generateFirstPreventiveNotice' => [$this, 'generateFirstPreventiveNotice'],
             'getFormatFirstPreventiveNotice' => [$this, 'getFormatFirstPreventiveNotice'],
+            'generateSecondPreventiveNotice' => [$this, 'generateSecondPreventiveNotice'],
+            'getFormatSecondPreventiveNotice' => [$this, 'getFormatSecondPreventiveNotice'],
             'generateFolio' => [$this, 'generateFolio'],
             'generateBuySell' => [$this, 'generateBuySell'],
             'getFormatBuySell' => [$this, 'getFormatBuySell'],
@@ -150,6 +155,20 @@ class DomainTransferController extends ApiController
         return $buySell->getDocument();
     }
     // END BUY SELL REPORT
+
+    // SECOND PREVENTIVE NOTICE REPORT
+    public function generateSecondPreventiveNotice(...$args)
+    {
+        $secondPreventiveNotice = new SecondPreventiveNoticeController();
+        return $secondPreventiveNotice->getStructure(...$args);
+    }
+
+    public function getFormatSecondPreventiveNotice()
+    {
+        $secondPreventiveNotice = new SecondPreventiveNoticeController();
+        return $secondPreventiveNotice->getDocument();
+    }
+    // END SECOND PREVENTIVE NOTICE REPORT
 
     public function generateFolio(array $args)
     {

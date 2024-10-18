@@ -46,4 +46,45 @@ class ReportUtils
             }));
         });
     }
+
+    static function operationTextReplace($operations)
+    {
+        $operationText = (count($operations) > 1) ? 'las operaciones de ' : 'la operación de ';
+        $asciiList = 97;
+        foreach ($operations as $operation) {
+            $operationText .= chr($asciiList) . ').- ' . $operation . ' ';
+            $asciiList++;
+        }
+        $operationText .= ', ';
+
+        return $operationText;
+    }
+
+    static function grantorTextReplace($grantors)
+    {
+        $grantorText = "";
+        foreach ($grantors as $grantor) {
+            $grantorText .= $grantor[1] . ': ' . strtoupper($grantor[2]) . ' ' . $grantor[0] . " <br> <br>";
+        }
+
+        return $grantorText;
+    }
+
+    static function configureData($operations, $grantors)
+    {
+        $dataConfig = [];
+        $dataOperation['title'] = 'operations';
+        $dataOperation['sheets'] = $operations->toArray();
+        $dataConfig[] = $dataOperation;
+
+        $grantorNumber = 1;
+        foreach ($grantors as $grantor) {
+            $dataGrantor['title'] = 'gantors' . $grantorNumber;
+            $dataGrantor['sheets'] = $grantor;
+            $dataConfig[] = $dataGrantor;
+            $grantorNumber++;
+        }
+
+        return $dataConfig;
+    }
 }

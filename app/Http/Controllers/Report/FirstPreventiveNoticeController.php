@@ -20,38 +20,16 @@ class FirstPreventiveNoticeController extends Controller
         $reportTextData->content[1]->text = $reportTextData->content[1]->text . $project->procedure->place->name;
 
         // OPERATIONS
-        $operationText = (count($operations) > 1) ? 'las operaciones de ' : 'la operación de ';
-        $asciiList = 97;
-        foreach ($operations as $operation) {
-            $operationText .= chr($asciiList) . ').- ' . $operation . ' ';
-            $asciiList++;
-        }
-        $operationText .= ', ';
-        $reportTextData->content[3]->text = str_replace('_', $operationText, $reportTextData->content[3]->text);
+        $reportTextData->content[3]->text = str_replace('_', ReportUtils::operationTextReplace($operations), $reportTextData->content[3]->text);
 
         // GRANTORS
-        $grantorText = "";
-        foreach ($grantors as $grantor) {
-            $grantorText .= $grantor[1] . ': ' . strtoupper($grantor[2]) . ' ' . $grantor[0] . " \n \n";
-        }
-        $reportTextData->content[4]->text = $grantorText;
+        $reportTextData->content[4]->text = ReportUtils::grantorTextReplace($grantors);
 
         // EXPEDIENT
         $reportTextData->content[11]->text = str_replace('_', $project->procedure->name, $reportTextData->content[11]->text);
 
         // DATA CONFIGURATION
-        $dataConfig = [];
-        $dataOperation['title'] = 'operations';
-        $dataOperation['sheets'] = $operations->toArray();
-        $dataConfig[] = $dataOperation;
-
-        $grantorNumber = 1;
-        foreach ($grantors as $grantor) {
-            $dataGrantor['title'] = 'gantors' . $grantorNumber;
-            $dataGrantor['sheets'] = $grantor;
-            $dataConfig[] = $dataGrantor;
-            $grantorNumber++;
-        }
+        $dataConfig = ReportUtils::configureData($operations, $grantors);
 
         $dataConfig[] = [
             'title' => 'place',
