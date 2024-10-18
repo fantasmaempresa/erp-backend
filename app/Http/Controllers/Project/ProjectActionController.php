@@ -68,10 +68,12 @@ class ProjectActionController extends ApiController
         foreach ($process->config['order_phases'] as $phase) {
             if ($phase['order'] === 1) {
                 $currentPhase = PhasesProcess::findOrFail($phase['phase']['id']);
+                $end_process = $phase['end_process'];
             }
         }
 
         $currentInvolved = [];
+        
         foreach ($project->config as $config) {
             if ($config['process']['id'] === $currentProcess->id) {
                 foreach ($config['phases'] as $phase) {
@@ -100,7 +102,7 @@ class ProjectActionController extends ApiController
 
         event(new ProjectActionsEvent(Project::getActionSystem(Project::$RELOAD_MY_PROJECT_ACTION, 'startProject'), $project, $process));
 
-        return $this->showList($this->newDetailProject($project, $currentProcess, $currentPhase, $currentInvolved));
+        return $this->showList($this->newDetailProject($project, $currentProcess, $currentPhase, $currentInvolved, $end_process));
     }
 
     /**
@@ -129,7 +131,6 @@ class ProjectActionController extends ApiController
 
             event(new ProjectActionsEvent(Project::getActionSystem(Project::$RELOAD_MY_PROJECT_ACTION, 'finishProject'), $project, null));
             event(new ProjectActionsEvent(Project::getActionSystem(Project::$RELOAD_CURRENT_FORM_ACTION, 'finishProject'), $project, null));
-
         } catch (QueryException $exception) {
             DB::rollBack();
             return $this->errorResponse($exception->getMessage(), 409);
@@ -165,12 +166,20 @@ class ProjectActionController extends ApiController
             return $this->errorResponse('Aún no esta iniciado este proceso', 409);
         }
         $user = User::findOrFail(Auth::id());
-        // phpcs:ignore
-        $workGroups = $this->checkContinueNextPhase($currentDetail->form_data['rules']['work_group'], $user);
-        // phpcs:ignore
-        $supervisors = $this->checkContinueNextPhase($currentDetail->form_data['rules']['supervisor'], $user);
 
+        $isSupervisor = false;
+        foreach ($currentDetail->form_data['rules']['supervisor'] as $supervisor) {
+            if (($supervisor['user'] && $user->id == $supervisor['id']) || (!$supervisor['user'] && $user->role->id == $supervisor['id'])) {
+                $isSupervisor = true;
+                break;
+            }
+        }
+
+        // phpcs:ignore
+        // $workGroups = $this->checkContinueNextPhase($currentDetail->form_data['rules'], $user);
+        // phpcs:ignore
         //Revisa que si exista una siguiente phase
+
         foreach ($project->config as $config) {
             if ($config['process']['id'] == $process->id) {
                 foreach ($config['phases'] as $key => $phase) {
@@ -184,7 +193,7 @@ class ProjectActionController extends ApiController
         }
 
 
-        if (!$workGroups && !$supervisors) {
+        if (!$this->checkContinueNextPhase($currentDetail->form_data['rules'], $user, $isSupervisor)) {
             return $this->errorResponse('Aún no se puede pasar a la siguiente fase', 409);
         }
 
@@ -192,16 +201,16 @@ class ProjectActionController extends ApiController
         if ($response) {
             $response = $this->showList($response);
             $notification = $this->createNotification([
-                'title' => 'Salto de fase',
+                'title' => 'Avance de proyecto',
                 'message' => 'Proyecto ' . $project->name . ' avanzo de fase en el proceso ' . $process->name
             ]);
-    
+
             $this->sendNotification(
                 $notification,
                 null,
                 new NotificationEvent($notification, 0, 0, [])
             );
-    
+
             event(new ProjectActionsEvent(Project::getActionSystem(Project::$RELOAD_CURRENT_FORM_ACTION, 'skipPhase'), $project, $process));
         } else {
             $response = $this->errorResponse('No existe una previa o siguiente fase', 409);
@@ -255,6 +264,7 @@ class ProjectActionController extends ApiController
                         // phpcs:ignore
                         'work_group' => $currentDetail->form_data['rules']['work_group'],
                     ],
+                    'end_process' => $currentDetail->form_data['end_process'],
                 ]
             );
         } else {
@@ -314,6 +324,7 @@ class ProjectActionController extends ApiController
     {
         $this->validate($request, [
             'form' => 'required|array',
+            'correction' => 'required|boolean',
         ]);
 
         if ($this->validProjectProcess($project, $process)) {
@@ -325,8 +336,6 @@ class ProjectActionController extends ApiController
         $currentDetail = $this->getCurrentDetailProcessProject($currentProcess);
         $user = User::findOrFail(Auth::id());
 
-        // return $this->showList([$currentDetail, $request->get('form')], 500);
-        // phpcs:ignore
         $values_form = [];
         if (!empty($currentDetail->form_data['type_form']) && $currentDetail->form_data['type_form'] == PhasesProcess::$TYPE_PHASE_PREDEFINED_FORM) {
             $form = $currentDetail->form_data['form'];
@@ -357,8 +366,10 @@ class ProjectActionController extends ApiController
         }
 
         // phpcs:ignore
-        $workGroups = $this->checkSupervisionPhaseProcess($currentDetail->form_data['rules']['work_group'], $user);
-        if ($workGroups) {
+        $workGroups = $this->checkSupervisionPhaseProcess($currentDetail->form_data['rules']['work_group'], $user, $request->get('correction'), true);
+        $supervisor = $this->checkSupervisionPhaseProcess($currentDetail->form_data['rules']['supervisor'], $user, $request->get('correction'), true);
+
+        if ($workGroups || $supervisor) {
             // phpcs:ignore
             $currentDetail = $this->getCurrentDetailProcessProject(
                 $currentProcess,
@@ -370,9 +381,10 @@ class ProjectActionController extends ApiController
                     'values_form' => $currentDetail->form_data['type_form'] == PhasesProcess::$TYPE_PHASE_CREATE_FORM ?  $form : $values_form,
                     'rules' => [
                         // phpcs:ignore
-                        'supervisor' => $currentDetail->form_data['rules']['supervisor'],
-                        'work_group' => $workGroups,
+                        'supervisor' => $supervisor ?? $currentDetail->form_data['rules']['supervisor'],
+                        'work_group' => $workGroups ?? $currentDetail->form_data['rules']['work_group'],
                     ],
+                    'end_process' => $currentDetail->form_data['end_process'],
                 ]
             );
         } else {
@@ -386,60 +398,76 @@ class ProjectActionController extends ApiController
     /**
      * @param $rules
      * @param User $user
+     * @param bool $isSupervior
      *
      * @return bool
      */
-    public function checkContinueNextPhase($rules, User $user): bool
+    public function checkContinueNextPhase($rules, User $user, bool $isSupervisor = false): bool
     {
-        $countSupervision = 0;
-        foreach ($rules as $supervision) {
-            if (isset($supervision['supervision'])) {
-                $countSupervision++;
+        $continue = true;
+        foreach ($rules['work_group'] as $stake) {
+            if ($stake['mandatory_work'] && !isset($stake['contribution'])) {
+                $continue = false;
+                break (1);
             }
         }
 
-        if (count($rules) !== $countSupervision) {
-            return false;
-        }
-
-        $continue = false;
-        foreach ($rules as $supervisor) {
-            if (($supervisor['user'] && $supervisor['id'] === $user->id) || (!$supervisor['user'] && $supervisor['id'] === $user->role->id)) {
-                $continue = true;
-                break;
+        foreach ($rules['supervisor'] as $stake) {
+            if ($stake['mandatory_supervision'] && !isset($stake['supervision'])) {
+                $continue = false;
+                break (1);
             }
         }
 
-        return $continue;
+        $permisionUser = false;
+        $checkUser = $isSupervisor ? $rules['supervisor'] : $rules['work_group'];
+        foreach ($checkUser as $stake) {
+            if (($stake['user'] && $stake['id'] === $user->id) || (!$stake['user'] && $stake['id'] === $user->role->id)) {
+                $permisionUser = true;
+            }
+        }
+
+        return $continue && $permisionUser;
     }
-
     /**
      * @param array $rules
      * @param User $user
+     * @param bool $correction
+     * @param bool $workgruop
      *
      * @return bool|array
      */
-    public function checkSupervisionPhaseProcess(array $rules, User $user): bool|array
+    public function checkSupervisionPhaseProcess(array $rules, User $user, bool $correction = false, bool $workgruop = false): null|array
     {
-        $countSupervision = 0;
-        foreach ($rules as $supervision) {
-            if (isset($supervision['supervision'])) {
-                $countSupervision++;
+        if (!$correction) {
+            $countSupervision = 0;
+            foreach ($rules as $supervision) {
+                if (isset($supervision['supervision'])) {
+                    $countSupervision++;
+                }
             }
-        }
 
-        if (count($rules) === $countSupervision) {
-            return false;
+            if (count($rules) === $countSupervision) {
+                return null;
+            }
         }
 
         $supervisors['continue'] = false;
         foreach ($rules as $supervisor) {
             if (($supervisor['user'] && $supervisor['id'] === $user->id) || (!$supervisor['user'] && $supervisor['id'] === $user->role->id)) {
-                $supervisor['supervision'] = [
-                    'supervision' => true,
-                    'datetime' => date('d-m-y h:i:s'),
-                    'user' => $user,
-                ];
+                if ($workgruop) {
+                    $supervisor['contribution'] = [
+                        'contribution' => true,
+                        'datetime' => date('d-m-y h:i:s'),
+                        'user' => $user,
+                    ];
+                } else {
+                    $supervisor['supervision'] = [
+                        'supervision' => true,
+                        'datetime' => date('d-m-y h:i:s'),
+                        'user' => $user,
+                    ];
+                }
                 $supervisors['continue'] = true;
             }
             $supervisors[] = $supervisor;
@@ -451,7 +479,7 @@ class ProjectActionController extends ApiController
             return $supervisors;
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -538,6 +566,7 @@ class ProjectActionController extends ApiController
         }
 
         $currentInvolved = [];
+        $endPhaseProcess = false;
         foreach ($project->config as $projectConfig) {
             if ($projectConfig['process']['id'] === $currentProcess->id) {
                 foreach ($projectConfig['phases'] as $phase) {
@@ -552,7 +581,14 @@ class ProjectActionController extends ApiController
             DB::beginTransaction();
             try {
                 $currentDetailProcessProject->save();
-                $project = $this->newDetailProject($project, $currentProcess, $nextPhase, $currentInvolved);
+                $project = $this->newDetailProject(
+                    $project, 
+                    $currentProcess, 
+                    $nextPhase, 
+                    $currentInvolved, 
+                    $endPhaseProcess, 
+                    $currentPhaseConfig['end_process']
+                );
                 DB::commit();
             } catch (QueryException $e) {
                 DB::rollBack();
@@ -572,7 +608,12 @@ class ProjectActionController extends ApiController
      *
      * @return Project
      */
-    public function newDetailProject(Project $project, mixed $currentProcess, PhasesProcess $phasesProcess, array $currentInvolved): Project
+    public function newDetailProject(
+        Project $project, 
+        mixed $currentProcess, 
+        PhasesProcess $phasesProcess, 
+        array $currentInvolved, 
+        bool $endPhaseProcess): Project
     {
         $detailProject = new DetailProject();
         $detailProject->comments = 'Phase in progress';
@@ -580,7 +621,13 @@ class ProjectActionController extends ApiController
         // phpcs:ignore
         $detailProject->phases_process_id = $phasesProcess->id;
         // phpcs:ignore
-        $detailProject->form_data = ['form' => $phasesProcess->form, 'rules' => $currentInvolved, 'type_form' =>  $phasesProcess->type_form, 'values_form' => []];
+        $detailProject->form_data = [
+            'form' => $phasesProcess->form,
+            'rules' => $currentInvolved,
+            'type_form' =>  $phasesProcess->type_form,
+            'values_form' => [],
+            'end_process' => $endPhaseProcess
+        ];
         $detailProject->save();
         $detailProject->processProject()->attach($currentProcess->pivot->id);
         foreach ($project->process as $pProcess) {
