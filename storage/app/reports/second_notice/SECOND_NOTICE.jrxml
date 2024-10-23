@@ -80,7 +80,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle" markup="html">
-					<font fontName="Arial" size="11"/>
+					<font fontName="Arial Narrow" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{text}]]></textFieldExpression>
 			</textField>
@@ -89,7 +89,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle" markup="html">
-					<font fontName="Arial" size="11"/>
+					<font fontName="Arial Narrow" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{text_1}]]></textFieldExpression>
 			</textField>
@@ -100,7 +100,7 @@
 					<property name="com.jaspersoft.studio.unit.firstLineIndent" value="cm"/>
 				</reportElement>
 				<textElement markup="html">
-					<font fontName="Arial" size="11"/>
+					<font fontName="Arial Narrow" size="11"/>
 					<paragraph firstLineIndent="42"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{text_2} + "<br> <br>" + $F{text_3}]]></textFieldExpression>
@@ -110,7 +110,7 @@
 			<textField textAdjust="StretchHeight">
 				<reportElement x="0" y="0" width="500" height="30" uuid="bcc43d31-6d49-4af1-bbe6-08898b079868"/>
 				<textElement markup="html">
-					<font fontName="Arial" size="11"/>
+					<font fontName="Arial Narrow" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{text_4}]]></textFieldExpression>
 			</textField>
@@ -119,7 +119,7 @@
 			<textField textAdjust="StretchHeight">
 				<reportElement x="0" y="0" width="500" height="30" uuid="43a27a42-4827-4f2c-b915-c5564c2813c0"/>
 				<textElement markup="html">
-					<font fontName="Arial" size="11"/>
+					<font fontName="Arial Narrow" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<b> <u> DESCRIPCIÓN DEL INMUEBLE:  </u> </b>" + " " + $F{text_5}]]></textFieldExpression>
 			</textField>
@@ -130,7 +130,7 @@
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Bottom" markup="html">
-					<font fontName="Arial" size="11"/>
+					<font fontName="Arial Narrow" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<b> <u> VOLUMEN:  </u> </b>" + " " + $F{text_6}]]></textFieldExpression>
 			</textField>
@@ -157,7 +157,7 @@
 			<textField textAdjust="StretchHeight">
 				<reportElement x="0" y="3" width="498" height="30" uuid="575aa426-1cb5-403a-b7e9-1611e5272b46"/>
 				<textElement textAlignment="Center" markup="html">
-					<font fontName="Arial" size="11"/>
+					<font fontName="Arial Narrow" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{text_9}]]></textFieldExpression>
 			</textField>
@@ -166,7 +166,7 @@
 			<textField textAdjust="StretchHeight">
 				<reportElement x="0" y="0" width="498" height="30" uuid="b78ccf45-3873-4ccf-85d0-5a81cb9d7513"/>
 				<textElement markup="html">
-					<font fontName="Arial" size="11"/>
+					<font fontName="Arial Narrow" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<b> <u> DATOS DE REGISTRO:  </u> </b>" + $F{text_10}]]></textFieldExpression>
 			</textField>
@@ -177,42 +177,42 @@
 			<staticText>
 				<reportElement x="0" y="50" width="498" height="19" uuid="b4111bda-0506-4893-8fb6-02bcd8ccf335"/>
 				<textElement textAlignment="Center" markup="html">
-					<font fontName="Arial" size="11"/>
+					<font fontName="Arial Narrow" size="11"/>
 				</textElement>
 				<text><![CDATA[<b> A T E N T A M E N T E </b>]]></text>
 			</staticText>
 			<textField textAdjust="StretchHeight">
 				<reportElement x="0" y="12" width="498" height="18" uuid="2401edb7-a021-4e4f-9959-9b065543efd2"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
-					<font fontName="Arial" size="11"/>
+					<font fontName="Arial Narrow" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{text_11}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="80" width="498" height="18" uuid="f784ae09-951b-4faa-823e-c2b7f9d7dd12"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
-					<font fontName="Arial" size="11"/>
+					<font fontName="Arial Narrow" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{text_12}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="101" width="498" height="18" uuid="733c7a90-1523-4973-8d29-3eb77db8a1a3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
-					<font fontName="Arial" size="11"/>
+					<font fontName="Arial Narrow" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{text_13}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="150" width="120" height="18" uuid="e373a87e-1d47-49da-bdd5-3f4398e825e4"/>
 				<textElement verticalAlignment="Middle" markup="html">
-					<font fontName="Arial" size="11"/>
+					<font fontName="Arial Narrow" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{text_14}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="170" width="120" height="18" uuid="b1b28455-d83a-4bb3-ab40-7df61efaf4a7"/>
 				<textElement verticalAlignment="Middle" markup="html">
-					<font fontName="Arial" size="11"/>
+					<font fontName="Arial Narrow" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{text_15}]]></textFieldExpression>
 			</textField>
