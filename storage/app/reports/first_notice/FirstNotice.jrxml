@@ -65,7 +65,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Right" markup="html">
-					<font fontName="Arial" size="10"/>
+					<font fontName="Arial Narrow" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{parragraph_1}]]></textFieldExpression>
 			</textField>
@@ -74,14 +74,14 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement markup="html">
-					<font fontName="Arial" size="10"/>
+					<font fontName="Arial Narrow" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{parragraph_2}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="89" width="260" height="15" uuid="2e7c3c23-514d-448e-b0c7-1317486fab42"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font fontName="Arial Narrow" size="11"/>
 				</textElement>
 				<text><![CDATA[P R E S E N T E]]></text>
 			</staticText>
@@ -89,13 +89,13 @@
 	</title>
 	<detail>
 		<band height="267" splitType="Stretch">
-			<textField>
+			<textField textAdjust="StretchHeight">
 				<reportElement x="0" y="10" width="455" height="240" uuid="5a2b0143-bda3-452a-a4d7-b1a8faac485a">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.firstLineIndent" value="cm"/>
 				</reportElement>
 				<textElement textAlignment="Justified" markup="html">
-					<font fontName="Arial" size="10"/>
+					<font fontName="Arial Narrow" size="11"/>
 					<paragraph firstLineIndent="0"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{parragraph_3} + "<br> <br>" +$F{parragraph_4} + "<br> <br>" + $F{parragraph_5} + "<br> <br>" + $F{parragraph_6} + "<br> <br>" + $F{parragraph_7}]]></textFieldExpression>
@@ -107,7 +107,7 @@
 			<textField>
 				<reportElement x="0" y="8" width="455" height="20" uuid="14526a95-ab12-4666-b061-47bdae3c380c"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle" markup="html">
-					<font fontName="Arial"/>
+					<font fontName="Arial Narrow" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{parragraph_8}]]></textFieldExpression>
 			</textField>
@@ -116,35 +116,35 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
-					<font fontName="Arial"/>
+					<font fontName="Arial Narrow" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{parragraph_9}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="88" width="455" height="20" uuid="f077165c-7c0f-4bb6-ac30-e1d71180a20c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
-					<font fontName="Arial"/>
+					<font fontName="Arial Narrow" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{parragraph_10}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="143" width="190" height="20" uuid="190dc437-4c26-42fb-a14c-ac49c06d767f"/>
 				<textElement verticalAlignment="Middle" markup="html">
-					<font fontName="Arial"/>
+					<font fontName="Arial Narrow" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{parragraph_11}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="48" width="455" height="15" uuid="0ac60809-6455-456b-868b-b0c0ce4acc75"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial" size="10"/>
+					<font fontName="Arial Narrow" size="11"/>
 				</textElement>
 				<text><![CDATA[A T E N T A M E N T E]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="0" y="168" width="190" height="20" uuid="9b57a465-9e4e-4399-9d2b-d04b99983759"/>
 				<textElement verticalAlignment="Middle" markup="html">
-					<font fontName="Arial"/>
+					<font fontName="Arial Narrow" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{parragraph_12}]]></textFieldExpression>
 			</textField>
