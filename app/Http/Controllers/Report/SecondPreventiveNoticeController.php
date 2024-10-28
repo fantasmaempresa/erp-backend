@@ -55,7 +55,7 @@ class SecondPreventiveNoticeController extends ApiController
             'sheets' => $procedureData
         ];
 
-        $reportTextData->dataConfig = $dataConfig;
+        $reportTextData->data = $dataConfig;
 
         return $reportTextData;
     }
