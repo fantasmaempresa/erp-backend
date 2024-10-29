@@ -1,0 +1,34 @@
+SELECT *
+FROM information_schema.table_constraints
+WHERE constraint_type = 'FOREIGN KEY'
+AND table_name = 'projects';
+
+ALTER TABLE projects
+DROP FOREIGN KEY projects_procedure_id_foreign;
+
+
+ALTER TABLE projects
+ADD COLUMN procedure_id bigint(20) unsigned null,
+ADD CONSTRAINT fk_projects_procedure
+FOREIGN KEY (procedure_id)
+REFERENCES procedures(id);
+
+
+ALTER TABLE projects
+ADD COLUMN staff_id bigint(20) unsigned null,
+ADD CONSTRAINT fk_projects_staff
+FOREIGN KEY (staff_id)
+REFERENCES staff(id);
+
+ALTER TABLE phases_processes
+ADD COLUMN withFormat JSON NULL;
+
+
+ALTER TABLE procedures
+ADD COLUMN date_appraisal DATE NULL;
+
+ALTER TABLE projects
+MODIFY COLUMN name VARCHAR(100) NULL;
+
+ALTER TABLE projects
+ADD COLUMN type_project TINYINT NULL;

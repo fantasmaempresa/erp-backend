@@ -7,7 +7,6 @@
 namespace App\Http\Controllers\Role;
 
 use App\Http\Controllers\ApiController;
-use App\Http\Controllers\Article\ArticleController as ArticleArticleController;
 use App\Http\Controllers\Book\BookController;
 use App\Htttp\Controllers\Article\ArticleController;
 use App\Http\Controllers\CategoryOperation\CategoryOperationController;
@@ -187,17 +186,17 @@ class RoleActionController extends ApiController
             'route' => './projects',
             'dropdowns' => [
                 [
-                    'label' => 'Fases',
+                    'label' => 'Actividades',
                     'route' => './process-phase',
                     'icon' => 'timeline',
                 ],
                 [
-                    'label' => 'Procesos',
+                    'label' => 'Procedimientos',
                     'route' => './process',
                     'icon' => 'pending_actions',
                 ],
                 [
-                    'label' => 'Proyectos',
+                    'label' => 'Procesos',
                     'route' => './project',
                     'icon' => 'hub',
                 ],

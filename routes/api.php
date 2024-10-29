@@ -143,6 +143,9 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::post('projects/predefined/phase/getStructureFormat/project/{project}/process/{process}', [ProjectActionPredefinedController::class, 'getStructureFormat']);
     Route::post('projects/predefined/phase/getFormat', [ProjectActionPredefinedController::class, 'getReportFormat']);
     Route::post('projects/predefined/phase/project/{project}/process/{process}/format', [ProjectActionPredefinedController::class, 'saveFormat']);
+    Route::post('projects/predefined/phase/project/{project}/process/{process}/format/{reportConfiguration}/update', [ProjectActionPredefinedController::class, 'updateFormat']);
+    Route::post('projects/predefined/phase/project/{project}/process/{process}/getLastedRelatedReports', [ProjectActionPredefinedController::class, 'getLastedRelatedReportsFromReport']);
+    Route::post('projects/predefined/phase/project/{project}/process/{process}/getLastedReports', [ProjectActionPredefinedController::class, 'getLastedReportsFromProjects']);
 
     //PROJECT QUOTES ROUTES
     Route::resource('projectQuotes', ProjectQuoteController::class, ['except' => ['create', 'edit']]);

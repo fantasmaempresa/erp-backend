@@ -32,6 +32,11 @@ class Project extends Model
     public static int $RELOAD_MY_PROJECT_ACTION = 1;
 
 
+    //TYPE PROJECTS
+
+    static int $PROJECT_PUBLIC_WRINTING = 1;
+    static int $PROJECT_NOTARIAL_DEED = 2;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -49,6 +54,7 @@ class Project extends Model
         'client_id',
         'procedure_id',
         'project_quote_id',
+        'type_project',
     ];
 
     protected function setNameAttribute($value)
@@ -88,13 +94,14 @@ class Project extends Model
     public static function rules(): array
     {
         return [
-            'name' => 'required|string',
+            'name' => 'nullable|string',
             'description' => 'nullable|string',
             'quotes' => 'nullable|array',
             'project_quote_id' => 'required|int',
             'config' => 'required|array',
             'staff_id' => 'required|int',
             'client_id' => 'nullable|int',
+            'type_project' => 'required|int|min:1|max:2',
         ];
     }
 

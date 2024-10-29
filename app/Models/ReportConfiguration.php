@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ReportConfiguration extends Model
 {
-    public $timestamps = false;
+    // public $timestamps = false;
     protected $fillable = [
         'id',
         'data',

@@ -9,6 +9,7 @@ use App\Http\Controllers\Report\FirstPreventiveNoticeController;
 use App\Http\Controllers\Report\SecondPreventiveNoticeController;
 use App\Models\Folio;
 use App\Models\Procedure;
+use App\Models\ReportConfiguration;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -59,26 +60,36 @@ class DomainTransferController extends ApiController
     {
         $rules = [
             'start' => [
-                'name' => 'required|unique:procedures,name',
-                'value_operation' => 'nullable|string|regex:/^[a-zA-Z0-9\s.]+$/',
-                'grantors' => 'nullable|array',
-                'grantors.*.grantor_id' =>  [
+                'data.name' => 'required|unique:procedures,name',
+                'data.value_operation' => 'nullable|string|regex:/^[a-zA-Z0-9\s.]+$/',
+                'data.grantors' => 'nullable|array',
+                'data.grantors.*.grantor_id' =>  [
                     'required_if:grantors,!=,null',
                     'exists:grantors,id',
                 ],
-                'grantors.*.stake_id' => [
+                'data.grantors.*.stake_id' => [
                     'required_if:grantors,!=,null',
                     'exists:stakes,id',
                 ],
-                'operations' => 'required|array',
-                'staff_id' => 'required|exists:staff,id',
+                'data.operations' => 'required|array',
+                'data.staff_id' => 'required|exists:staff,id',
             ],
             'generateFolio' => [
-                'name' => 'required|int|unique:folios,name',
-                'folio_min' => 'required|int|unique:folios,folio_min',
-                'folio_max' => 'required|int|unique:folios,folio_max',
-                'book_id' => 'required|int',
-                'procedure_id' => 'required|int|unique:folios,procedure_id',
+                'data.name' => 'required|int|unique:folios,name',
+                'data.folio_min' => 'required|int|unique:folios,folio_min',
+                'data.folio_max' => 'required|int|unique:folios,folio_max',
+                'data.book_id' => 'required|int',
+                'data.procedure_id' => 'required|int|unique:folios,procedure_id',
+            ],
+            'generateSecondPreventiveNotice' => [
+                'data.lasted_related_report_id' => 'required|int|exists:report_configurations,id',
+                'data.last_report_id' => 'nullable|int|exists:report_configurations,id'
+            ],
+            'generateFirstPreventiveNotice' => [
+                'data.last_report_id' => 'nullable|int|exists:report_configurations,id'
+            ],
+            'generateBuySell' => [
+                'data.last_report_id' => 'nullable|int|exists:report_configurations,id'
             ],
         ];
 
@@ -139,18 +150,21 @@ class DomainTransferController extends ApiController
 
     public function getFormatFirstPreventiveNotice()
     {
+        
         $firstPreventiveNotice = new FirstPreventiveNoticeController();
         return $firstPreventiveNotice->getDocument();
     }
     // END FIRST PREVENTIVE NOTICE REPORT
 
     // BUY SELL REPORT
-    public function generateBuySell(...$args) {
+    public function generateBuySell(...$args)
+    {
         $buySell = new BuySellController();
         return $buySell->getStructure(...$args);
     }
 
-    public function getFormatBuySell() {
+    public function getFormatBuySell()
+    {
         $buySell = new BuySellController();
         return $buySell->getDocument();
     }
@@ -163,9 +177,19 @@ class DomainTransferController extends ApiController
         return $secondPreventiveNotice->getStructure(...$args);
     }
 
-    public function getFormatSecondPreventiveNotice()
+    public function getFormatSecondPreventiveNotice(...$args)
     {
+
+        if (isset($args['last_report_id'])){
+            $lastReport = ReportConfiguration::findOrFail($args['last_report_id']);
+            if (!$lastReport) {
+                return $this->errorResponse('El reporte de condición inicial no existe', 404);
+            }
+            return $this->showList($lastReport->data);
+        }
+        
         $secondPreventiveNotice = new SecondPreventiveNoticeController();
+
         return $secondPreventiveNotice->getDocument();
     }
     // END SECOND PREVENTIVE NOTICE REPORT

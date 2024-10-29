@@ -10,6 +10,7 @@ class FirstPreventiveNoticeController extends Controller
     public function getStructure(...$args)
     {
         $project = $args[0];
+        
         $reportTextData = json_decode(Storage::get('reports/first_notice/FirstNotice.json'));
 
         $operations = ReportUtils::getOperationData($project);

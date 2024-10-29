@@ -41,6 +41,9 @@ class ProjectFilterController extends ApiController
             $projects = Project::where('finished', '<>', Project::$FINISHED)
                 ->with('process')
                 ->with('processProjectThrough')
+                ->with('procedure')
+                ->with('staff')
+                ->with('client')
                 ->paginate($paginate);
         } else {
             $projects = $user->projects()->where('finished', '<>', Project::$FINISHED)->with('process')->with('processProjectThrough')
@@ -76,6 +79,9 @@ class ProjectFilterController extends ApiController
                     $projects = Project::whereIn('id', $resultProjectsID)
                         ->with('process')
                         ->with('processProjectThrough')
+                        ->with('procedure')
+                        ->with('staff')
+                        ->with('client')
                         ->paginate($paginate);
                 }
             }
@@ -88,7 +94,7 @@ class ProjectFilterController extends ApiController
      *
      * @return JsonResponse
      */
-    public function getResumeProject(Project $project, Process $process): JsonResponse
+    public function getResumeProject(Project $project, Process $process, $internalCall = false)
     {
         $currentProcess = $this->getCurrentProcess($project, $process);
         $detailProjectProcess = DetailProjectProcessProject::where('process_project_id', $currentProcess->pivot->id)
@@ -99,7 +105,7 @@ class ProjectFilterController extends ApiController
             $detail->detailProject->phase;
         }
 
-        return $this->showList($detailProjectProcess);
+        return $internalCall ? $detailProjectProcess :  $this->showList($detailProjectProcess);
     }
 
     /**
@@ -110,29 +116,37 @@ class ProjectFilterController extends ApiController
      */
     public function getCurrentPhaseForm(Project $project, Process $process): JsonResponse
     {
-
         $currentProcess = $this->getCurrentProcess($project, $process);
         if (is_bool($currentProcess)) {
-            // phpcs:ignore
             return $this->errorResponse('El proceso [' . $process->name . '] no se encuenta asiganado a este proyecto [' . $project->name . ']', 409);
         }
         $user = User::findOrFail(Auth::id());
         $currentDetail = $this->getCurrentProcessDetail($currentProcess);
-
         if (is_bool($currentDetail)) {
             return $this->errorResponse('El proceso finalizo o aún no ha inicado', 409);
         }
         $response = $this->errorResponse('este usuario no tiene permisos para ver el formulario actual', 409);
-        // phpcs:ignore
         if (isset($currentDetail->form_data['rules'])) {
-            // phpcs:ignore]
-            $phaseR['values_form'] = $currentDetail->form_data['values_form'] ?? [];
-            $phaseR['form'] = $currentDetail->form_data['form'];
+            $detailProjectProcess = $this->getResumeProject($project, $process, true);
+
+            if (empty($currentDetail->form_data['values_form'])) {
+                $values_form = null;
+                $form = null;
+                foreach ($detailProjectProcess as $detail) {
+                    if (
+                        $detail->detailProject->phase->id == $currentDetail->phases_process_id &&
+                        $detail->detailProject->finished === DetailProject::$FINISHED
+                    ) {
+                        $values_form = $detail->detailProject->form_data['values_form'];
+                        $form = $detail->detailProject->form_data['form'];
+                    }
+                }
+            }
+            $phaseR['values_form'] = $values_form ?? $currentDetail->form_data['values_form'] ?? [];
+            $phaseR['form'] = $form ?? $currentDetail->form_data['form'];
             $phaseR['type_form'] = $currentDetail->form_data['type_form'] ?? PhasesProcess::$TYPE_PHASE_PREDEFINED_FORM;
             $phaseR['controls'] = $this->getControlsCurrentForm($project, $process, $user);
             $phaseR['procedure'] = $project->procedure;
-            // phpcs:ignore
-
             $response = $this->showList($phaseR);
         }
         return $response;
@@ -216,7 +230,6 @@ class ProjectFilterController extends ApiController
         //Verifica que el usuario que solicita el formulario 
         foreach ($currentDetail->form_data['rules']['supervisor'] as $supervisor) {
             if ($supervisor['user'] && $user->id == $supervisor['id']) {
-                // phpcs:ignore
                 if (!isset($supervisor['supervision'])) {
                     $controls['supervision'] = true;
                 }
@@ -264,8 +277,8 @@ class ProjectFilterController extends ApiController
 
         $controls['next'] = $this->checkContinueNextPhase($currentDetail->form_data['rules'], $user, $isSupervisor);
         //TODO: revisar que esta fase tenga un previo antes de activar el botón
-        $controls['prev'] = true;
 
+        $controls['prev'] = !empty($currentDetail->form_data['previous']['phase']);
         //Revisa que si exista una siguiente phase, en caso contrario desactiva next y activa completar el proceso
 
         foreach ($project->config as $config) {
@@ -282,7 +295,6 @@ class ProjectFilterController extends ApiController
         }
 
         if ($currentDetail->form_data['end_process']) {
-            $controls['next'] = false;
             $controls['completeProcess'] = true;
         }
 
