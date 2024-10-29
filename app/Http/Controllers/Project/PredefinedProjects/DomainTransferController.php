@@ -137,10 +137,10 @@ class DomainTransferController extends ApiController
         return $firstPreventiveNotice->getStructure(...$args);
     }
 
-    public function getFormatFirstPreventiveNotice()
+    public function getFormatFirstPreventiveNotice(...$args)
     {
         $firstPreventiveNotice = new FirstPreventiveNoticeController();
-        return $firstPreventiveNotice->getDocument();
+        return $firstPreventiveNotice->getDocument($args);
     }
     // END FIRST PREVENTIVE NOTICE REPORT
 
@@ -150,9 +150,9 @@ class DomainTransferController extends ApiController
         return $buySell->getStructure(...$args);
     }
 
-    public function getFormatBuySell() {
+    public function getFormatBuySell(...$args) {
         $buySell = new BuySellController();
-        return $buySell->getDocument();
+        return $buySell->getDocument($args);
     }
     // END BUY SELL REPORT
 
@@ -163,10 +163,10 @@ class DomainTransferController extends ApiController
         return $secondPreventiveNotice->getStructure(...$args);
     }
 
-    public function getFormatSecondPreventiveNotice()
+    public function getFormatSecondPreventiveNotice(...$args)
     {
         $secondPreventiveNotice = new SecondPreventiveNoticeController();
-        return $secondPreventiveNotice->getDocument();
+        return $secondPreventiveNotice->getDocument($args);
     }
     // END SECOND PREVENTIVE NOTICE REPORT
 

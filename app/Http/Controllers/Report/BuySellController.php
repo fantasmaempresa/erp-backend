@@ -50,11 +50,11 @@ class BuySellController extends Controller
         $reportTextData->content[3]->text = str_replace('_', $operationGrantorText, $reportTextData->content[3]->text);
 
         //FOLIO
-        if(is_null($folio)) {
-           unset($reportTextData->content[9]); 
-           unset($reportTextData->content[10]); 
-           unset($reportTextData->content[11]); 
-           unset($reportTextData->content[12]); 
+        if (is_null($folio)) {
+            $reportTextData->content[9]->show = false;
+            $reportTextData->content[10]->show = false;
+            $reportTextData->content[11]->show = false;
+            $reportTextData->content[12]->show = false;
         }
 
         // DATA CONFIGURATION
@@ -70,9 +70,10 @@ class BuySellController extends Controller
         return $reportTextData;
     }
 
-    public function getDocument()
+    public function getDocument(...$args)
     {
         return [
+            "data" => $args[0][0],
             "parameters" => [],
             "jasperPath" => Storage::path('reports/buy_sell/BUY_SELL.jasper'),
             "output" => Storage::path('reports/buy_sell/BuySell.rtf'),

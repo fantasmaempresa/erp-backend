@@ -74,6 +74,22 @@
 		<property name="net.sf.jasperreports.json.field.expression" value="content[14].text"/>
 		<fieldDescription><![CDATA[content.text]]></fieldDescription>
 	</field>
+	<field name="show_9" class="java.lang.Boolean">
+		<property name="net.sf.jasperreports.json.field.expression" value="content[9].show"/>
+		<fieldDescription><![CDATA[content.show]]></fieldDescription>
+	</field>
+	<field name="show_10" class="java.lang.Boolean">
+		<property name="net.sf.jasperreports.json.field.expression" value="content[10].show"/>
+		<fieldDescription><![CDATA[content.show]]></fieldDescription>
+	</field>
+	<field name="show_11" class="java.lang.Boolean">
+		<property name="net.sf.jasperreports.json.field.expression" value="content[11].show"/>
+		<fieldDescription><![CDATA[content.show]]></fieldDescription>
+	</field>
+	<field name="show_12" class="java.lang.Boolean">
+		<property name="net.sf.jasperreports.json.field.expression" value="content[12].show"/>
+		<fieldDescription><![CDATA[content.show]]></fieldDescription>
+	</field>
 	<detail>
 		<band height="58" splitType="Stretch">
 			<textField>
@@ -200,6 +216,7 @@
 			</textField>
 		</band>
 		<band height="139">
+			<printWhenExpression><![CDATA[$F{show_9} && $F{show_10} && $F{show_11}]]></printWhenExpression>
 			<textField>
 				<reportElement x="0" y="30" width="220" height="19" uuid="6f932af7-018d-4072-a11f-da496c7f880b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -232,6 +249,7 @@
 			</textField>
 		</band>
 		<band height="68">
+			<printWhenExpression><![CDATA[$F{show_12}]]></printWhenExpression>
 			<textField textAdjust="StretchHeight">
 				<reportElement x="0" y="30" width="440" height="30" uuid="a4488a69-eb9b-4771-9148-67c0bdca54dc"/>
 				<textElement textAlignment="Justified" markup="html">

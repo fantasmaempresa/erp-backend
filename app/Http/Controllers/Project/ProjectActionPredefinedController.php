@@ -94,7 +94,7 @@ class ProjectActionPredefinedController extends ApiController
 
         $reportParams = $dispatcher->executePhase($request->get('namePhase'), $request->get('data'));
 
-        $jsonData = json_encode($request->get('data'));
+        $jsonData = json_encode($reportParams['data']);
         Storage::put("reports/tempJson.json", $jsonData);
 
         $report = new Report(

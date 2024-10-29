@@ -65,9 +65,10 @@ class SecondPreventiveNoticeController extends ApiController
         return $reportTextData;
     }
 
-    public function getDocument()
+    public function getDocument(...$args)
     {
         return [
+            "data" => $args[0][0],
             "parameters" => [],
             "jasperPath" => Storage::path('reports/second_notice/SECOND_NOTICE.jasper'),
             "output" => Storage::path('reports/second_notice/SECOND_NOTICE.rtf'),
