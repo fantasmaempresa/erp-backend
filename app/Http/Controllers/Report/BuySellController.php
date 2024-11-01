@@ -12,19 +12,27 @@ class BuySellController extends Controller
         $project = $args[0];
         $reportTextData = json_decode(Storage::get('reports/buy_sell/BuySell.json'));
 
+        $folio = $project->procedure->folio;
+        $volume = is_null($folio) ? '' : '(' . number_format($folio->book->name, 0, '.', ',') . ') ' . strtoupper(ReportUtils::numberSpanish($folio->book->name));
+        $instrument = is_null($folio) ? '' : '(' . number_format($folio->name, 0, '.', ',') . ') ' . strtoupper(ReportUtils::numberSpanish($folio->name));
+
         $procedureData = [
-            "book" => number_format(str_replace('_', '', $project->procedure->folio->book->name), 0, '.', ','),
-            "instrument" => number_format(str_replace('_', '', $project->procedure->folio->name), 0, '.', ','),
+            $volume,
+            $instrument,
+            $project->procedure->date,
         ];
 
         $operations = ReportUtils::getOperationData($project);
         $grantors = ReportUtils::getGrantorData($project);
 
         //VOLUME
-        $reportTextData->content[0]->text = str_replace('_', $procedureData["book"], $reportTextData->content[0]->text);
+        $reportTextData->content[0]->text = str_replace('_', $procedureData[0], $reportTextData->content[0]->text);
 
         //INSTRUMENT
-        $reportTextData->content[1]->text = str_replace('_', $procedureData["instrument"], $reportTextData->content[1]->text);
+        $reportTextData->content[1]->text = str_replace('_', $procedureData[1], $reportTextData->content[1]->text);
+
+        //DATE
+        $reportTextData->content[2]->text = str_replace('_', ReportUtils::dateSpanish($procedureData[2]), $reportTextData->content[2]->text);
 
         //OPERATIONS
         $operationGrantorText = "";
@@ -41,12 +49,20 @@ class BuySellController extends Controller
 
         $reportTextData->content[3]->text = str_replace('_', $operationGrantorText, $reportTextData->content[3]->text);
 
+        //FOLIO
+        if (is_null($folio)) {
+            $reportTextData->content[9]->show = false;
+            $reportTextData->content[10]->show = false;
+            $reportTextData->content[11]->show = false;
+            $reportTextData->content[12]->show = false;
+        }
+
         // DATA CONFIGURATION
         $dataConfig = ReportUtils::configureData($operations, $grantors);
 
         $dataConfig[] = [
             'title' => 'procedure',
-            'sheets' => [$procedureData["book"], $procedureData["instrument"]]
+            'sheets' => $procedureData
         ];
 
         $reportTextData->data = $dataConfig;
@@ -54,9 +70,10 @@ class BuySellController extends Controller
         return $reportTextData;
     }
 
-    public function getDocument()
+    public function getDocument(...$args)
     {
         return [
+            "data" => $args[0][0],
             "parameters" => [],
             "jasperPath" => Storage::path('reports/buy_sell/BUY_SELL.jasper'),
             "output" => Storage::path('reports/buy_sell/BuySell.rtf'),

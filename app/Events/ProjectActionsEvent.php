@@ -19,8 +19,12 @@ class ProjectActionsEvent implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct(public array $action, public Project $project, public Process | null $process)
-    {
+    public function __construct(
+        public array $action,
+        public Project $project,
+        public Process | null $process,
+        public array $data = [],
+    ) {
         //
     }
 
@@ -40,6 +44,7 @@ class ProjectActionsEvent implements ShouldBroadcast
             'action' => $this->action,
             'project_id' => $this->project->id,
             'process_id' => $this->process->id ?? null,
+            'data' => $this->data,
         ];
     }
 }

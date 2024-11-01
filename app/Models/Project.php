@@ -30,7 +30,7 @@ class Project extends Model
 
     public static int $RELOAD_CURRENT_FORM_ACTION = 0;
     public static int $RELOAD_MY_PROJECT_ACTION = 1;
-
+    public static int $SEND_NOTIFY_MY_PROJECT_ACTION = 2;
 
     //TYPE PROJECTS
 
@@ -273,6 +273,11 @@ class Project extends Model
                 'command' =>'reload_my_project',
                 'action' => $action,
             ],
+            self::$SEND_NOTIFY_MY_PROJECT_ACTION => [
+                'command' =>'send_internal_notification',
+                'action' => $action,
+            ],
+            
         ];
 
         return $commands[$command] ?? [];

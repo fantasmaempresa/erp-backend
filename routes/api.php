@@ -146,6 +146,7 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::post('projects/predefined/phase/project/{project}/process/{process}/format/{reportConfiguration}/update', [ProjectActionPredefinedController::class, 'updateFormat']);
     Route::post('projects/predefined/phase/project/{project}/process/{process}/getLastedRelatedReports', [ProjectActionPredefinedController::class, 'getLastedRelatedReportsFromReport']);
     Route::post('projects/predefined/phase/project/{project}/process/{process}/getLastedReports', [ProjectActionPredefinedController::class, 'getLastedReportsFromProjects']);
+    Route::post('projects/predefined/phase/project/{project}/process/{process}/issueEventToPhase', [ProjectActionPredefinedController::class, 'issueEventToPhase']);
 
     //PROJECT QUOTES ROUTES
     Route::resource('projectQuotes', ProjectQuoteController::class, ['except' => ['create', 'edit']]);

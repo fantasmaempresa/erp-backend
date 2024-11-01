@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Report;
 
 use App\Models\Project;
 use App\Models\Stake;
+use Carbon\Carbon;
+use NumberFormatter;
 
 class ReportUtils
 {
@@ -93,4 +95,20 @@ class ReportUtils
         
     }
 
+    static function dateSpanish($date)
+    {
+        $carbonDate = Carbon::parse($date);
+        $carbonDate->locale('es');
+
+        $daysLetter = self::numberSpanish($carbonDate->day);
+        $yearLetter = self::numberSpanish($carbonDate->year);
+
+        return "a los " . $daysLetter . " días del mes de " . $carbonDate->isoFormat('MMMM') . " del año " . $yearLetter;
+    }
+
+    static function numberSpanish($number)
+    {
+        $numberFormatter = new NumberFormatter('es_ES', \NumberFormatter::SPELLOUT);
+        return $numberFormatter->format($number);
+    }
 }

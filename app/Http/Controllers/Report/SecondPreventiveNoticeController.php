@@ -14,10 +14,15 @@ class SecondPreventiveNoticeController extends ApiController
 
         $operations = ReportUtils::getOperationData($project);
         $grantors = ReportUtils::getGrantorData($project);
+
+        $folio = $project->procedure->folio;
+        $volume = is_null($folio) ? '' : number_format($folio->book->name, 0, '.', ',');
+        $instrument = is_null($folio) ? '' : number_format($folio->name, 0, '.', ',');
+
         $procedureData = [
             $project->procedure->place->name,
-            number_format(str_replace('_', '', $project->procedure->folio->book->name), 0, '.', ','),
-            number_format(str_replace('_', '', $project->procedure->folio->name), 0, '.', ','),
+            $volume,
+            $instrument,
             $project->procedure->date,
             $project->procedure->value_operation,
             $project->procedure->staff->initials(),
@@ -32,7 +37,7 @@ class SecondPreventiveNoticeController extends ApiController
         $reportTextData->content[9]->text = str_replace('_', $procedureData[4], $reportTextData->content[9]->text);
 
         foreach ($operations as $operation) {
-            if(strpos($operation, "APLICACION DE BIENES") !== false) {
+            if (strpos($operation, "APLICACION DE BIENES") !== false) {
                 $reportTextData->content[9]->text = "VALOR DE OPERACIÓN DE LA APLICACIÓN: VALOR QUE ARROJE EL AVALÚO CATASTRAL." . " \n \n" . $reportTextData->content[9]->text;
                 break;
             }
@@ -60,9 +65,10 @@ class SecondPreventiveNoticeController extends ApiController
         return $reportTextData;
     }
 
-    public function getDocument()
+    public function getDocument(...$args)
     {
         return [
+            "data" => $args[0][0],
             "parameters" => [],
             "jasperPath" => Storage::path('reports/second_notice/SECOND_NOTICE.jasper'),
             "output" => Storage::path('reports/second_notice/SECOND_NOTICE.rtf'),

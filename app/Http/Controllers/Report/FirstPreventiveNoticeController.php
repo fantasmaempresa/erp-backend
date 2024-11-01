@@ -58,9 +58,10 @@ class FirstPreventiveNoticeController extends Controller
         return $reportTextData;
     }
 
-    public function getDocument()
+    public function getDocument(...$args)
     {
         return [
+            "data" => $args[0][0],
             "parameters" => [],
             "jasperPath" => Storage::path('reports/first_notice/FirstNotice.jasper'),
             "output" => Storage::path('reports/first_notice/FirstNotice.rtf'),

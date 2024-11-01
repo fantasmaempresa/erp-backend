@@ -1,79 +1,95 @@
 {
+    "title": "ESCRITURAS",
     "content": [
         {
             "id": 0,
             "name": "Volumen",
-            "text": "VOLUMEN NÚMERO _"
+            "text": "VOLUMEN NÚMERO _",
+            "show": true
         },
         {
             "id": 1,
             "name": "Instrumento",
-            "text": "INSTRUMENTO NÚMERO _"
+            "text": "INSTRUMENTO NÚMERO _",
+            "show": true
         },
         {
             "id": 2,
             "name": "Fecha",
-            "text": "En la Heroica Ciudad de Puebla, _, "
+            "text": "En la Heroica Ciudad de Puebla, _, ",
+            "show": true
         },
         {
             "id": 3,
             "name": "Introducción",
-            "text": "Yo Doctora en Derecho Norma Romero Cortés, TITULAR DE LA NOTARÍA PÚBLICA NÚMERO CUATRO, DE ESTA CIUDAD , en ejercicio procedo a redactar la escritura de _,  los cuales se sujetan al tenor de los siguientes antecedentes, declaraciones y  cláusulas:"
+            "text": "Yo Doctora en Derecho Norma Romero Cortés, TITULAR DE LA NOTARÍA PÚBLICA NÚMERO CUATRO, DE ESTA CIUDAD , en ejercicio procedo a redactar la escritura de _,  los cuales se sujetan al tenor de los siguientes antecedentes, declaraciones y  cláusulas:",
+            "show": true
         },
         {
             "id": 4,
             "name": "Antecedentes",
-            "text": "<b> Declara la Parte Vendedora a través de su representante legal: </b> <br> <b>I.-</b> Que por _ inscrita en el Registro Público de la Propiedad del Distrito Judicial de _, bajo _, de fecha _, adquirió mediante _, el inmueble identificado como: _, con las siguientes medidas y colindancias: <br> II.- Dicho inmueble paga sus contribuciones prediales al Municipio de _, con la cuenta número _ (_), encontrándose al corriente como lo justifica con el recibo de pago correspondiente, documento del que tomo copias debidamente certificadas que inserto en los testimonios que de esta escritura se expidan, así como en al apéndice respectivo. <br> III.- Por concepto del Servicio de Agua Potable, exhibe la _, respecto del inmueble objeto del presente contrato; documento que en original anexo al apéndice respectivo y tomo copias certificadas que inserto en los testimonios que de esta escritura se expidan. <br> IV.-Se tramitó y obtuvo el Certificado de libertad de Gravamen expedido por el _, del inmueble objeto del presente contrato, el cual reporta Libre de Gravamen, y el Primer Aviso Preventivo relativo a la presente operación; documento que en original agrego al apéndice respectivo y tomo copias certificadas que inserto en los testimonios que de esta escritura se expidan."
+            "text": "<b> Declara la Parte Vendedora a través de su representante legal: </b> <br> <b>I.-</b> Que por _ inscrita en el Registro Público de la Propiedad del Distrito Judicial de _, bajo _, de fecha _, adquirió mediante _, el inmueble identificado como: _, con las siguientes medidas y colindancias: <br> II.- Dicho inmueble paga sus contribuciones prediales al Municipio de _, con la cuenta número _ (_), encontrándose al corriente como lo justifica con el recibo de pago correspondiente, documento del que tomo copias debidamente certificadas que inserto en los testimonios que de esta escritura se expidan, así como en al apéndice respectivo. <br> III.- Por concepto del Servicio de Agua Potable, exhibe la _, respecto del inmueble objeto del presente contrato; documento que en original anexo al apéndice respectivo y tomo copias certificadas que inserto en los testimonios que de esta escritura se expidan. <br> IV.-Se tramitó y obtuvo el Certificado de libertad de Gravamen expedido por el _, del inmueble objeto del presente contrato, el cual reporta Libre de Gravamen, y el Primer Aviso Preventivo relativo a la presente operación; documento que en original agrego al apéndice respectivo y tomo copias certificadas que inserto en los testimonios que de esta escritura se expidan.",
+            "show": true
         },
         {
             "id": 5,
             "name": "Declaraciones",
-            "text": "Declaran los comparecientes bajo formal protesta de conducirse con verdad: <br> PRIMERA.- Que de conformidad con la Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita, las partes manifiestan que NO existe relación de negocios con la suscrita Notario. <br> SEGUNDA.- Que en el presente instrumento actúan en su nombre y por cuenta propia ya que no existe BENEFICIARIO CONTROLADOR o DUEÑO BENEFICIARIO. <br> Dados estos antecedentes y declaraciones, se otorgan las siguientes:"
+            "text": "Declaran los comparecientes bajo formal protesta de conducirse con verdad: <br> PRIMERA.- Que de conformidad con la Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita, las partes manifiestan que NO existe relación de negocios con la suscrita Notario. <br> SEGUNDA.- Que en el presente instrumento actúan en su nombre y por cuenta propia ya que no existe BENEFICIARIO CONTROLADOR o DUEÑO BENEFICIARIO. <br> Dados estos antecedentes y declaraciones, se otorgan las siguientes:",
+            "show": true
         },
         {
             "id": 6,
             "name": "Clausulas",
-            "text": "PRIMERA.- _, vende a favor de _, quien compra para su representada  el  inmueble identificado como: _, con las superficies, indiviso, medidas y colindancias hechas constar en el punto I (romano) de los antecedentes de esta escritura, las cuales se dan aquí por reproducidas como si se insertasen a la letra para todos sus efectos legales. <br> <br> Transmitiendo la parte vendedora a la parte compradora el dominio pleno y la posesión civil del referido inmueble, con todo cuanto de hecho y por derecho le pertenezca por usos, costumbres, servidumbres y accesiones sin reserva ni limitación alguna. <br> SEGUNDA.- Manifiestan los contratantes que el precio fijado por esta operación es la cantidad de $______________________ (_____________________________), suma que es pagada de la parte compradora a  entera satisfacción y conformidad de la parte vendedora, de la siguiente forma: _____________________________________________________, cantidad que la parte compradora entrega a entera satisfacción y conformidad de la parte vendedora, de cuyos comprobantes tomo copia fotostática para el apéndice de esta escritura, habiéndose pagado a entera satisfacción y conformidad de la parte vendedora, sirviendo esta escritura como el recibo más amplio, valedero y eficaz que en derecho proceda por la suma recibida. <br> TERCERA.- Quedan advertidos los contratantes, que los impuestos que por esta operación se pagan, se calculan de acuerdo al valor de operación que manifiestan y que de acuerdo con el Código Fiscal, las autoridades Municipales, Estatales o Federales, tienen facultad para modificarlo y aumentarlo, por lo que cada parte es responsable para pagar las liquidaciones complementarias que resulten por aumento al mismo. <br> CUARTA.- Es justo y legal el precio fijado, renuncian las partes a demandarse nulidad o rescisión por causa de lesión o error y a los artículos 1477, 1478 y 1948 del Código Civil para el Estado de Puebla. <br> QUINTA.- Declara la parte vendedora que el inmueble enajenado se encuentra libre de gravamen y adeudos de carácter fiscal pero de cualquier manera se obliga a responder por el saneamiento y la evicción en términos de ley. <br> SEXTA.- Todos los gastos, impuestos, derechos y honorarios que cause la presente escritura serán por cuenta exclusiva de la parte compradora, con excepción del pago del Impuesto Sobre la Renta por enajenación de inmuebles que deberá cubrir la parte enajenante. <br> SÉPTIMA.- Convienen las partes que en caso de controversia, se podrán supeditar al procedimiento de mediación, atento a lo dispuesto por los artículos 835 y 836, fracción V del Código de Procedimientos Civiles del Estado de Puebla, pudiendo intervenir el Notario Público que designen las partes. <br> OCTAVA.- Para la interpretación, ejecución y cumplimiento de las cláusulas de este contrato, así como para todo lo no previsto en el mismo, las partes por voluntad expresa convienen en someterse a la jurisdicción y competencia de los Tribunales del Distrito Judicial de ____________________, por lo que renuncian al fuero que por razón de su domicilio presente o futuro les pudiera corresponder."
+            "text": "PRIMERA.- _, vende a favor de _, quien compra para su representada  el  inmueble identificado como: _, con las superficies, indiviso, medidas y colindancias hechas constar en el punto I (romano) de los antecedentes de esta escritura, las cuales se dan aquí por reproducidas como si se insertasen a la letra para todos sus efectos legales. <br> <br> Transmitiendo la parte vendedora a la parte compradora el dominio pleno y la posesión civil del referido inmueble, con todo cuanto de hecho y por derecho le pertenezca por usos, costumbres, servidumbres y accesiones sin reserva ni limitación alguna. <br> SEGUNDA.- Manifiestan los contratantes que el precio fijado por esta operación es la cantidad de $______________________ (_____________________________), suma que es pagada de la parte compradora a  entera satisfacción y conformidad de la parte vendedora, de la siguiente forma: _____________________________________________________, cantidad que la parte compradora entrega a entera satisfacción y conformidad de la parte vendedora, de cuyos comprobantes tomo copia fotostática para el apéndice de esta escritura, habiéndose pagado a entera satisfacción y conformidad de la parte vendedora, sirviendo esta escritura como el recibo más amplio, valedero y eficaz que en derecho proceda por la suma recibida. <br> TERCERA.- Quedan advertidos los contratantes, que los impuestos que por esta operación se pagan, se calculan de acuerdo al valor de operación que manifiestan y que de acuerdo con el Código Fiscal, las autoridades Municipales, Estatales o Federales, tienen facultad para modificarlo y aumentarlo, por lo que cada parte es responsable para pagar las liquidaciones complementarias que resulten por aumento al mismo. <br> CUARTA.- Es justo y legal el precio fijado, renuncian las partes a demandarse nulidad o rescisión por causa de lesión o error y a los artículos 1477, 1478 y 1948 del Código Civil para el Estado de Puebla. <br> QUINTA.- Declara la parte vendedora que el inmueble enajenado se encuentra libre de gravamen y adeudos de carácter fiscal pero de cualquier manera se obliga a responder por el saneamiento y la evicción en términos de ley. <br> SEXTA.- Todos los gastos, impuestos, derechos y honorarios que cause la presente escritura serán por cuenta exclusiva de la parte compradora, con excepción del pago del Impuesto Sobre la Renta por enajenación de inmuebles que deberá cubrir la parte enajenante. <br> SÉPTIMA.- Convienen las partes que en caso de controversia, se podrán supeditar al procedimiento de mediación, atento a lo dispuesto por los artículos 835 y 836, fracción V del Código de Procedimientos Civiles del Estado de Puebla, pudiendo intervenir el Notario Público que designen las partes. <br> OCTAVA.- Para la interpretación, ejecución y cumplimiento de las cláusulas de este contrato, así como para todo lo no previsto en el mismo, las partes por voluntad expresa convienen en someterse a la jurisdicción y competencia de los Tribunales del Distrito Judicial de ____________________, por lo que renuncian al fuero que por razón de su domicilio presente o futuro les pudiera corresponder.",
+            "show": true
         },
         {
             "id": 7,
             "name": "Pesonalidad",
-            "text": "El señor ________________ acredita su personalidad y la legal existencia de su representada la persona moral denominada _________________________, con los siguientes instrumentos, ha dejado debidamente acreditada su personalidad, así como la existencia y subsistencia legal de su representada, con los documentos en original que se agregan al apéndice de ésta escritura y a manera de inserción en los testimonios que de esta escritura se ministren."
+            "text": "El señor ________________ acredita su personalidad y la legal existencia de su representada la persona moral denominada _________________________, con los siguientes instrumentos, ha dejado debidamente acreditada su personalidad, así como la existencia y subsistencia legal de su representada, con los documentos en original que se agregan al apéndice de ésta escritura y a manera de inserción en los testimonios que de esta escritura se ministren.",
+            "show": true
         },
         {
             "id": 8,
             "name": "Yo, la Notario certifico",
-            "text": "I.- Del conocimiento y capacidad legal de los contratantes. <br> II.- Que las facultades que ostenta ___________________________, no le han sido revocadas ni reformadas en forma alguna, lo que manifiesta bajo protesta de decir verdad. <br> III.- Se les instruye a los comparecientes de la obligación que tienen de inscribir su sociedad conyugal en el Registro Público de la Propiedad según artículo 348 fracciones VI y VII del Código Civil para el Estado Libre y Soberano de Puebla. <br> IV.- Que en términos de lo dispuesto por los artículos 8 y 17 de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, los comparecientes manifiestan conocer el Aviso de Privacidad a que se refiere la mencionada Ley, mismo que se encuentra exhibido en el área de recepción de las oficinas de esta Notaría a mi cargo y que se encuentra a su disposición para ser consultado en cualquier momento. Por lo que con la firma del presente instrumento manifiestan su consentimiento expreso con el tratamiento de sus datos personales. <br> V.- Que advertí a los comparecientes que el acto consignado en el presente instrumento constituye una actividad vulnerable en los términos de la Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita y se dará el aviso de ley. <br> VI.- Por sus generales manifestaron ser mexicanos por nacimiento e hijos de padres mexicanos: ________________________________, originario de _________________, nacido el día __________________________________________, con Clave Única de Registro de Población: _________________________________, con Registro Federal de Contribuyente: ________________, *** ocupación*** estado civil******; con domicilio en ___________________________________; y el  señora ________________________________, originario de  ___________________, nacido el día _________________________, con Clave Única de Registro de Población: ________________________, Registro Federal de Contribuyentes: _________________________, *** ocupación*** estado civil*****, con domicilio en _____________________________________________, de paso por esta Ciudad, de cuyas identificaciones tomo copias certificadas que anexo al apéndice respectivo. <br> VII.- Que los otorgantes manifiestan: a).- Conocerse entre sí y no tener duda en relación a la reciproca identidad; b).- Conocer el objeto de la operación en forma precisa y total; y c).- Declaran que todas las causas motivadoras de la voluntad contractual han sido expresamente indicadas en este documento. <br> VIII.- Que hice saber a los contratantes el derecho que tienen de leer personalmente la presente Escritura <br> IX.- Que habiéndoles leído el presente instrumento a los comparecientes explicándoles del valor, fuerza y consecuencias legales de su contenido manifestaron su conformidad firmando en comprobación el mismo día y año de su otorgamiento, asimismo la parte vendedora estampa su huella digital del dedo índice de su mano derecha ante mí Doy Fe."
+            "text": "I.- Del conocimiento y capacidad legal de los contratantes. <br> II.- Que las facultades que ostenta ___________________________, no le han sido revocadas ni reformadas en forma alguna, lo que manifiesta bajo protesta de decir verdad. <br> III.- Se les instruye a los comparecientes de la obligación que tienen de inscribir su sociedad conyugal en el Registro Público de la Propiedad según artículo 348 fracciones VI y VII del Código Civil para el Estado Libre y Soberano de Puebla. <br> IV.- Que en términos de lo dispuesto por los artículos 8 y 17 de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, los comparecientes manifiestan conocer el Aviso de Privacidad a que se refiere la mencionada Ley, mismo que se encuentra exhibido en el área de recepción de las oficinas de esta Notaría a mi cargo y que se encuentra a su disposición para ser consultado en cualquier momento. Por lo que con la firma del presente instrumento manifiestan su consentimiento expreso con el tratamiento de sus datos personales. <br> V.- Que advertí a los comparecientes que el acto consignado en el presente instrumento constituye una actividad vulnerable en los términos de la Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita y se dará el aviso de ley. <br> VI.- Por sus generales manifestaron ser mexicanos por nacimiento e hijos de padres mexicanos: ________________________________, originario de _________________, nacido el día __________________________________________, con Clave Única de Registro de Población: _________________________________, con Registro Federal de Contribuyente: ________________, *** ocupación*** estado civil******; con domicilio en ___________________________________; y el  señora ________________________________, originario de  ___________________, nacido el día _________________________, con Clave Única de Registro de Población: ________________________, Registro Federal de Contribuyentes: _________________________, *** ocupación*** estado civil*****, con domicilio en _____________________________________________, de paso por esta Ciudad, de cuyas identificaciones tomo copias certificadas que anexo al apéndice respectivo. <br> VII.- Que los otorgantes manifiestan: a).- Conocerse entre sí y no tener duda en relación a la reciproca identidad; b).- Conocer el objeto de la operación en forma precisa y total; y c).- Declaran que todas las causas motivadoras de la voluntad contractual han sido expresamente indicadas en este documento. <br> VIII.- Que hice saber a los contratantes el derecho que tienen de leer personalmente la presente Escritura <br> IX.- Que habiéndoles leído el presente instrumento a los comparecientes explicándoles del valor, fuerza y consecuencias legales de su contenido manifestaron su conformidad firmando en comprobación el mismo día y año de su otorgamiento, asimismo la parte vendedora estampa su huella digital del dedo índice de su mano derecha ante mí Doy Fe.",
+            "show": true
         },
         {
             "id": 9,
             "name": "Interviniente 1",
-            "text": "_"
+            "text": "_",
+            "show": true
         },
         {
             "id": 10,
             "name": "Interviniente 2",
-            "text": "_"
+            "text": "_",
+            "show": true
         },
         {
             "id": 11,
             "name": "Ante mi y Autorizo Definitivamente",
-            "text": "_"
+            "text": "_",
+            "show": true
         },
         {
             "id": 12,
             "name": "Es primer testimonio",
-            "text": "Es primer testimonio  de la escritura número __________________________, volumen número ________________ pasada en el protocolo corriente de esta Notaría a mi cargo, va en ________ fojas útiles y ________________ anexos, debidamente sellados, cotejados y rubricados, en favor de _______________________________, para que le sirva de título de propiedad, se expide en la Ciudad de Puebla, Puebla, a los _______________________ días del mes de ____________ del año dos mil ______________."
+            "text": "Es primer testimonio  de la escritura número __________________________, volumen número ________________ pasada en el protocolo corriente de esta Notaría a mi cargo, va en ________ fojas útiles y ________________ anexos, debidamente sellados, cotejados y rubricados, en favor de _______________________________, para que le sirva de título de propiedad, se expide en la Ciudad de Puebla, Puebla, a los _______________________ días del mes de ____________ del año dos mil ______________.",
+            "show": true
         },
         {
             "id": 13,
             "name": "Firma Nombre",
-            "text": "Dra. Norma Romero Cortés"
+            "text": "Dra. Norma Romero Cortés",
+            "show": true
         },
         {
             "id": 14,
             "name": "Firma Puesto",
-            "text": "Notario Público Titular"
+            "text": "Notario Público Titular",
+            "show": true
         }
     ]
 }

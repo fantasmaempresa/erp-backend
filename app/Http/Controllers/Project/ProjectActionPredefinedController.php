@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Project;
 
+use App\Events\ProjectActionsEvent;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Project\PredefinedProjects\DomainTransferController;
 use App\Models\Process;
@@ -55,7 +56,8 @@ class ProjectActionPredefinedController extends ApiController
         $this->validate($request, [
             'nameProcess' => 'required|string',
             'namePhase' => 'required|string',
-            'data' => 'required|array',
+            'data' => 'nullable|array',
+            'data.reload' => 'required|boolean'
 
         ]);
 
@@ -70,10 +72,33 @@ class ProjectActionPredefinedController extends ApiController
             return $this->errorResponse('Esta fase no genera documentos', 404);
         }
 
-        $this->validate($request, $dispatcher->getValidatorRequestPhase($request->get('namePhase')));
+        if ($request->all()['data']['reload']) {
+            $this->validate($request, $dispatcher->getValidatorRequestPhase($request->get('namePhase')));
+            $originalStructure = $dispatcher->executePhase($request->get('namePhase'), $project, $process, $request->get('data'));
+        } else {
+            $reports = ReportConfiguration::where([
+                ['name_process', '=', $request->get('nameProcess')],
+                ['name_phase', '=', $request->get('namePhase')],
+                ['project_id', '=', $project->id],
+                ['process_id', '=', $process->id],
+            ])->orderby('id', 'asc')->get();
 
-
-        return $dispatcher->executePhase($request->get('namePhase'), $project, $process, $request->get('data'));
+            $originalStructure = [];
+            if ($reports->count() > 0) {
+                $originalStructure = $dispatcher->executePhase($request->get('namePhase'), $project, $process, $request->get('data'));
+                foreach ($reports as $report) {
+                    $originalStructure->content =  isset($report->data['content']) ? $report->data['content'] : $originalStructure->content;
+                    $originalStructure->id_report =  $report->id;
+                    if (isset($report->data['lasted_related_report_id'])) {
+                        $originalStructure->lasted_related_report_id = ReportConfiguration::findOrFail($report->data['lasted_related_report_id']);
+                    }
+                }
+            } else {
+                $this->validate($request, $dispatcher->getValidatorRequestPhase($request->get('namePhase')));
+                $originalStructure = $dispatcher->executePhase($request->get('namePhase'), $project, $process, $request->get('data'));
+            }
+        }
+        return $originalStructure;
     }
 
     public function getReportFormat(Request $request)
@@ -81,7 +106,7 @@ class ProjectActionPredefinedController extends ApiController
         $this->validate($request, [
             'nameProcess' => 'required|string',
             'namePhase' => 'required|string',
-            'data' => 'required|array',
+            'data' => 'nullable|array',
         ]);
 
         if (!isset($this->PROCESS_PREDEFINED[$request->get('nameProcess')])) {
@@ -98,7 +123,7 @@ class ProjectActionPredefinedController extends ApiController
         $reportParams = $dispatcher->executePhase($request->get('namePhase'), $request->get('data'));
 
 
-        $jsonData = json_encode($request->get('data'));
+        $jsonData = json_encode($reportParams['data']);
         Storage::put("reports/tempJson.json", $jsonData);
 
         $report = new Report(
@@ -121,22 +146,24 @@ class ProjectActionPredefinedController extends ApiController
             'nameProcess' => 'required|string',
             'namePhase' => 'required|string',
             'data' => 'required|array',
-            'data.reportConfiguration_id' => 'nullable|int|exists:report_configurations,id'
+            'data.content' => 'required|array',
+            'data.reportConfiguration_id' => 'nullable|int|exists:report_configurations,id',
+            'data.lasted_related_report_id' => 'nullable|int|exists:report_configurations,id'
         ]);
 
-        $reportConfiguration = empty($request->all()['data']['reportConfiguration_id']) 
-        ? null
-        : ReportConfiguration::findOrFail($request->all()['data']['reportConfiguration_id']);
+        $reportConfiguration = empty($request->all()['data']['reportConfiguration_id'])
+            ? null
+            : ReportConfiguration::findOrFail($request->all()['data']['reportConfiguration_id']);
 
         if (is_null($reportConfiguration)) {
             $reportConfiguration = new ReportConfiguration();
-            $reportConfiguration->data = $request->all()['data']['content'];
+            $reportConfiguration->data = $request->all()['data'];
             $reportConfiguration->name_process = $request->get('nameProcess');
             $reportConfiguration->name_phase = $request->get('namePhase');
             $reportConfiguration->project_id = $project->id;
             $reportConfiguration->process_id = $process->id;
         } else {
-            $reportConfiguration->data = $request->all()['data']['content'];
+            $reportConfiguration->data = $request->all()['data'];
         }
 
         $reportConfiguration->save();
@@ -219,15 +246,48 @@ class ProjectActionPredefinedController extends ApiController
             ->where('process_id', $process->id)
             ->where('name_process', $request->get('nameProcess'))
             ->where('name_phase', $request->get('namePhase'))
-            ->orderBy('id', 'desc')->paginate(100);
+            ->orderBy('id', 'desc')->get();
 
 
         $rReports = $reports->map(function ($report) {
+            //TODO: agregar un diccionario de nombres para que se haga la sustitución
             $report->name = $report->data['title'] ?? $report->name_phase;
             return $report;
         });
 
+        $currentPage = Paginator::resolveCurrentPage('page');
+        $paginatedReport = new LengthAwarePaginator(
+            $rReports->forPage($currentPage, 100),
+            $rReports->count(),
+            100,
+            $currentPage,
+            ['path' => Paginator::resolveCurrentPath()]
+        );
 
-        return $this->showList($rReports);
+        return $this->showList($paginatedReport);
+    }
+
+    public function issueEventToPhase(Project $project, Process $process, Request $request)
+    {
+
+        $this->validate($request, [
+            'nameProcess' => 'required|string',
+            'namePhase' => 'required|string',
+            'data' => 'required|array',
+            'data.message' => 'required|string',
+        ]);
+
+        event(
+            new ProjectActionsEvent(
+                Project::getActionSystem(Project::$SEND_NOTIFY_MY_PROJECT_ACTION, 'show_message'),
+                $project,
+                $process,
+                [
+                    'nameProcess' => $request->get('nameProcess'),
+                    'namePhase' => $request->get('namePhase'),
+                    'message' => $request->all()['data']['message'],
+                ]
+            )
+        );
     }
 }

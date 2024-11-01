@@ -4,82 +4,98 @@
         {
             "id": 0,
             "name": "Asunto",
-            "text": "ASUNTO: SEGUNDO AVISO PREVENTIVO"
+            "text": "ASUNTO: SEGUNDO AVISO PREVENTIVO",
+            "show": true
         },
         {
             "id": 1,
             "name": "A quien va dirigido",
-            "text": "AL C. REGISTRADOR PÚBLICO DE LA PROPIEDAD, DEL DISTRITO JUDICIAL DE "
+            "text": "AL C. REGISTRADOR PÚBLICO DE LA PROPIEDAD, DEL DISTRITO JUDICIAL DE ",
+            "show": true
         },
         {
             "id": 2,
             "name": "Fundamento",
-            "text": "Con fundamento en lo dispuesto por el artículo 92, fracción II  de la Ley del Registro Público de la Propiedad y del Comercio del Estado Libre y Soberano de Puebla, respetuosamente solicito:"
+            "text": "Con fundamento en lo dispuesto por el artículo 92, fracción II  de la Ley del Registro Público de la Propiedad y del Comercio del Estado Libre y Soberano de Puebla, respetuosamente solicito:",
+            "show": true
         },
         {
             "id": 3,
             "name": "Cuerpo",
-            "text": "Se haga la anotación del SEGUNDO AVISO PREVENTIVO de _ respecto del inmueble, cuyos datos de identificación y contratantes son los siguientes:"
+            "text": "Se haga la anotación del SEGUNDO AVISO PREVENTIVO de _ respecto del inmueble, cuyos datos de identificación y contratantes son los siguientes:",
+            "show": true
         },
         {
             "id": 4,
             "name": "Otorgantes",
-            "text": ""
+            "text": "",
+            "show": true
         },
         {
             "id": 5,
             "name": "Descripción del inmueble",
-            "text": ""
+            "text": "",
+            "show": true
         },
         {
             "id": 6,
             "name": "Volumen",
-            "text": ""
+            "text": "",
+            "show": true
         },
         {
             "id": 7,
             "name": "Instrumento",
-            "text": ""
+            "text": "",
+            "show": true
         },
         {
             "id": 8,
             "name": "Fecha",
-            "text": ""
+            "text": "",
+            "show": true
         },
         {
             "id": 9,
             "name": "Valor de Operciones",
-            "text": "VALOR DE OPERACIÓN DE LA COMPRA VENTA: _"
+            "text": "VALOR DE OPERACIÓN DE LA COMPRA VENTA: _",
+            "show": true
         },
         {
             "id": 10,
             "name": "Datos de Registro",
-            "text": ""
+            "text": "",
+            "show": true
         },
         {
             "id": 11,
             "name": "Fecha",
-            "text": "Heroica Puebla de Zaragoza, a _"
+            "text": "Heroica Puebla de Zaragoza, a _",
+            "show": true
         },
         {
             "id": 12,
             "name": "Firma Nombre",
-            "text": "Dra. Norma Romero Cortés"
+            "text": "Dra. Norma Romero Cortés",
+            "show": true
         },
         {
             "id": 13,
             "name": "Firma Puesto",
-            "text": "Notario Público Titular"
+            "text": "Notario Público Titular",
+            "show": true
         },
         {
             "id": 14,
             "name": "Iniciales",
-            "text": "NACC/_"
+            "text": "NACC/_",
+            "show": true
         },
         {
             "id": 15,
             "name": "Expediente",
-            "text": "Exp._"
+            "text": "Exp._",
+            "show": true
         }
     ]
 }
