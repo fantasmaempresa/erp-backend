@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Project\PredefinedProjects;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Folio\FolioUtil;
-use App\Http\Controllers\Report\BuySellController;
+use App\Http\Controllers\Report\DeedsController;
 use App\Http\Controllers\Report\FirstPreventiveNoticeController;
 use App\Http\Controllers\Report\SecondPreventiveNoticeController;
 use App\Models\Folio;
@@ -156,18 +156,18 @@ class DomainTransferController extends ApiController
     }
     // END FIRST PREVENTIVE NOTICE REPORT
 
-    // BUY SELL REPORT
+    // DEEDS REPORT
     public function generateBuySell(...$args)
     {
-        $buySell = new BuySellController();
+        $buySell = new DeedsController();
         return $buySell->getStructure(...$args);
     }
 
     public function getFormatBuySell(...$args) {
-        $buySell = new BuySellController();
+        $buySell = new DeedsController();
         return $buySell->getDocument($args);
     }
-    // END BUY SELL REPORT
+    // END DEEDS REPORT
 
     // SECOND PREVENTIVE NOTICE REPORT
     public function generateSecondPreventiveNotice(...$args)

@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Report;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
-class BuySellController extends Controller
+class DeedsController extends Controller
 {
     public function getStructure(...$args)
     {
         $project = $args[0];
-        $reportTextData = json_decode(Storage::get('reports/buy_sell/BuySell.json'));
+        $reportTextData = json_decode(Storage::get('reports/deeds/Deeds.json'));
 
         $folio = $project->procedure->folio;
         $volume = is_null($folio) ? '' : '(' . number_format($folio->book->name, 0, '.', ',') . ') ' . strtoupper(ReportUtils::numberSpanish($folio->book->name));
@@ -75,9 +75,9 @@ class BuySellController extends Controller
         return [
             "data" => $args[0][0],
             "parameters" => [],
-            "jasperPath" => Storage::path('reports/buy_sell/BUY_SELL.jasper'),
-            "output" => Storage::path('reports/buy_sell/BuySell.rtf'),
-            "documentType" => "rtf",
+            "jasperPath" => Storage::path('reports/deeds/DEEDS.jasper'),
+            "output" => Storage::path('reports/deeds/Deeds.docx'),
+            "documentType" => "docx",
         ];
     }
 }
