@@ -65,8 +65,6 @@ use App\Http\Controllers\User\UserFilterController;
 use App\Http\Controllers\VulnerableOperation\VulnerableOperationController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
-use App\Models\Folio;
-use App\Models\Procedure;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -181,7 +179,7 @@ class RoleActionController extends ApiController
             ],
         ],
         [
-            'label' => 'Proyectos',
+            'label' => 'Adminitración de procesos',
             'icon' => 'rule_folder',
             'route' => './projects',
             'dropdowns' => [
@@ -198,12 +196,32 @@ class RoleActionController extends ApiController
                 [
                     'label' => 'Procesos',
                     'route' => './project',
-                    'icon' => 'hub',
+                    'icon' => 'add_task',
                 ],
                 [
-                    'label' => 'Proyectos en curso',
+                    'label' => 'Procesos en curso',
                     'route' => './project-start',
-                    'icon' => 'hub',
+                    'icon' => 'task_alt',
+                ],
+            ],
+            'controllers' => [
+                ProjectController::class,
+                ProjectActionController::class,
+                ProjectFilterController::class,
+                ProjectActionPredefinedController::class,
+                FolioController::class,
+                FolioActionController::class
+            ],
+        ],
+        [
+            'label' => 'Procesos',
+            'icon' => 'rule_folder',
+            'route' => './projects',
+            'dropdowns' => [
+                [
+                    'label' => 'Procesos en curso',
+                    'route' => './project-start',
+                    'icon' => 'task_alt',
                 ],
             ],
             'controllers' => [
