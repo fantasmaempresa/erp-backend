@@ -433,7 +433,7 @@ class RoleActionController extends ApiController
                     'icon' => 'inventory',
                 ],
                 [
-                    'label' => 'Almacénes',
+                    'label' => 'Almacenes',
                     'route' => './warehouse',
                     'icon' => 'warehouse',
                 ],

@@ -72,14 +72,14 @@ class InventoryActionController extends ApiController
         $this->validate($request,[
             "article_id"=>"required|exists:articles,id",
             "origin_warehouse_id"=>"required|exists:warehouses,id",
-            "destiny_warehouse_id"=>"required|exists:warehouses,id",
+            "warehouse_id"=>"required|exists:warehouses,id",
             "amount"=>"required|int"
         ]);
 
         $originWarehouseInventoryEntry = Inventory::where('warehouse_id', $request->input('origin_warehouse_id'))
             ->where('article_id', $request->input('article_id'))
             ->first();
-        $destinyWarehouseInventoryEntry = Inventory::where('warehouse_id', $request->input('destiny_warehouse_id'))
+        $destinyWarehouseInventoryEntry = Inventory::where('warehouse_id', $request->input('warehouse_id'))
             ->where('article_id', $request->input('article_id'))
             ->first();
         $amount = $request->input('amount');
@@ -89,7 +89,7 @@ class InventoryActionController extends ApiController
         } else if($originWarehouseInventoryEntry->amount < $amount) {
             return $this->errorResponse(['Not enough article in inventory to tranfer'], 422);
         }else if (!$destinyWarehouseInventoryEntry) {
-            return $this->errorResponse(['Destiny warehouse does not contain an inventory for this article'], 422);
+            return $this->errorResponse(['Destination warehouse does not contain an inventory for this article'], 422);
         }
 
         // Warehouse item transfer operation-----------------------------------
