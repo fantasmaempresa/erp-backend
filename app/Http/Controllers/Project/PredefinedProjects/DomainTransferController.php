@@ -189,7 +189,7 @@ class DomainTransferController extends ApiController
         
         $secondPreventiveNotice = new SecondPreventiveNoticeController();
 
-        return $secondPreventiveNotice->getDocument();
+        return $secondPreventiveNotice->getDocument($args);
     }
     // END SECOND PREVENTIVE NOTICE REPORT
 
