@@ -64,8 +64,8 @@ class FirstPreventiveNoticeController extends Controller
             "data" => $args[0][0],
             "parameters" => [],
             "jasperPath" => Storage::path('reports/first_notice/FirstNotice.jasper'),
-            "output" => Storage::path('reports/first_notice/FirstNotice.rtf'),
-            "documentType" => "rtf",
+            "output" => Storage::path('reports/first_notice/FirstNotice.docx'),
+            "documentType" => "docx",
         ];
     }
 }
