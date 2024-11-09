@@ -32,3 +32,11 @@ MODIFY COLUMN name VARCHAR(100) NULL;
 
 ALTER TABLE projects
 ADD COLUMN type_project TINYINT NULL;
+
+ALTER TABLE procedures
+DROP COLUMN instrument,
+DROP COLUMN volume,
+DROP COLUMN folio_min,
+DROP COLUMN folio_max;
+
+alter table operations add column visible boolean default false after config;
