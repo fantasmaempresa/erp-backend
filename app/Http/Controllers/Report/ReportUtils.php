@@ -9,6 +9,12 @@ use NumberFormatter;
 
 class ReportUtils
 {
+    const GENERAL = 'general';
+    const INTRODUCTION = 'introduccion';
+    const BACKGROUND = 'antecedentes';
+    const CLAUSES = 'clausulas';
+    const STATEMENTS = 'declaraciones';
+
     static function getOperationData(Project $project)
     {
         return $project->procedure->operations->map(function ($operation) {
