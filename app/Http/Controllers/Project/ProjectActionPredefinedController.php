@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Project;
 use App\Events\ProjectActionsEvent;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Project\PredefinedProjects\DomainTransferController;
+use App\Http\Controllers\Project\PredefinedProjects\FormatsProcessController;
+
 use App\Models\Process;
 use App\Models\Project;
 use App\Models\ReportConfiguration;
@@ -19,6 +21,7 @@ class ProjectActionPredefinedController extends ApiController
 {
     public $PROCESS_PREDEFINED = [
         'DomainTransfer' => DomainTransferController::class,
+        'FormatsProcess' => FormatsProcessController::class,
     ];
 
     public function executePhase(Project $project, Process $process, Request $request)

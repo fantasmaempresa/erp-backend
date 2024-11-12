@@ -105,7 +105,7 @@ class ProjectFilterController extends ApiController
             $detail->detailProject->phase;
         }
 
-        return $internalCall ? $detailProjectProcess :  $this->showList($detailProjectProcess);
+        return $internalCall ? $detailProjectProcess :  $this->showList(['resume' => $detailProjectProcess, 'procedure' => $project->procedure]);
     }
 
     /**

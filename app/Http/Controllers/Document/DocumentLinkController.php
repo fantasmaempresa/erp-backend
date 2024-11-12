@@ -20,6 +20,7 @@ use App\Models\DocumentProcessingIncome;
 use App\Models\DocumentVulnerableOperation;
 use App\Models\Procedure;
 use App\Models\ProcessingIncome;
+use App\Models\Staff;
 use App\Models\VulnerableOperation;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -54,7 +55,6 @@ class DocumentLinkController extends ApiController
 
         if ($request->get('view') == 'client') {
             $client = Client::findOrFail($request->get('client_id'));
-
             $documents = $client->documents()->withPivot('file')->withPivot('id')->get();
             $expedient = $documents->map(function ($document) use ($client) {
                 $document->url = url('storage/app/clients/' . $client->id . '/expedient/' . $document->pivot->file);
