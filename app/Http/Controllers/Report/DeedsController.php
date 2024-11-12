@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Report;
 
 use App\Http\Controllers\Controller;
+use App\Models\Operation;
 use Illuminate\Support\Facades\Storage;
 
 class DeedsController extends Controller
 {
-    public function getStructure(...$args)
+    public function getStructure(...$args) 
     {
         $project = $args[0];
         $reportTextData = json_decode(Storage::get('reports/deeds/Deeds.json'));
@@ -68,6 +69,24 @@ class DeedsController extends Controller
         $reportTextData->data = $dataConfig;
 
         return $reportTextData;
+    }
+
+    public function structure(...$args){
+        $project = $args[0];
+        $allDeeds = json_decode(Storage::get('reports/deeds/AllDeeds.json'));
+        $deeds = collect($allDeeds->deeds);
+
+        $generalData = $deeds->where("type", ReportUtils::GENERAL)->first();
+        $deedsData = [];
+
+        //GET ALL OPERATIONS
+        $project->procedure->operations->map(function ($operation) use ($deeds, &$deedsData) {
+            $operationDeed = $deeds->where("type", $operation->name)->first();
+            $deedsData[] = $operationDeed;
+        });
+
+        dd($deedsData);
+        
     }
 
     public function getDocument(...$args)

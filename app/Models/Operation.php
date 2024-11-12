@@ -19,6 +19,7 @@ class Operation extends Model
         'name',
         'description',
         'config',
+        'visible',
         'category_operation_id'
     ];
 
