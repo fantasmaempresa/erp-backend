@@ -9,7 +9,7 @@ use NumberFormatter;
 
 class ReportUtils
 {
-    const GENERAL = 'general';
+    const FIRST_DATA = 'first_data';
     const INTRODUCTION = 'introduccion';
     const BACKGROUND = 'antecedentes';
     const CLAUSES = 'clausulas';

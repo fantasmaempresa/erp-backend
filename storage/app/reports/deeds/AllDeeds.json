@@ -2,7 +2,7 @@
     "title": "ESCRITURAS",
     "deeds": [
         {
-            "type": "general",
+            "type": "first_data",
             "content": [
                 {
                     "name": "Volumen",
@@ -15,10 +15,15 @@
                     "show": true
                 },
                 {
-                    "name": "introduccion",
+                    "name": "Introduccion",
                     "text": "En la Heroica Ciudad de Puebla, (1), YO, la Doctora en Derecho NORMA ROMERO CORTÉS, TITULAR DE LA NOTARÍA PÚBLICA NÚMERO CUATRO, DE ESTA CIUDAD, en ejercicio procedo a redactar la escrituras de: (2) ,los cuales se sujetan al tenor de los siguientes antecedentes y cláusulas: ",
                     "show": true
-                },
+                }
+            ]
+        },
+        {
+            "type": "final_data",
+            "content": [
                 {
                     "name": "Interviniente 1",
                     "text": "_",
@@ -55,7 +60,7 @@
             "type": "AMPLIACION DE CONSTRUCCION",
             "content": [
                 {
-                    "name": "introduccion",
+                    "name": "Introduccion",
                     "text": " AMPLIACION DE CONSTRUCCIÓN DE CASA HABITACIÓN, que solicita _________________________________________",
                     "show": true
                 },
@@ -78,11 +83,11 @@
         },
         {
             "type": "APLICACION DE BIENES HEREDITARIOS - JUZGADO",
-            "content":[
+            "content": [
                 {
-                    "name": "introduccion",
+                    "name": "Introduccion",
                     "text": "APLICACIÓN Y ADJUDICACIÓN DE BIENES HEREDITARIOS, de la Sucesión ____________ a bienes DE _____________________________, que otorga _________________________, en su carácter de __________________________________________, dentro de dicha sucesión;",
-                    "show":true
+                    "show": true
                 },
                 {
                     "name": "antecedentes",

@@ -76,8 +76,7 @@ class DeedsController extends Controller
         $allDeeds = json_decode(Storage::get('reports/deeds/AllDeeds.json'));
         $deeds = collect($allDeeds->deeds);
 
-        $generalData = $deeds->where("type", ReportUtils::GENERAL)->first();
-        $deedsData = [];
+        $generalData = $deeds->where("type", ReportUtils::FIRST_DATA)->first();
 
         //GET ALL OPERATIONS
         $project->procedure->operations->map(function ($operation) use ($deeds, &$deedsData) {
@@ -85,8 +84,14 @@ class DeedsController extends Controller
             $deedsData[] = $operationDeed;
         });
 
-        dd($deedsData);
-        
+        $structure = [
+            'title' => 'ESCRITURAS',
+            'content' => $generalData->content
+        ];
+
+        //INTRODUCTION
+        $introductions = $deedsData->where("type", ReportUtils::INTRODUCTION);
+        dd($introductions);
     }
 
     public function getDocument(...$args)
