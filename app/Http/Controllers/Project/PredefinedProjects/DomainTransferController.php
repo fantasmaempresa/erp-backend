@@ -159,8 +159,8 @@ class DomainTransferController extends ApiController
     // DEEDS REPORT
     public function generateBuySell(...$args)
     {
-        $buySell = new DeedsController();
-        return $buySell->structure(...$args);
+        $deed = new DeedsController();
+        return $deed->getStructure(...$args);
     }
 
     public function getFormatBuySell(...$args) {
