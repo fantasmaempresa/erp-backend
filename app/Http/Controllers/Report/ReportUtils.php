@@ -9,11 +9,14 @@ use NumberFormatter;
 
 class ReportUtils
 {
-    const GENERAL = 'general';
-    const INTRODUCTION = 'introduccion';
-    const BACKGROUND = 'antecedentes';
-    const CLAUSES = 'clausulas';
-    const STATEMENTS = 'declaraciones';
+    const FIRST_DATA = 'first_data';
+    const FINAL_DATA = 'final_data';
+    const INTRODUCTION = 'Introduccion';
+    const BACKGROUND = 'Antecedentes';
+    const STATEMENTS = 'Declaraciones';
+    const CLAUSES = 'Clausulas';
+    const PERSONALITY = 'Personalidad';
+    const NOTARIZED = 'Yo, la Notario certifico';
 
     static function getOperationData(Project $project)
     {
