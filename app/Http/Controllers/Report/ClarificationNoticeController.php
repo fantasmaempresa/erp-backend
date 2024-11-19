@@ -10,6 +10,7 @@ class ClarificationNoticeController extends Controller
 {
     public function getStructure(...$args)
     {
+        dd(...$args);
         $project = $args[0];
         
         $reportTextData = json_decode(Storage::get('reports/first_notice/ClarificationNotice.json'));
@@ -65,8 +66,8 @@ class ClarificationNoticeController extends Controller
         return [
             "data" => $args[0][0],
             "parameters" => [],
-            "jasperPath" => Storage::path('reports/first_notice/FirstNotice.jasper'),
-            "output" => Storage::path('reports/first_notice/FirstNotice.docx'),
+            "jasperPath" => Storage::path('reports/ClarificationNotice/ClarificationNotice.jasper'),
+            "output" => Storage::path('reports/ClarificationNotice/ClarificationNotice.docx'),
             "documentType" => "docx",
         ];
     }

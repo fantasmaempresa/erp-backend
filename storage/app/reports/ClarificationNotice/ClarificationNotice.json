@@ -1,0 +1,83 @@
+{
+    "title": "Primer aviso preventivo",
+    "content": [
+        {
+            "id": 0,
+            "name": "Asunto",
+            "text": "ASUNTO: OFICIO ACLARATORIO <br> DEL  ",
+            "show": true
+        },
+        {
+            "id": 1,
+            "name": "A quien va dirigido",
+            "text": "AL C. REGISTRADOR PÚBLICO DE LA PROPIEDAD, DEL DISTRITO JUDICIAL DE ",
+            "show": true
+        },
+        {
+            "id": 2,
+            "name": "Fundamento",
+            "text": "Con fundamento en lo dispuesto por el artículo 8 de nuestra Carta Magna; los artículos 97, 98 y 104, de la Ley del Registro Público de la Propiedad del Estado de Puebla, y bajo protesta de decir verdad manifiesto que se tuvieron a la vista los documentos que exige el artículo 32 del Reglamento de la Ley del Notariado; respetuosamente solicito:",
+            "show": true
+        },
+        {
+            "id": 3,
+            "name": "Cuerpo",
+            "text": "Se haga la anotación del PRIMER AVISO PREVENTIVO de _ respecto del inmueble, cuyos datos de identificación y contratantes menciono más adelante y expida CERTIFICADO DE LIBERTAD de GRAVAMEN donde conste la anotación del primer aviso preventivo, la situación registral que reporte el bien y la constancia relativa a las declaratorias de provisiones, usos, reservas y destinos, que estuvieren inscritos en forma individualizada en su folio:",
+            "show": true
+        },
+        {
+            "id": 4,
+            "name": "Fecha de primer aviso",
+            "text": "Que con fecha _________________________________, se solicitó se hiciera la anotación del ___________________________________ respecto de la operación de ¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬___________________;  con los siguientes datos:",
+            "show": true
+        },
+        {
+            "id": 5,
+            "name": "Antecedente",
+            "text": "",
+            "show": true
+        },
+        {
+            "id": 6,
+            "name": "Referencia incorrecta",
+            "text": "POR ERROR involuntario se manifestó de manera equívoca los datos respecto ",
+            "show": true
+        },
+        {
+            "id": 7,
+            "name": "Referencia a corregir",
+            "text": "SIENDO LO CORRECTO LO SIGUIENTE: <br>",
+            "show": true
+        },
+        {
+            "id": 8,
+            "name": "fecha",
+            "text": "En la Heroica Puebla de Zaragoza, a los ______________ días del mes de ___________ de dos mil _________",
+            "show": true
+        },
+        {
+            "id": 9,
+            "name": "Firma Nombre",
+            "text": "Dra. Norma Romero Cortés",
+            "show": true
+        },
+        {
+            "id": 10,
+            "name": "Firma Puesto",
+            "text": "Notario Público Titular",
+            "show": true
+        },
+        {
+            "id": 11,
+            "name": "Iniciales",
+            "text": "NRC/esc",
+            "show": true
+        },
+        {
+            "id": 12,
+            "name": "Expediente",
+            "text": "Exp._",
+            "show": true
+        }
+    ]
+}

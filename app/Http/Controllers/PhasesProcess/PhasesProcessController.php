@@ -40,7 +40,11 @@ class PhasesProcessController extends ApiController
     public function store(Request $request): JsonResponse
     {
         $this->validate($request, PhasesProcess::rules());
-        $phasesProcess = PhasesProcess::create($request->all());
+        $data = $request->all();
+        if (isset($data['form']['formats'])) unset($data['form']['formats']);
+        $phasesProcess = PhasesProcess::create($data);
+        if (isset($request->all()['form']['formats'])) unset($request->all()['form']['formats']);
+
         return $this->showOne($phasesProcess);
     }
 
@@ -68,7 +72,9 @@ class PhasesProcessController extends ApiController
     public function update(Request $request, PhasesProcess $phasesProcess): JsonResponse
     {
         $this->validate($request, PhasesProcess::rules());
-        $phasesProcess->fill($request->all());
+        $data = $request->all();
+        if (isset($data['form']['formats'])) unset($data['form']['formats']);
+        $phasesProcess->fill($data);
         if ($phasesProcess->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);
         }

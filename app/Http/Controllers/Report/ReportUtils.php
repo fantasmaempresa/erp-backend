@@ -96,10 +96,7 @@ class ReportUtils
         return $dataConfig;
     }
 
-    static function getBackUpReport(){
-
-        
-    }
+    static function getBackUpReport() {}
 
     static function dateSpanish($date)
     {
@@ -116,5 +113,22 @@ class ReportUtils
     {
         $numberFormatter = new NumberFormatter('es_ES', \NumberFormatter::SPELLOUT);
         return $numberFormatter->format($number);
+    }
+
+    static function getNameReport(string $name, string $process): array
+    {
+        $nameReports = [
+            'DomainTransfer' =>
+            [
+                'generateFirstPreventiveNotice' => 'Primer Aviso Preventivo',
+                'generateSecondPreventiveNotice' => 'Segundo Aviso Preventivo',
+                'generateBuySell' => 'Escritura traslado de dominio',
+            ],
+            'FormatsProcess' => [
+                'generateClarificationNotice' => 'Aviso Aclaratorio'
+            ],
+        ];
+
+        return $nameReports[$process][$name] ?? [];
     }
 }

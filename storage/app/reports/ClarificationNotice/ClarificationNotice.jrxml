@@ -1,0 +1,103 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="ClarificationNotice" language="java" columnCount="1" pageWidth="612" pageHeight="1008" columnWidth="457" leftMargin="99" rightMargin="56" topMargin="141" bottomMargin="85" uuid="08bab87f-2d94-4bd0-86b4-7f0af9a88428">
+	<property name="net.sf.jasperreports.print.create.bookmarks" value="false"/>
+	<query language="sql"><![CDATA[]]></query>
+	<field name="parragraph_1" class="java.lang.String">
+		<description><![CDATA[content[0].text]]></description>
+	</field>
+	<field name="parragraph_2" class="java.lang.String">
+		<description><![CDATA[content[1].text]]></description>
+	</field>
+	<field name="parragraph_3" class="java.lang.String">
+		<description><![CDATA[content[2].text]]></description>
+	</field>
+	<field name="parragraph_4" class="java.lang.String">
+		<description><![CDATA[content[3].text]]></description>
+	</field>
+	<field name="parragraph_5" class="java.lang.String">
+		<description><![CDATA[content[4].text]]></description>
+	</field>
+	<field name="parragraph_6" class="java.lang.String">
+		<description><![CDATA[content[5].text]]></description>
+	</field>
+	<field name="parragraph_7" class="java.lang.String">
+		<description><![CDATA[content[6].text]]></description>
+	</field>
+	<field name="parragraph_8" class="java.lang.String">
+		<description><![CDATA[content[7].text]]></description>
+	</field>
+	<field name="parragraph_9" class="java.lang.String">
+		<description><![CDATA[content[8].text]]></description>
+	</field>
+	<field name="parragraph_10" class="java.lang.String">
+		<description><![CDATA[content[9].text]]></description>
+	</field>
+	<field name="parragraph_11" class="java.lang.String">
+		<description><![CDATA[content[10].text]]></description>
+	</field>
+	<field name="parragraph_12" class="java.lang.String">
+		<description><![CDATA[content[11].text]]></description>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="106" splitType="Stretch">
+		<element kind="textField" uuid="ba6aab1d-4218-48ca-827e-b3ca2de7d59c" x="300" y="0" width="155" height="40" markup="html" fontName="Arial Narrow" hTextAlign="Right">
+			<expression><![CDATA[$F{parragraph_1}]]></expression>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+		</element>
+		<element kind="textField" uuid="80920f5d-d2b7-47e7-8d9f-dbaefd56c3b5" x="0" y="38" width="260" height="42" markup="html" fontName="Arial Narrow">
+			<expression><![CDATA[$F{parragraph_2}]]></expression>
+		</element>
+		<element kind="textField" uuid="2952be0a-7ff6-49c4-aef4-239e0fe8115d" x="0" y="80" width="310" height="20" fontName="Arial Narrow">
+			<expression><![CDATA["P R E S E N T E"]]></expression>
+		</element>
+	</title>
+	<detail>
+		<band height="58" splitType="Stretch">
+			<element kind="textField" uuid="da1fc566-3c77-4a09-818d-405648dd3550" x="0" y="4" width="455" height="54" markup="html" fontName="Arial Narrow" linkType="None" linkTarget="Self" hTextAlign="Justified">
+				<expression><![CDATA[$F{parragraph_3}]]></expression>
+			</element>
+		</band>
+		<band height="50">
+			<element kind="textField" uuid="0e051087-4d9b-48f1-b842-2c09cd20fac4" x="0" y="0" width="455" height="50" markup="html" fontName="Arial Narrow" hTextAlign="Justified">
+				<expression><![CDATA[$F{parragraph_4}]]></expression>
+			</element>
+		</band>
+		<band height="50">
+			<element kind="textField" uuid="95b2f962-88a4-46b8-89ee-e41482760cf6" x="0" y="0" width="455" height="50" fontName="Arial Narrow" hTextAlign="Justified">
+				<expression><![CDATA[$F{parragraph_5}]]></expression>
+			</element>
+		</band>
+		<band height="53">
+			<element kind="textField" uuid="e4cc06bb-0906-465f-b36e-13141c254b47" x="0" y="0" width="455" height="53" markup="html" fontName="Arial Narrow" hTextAlign="Justified">
+				<expression><![CDATA[$F{parragraph_6}]]></expression>
+			</element>
+		</band>
+		<band height="61">
+			<element kind="textField" uuid="3c62b3a8-67fd-47fb-90f4-810782501797" x="0" y="0" width="455" height="59" fontName="Arial Narrow" hTextAlign="Justified">
+				<expression><![CDATA[$F{parragraph_7}]]></expression>
+			</element>
+		</band>
+		<band height="54">
+			<element kind="textField" uuid="29a6c366-7fcc-4754-89db-b2e40c63d1a0" x="0" y="0" width="455" height="51" markup="html" fontName="Arial Narrow" hTextAlign="Justified">
+				<expression><![CDATA[$F{parragraph_8}]]></expression>
+			</element>
+		</band>
+		<band height="140">
+			<element kind="staticText" uuid="fb10e3e1-1408-4f62-932a-a74860f9f94e" x="0" y="0" width="455" height="20" markup="html" fontName="Arial Narrow" hTextAlign="Center">
+				<text><![CDATA["A T E N T A M E N T E"]]></text>
+			</element>
+			<element kind="textField" uuid="8a59e8f6-b039-4415-9ace-f039a0ea0c47" x="0" y="20" width="455" height="20" markup="html" fontName="Arial Narrow" hTextAlign="Center">
+				<expression><![CDATA[$F{parragraph_9}]]></expression>
+			</element>
+			<element kind="textField" uuid="a326d3fd-770d-4b5b-aed3-871e5effa5cb" x="0" y="40" width="455" height="20" fontName="Arial Narrow" hTextAlign="Center">
+				<expression><![CDATA[$F{parragraph_10}]]></expression>
+			</element>
+			<element kind="textField" uuid="34e5f948-fad2-4086-986b-0a1362c37dca" x="0" y="90" width="180" height="20">
+				<expression><![CDATA[$F{parragraph_11}]]></expression>
+			</element>
+			<element kind="textField" uuid="2ac12e8b-602f-4061-8d7c-531b06a97bf5" x="0" y="110" width="180" height="20" markup="html" fontName="Arial Narrow" hTextAlign="Left">
+				<expression><![CDATA[$F{parragraph_12}]]></expression>
+			</element>
+		</band>
+	</detail>
+</jasperReport>

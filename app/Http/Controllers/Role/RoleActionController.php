@@ -234,7 +234,7 @@ class RoleActionController extends ApiController
             ],
         ],
         [
-            'label' => 'Catálogos Notariales (Administrador)',
+            'label' => 'Libro guía',
             'icon' => 'folder_special',
             'route' => './notary',
             'dropdowns' => [
@@ -264,7 +264,7 @@ class RoleActionController extends ApiController
             ],
         ],
         [
-            'label' => 'Catálogos Notariales',
+            'label' => 'Catálogos de procesos',
             'icon' => 'folder_special',
             'route' => './notary',
             'dropdowns' => [
@@ -302,7 +302,7 @@ class RoleActionController extends ApiController
             ],
         ],
         [
-            'label' => 'Notarial',
+            'label' => 'Trámites',
             'icon' => 'balance',
             'route' => './notary',
             'dropdowns' => [
