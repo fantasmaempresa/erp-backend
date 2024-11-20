@@ -13,7 +13,7 @@ class DeedsController extends Controller
     {
         $project = $args[0];
         $reportTextData = $this->structure($project);
-        
+
         $folio = $project->procedure->folio;
         $volume = is_null($folio) ? '' : '(' . number_format($folio->book->name, 0, '.', ',') . ') ' . strtoupper(ReportUtils::numberSpanish($folio->book->name));
         $instrument = is_null($folio) ? '' : '(' . number_format($folio->name, 0, '.', ',') . ') ' . strtoupper(ReportUtils::numberSpanish($folio->name));
@@ -72,14 +72,8 @@ class DeedsController extends Controller
             'content' => []
         ];
 
-        $generalData = $deeds->where("type", ReportUtils::FIRST_DATA)->first();
-        foreach ($generalData->content as $content) {
-            $structure['content'][] = [
-                'name' => $content->name,
-                'text' => $this->buildText($content->texts),
-                'show' => true
-            ];
-        }
+        $id = 0;
+        $structure = $this->buildGeneralSections($deeds, $structure, ReportUtils::FIRST_DATA, $id);
 
         //INTRODUCTION
         $introduction = '';
@@ -92,20 +86,13 @@ class DeedsController extends Controller
 
         $structure['content'][2]['text'] = str_replace('(_)', $introduction, $structure['content'][2]['text']);
 
-        $structure['content'] = $this->buildSections($deedsData, ReportUtils::BACKGROUND, $structure['content']);
-        $structure['content'] = $this->buildSections($deedsData, ReportUtils::STATEMENTS, $structure['content']);
-        $structure['content'] = $this->buildSections($deedsData, ReportUtils::CLAUSES, $structure['content']);
-        $structure['content'] = $this->buildSections($deedsData, ReportUtils::PERSONALITY, $structure['content']);
-        $structure['content'] = $this->buildSections($deedsData, ReportUtils::NOTARIZED, $structure['content']);
+        $structure['content'] = $this->buildSections($deedsData, ReportUtils::BACKGROUND, $structure['content'], $id);
+        $structure['content'] = $this->buildSections($deedsData, ReportUtils::STATEMENTS, $structure['content'], $id);
+        $structure['content'] = $this->buildSections($deedsData, ReportUtils::CLAUSES, $structure['content'], $id);
+        $structure['content'] = $this->buildSections($deedsData, ReportUtils::PERSONALITY, $structure['content'], $id);
+        $structure['content'] = $this->buildSections($deedsData, ReportUtils::NOTARIZED, $structure['content'], $id);
 
-        $finalData = $deeds->where("type", ReportUtils::FINAL_DATA)->first();
-        foreach ($finalData->content as $content) {
-            $structure['content'][] = [
-                'name' => $content->name,
-                'text' => $this->buildText($content->texts),
-                'show' => true
-            ];
-        }
+        $structure = $this->buildGeneralSections($deeds, $structure, ReportUtils::FINAL_DATA, $id);
 
         return $structure;
     }
@@ -121,7 +108,23 @@ class DeedsController extends Controller
         ];
     }
 
-    private function buildSections($deedsData, $type, $sections)
+    private function buildGeneralSections($deeds, $structure, $type, &$id)
+    {
+        $generalSection = $deeds->where("type", $type)->first();
+        foreach ($generalSection->content as $content) {
+            $structure['content'][] = [
+                'id' => $id,
+                'name' => $content->name,
+                'text' => $this->buildText($content->texts),
+                'show' => true
+            ];
+            $id++;
+        }
+
+        return $structure;
+    }
+
+    private function buildSections($deedsData, $type, $sections, &$id)
     {
         $section = '';
         $number = 1;
@@ -134,11 +137,13 @@ class DeedsController extends Controller
         }
 
         $sections[] = [
+            'id' => $id,
             'name' => $type,
             'text' => $section,
             'show' => !empty($section)
         ];
 
+        $id++;
         return $sections;
     }
 
