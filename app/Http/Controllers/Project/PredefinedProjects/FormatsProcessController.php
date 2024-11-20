@@ -38,7 +38,7 @@ class FormatsProcessController extends Controller
     static public function getValidatorRequestPhase(string $namePhae): array
     {
 
-        return [
+        $rules = [
             'generateClarificationNotice' => [
                 'data.lasted_related_report_id' => 'required|int|exists:report_configurations,id',
                 'data.last_report_id' => 'nullable|int|exists:report_configurations,id'
@@ -47,6 +47,8 @@ class FormatsProcessController extends Controller
                 'data.last_report_id' => 'nullable|int|exists:report_configurations,id'
             ],
         ];
+
+        return $rules[$namePhae] ?? [];
     }
 
 

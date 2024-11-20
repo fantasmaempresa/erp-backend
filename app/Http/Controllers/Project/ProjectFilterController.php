@@ -129,8 +129,8 @@ class ProjectFilterController extends ApiController
         if (isset($currentDetail->form_data['rules'])) {
             $detailProjectProcess = $this->getResumeProject($project, $process, true);
 
+            $values_form = null;
             if (empty($currentDetail->form_data['values_form'])) {
-                $values_form = null;
                 $form = null;
                 foreach ($detailProjectProcess as $detail) {
                     if (

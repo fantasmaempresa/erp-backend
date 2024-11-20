@@ -16,6 +16,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
+        "luecano/numero-a-letras": "3.0",
         "open2code/pdf": "^2.0.1",
         "pusher/pusher-php-server": "~4.0",
         "react/promise": "2.7.0",

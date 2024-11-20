@@ -206,7 +206,7 @@ class ProcedureGraphicController extends ApiController
                 ->groupBy('procedures.id')
                 ->toSql();
 
-            dd($proceduresT);
+            // dd($proceduresT);
 
             $lables = ['Tramites sin documentos', 'Tramites con documentos'];
             $data = [$proceduresW->count(), $proceduresT->count()];

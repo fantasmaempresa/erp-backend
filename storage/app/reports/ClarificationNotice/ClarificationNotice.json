@@ -1,82 +1,76 @@
 {
-    "title": "Primer aviso preventivo",
+    "title": "Aviso Aclaratorio",
     "content": [
         {
             "id": 0,
             "name": "Asunto",
-            "text": "ASUNTO: OFICIO ACLARATORIO <br> DEL  ",
+            "text": "<p>ASUNTO: OFICIO ACLARATORIO <br> DEL [RELATED]</p>",
             "show": true
         },
         {
             "id": 1,
             "name": "A quien va dirigido",
-            "text": "AL C. REGISTRADOR PÚBLICO DE LA PROPIEDAD, DEL DISTRITO JUDICIAL DE ",
+            "text": "<p>AL C. REGISTRADOR PÚBLICO DE LA PROPIEDAD, DEL DISTRITO JUDICIAL DE </p>",
             "show": true
         },
         {
             "id": 2,
             "name": "Fundamento",
-            "text": "Con fundamento en lo dispuesto por el artículo 8 de nuestra Carta Magna; los artículos 97, 98 y 104, de la Ley del Registro Público de la Propiedad del Estado de Puebla, y bajo protesta de decir verdad manifiesto que se tuvieron a la vista los documentos que exige el artículo 32 del Reglamento de la Ley del Notariado; respetuosamente solicito:",
+            "text": "<p>Con fundamento en lo dispuesto por el artículo 8 de nuestra Carta Magna; los artículos 97, 98 y 104, de la Ley del Registro Público de la Propiedad del Estado de Puebla, y bajo protesta de decir verdad manifiesto que se tuvieron a la vista los documentos que exige el artículo 32 del Reglamento de la Ley del Notariado; respetuosamente solicito:</p>",
             "show": true
         },
         {
             "id": 3,
-            "name": "Cuerpo",
-            "text": "Se haga la anotación del PRIMER AVISO PREVENTIVO de _ respecto del inmueble, cuyos datos de identificación y contratantes menciono más adelante y expida CERTIFICADO DE LIBERTAD de GRAVAMEN donde conste la anotación del primer aviso preventivo, la situación registral que reporte el bien y la constancia relativa a las declaratorias de provisiones, usos, reservas y destinos, que estuvieren inscritos en forma individualizada en su folio:",
+            "name": "Fecha",
+            "text": "<p>Que con fecha [DATE], se solicitó se hiciera la anotación del [RELATED] respecto [OPERATION];  con los siguientes datos:</p>",
             "show": true
         },
         {
             "id": 4,
-            "name": "Fecha de primer aviso",
-            "text": "Que con fecha _________________________________, se solicitó se hiciera la anotación del ___________________________________ respecto de la operación de ¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬___________________;  con los siguientes datos:",
+            "name": "Antecedente",
+            "text": "<p>[BODY] <br> [GRANTORS] <br> [PROPERTY] <br> [REGISTRATION] </p>",
             "show": true
         },
         {
             "id": 5,
-            "name": "Antecedente",
-            "text": "",
+            "name": "Referencia incorrecta",
+            "text": "<p><b><u>POR ERROR</u></b> involuntario se manifestó de manera equívoca los datos respecto </p>",
             "show": true
         },
         {
             "id": 6,
-            "name": "Referencia incorrecta",
-            "text": "POR ERROR involuntario se manifestó de manera equívoca los datos respecto ",
+            "name": "Referencia a corregir",
+            "text": "<p>SIENDO LO CORRECTO LO SIGUIENTE: <br></p>",
             "show": true
         },
         {
             "id": 7,
-            "name": "Referencia a corregir",
-            "text": "SIENDO LO CORRECTO LO SIGUIENTE: <br>",
+            "name": "fecha",
+            "text": "<p>En la Heroica Puebla de Zaragoza, [DATE]</p>",
             "show": true
         },
         {
             "id": 8,
-            "name": "fecha",
-            "text": "En la Heroica Puebla de Zaragoza, a los ______________ días del mes de ___________ de dos mil _________",
+            "name": "Firma Nombre",
+            "text": "<p>Dra. Norma Romero Cortés</p>",
             "show": true
         },
         {
             "id": 9,
-            "name": "Firma Nombre",
-            "text": "Dra. Norma Romero Cortés",
+            "name": "Firma Puesto",
+            "text": "<p>Notario Público Titular</p>",
             "show": true
         },
         {
             "id": 10,
-            "name": "Firma Puesto",
-            "text": "Notario Público Titular",
+            "name": "Iniciales",
+            "text": "<p>NRC/esc</p>",
             "show": true
         },
         {
             "id": 11,
-            "name": "Iniciales",
-            "text": "NRC/esc",
-            "show": true
-        },
-        {
-            "id": 12,
             "name": "Expediente",
-            "text": "Exp._",
+            "text": "<p>Exp._</p>",
             "show": true
         }
     ]

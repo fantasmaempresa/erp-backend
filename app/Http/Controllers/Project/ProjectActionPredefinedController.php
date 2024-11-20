@@ -75,6 +75,7 @@ class ProjectActionPredefinedController extends ApiController
             return $this->errorResponse('Esta fase no genera documentos', 404);
         }
 
+        // dd($request->all());
         if ($request->all()['data']['reload']) {
             $this->validate($request, $dispatcher->getValidatorRequestPhase($request->get('namePhase')));
             $originalStructure = $dispatcher->executePhase($request->get('namePhase'), $project, $process, $request->get('data'));
@@ -205,11 +206,12 @@ class ProjectActionPredefinedController extends ApiController
         $useLastReport = [
             'generateSecondPreventiveNotice' => ['generateFirstPreventiveNotice'],
             'generateBuySell' => ['generateFirstPreventiveNotice', 'generateSecondPreventiveNotice'],
+            'generateClarificationNotice' => ['generateFirstPreventiveNotice', 'generateSecondPreventiveNotice'],
         ];
 
         $reports = ReportConfiguration::where('project_id', $project->id)
-            ->where('process_id', $process->id)
-            ->where('name_process', $request->get('nameProcess'));
+            ->where('process_id', $process->id);
+            // ->where('name_process', $request->get('nameProcess'));
 
         if (isset($useLastReport[$request->get('namePhase')])) {
             $reports = $reports->whereIn('name_phase', $useLastReport[$request->get('namePhase')]);

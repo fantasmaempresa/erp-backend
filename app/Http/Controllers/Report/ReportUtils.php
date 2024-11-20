@@ -101,9 +101,9 @@ class ReportUtils
 
     static function getBackUpReport() {}
 
-    static function dateSpanish($date)
+    static function dateSpanish($date = "")
     {
-        $carbonDate = Carbon::parse($date);
+        $carbonDate = empty($date) ? Carbon::now() : Carbon::parse($date);
         $carbonDate->locale('es');
 
         $daysLetter = self::numberSpanish($carbonDate->day);
@@ -118,20 +118,20 @@ class ReportUtils
         return $numberFormatter->format($number);
     }
 
-    static function getNameReport(string $name, string $process): array
+    static function getNameReport(string $name, string $process): string
     {
         $nameReports = [
             'DomainTransfer' =>
             [
-                'generateFirstPreventiveNotice' => 'Primer Aviso Preventivo',
-                'generateSecondPreventiveNotice' => 'Segundo Aviso Preventivo',
-                'generateBuySell' => 'Escritura traslado de dominio',
+                'generateFirstPreventiveNotice' => 'PRIMER AVISO PREVENTIVO',
+                'generateSecondPreventiveNotice' => 'SEGUNDO AVISO PREVENTIVO',
+                'generateBuySell' => 'ESCRITURA TRALADO DE DOMINIO',
             ],
             'FormatsProcess' => [
-                'generateClarificationNotice' => 'Aviso Aclaratorio'
+                'generateClarificationNotice' => 'AVISO ACLARATORIO'
             ],
         ];
 
-        return $nameReports[$process][$name] ?? [];
+        return $nameReports[$process][$name] ?? "";
     }
 }
