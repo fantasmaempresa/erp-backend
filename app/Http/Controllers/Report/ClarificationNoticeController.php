@@ -128,6 +128,7 @@ class ClarificationNoticeController extends Controller
 
     public function getDocument(...$args)
     {
+
         return [
             "data" => $args[0][0],
             "parameters" => [],

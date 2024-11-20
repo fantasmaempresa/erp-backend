@@ -10,7 +10,7 @@ class FormatsProcessController extends Controller
     public function getPahsesWithFormatReport(string $namePashes = null)
     {
         $pahseswithFormat = [
-            'getFormatClarificationNotice' => [$this, 'generateClarificationNotice']
+            'getFormatClarificationNotice' => [$this, 'getFormatClarificationNotice']
         ];
 
         return $namePashes ? $pahseswithFormat[$namePashes] ?? [] : $pahseswithFormat;
@@ -29,7 +29,7 @@ class FormatsProcessController extends Controller
     {
         $pahses = [
             'generateClarificationNotice' => [$this, 'generateClarificationNotice'],
-            'getFormatClarificationNotice' => [$this, 'generateClarificationNotice']
+            'getFormatClarificationNotice' => [$this, 'getFormatClarificationNotice']
         ];
 
         return $namePashes ? $pahses[$namePashes] ?? [] : $pahses;

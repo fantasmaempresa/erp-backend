@@ -16,7 +16,6 @@ use Open2code\Pdf\jasper\Report;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 
-
 class ProjectActionPredefinedController extends ApiController
 {
     public $PROCESS_PREDEFINED = [
@@ -88,14 +87,20 @@ class ProjectActionPredefinedController extends ApiController
             ])->orderby('id', 'asc')->get();
 
             $originalStructure = [];
+            $data = $request->all();
+            $originalStructure = (object)[];
             if ($reports->count() > 0) {
-                $originalStructure = $dispatcher->executePhase($request->get('namePhase'), $project, $process, $request->get('data'));
                 foreach ($reports as $report) {
+                    if (isset($report->data['lasted_related_report_id'])) {
+                        $data['lasted_related_report_id'] = $report->data['lasted_related_report_id'];
+                        $originalStructure = $dispatcher->executePhase($request->get('namePhase'), $project, $process, $data);
+                        $originalStructure->lasted_related_report_id = ReportConfiguration::findOrFail($report->data['lasted_related_report_id']);
+                    }else {
+                        $originalStructure = $dispatcher->executePhase($request->get('namePhase'), $project, $process, $data);
+                    }
                     $originalStructure->content =  isset($report->data['content']) ? $report->data['content'] : $originalStructure->content;
                     $originalStructure->id_report =  $report->id;
-                    if (isset($report->data['lasted_related_report_id'])) {
-                        $originalStructure->lasted_related_report_id = ReportConfiguration::findOrFail($report->data['lasted_related_report_id']);
-                    }
+                    
                 }
             } else {
                 $this->validate($request, $dispatcher->getValidatorRequestPhase($request->get('namePhase')));
