@@ -1,0 +1,65 @@
+{
+    "title": "Cancelación de Aviso Aclaratorio",
+    "content": [
+        {
+            "id": 0,
+            "name": "Asunto",
+            "text": "<p><b>ASUNTO:</b> CANCELACIÓN DE AVISO PREVENTIVO.</p>",
+            "show": true
+        },
+        {
+            "id": 1,
+            "name": "A quien va dirigido",
+            "text": "<p>AL C. REGISTRADOR PÚBLICO DE LA PROPIEDAD, DEL DISTRITO JUDICIAL DE </p>",
+            "show": true
+        },
+        {
+            "id": 2,
+            "name": "Fundamento",
+            "text": "<p>Con fundamento en lo dispuesto por los artículos 86 del Reglamento de la Ley del Registro Público de la Propiedad del Estado de Puebla; y 88 Ley del Registro Público de la Propiedad del Estado de Puebla respetuosamente solicito:</p>",
+            "show": true
+        },
+        {
+            "id": 3,
+            "name": "Cancelacion",
+            "text": "<p>Se sirva CANCELAR la anotación del PRIMER AVISO PREVENTIVO de fecha [DATE], respecto de la operación de: [OPERATIONS], respecto del inmueble, cuyos datos de identificación y contratantes son los siguientes:</p>",
+            "show": true
+        },
+        {
+            "id": 4,
+            "name": "Antecedente",
+            "text": "<p>[GRANTORS]</p><p>[PROPERTY]</p><p>[REGISTRATION]</p>",
+            "show": true
+        },
+        {
+            "id": 5,
+            "name": "Fecha",
+            "text": "<p>En la Heroica Puebla de Zaragoza, [DATE]</p>",
+            "show": true
+        },
+        {
+            "id": 6,
+            "name": "Firma Nombre",
+            "text": "<p>Dra. Norma Romero Cortés</p>",
+            "show": true
+        },
+        {
+            "id": 7,
+            "name": "Firma Puesto",
+            "text": "<p>Notario Público Titular</p>",
+            "show": true
+        },
+        {
+            "id": 8,
+            "name": "Iniciales",
+            "text": "<p>NRC/esc</p>",
+            "show": true
+        },
+        {
+            "id": 9,
+            "name": "Expediente",
+            "text": "<p>Exp._</p>",
+            "show": true
+        }
+    ]
+}

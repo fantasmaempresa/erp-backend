@@ -20,7 +20,46 @@ class ClarificationNoticeController extends Controller
         $project = $args[0];
         $lasted_related_report = ReportConfiguration::findOrFail($args[2]['lasted_related_report_id']);
         $reportTextData = json_decode(Storage::get('reports/ClarificationNotice/ClarificationNotice.json'));
+        $nameLastedReport =  ReportUtils::getNameReport(
+            $lasted_related_report->name_phase,
+            $lasted_related_report->name_process,
+        );
 
+        $dateLastReport = '';
+        if ($nameLastedReport == 'PRIMER AVISO PREVENTIVO') {
+            foreach ($lasted_related_report->data['content'] as $content) {
+                if ($content['id'] == 3) $BODY = $content['text'];
+                if ($content['id'] == 4) $GRANTORS = $content['text'];
+                if ($content['id'] == 5) $PROPERTY = $content['text'];
+                if ($content['id'] == 6) $REGISTRATION = $content['text'];
+                if ($content['id'] == 7) {
+                    $dateLastReport = explode(',', $content['text']);
+                    $dateLastReport = str_replace(['<p>', '</p>'], '', $dateLastReport[1]);
+                }
+            }
+            $INSTRUMENT = null;
+            $VOLUME = null;
+            $DATE_APRAISAL = null;
+            $APPRAISAL_OPERATION = null;
+        } elseif ($nameLastedReport == 'SEGUNDO AVISO PREVENTIVO') {
+
+            foreach ($lasted_related_report->data['content'] as $content) {
+                if ($content['id'] == 3) $BODY = $content['text'];
+                if ($content['id'] == 4) $GRANTORS = $content['text'];
+                if ($content['id'] == 5) $PROPERTY = $content['text'];
+                if ($content['id'] == 6) $VOLUME = $content['text'];
+                if ($content['id'] == 7) $INSTRUMENT = $content['text'];
+                if ($content['id'] == 8) $DATE_APRAISAL = $content['text'];
+                if ($content['id'] == 9) $APPRAISAL_OPERATION = $content['text'];
+                if ($content['id'] == 10) $REGISTRATION = $content['text'];
+                if ($content['id'] == 11) {
+                    $dateLastReport = explode(',', $content['text']);
+                    $dateLastReport = str_replace(['<p>', '</p>'], '', $dateLastReport[1]);
+                }
+            }
+        } else {
+            $nameLastedReport = '';
+        }
 
         $operations = ReportUtils::getOperationData($project);
 
@@ -28,10 +67,7 @@ class ClarificationNoticeController extends Controller
 
         $reportTextData->content[0]->text = str_replace(
             '[RELATED]',
-            ReportUtils::getNameReport(
-                $lasted_related_report->name_phase,
-                $lasted_related_report->name_process,
-            ),
+            $nameLastedReport,
             $reportTextData->content[0]->text
         );
 
@@ -40,10 +76,7 @@ class ClarificationNoticeController extends Controller
         //Fecha
         $reportTextData->content[3]->text =  str_replace(
             '[RELATED]',
-            ReportUtils::getNameReport(
-                $lasted_related_report->name_phase,
-                $lasted_related_report->name_process,
-            ),
+            $nameLastedReport,
             $reportTextData->content[3]->text
         );
 
@@ -55,16 +88,11 @@ class ClarificationNoticeController extends Controller
 
         $reportTextData->content[3]->text = str_replace(
             '[DATE]',
-            ReportUtils::dateSpanish(),
+            $dateLastReport,
             $reportTextData->content[3]->text
         );
 
-        foreach ($lasted_related_report->data['content'] as $content) {
-            if ($content['id'] == 3 ) $BODY = $content['text'];
-            if ($content['id'] == 4 ) $GRANTORS = $content['text'];
-            if ($content['id'] == 5 ) $PROPERTY = $content['text'];
-            if ($content['id'] == 6 ) $REGISTRATION = $content['text'];
-        }
+
 
         $reportTextData->content[4]->text = str_replace(
             '[BODY]',
@@ -88,7 +116,39 @@ class ClarificationNoticeController extends Controller
             $REGISTRATION,
             $reportTextData->content[4]->text
         );
-        
+
+        if ($nameLastedReport == 'PRIMER AVISO PREVENTIVO') {
+            $reportTextData->content[4]->text = str_replace(
+                '[FOLIO]',
+                '',
+                $reportTextData->content[4]->text
+            );
+
+            $reportTextData->content[4]->text = str_replace(
+                '[APPRAISAL]',
+                '',
+                $reportTextData->content[4]->text
+            );
+
+
+        } elseif ($nameLastedReport == 'SEGUNDO AVISO PREVENTIVO') {
+
+            $folio = "<p><b><u>Volumen: </b></u> $VOLUME <b><u>Instrumento: </b></u>$INSTRUMENT  <b><u>Fecha: </b></u> $DATE_APRAISAL</p>";
+            $appraisal = "<p><b><u>VALOR DE OPERACIÓN DE LA COMPRA VENTA: $APPRAISAL_OPERATION</b></u><p>";
+            $reportTextData->content[4]->text = str_replace(
+                '[FOLIO]',
+                $folio,
+                $reportTextData->content[4]->text
+            );
+
+            $reportTextData->content[4]->text = str_replace(
+                '[APPRAISAL]',
+                $appraisal,
+                $reportTextData->content[4]->text
+            );
+
+        }
+
         $reportTextData->content[7]->text = str_replace(
             '[DATE]',
             ReportUtils::dateSpanish(),

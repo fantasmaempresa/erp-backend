@@ -28,7 +28,7 @@
         {
             "id": 4,
             "name": "Antecedente",
-            "text": "<p>[BODY] <br> [GRANTORS] <br> [PROPERTY] <br> [REGISTRATION] </p>",
+            "text": "<p>[BODY]</p><p>[GRANTORS]</p><p>[PROPERTY]</p>[FOLIO][APPRAISAL]<p>[REGISTRATION]</p>",
             "show": true
         },
         {
