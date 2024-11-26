@@ -60,11 +60,14 @@ class DeedsController extends Controller
     {
         $allDeeds = json_decode(Storage::get('reports/deeds/AllDeeds.json'));
         $deeds = collect($allDeeds->deeds);
+        $deedsData = [];
 
         //GET ALL OPERATIONS
         $project->procedure->operations->map(function ($operation) use ($deeds, &$deedsData) {
             $operationDeed = $deeds->where("type", $operation->name)->first();
-            $deedsData[] = $operationDeed;
+            if(!is_null($operationDeed)) {
+                $deedsData[] = $operationDeed;
+            }
         });
 
         $structure = [
