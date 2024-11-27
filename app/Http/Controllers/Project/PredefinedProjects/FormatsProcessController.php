@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Project\PredefinedProjects;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Report\CancellationFirstPreventNoticeController;
 use App\Http\Controllers\Report\ClarificationNoticeController;
 
 class FormatsProcessController extends Controller
@@ -10,7 +11,8 @@ class FormatsProcessController extends Controller
     public function getPahsesWithFormatReport(string $namePashes = null)
     {
         $pahseswithFormat = [
-            'getFormatClarificationNotice' => [$this, 'getFormatClarificationNotice']
+            'getFormatClarificationNotice' => [$this, 'getFormatClarificationNotice'],
+            'getFormatCancellationFirstPreventNotice' => [$this, 'getFormatClarificationNotice']
         ];
 
         return $namePashes ? $pahseswithFormat[$namePashes] ?? [] : $pahseswithFormat;
@@ -20,6 +22,7 @@ class FormatsProcessController extends Controller
     {
         $pahseswithFormat = [
             'generateClarificationNotice' => [$this, 'generateClarificationNotice'],
+            'generateCancellationFirstPreventNotice' => [$this, 'generateClarificationNotice'],
         ];
 
         return $namePashes ? $pahseswithFormat[$namePashes] ?? [] : $pahseswithFormat;
@@ -29,7 +32,9 @@ class FormatsProcessController extends Controller
     {
         $pahses = [
             'generateClarificationNotice' => [$this, 'generateClarificationNotice'],
-            'getFormatClarificationNotice' => [$this, 'getFormatClarificationNotice']
+            'getFormatClarificationNotice' => [$this, 'getFormatClarificationNotice'],
+            'generateCancellationFirstPreventNotice' => [$this, 'generateCancellationFirstPreventNotice'],
+            'getFormatCancellationFirstPreventNotice' => [$this, 'getFormatCancellationFirstPreventNotice'],
         ];
 
         return $namePashes ? $pahses[$namePashes] ?? [] : $pahses;
@@ -46,6 +51,13 @@ class FormatsProcessController extends Controller
             'getFormatClarificationNotice' => [
                 'data.last_report_id' => 'nullable|int|exists:report_configurations,id'
             ],
+            'generateCancellationFirstPreventNotice' => [
+                'data.lasted_related_report_id' => 'required|int|exists:report_configurations,id',
+                'data.last_report_id' => 'nullable|int|exists:report_configurations,id'
+            ],
+            'getFormatCancellationFirstPreventNotice' => [
+                'data.last_report_id' => 'nullable|int|exists:report_configurations,id'
+            ],  
         ];
 
         return $rules[$namePhae] ?? [];
@@ -77,4 +89,18 @@ class FormatsProcessController extends Controller
     }
     // END AVISO ACLARATORIO
 
+    // CANCELACIÓN DE PRIMER AVISO PREVENTIVO
+    public function generateCancellationFirstPreventNotice(...$args)
+    {
+        $firstPreventiveNotice = new CancellationFirstPreventNoticeController();
+        return $firstPreventiveNotice->getStructure(...$args);
+    }
+
+    public function getFormatCancellationFirstPreventNotice(...$args)
+    {
+
+        $firstPreventiveNotice = new CancellationFirstPreventNoticeController();
+        return $firstPreventiveNotice->getDocument($args);
+    }
+    //END CANCELACIÓN DE PRIMER AVISO PREVENTIVO
 }

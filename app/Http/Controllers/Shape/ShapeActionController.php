@@ -86,7 +86,8 @@ class ShapeActionController extends ApiController
             $parameters += ['subReportPath' => Storage::path('reports/format_t/')];
             $jasperPath = Storage::path('reports/format_t/FORMAT_T.jasper');
             $outputPath = Storage::path('reports/format_t/FORMAT_T.' . $extension);
-            $imageAsset = Storage::path('assets/LogoFormaT.png');
+            $imageAsset = Storage::path('assets/LogoFormaT1.png');
+            $parameters += ['imageSF1' => Storage::path('assets/LogoFormaCastroT.png')];   
         }
 
         unset($procedure->shape['template_shape']);

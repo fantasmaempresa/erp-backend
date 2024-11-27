@@ -1,101 +1,152 @@
-<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
-<jasperReport name="CancellationFirstPreventNotice" language="java" columnCount="1" pageWidth="612" pageHeight="1008" orientation="Landscape" columnWidth="457" leftMargin="99" rightMargin="56" topMargin="141" bottomMargin="85" uuid="10ff82f1-f60a-4429-9e60-c812e13878aa">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
-	<property name="com.jaspersoft.studio.report.description" value=""/>
-	<property name="com.jaspersoft.studio.unit." value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.topMargin" value="cm"/>
-	<property name="com.jaspersoft.studio.unit.bottomMargin" value="cm"/>
-	<property name="com.jaspersoft.studio.unit.leftMargin" value="cm"/>
-	<property name="com.jaspersoft.studio.unit.rightMargin" value="cm"/>
-	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
-	<query language="json"><![CDATA[]]></query>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CancellationFirstPreventNotice" pageWidth="612" pageHeight="1008" columnWidth="457" leftMargin="99" rightMargin="56" topMargin="141" bottomMargin="85" uuid="e7967a1f-078a-4b4e-8bb4-a33dc6add7b6">
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
 	<field name="parragraph_1" class="java.lang.String">
-		<description><![CDATA[content[0].text]]></description>
+		<fieldDescription><![CDATA[content[0].text]]></fieldDescription>
 	</field>
 	<field name="parragraph_2" class="java.lang.String">
-		<description><![CDATA[content[1].text]]></description>
+		<fieldDescription><![CDATA[content[1].text]]></fieldDescription>
 	</field>
 	<field name="parragraph_3" class="java.lang.String">
-		<description><![CDATA[content[2].text]]></description>
+		<fieldDescription><![CDATA[content[2].text]]></fieldDescription>
 	</field>
 	<field name="parragraph_4" class="java.lang.String">
-		<description><![CDATA[content[3].text]]></description>
+		<fieldDescription><![CDATA[content[3].text]]></fieldDescription>
 	</field>
 	<field name="parragraph_5" class="java.lang.String">
-		<description><![CDATA[content[4].text]]></description>
+		<fieldDescription><![CDATA[content[4].text]]></fieldDescription>
 	</field>
 	<field name="parragraph_6" class="java.lang.String">
-		<description><![CDATA[content[5].text]]></description>
+		<fieldDescription><![CDATA[content[5].text]]></fieldDescription>
 	</field>
 	<field name="parragraph_7" class="java.lang.String">
-		<description><![CDATA[content[6].text]]></description>
+		<fieldDescription><![CDATA[content[6].text]]></fieldDescription>
 	</field>
 	<field name="parragraph_8" class="java.lang.String">
-		<description><![CDATA[content[7].text]]></description>
+		<fieldDescription><![CDATA[content[7].text]]></fieldDescription>
 	</field>
 	<field name="parragraph_9" class="java.lang.String">
-		<description><![CDATA[content[8].text]]></description>
+		<fieldDescription><![CDATA[content[8].text]]></fieldDescription>
 	</field>
 	<field name="parragraph_10" class="java.lang.String">
-		<description><![CDATA[content[9].text]]></description>
+		<fieldDescription><![CDATA[content[9].text]]></fieldDescription>
 	</field>
-	<field name="parragraph_11" class="java.lang.String">
-		<description><![CDATA[content[10].text]]></description>
-	</field>
-	<background splitType="Stretch"/>
-	<title height="123" splitType="Stretch">
-		<element kind="textField" uuid="a748c7a9-63ce-421f-aeef-9ac1d9dd523f" x="207" y="0" width="250" height="40" markup="html" fontName="Arial Narrow" hTextAlign="Right">
-			<expression><![CDATA[$F{parragraph_1}]]></expression>
-		</element>
-		<element kind="textField" uuid="35f1fd56-7524-414f-b2fe-80810e8ea923" x="0" y="50" width="310" height="43" markup="html" fontName="Arial Narrow">
-			<expression><![CDATA[$F{parragraph_2}]]></expression>
-		</element>
-		<element kind="staticText" uuid="902c5957-f6f3-4d00-be9e-82fd9b38803f" x="0" y="93" width="311" height="28">
-			<text><![CDATA[P R E S E N T E]]></text>
-		</element>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="89" splitType="Stretch">
+			<textField textAdjust="StretchHeight">
+				<reportElement x="0" y="0" width="460" height="32" uuid="17a7ef5c-48b1-42b0-8aa9-1d80613a84c7"/>
+				<textElement textAlignment="Right" markup="html">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parragraph_1}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="0" y="50" width="460" height="18" uuid="96627b8c-db86-42bf-90bb-70a9b9f71d04"/>
+				<textElement markup="html">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parragraph_2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-1" y="69" width="210" height="20" uuid="522a1446-71f6-4c89-b44f-f99bb1b14350"/>
+				<textElement>
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<text><![CDATA[P R E S E N T E]]></text>
+			</staticText>
+		</band>
 	</title>
 	<detail>
-		<band height="40" splitType="Stretch">
-			<element kind="textField" uuid="b5a14b44-0181-480b-aa65-2b3089f187da" x="0" y="0" width="456" height="40" markup="html" fontName="Arial Narrow" hTextAlign="Justified">
-				<expression><![CDATA[$F{parragraph_3}]]></expression>
-			</element>
+		<band height="50" splitType="Stretch">
+			<textField textAdjust="StretchHeight">
+				<reportElement x="0" y="0" width="460" height="50" uuid="c943b618-ff0e-476e-8a0d-b3d43f68a8fc">
+					<property name="com.jaspersoft.studio.unit.firstLineIndent" value="cm"/>
+				</reportElement>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial Narrow" size="11"/>
+					<paragraph firstLineIndent="42"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parragraph_3}]]></textFieldExpression>
+			</textField>
 		</band>
 		<band height="50">
-			<element kind="textField" uuid="17987c5f-5a3d-44d6-afc1-9fd0c63bba42" x="-3" y="0" width="460" height="50" markup="html" fontName="Arial Narrow" hTextAlign="Justified">
-				<expression><![CDATA[$F{parragraph_4}]]></expression>
-			</element>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="-1" y="0" width="460" height="50" uuid="310a9c34-8b02-4f8f-9c53-ffc43ab4e812">
+					<property name="com.jaspersoft.studio.unit.firstLineIndent" value="cm"/>
+				</reportElement>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial Narrow" size="11"/>
+					<paragraph firstLineIndent="42"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parragraph_4}]]></textFieldExpression>
+			</textField>
 		</band>
 		<band height="50">
-			<element kind="textField" uuid="12bec70b-00da-4421-a6a0-6237869086fe" x="-2" y="0" width="460" height="50" markup="html" fontName="Arial Narrow" hTextAlign="Justified">
-				<expression><![CDATA[$F{parragraph_5}]]></expression>
-			</element>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="0" y="0" width="458" height="50" uuid="4d6d939d-46e3-470d-b21b-6951bfaa2bdc">
+					<property name="com.jaspersoft.studio.unit.firstLineIndent" value="cm"/>
+				</reportElement>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial Narrow" size="11"/>
+					<paragraph firstLineIndent="42"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parragraph_5}]]></textFieldExpression>
+			</textField>
 		</band>
-		<band height="22">
-			<element kind="textField" uuid="8508bbc7-9a97-44be-a699-361d5508c029" x="-2" y="0" width="460" height="20" markup="html" fontName="Arial Narrow" hTextAlign="Justified">
-				<expression><![CDATA[$F{parragraph_6}]]></expression>
-			</element>
+		<band height="50">
+			<textField textAdjust="StretchHeight">
+				<reportElement x="0" y="0" width="458" height="50" uuid="f0ae1e9b-53fe-4c9b-85c2-71a4f7f3a946">
+					<property name="com.jaspersoft.studio.unit.firstLineIndent" value="cm"/>
+				</reportElement>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="Arial Narrow" size="11"/>
+					<paragraph firstLineIndent="42"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parragraph_6}]]></textFieldExpression>
+			</textField>
 		</band>
-		<band height="65">
-			<element kind="textField" uuid="738ed1af-08e2-4e85-b4b5-b6c0216b3156" x="-1" y="20" width="456" height="20" markup="html" fontName="Arial Narrow" hTextAlign="Center">
-				<expression><![CDATA[$F{parragraph_7}]]></expression>
-			</element>
-			<element kind="staticText" uuid="c49db47a-903f-43c1-844f-c20386bd5f20" x="-1" y="4" width="456" height="17" fontName="Arial Narrow" hTextAlign="Center">
-				<text><![CDATA[A T E N T A M E N T E]]></text>
-			</element>
-			<element kind="textField" uuid="ce4b2045-3c98-4c57-a2a4-e536083b01c0" x="0" y="40" width="458" height="20" markup="html" fontName="Arial Narrow" hTextAlign="Center">
-				<expression><![CDATA[$F{parragraph_8}]]></expression>
-			</element>
-		</band>
-		<band height="72">
-			<element kind="textField" uuid="4948a574-7382-4071-8db2-b896e9fb62ed" x="0" y="20" width="139" height="14" markup="html" fontName="Arial Narrow">
-				<expression><![CDATA[$F{parragraph_9}]]></expression>
-			</element>
-			<element kind="textField" uuid="90a102f9-b9f1-4511-ae12-29c78bf44cbd" x="0" y="34" width="139" height="16" markup="ESSSSS" fontName="Arial Narrow">
-				<expression><![CDATA[$F{parragraph_10}]]></expression>
-			</element>
+		<band height="112">
+			<staticText>
+				<reportElement x="1" y="0" width="458" height="20" uuid="fe8002a5-493f-49aa-95eb-86dd37c14015"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<text><![CDATA[A T E N T A M E N T E ]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="0" y="20" width="458" height="20" uuid="d4984dbf-3633-4f9a-b28a-693c5a03d498"/>
+				<textElement textAlignment="Center" markup="html">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parragraph_7}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="0" y="40" width="458" height="20" uuid="88ec3ec0-c768-4afa-ad02-2d6bce1078e3"/>
+				<textElement textAlignment="Center" markup="html">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parragraph_8}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="1" y="80" width="138" height="14" uuid="c7b0c14f-62a4-483e-b1f9-7cf92f7d24b1"/>
+				<textElement markup="html">
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parragraph_9}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="1" y="94" width="138" height="16" uuid="19e2175a-f082-4cd5-bd32-1dfb7183f36e"/>
+				<textElement markup="html">
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parragraph_10}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>

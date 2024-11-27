@@ -60,6 +60,16 @@ class SecondPreventiveNoticeController extends ApiController
             'sheets' => $procedureData
         ];
 
+        $dataConfig[] = [
+            'title' => 'Notarias',
+            'sheets' => [
+                'Dra. Norma Romero Cortés', 
+                'Notario Público Titular', 
+                'Lic. Norma Alma Cortés Caballero',  
+                'Notario Público Auxiliar'
+            ]
+        ];
+
         $reportTextData->data = $dataConfig;
 
         return $reportTextData;

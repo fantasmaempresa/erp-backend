@@ -175,6 +175,7 @@ class ProjectActionPredefinedController extends ApiController
             $reportConfiguration->data = $request->all()['data'];
         }
 
+
         $reportConfiguration->save();
 
         return $this->showOne($reportConfiguration);
@@ -212,6 +213,7 @@ class ProjectActionPredefinedController extends ApiController
             'generateSecondPreventiveNotice' => ['generateFirstPreventiveNotice'],
             'generateBuySell' => ['generateFirstPreventiveNotice', 'generateSecondPreventiveNotice'],
             'generateClarificationNotice' => ['generateFirstPreventiveNotice', 'generateSecondPreventiveNotice'],
+            'generateCancellationFirstPreventNotice' => ['generateFirstPreventiveNotice'],
         ];
 
         $reports = ReportConfiguration::where('project_id', $project->id)

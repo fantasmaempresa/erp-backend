@@ -61,6 +61,9 @@ class ClarificationNoticeController extends Controller
             $nameLastedReport = '';
         }
 
+        // dd($GRANTORS, $PROPERTY, $REGISTRATION, $lasted_related_report->data['content']);
+
+
         $operations = ReportUtils::getOperationData($project);
 
         $grantors = ReportUtils::getGrantorData($project);
@@ -91,14 +94,12 @@ class ClarificationNoticeController extends Controller
             $dateLastReport,
             $reportTextData->content[3]->text
         );
+        // $reportTextData->content[4]->text = str_replace(
+        //     '[BODY]',
+        //     $BODY,
+        //     $reportTextData->content[4]->text
+        // );
 
-
-
-        $reportTextData->content[4]->text = str_replace(
-            '[BODY]',
-            $BODY,
-            $reportTextData->content[4]->text
-        );
 
         $reportTextData->content[4]->text = str_replace(
             '[GRANTORS]',
@@ -179,6 +180,16 @@ class ClarificationNoticeController extends Controller
         $dataConfig[] = [
             'title' => 'expedient',
             'sheets' => $procedureData
+        ];
+
+        $dataConfig[] = [
+            'title' => 'Notarias',
+            'sheets' => [
+                'Dra. Norma Romero Cortés', 
+                'Notario Público Titular', 
+                'Lic. Norma Alma Cortés Caballero',  
+                'Notario Público Auxiliar'
+            ]
         ];
 
         $reportTextData->data = $dataConfig;
