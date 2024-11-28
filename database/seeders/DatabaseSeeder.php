@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
                 // StatusQuoteSeeder::class,
                 // DocumentSeeder::class,
                 // OperationSedeer::class,
-                // TemplateShapeSeeder::class,
+                TemplateShapeSeeder::class,
                 // PlaceSeeder::class,
                 // StakeSeeder::class,
                 // ProcedureSeeder::class,
@@ -49,9 +49,10 @@ class DatabaseSeeder extends Seeder
                 // EmployesNotarySeeder::class,
                 // CategoryOperationSeeder::class,
                 // UnitSeeder::class,
-                BookSeeder::class,
-                FolioSeeder::class,
-                FixGrantorProcedure::class
+                // BookSeeder::class,
+                // FolioSeeder::class,
+                // FixGrantorProcedure::class
+                NewOperationSeeder::class
             ]
         );
     }

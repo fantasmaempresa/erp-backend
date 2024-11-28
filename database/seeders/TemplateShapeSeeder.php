@@ -23,7 +23,6 @@ class TemplateShapeSeeder extends Seeder
      */
     public function run()
     {
-
         $templateShapes = [
             [
                 'id' => 1,
@@ -91,7 +90,7 @@ class TemplateShapeSeeder extends Seeder
                     ],
                     [
                         'name' => 'alienating_quote_basis',
-                        'number' => 'text',
+                        'type' => 'text',
                         'label' => 'Cuota (renglon 1)',
                     ],
                     [
@@ -114,35 +113,85 @@ class TemplateShapeSeeder extends Seeder
                 'form' => [
                     ['name' => 'type', 'type' => 'text', 'label' => 'Tipo de Predio'],
                     ['name' => 'index', 'type' => 'text', 'label' => 'Indice de Predio'],
-                    ['name' => 'property', 'type' => 'text', 'label' => 'Ubicación actual del inmueble'],
+                    ['name' => 'property', 'type' => 'text', 'label' => 'Descripción del inmueble'],
                     [
-                        'name' => 'alienated_property_home',
+                        'name' => 'alienated_property_street',
                         'type' => 'text',
-                        'label' => 'Domicilio para notificar',
+                        'label' => 'Calle del inmueble',
                     ],
+                    [
+                        'name' => 'alienated_property_outdoor_number',
+                        'type' => 'text',
+                        'label' => 'NoExt del inmueble',
+                    ],
+                    [
+                        'name' => 'alienated_property_interior_number',
+                        'type' => 'text',
+                        'label' => 'NoInt del inmueble',
+                    ],
+                    [
+                        'name' => 'alienated_property_colony',
+                        'type' => 'text',
+                        'label' => 'Colonia del inmueble',
+                    ],
+                    [
+                        'name' => 'alienated_property_locality',
+                        'type' => 'text',
+                        'label' => 'Localidad del inmueble',
+                    ],
+                    [
+                        'name' => 'alienated_property_municipality',
+                        'type' => 'text',
+                        'label' => 'Municipio del inmueble',
+                    ],
+                    [
+                        'name' => 'alienated_property_entity',
+                        'type' => 'text',
+                        'label' => 'Entidad federativa del inmueble',
+                    ],
+                    [
+                        'name' => 'alienated_property_zipcode',
+                        'type' => 'number',
+                        'label' => 'Código Postal del inmueble',
+                    ],
+                    [
+                        'name' => 'alienated_property_zipcode',
+                        'type' => 'phone_number',
+                        'label' => 'Teléfono del inmueble',
+                    ],
+
                     ['name' => 'first_article', 'type' => 'text', 'label' => 'Articulo (Renglón 1)'],
                     ['name' => 'legal_section', 'type' => 'text', 'label' => 'Apartado (Renglón 1)'],
                     ['name' => 'first_fraction', 'type' => 'text', 'label' => 'Fraccion (Renglón 1)'],
                     ['name' => 'first_quote', 'type' => 'text', 'label' => 'Cuota (Renglón 1)'],
                     ['name' => 'firs_amount', 'type' => 'text', 'label' => 'Importe (Renglón 1)'],
+                    ['name' => 'firs_modification_settlement', 'type' => 'text', 'label' => 'Modificación de la Liquidación (Renglón 1)'],
 
                     ['name' => 'second_article', 'type' => 'text', 'label' => 'Articulo (Renglón 2)'],
                     ['name' => 'second_section', 'type' => 'text', 'label' => 'Apartado (Renglón 2)'],
                     ['name' => 'second_fraction', 'type' => 'text', 'label' => 'Fraccion (Renglón 2)'],
                     ['name' => 'second_quote', 'type' => 'text', 'label' => 'Cuota (Renglón 2)'],
                     ['name' => 'second_amount', 'type' => 'text', 'label' => 'Importe (Renglón 1)'],
-
+                    ['name' => 'second_modification_settlement', 'type' => 'text', 'label' => 'Modificación de la Liquidación (Renglón 2)'],
+                    
                     ['name' => 'thirty_article', 'type' => 'text', 'label' => 'Articulo (Renglón 3)'],
                     ['name' => 'thirty_section', 'type' => 'text', 'label' => 'Apartado (Renglón 3)'],
                     ['name' => 'thirty_fraction', 'type' => 'text', 'label' => 'Fraccion (Renglón 3)'],
                     ['name' => 'thirty_quote', 'type' => 'text', 'label' => 'Cuota (Renglón 3)'],
                     ['name' => 'thirty_amount', 'type' => 'text', 'label' => 'Importe (Renglón 3)'],
+                    ['name' => 'thirty_modification_settlement', 'type' => 'text', 'label' => 'Modificación de la Liquidación (Renglón 3)'],
 
                     ['name' => 'fourth_article', 'type' => 'text', 'label' => 'Articulo (Renglón 4)'],
                     ['name' => 'fourth_section', 'type' => 'text', 'label' => 'Apartado (Renglón 4)'],
                     ['name' => 'fourth_fraction', 'type' => 'text', 'label' => 'Fraccion (Renglón 4)'],
                     ['name' => 'fourth_quote', 'type' => 'text', 'label' => 'Cuota (Renglón 4)'],
                     ['name' => 'fourth_amount', 'type' => 'text', 'label' => 'Importe (Renglón 4)'],
+                    ['name' => 'fourth_modification_settlement', 'type' => 'text', 'label' => 'Modificación de la Liquidación (Renglón 4)'],
+
+                    //TOTALES
+                    ['name' => 'total', 'type' => 'text', 'label' => 'Total Pago de derechos'],
+                    ['name' => 'total_modification_settlement', 'type' => 'text', 'label' => 'Total de la Modificación de la Liquidación'],
+
                 ],
             ],
             [
@@ -188,35 +237,100 @@ class TemplateShapeSeeder extends Seeder
                 'form' => [
                     ['name' => 'type', 'type' => 'text', 'label' => 'Tipo de Predio'],
                     ['name' => 'index', 'type' => 'text', 'label' => 'Indice de Predio'],
-                    ['name' => 'property', 'type' => 'text', 'label' => 'Ubicación actual del inmueble'],
+
+                    //DIRECCIÓN DEL INMUEBLE
+                    ['name' => 'property', 'type' => 'text', 'label' => 'Descripción del inmueble'],
                     [
                         'name' => 'alienated_property_home',
                         'type' => 'text',
                         'label' => 'Domicilio para notificar',
                     ],
+
+
+                    [
+                        'name' => 'alienated_property_street',
+                        'type' => 'text',
+                        'label' => 'Calle del inmueble',
+                    ],
+                    [
+                        'name' => 'alienated_property_outdoor_number',
+                        'type' => 'text',
+                        'label' => 'NoExt del inmueble',
+                    ],
+                    [
+                        'name' => 'alienated_property_interior_number',
+                        'type' => 'text',
+                        'label' => 'NoInt del inmueble',
+                    ],
+                    [
+                        'name' => 'alienated_property_colony',
+                        'type' => 'text',
+                        'label' => 'Colonia del inmueble',
+                    ],
+                    [
+                        'name' => 'alienated_property_locality',
+                        'type' => 'text',
+                        'label' => 'Localidad del inmueble',
+                    ],
+                    [
+                        'name' => 'alienated_property_municipality',
+                        'type' => 'text',
+                        'label' => 'Municipio del inmueble',
+                    ],
+                    [
+                        'name' => 'alienated_property_entity',
+                        'type' => 'text',
+                        'label' => 'Entidad federativa del inmueble',
+                    ],
+                    [
+                        'name' => 'alienated_property_zipcode',
+                        'type' => 'number',
+                        'label' => 'Código Postal del inmueble',
+                    ],
+                    [
+                        'name' => 'alienated_property_zipcode',
+                        'type' => 'phone_number',
+                        'label' => 'Teléfono del inmueble',
+                    ],
+                    //DIRECCIÓN DEL INMUEBLE
+
+
                     ['name' => 'first_article', 'type' => 'text', 'label' => 'Articulo (Renglón 1)'],
                     ['name' => 'legal_section', 'type' => 'text', 'label' => 'Apartado (Renglón 1)'],
                     ['name' => 'first_fraction', 'type' => 'text', 'label' => 'Fraccion (Renglón 1)'],
                     ['name' => 'first_quote', 'type' => 'text', 'label' => 'Cuota (Renglón 1)'],
                     ['name' => 'firs_amount', 'type' => 'text', 'label' => 'Importe (Renglón 1)'],
+                    //NUEVO CAMPO MODIFICACIÓN DE LA LIQUIDACIÓN
+                    ['name' => 'firs_modification_settlement', 'type' => 'text', 'label' => 'Modificación de la Liquidación (Renglón 1)'],
 
                     ['name' => 'second_article', 'type' => 'text', 'label' => 'Articulo (Renglón 2)'],
                     ['name' => 'second_section', 'type' => 'text', 'label' => 'Apartado (Renglón 2)'],
                     ['name' => 'second_fraction', 'type' => 'text', 'label' => 'Fraccion (Renglón 2)'],
                     ['name' => 'second_quote', 'type' => 'text', 'label' => 'Cuota (Renglón 2)'],
-                    ['name' => 'second_amount', 'type' => 'text', 'label' => 'Importe (Renglón 1)'],
+                    ['name' => 'second_amount', 'type' => 'text', 'label' => 'Importe (Renglón 2)'],
+                    //NUEVO CAMPO MODIFICACIÓN DE LA LIQUIDACIÓN
+                    ['name' => 'second_modification_settlement', 'type' => 'text', 'label' => 'Modificación de la Liquidación (Renglón 2)'],
 
                     ['name' => 'thirty_article', 'type' => 'text', 'label' => 'Articulo (Renglón 3)'],
                     ['name' => 'thirty_section', 'type' => 'text', 'label' => 'Apartado (Renglón 3)'],
                     ['name' => 'thirty_fraction', 'type' => 'text', 'label' => 'Fraccion (Renglón 3)'],
                     ['name' => 'thirty_quote', 'type' => 'text', 'label' => 'Cuota (Renglón 3)'],
                     ['name' => 'thirty_amount', 'type' => 'text', 'label' => 'Importe (Renglón 3)'],
+                    //NUEVO CAMPO MODIFICACIÓN DE LA LIQUIDACIÓN
+                    ['name' => 'thirty_modification_settlement', 'type' => 'text', 'label' => 'Modificación de la Liquidación (Renglón 3)'],
 
                     ['name' => 'fourth_article', 'type' => 'text', 'label' => 'Articulo (Renglón 4)'],
                     ['name' => 'fourth_section', 'type' => 'text', 'label' => 'Apartado (Renglón 4)'],
                     ['name' => 'fourth_fraction', 'type' => 'text', 'label' => 'Fraccion (Renglón 4)'],
                     ['name' => 'fourth_quote', 'type' => 'text', 'label' => 'Cuota (Renglón 4)'],
                     ['name' => 'fourth_amount', 'type' => 'text', 'label' => 'Importe (Renglón 4)'],
+                    //NUEVO CAMPO MODIFICACIÓN DE LA LIQUIDACIÓN
+                    ['name' => 'fourth_modification_settlement', 'type' => 'text', 'label' => 'Modificación de la Liquidación (Renglón 4)'],
+                    //NUEVO CAMPO MODIFICACIÓN DE LA LIQUIDACIÓN
+                    //NUEVO CAMPO MODIFICACIÓN DE LA LIQUIDACIÓN
+                    ['name' => 'total_modification_settlement', 'type' => 'text', 'label' => 'Total de la Modificación de la Liquidación'],
+                    //NUEVO CAMPO MODIFICACIÓN DE LA LIQUIDACIÓN
+                    ['name' => 'total', 'type' => 'text', 'label' => 'Total Pago de derechos'],
                 ],
             ],
         ];
