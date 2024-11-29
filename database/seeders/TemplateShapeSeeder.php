@@ -155,7 +155,7 @@ class TemplateShapeSeeder extends Seeder
                         'label' => 'Código Postal del inmueble',
                     ],
                     [
-                        'name' => 'alienated_property_zipcode',
+                        'name' => 'alienated_property_phone',
                         'type' => 'phone_number',
                         'label' => 'Teléfono del inmueble',
                     ],

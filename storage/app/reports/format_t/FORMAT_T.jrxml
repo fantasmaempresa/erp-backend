@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FORMAT_T" pageWidth="623" pageHeight="963" columnWidth="583" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b3bdd097-91ef-48f0-9aef-c8feb468263a">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="REPORTE TESORERIA\DA_FORMAT_C.xml"/>
 	<parameter name="imageSF" class="java.lang.String"/>
@@ -287,6 +287,126 @@
 	<field name="complete_name" class="java.lang.String">
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.alienatingData.complete_name"/>
 		<fieldDescription><![CDATA[shape.alienatingData.complete_name]]></fieldDescription>
+	</field>
+	<field name="second_article" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.second_article"/>
+		<fieldDescription><![CDATA[shape.data_form.second_article]]></fieldDescription>
+	</field>
+	<field name="second_section" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.second_section"/>
+		<fieldDescription><![CDATA[shape.data_form.second_section]]></fieldDescription>
+	</field>
+	<field name="second_fraction" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.second_fraction"/>
+		<fieldDescription><![CDATA[shape.data_form.second_fraction]]></fieldDescription>
+	</field>
+	<field name="second_quote" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.second_quote"/>
+		<fieldDescription><![CDATA[shape.data_form.second_quote]]></fieldDescription>
+	</field>
+	<field name="second_amount" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.second_amount"/>
+		<fieldDescription><![CDATA[shape.data_form.second_amount]]></fieldDescription>
+	</field>
+	<field name="thirty_article" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.thirty_article"/>
+		<fieldDescription><![CDATA[shape.data_form.thirty_article]]></fieldDescription>
+	</field>
+	<field name="thirty_section" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.thirty_section"/>
+		<fieldDescription><![CDATA[shape.data_form.thirty_section]]></fieldDescription>
+	</field>
+	<field name="thirty_fraction" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.thirty_fraction"/>
+		<fieldDescription><![CDATA[shape.data_form.thirty_fraction]]></fieldDescription>
+	</field>
+	<field name="thirty_quote" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.thirty_quote"/>
+		<fieldDescription><![CDATA[shape.data_form.thirty_quote]]></fieldDescription>
+	</field>
+	<field name="thirty_amount" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.thirty_amount"/>
+		<fieldDescription><![CDATA[shape.data_form.thirty_amount]]></fieldDescription>
+	</field>
+	<field name="fourth_article" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.fourth_article"/>
+		<fieldDescription><![CDATA[shape.data_form.fourth_article]]></fieldDescription>
+	</field>
+	<field name="fourth_section" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.fourth_section"/>
+		<fieldDescription><![CDATA[shape.data_form.fourth_section]]></fieldDescription>
+	</field>
+	<field name="fourth_fraction" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.fourth_fraction"/>
+		<fieldDescription><![CDATA[shape.data_form.fourth_fraction]]></fieldDescription>
+	</field>
+	<field name="fourth_quote" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.fourth_quote"/>
+		<fieldDescription><![CDATA[shape.data_form.fourth_quote]]></fieldDescription>
+	</field>
+	<field name="fourth_amount" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.fourth_amount"/>
+		<fieldDescription><![CDATA[shape.data_form.fourth_amount]]></fieldDescription>
+	</field>
+	<field name="alienated_property_street" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.alienated_property_street"/>
+		<fieldDescription><![CDATA[shape.data_form.alienated_property_street]]></fieldDescription>
+	</field>
+	<field name="alienated_property_outdoor_number" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.alienated_property_outdoor_number"/>
+		<fieldDescription><![CDATA[shape.data_form.alienated_property_outdoor_number]]></fieldDescription>
+	</field>
+	<field name="alienated_property_interior_number" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.alienated_property_interior_number"/>
+		<fieldDescription><![CDATA[shape.data_form.alienated_property_interior_number]]></fieldDescription>
+	</field>
+	<field name="alienated_property_colony" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.alienated_property_colony"/>
+		<fieldDescription><![CDATA[shape.data_form.alienated_property_colony]]></fieldDescription>
+	</field>
+	<field name="alienated_property_locality" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.alienated_property_locality"/>
+		<fieldDescription><![CDATA[shape.data_form.alienated_property_locality]]></fieldDescription>
+	</field>
+	<field name="alienated_property_municipality" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.alienated_property_municipality"/>
+		<fieldDescription><![CDATA[shape.data_form.alienated_property_municipality]]></fieldDescription>
+	</field>
+	<field name="alienated_property_entity" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.alienated_property_entity"/>
+		<fieldDescription><![CDATA[shape.data_form.alienated_property_entity]]></fieldDescription>
+	</field>
+	<field name="alienated_property_zipcode" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.alienated_property_zipcode"/>
+		<fieldDescription><![CDATA[shape.data_form.alienated_property_zipcode]]></fieldDescription>
+	</field>
+	<field name="alienated_property_phone" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.alienated_property_phone"/>
+		<fieldDescription><![CDATA[shape.data_form.alienated_property_phone]]></fieldDescription>
+	</field>
+	<field name="firs_modification_settlement" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.firs_modification_settlement"/>
+		<fieldDescription><![CDATA[shape.data_form.firs_modification_settlement]]></fieldDescription>
+	</field>
+	<field name="second_modification_settlement" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.second_modification_settlement"/>
+		<fieldDescription><![CDATA[shape.data_form.second_modification_settlement]]></fieldDescription>
+	</field>
+	<field name="thirty_modification_settlement" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.thirty_modification_settlement"/>
+		<fieldDescription><![CDATA[shape.data_form.thirty_modification_settlement]]></fieldDescription>
+	</field>
+	<field name="fourth_modification_settlement" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.fourth_modification_settlement"/>
+		<fieldDescription><![CDATA[shape.data_form.fourth_modification_settlement]]></fieldDescription>
+	</field>
+	<field name="total_1" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.total"/>
+		<fieldDescription><![CDATA[shape.data_form.total]]></fieldDescription>
+	</field>
+	<field name="total_modification_settlement" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.total_modification_settlement"/>
+		<fieldDescription><![CDATA[shape.data_form.total_modification_settlement]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -1495,13 +1615,6 @@ INMOBILIARIOS]]></text>
 				<textFieldExpression><![CDATA[$F{property}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="9" y="426" width="564" height="14" uuid="c0fd58bf-c41e-42b4-8447-832a9729d7da"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="6"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{alienating_home}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="300" y="482" width="12" height="12" uuid="b17b19aa-6fea-4e94-8545-abb2f8c9cdc2">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -1517,7 +1630,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rfc0}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="312" y="482" width="12" height="12" uuid="ea26c44a-89aa-4a6b-9c41-d191136d695b"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1530,7 +1643,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rfc1}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="324" y="482" width="12" height="12" uuid="e813638d-9b16-4880-b57b-c24858b0155a"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1543,7 +1656,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rfc2}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="336" y="482" width="12" height="12" uuid="d361431a-024f-4c00-afc0-44c67ffba3dc"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1556,7 +1669,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rfc3}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="348" y="482" width="12" height="12" uuid="2de3115c-5625-4aab-8e19-8ecf557d06e5"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1569,7 +1682,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rfc4}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="360" y="482" width="12" height="12" uuid="b0b6c55f-60c5-4897-88bf-8ebf0f0a5c90"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1582,7 +1695,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rfc5}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="384" y="482" width="12" height="12" uuid="ec0494b0-d6e6-4446-a7ad-229ac4e985e4"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1595,7 +1708,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rfc7}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="396" y="482" width="12" height="12" uuid="405eee32-463f-4786-b0e5-c608c13dcb8b"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1608,7 +1721,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rfc8}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="408" y="482" width="12" height="12" uuid="c2e144ea-211c-48a7-b0df-8d80cf746623"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1621,7 +1734,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rfc9}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="420" y="482" width="12" height="12" uuid="f12afd0d-01f2-4751-aafc-83ae47ad3288"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1634,7 +1747,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rfc10}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="432" y="482" width="12" height="12" uuid="a993c08f-d6c3-4eb6-815b-22c921d2768e"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1647,7 +1760,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rfc11}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="444" y="482" width="12" height="12" uuid="11b2c4e6-032a-4833-a282-85606b86d4da"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1660,7 +1773,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rfc12}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="300" y="499" width="12" height="12" uuid="d990225d-775d-41ed-b882-b7be232df76b"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1673,7 +1786,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp0}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="312" y="499" width="12" height="12" uuid="2c92a029-359d-4bf3-9baf-0b524ece20c1"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1686,7 +1799,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp1}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="324" y="499" width="12" height="12" uuid="b701cda3-77c8-452f-8b60-ff7da42f3bc3"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1699,7 +1812,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp2}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="336" y="499" width="12" height="12" uuid="5779cfa2-0ec8-4966-8327-66529ec02f2f"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1712,7 +1825,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp3}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="348" y="499" width="12" height="12" uuid="ba0e81a8-5ef4-43e8-8de4-9526c9c0ea3b"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1725,7 +1838,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp4}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="360" y="499" width="12" height="12" uuid="b7d4580c-d410-4891-80f5-7a344836e162"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1738,7 +1851,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp5}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="372" y="499" width="12" height="12" uuid="2c19a0e4-816f-437a-b399-e2d229edb438"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1751,7 +1864,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp6}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="384" y="499" width="12" height="12" uuid="2f9284d4-29ac-44dd-9ec8-dbf3068ec13d"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1764,7 +1877,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp7}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="372" y="482" width="12" height="12" uuid="cb10bd07-0321-4bf3-ae42-64a19584b3f1"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1777,7 +1890,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rfc6}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="396" y="499" width="12" height="12" uuid="1180e6da-5482-42a4-af75-235bc6a2be0d"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1790,7 +1903,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp8}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="408" y="499" width="12" height="12" uuid="ff527342-d963-4146-bb30-fb9ab4fe7a5b"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1803,7 +1916,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp9}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="420" y="499" width="12" height="12" uuid="39e0542a-de6c-4c4a-893b-53742130e420"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1816,7 +1929,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp10}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="432" y="499" width="12" height="12" uuid="2eb297f9-f97b-4d37-bdac-2887948c2665"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1829,7 +1942,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp11}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="444" y="499" width="12" height="12" uuid="e9f93154-6212-48cc-b785-8bfb412e6907"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1842,7 +1955,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp12}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="456" y="499" width="12" height="12" uuid="11509dfc-63b6-4285-8fd8-392ef3dd266c"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1855,7 +1968,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp13}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="468" y="499" width="12" height="12" uuid="a1a57fe4-51c4-4967-8a22-555ca6d1621b"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1868,7 +1981,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp14}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="480" y="499" width="12" height="12" uuid="d6bb2525-6d05-437d-b33a-1c96eead0d3d"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1881,7 +1994,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp15}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="492" y="499" width="12" height="12" uuid="6527d86a-35b6-4208-9cfa-6d3a9c4a0850"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1894,7 +2007,7 @@ INMOBILIARIOS]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp16}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="504" y="499" width="12" height="12" uuid="2a47d227-d615-4459-85c9-836935d66850"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1995,7 +2108,7 @@ INMOBILIARIOS]]></text>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6"/>
 				</textElement>
-				<textFieldExpression><![CDATA["TOTAL: $ " + $F{total}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["TOTAL: $ " + $F{total_1}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="479" y="847" width="100" height="11" uuid="3b7c1d29-bf5b-4a1a-9180-147df0cfcf73"/>
@@ -2168,7 +2281,205 @@ INMOBILIARIOS]]></text>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6"/>
 				</textElement>
-				<textFieldExpression><![CDATA["TOTAL: $ " + $F{total}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["TOTAL: $ " + $F{total_modification_settlement}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="116" y="427" width="116" height="12" uuid="ebcf7828-9346-4c31-9f5f-b76d554c2f48">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienated_property_street}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="233" y="427" width="116" height="12" uuid="dc94e3b6-6b48-4715-8e9d-78fe8670eb02"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienated_property_outdoor_number}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="349" y="427" width="116" height="12" uuid="eff56263-274a-4131-9d1f-7f30bbf4212a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienated_property_interior_number}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="465" y="427" width="116" height="12" uuid="f73904d1-c1f4-4a6b-9295-8cc1ab907b9b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienated_property_colony}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="457" width="116" height="12" uuid="5e909ba6-8be7-46bc-88df-878d17811989"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienated_property_locality}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="116" y="457" width="116" height="12" uuid="ccfa4e6f-7f93-44af-8dba-302fc0892eb4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienated_property_municipality}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="233" y="457" width="116" height="12" uuid="969dd75d-080a-4d1e-ab9f-9c79652132e8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienated_property_entity}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="349" y="457" width="116" height="12" uuid="3980a03b-ff4a-4fe0-9ae5-170030901faa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienated_property_zipcode}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="465" y="457" width="116" height="12" uuid="d3bf34d3-f61e-4483-bf5c-ec6f87b8c0b2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienated_property_phone}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3" y="713" width="66" height="10" uuid="79d41ea8-d67a-40df-9649-f7e8773f3d2e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{second_article}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3" y="728" width="66" height="10" uuid="1503212f-fd2b-4c33-88c7-edf09cad342c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{thirty_article}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3" y="743" width="66" height="10" uuid="fc7394d5-ca20-458d-bcf8-75e7f1f8dc4d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fourth_article}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="76" y="713" width="66" height="10" uuid="af4d3a5f-005d-4a9f-8008-6a9f592a5516"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{second_section}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="76" y="728" width="66" height="10" uuid="07d8e172-fa2c-4421-b08b-4924fd86ce53"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{thirty_section}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="76" y="743" width="66" height="10" uuid="eac7cbb4-f105-4b21-ab25-03f74aa99b7c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fourth_section}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="149" y="713" width="66" height="10" uuid="9a1541e1-3254-41fe-a8bb-d63d1d280ff4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{second_fraction}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="149" y="728" width="66" height="10" uuid="b83ecb01-c829-4725-9d3e-a1de5687b665"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{thirty_fraction}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="149" y="743" width="66" height="10" uuid="c4630b26-559f-4662-a429-9a8f5955f9ed"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fourth_fraction}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="221" y="713" width="66" height="10" uuid="c2d07386-b92e-4f15-b0b5-b3773ed39c9f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{second_quote}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="221" y="728" width="66" height="10" uuid="6327484e-870c-4fab-a6c8-f5cc59e1610f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{thirty_quote}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="221" y="743" width="66" height="10" uuid="54b72cc7-b80d-4757-b054-4f5267c802d0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fourth_quote}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="297" y="713" width="66" height="10" uuid="bee7db48-de17-4835-a245-bdc4dd60c637"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{second_amount}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="297" y="728" width="66" height="10" uuid="a9f9576d-0113-4071-a3c3-6b173fccfaa6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{thirty_amount}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="297" y="743" width="66" height="10" uuid="39df7cb3-d793-49ca-b448-0b7039902ff2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fourth_amount}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="481" y="697" width="96" height="10" uuid="f80abeba-0b8f-4b00-b905-803c5fe03a55"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{firs_modification_settlement}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="481" y="713" width="96" height="10" uuid="90505feb-1e54-4221-8b13-3bdc3972b561"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{second_modification_settlement}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="481" y="728" width="96" height="10" uuid="f477ccf5-e257-420f-b637-b554a7fc4106"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{thirty_modification_settlement}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="481" y="743" width="96" height="10" uuid="895b407a-e32c-4fcb-a6d7-f211d38dca91"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fourth_modification_settlement}]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="55">

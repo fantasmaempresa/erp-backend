@@ -204,9 +204,144 @@
                 {
                     "name": "Antecedentes",
                     "texts": [
-                        "<b>(_)</b>",
-                        "<b>(_)</b>",
-                        "<b>(_)</b>"
+                        "<b>(_)</b> Los comparecientes exhiben la Autorización de Uso de Denominación o Razón Social, con Clave Única del Documento (CUD): __________________________ (__________________________________), de fecha ______________________________________________________, que concedió la Secretaría de Economía, Dirección General de Normatividad Mercantil; el cual se agrega al apéndice de este instrumento, así como a los testimonios que de esta escritura se expidan",
+                        "<b>(_)</b> Los comparecientes han determinado constituir una Asociación Civil con fundamento en lo dispuesto por los artículos 184, 185 y sus cinco fracciones, 186, 187 y sus ocho fracciones, 188, 189, 190, 191, 192, 193, 194 y sus cinco fracciones, 195, 196, 197, 198, 199, 200 y sus tres fracciones, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210 y sus cuatro fracciones y 211 con sus dos fracciones, del Código Civil para el Estado Libre y Soberano de Puebla, para realizar un fin común lícito y que carece de carácter preponderantemente económico, no persigue fines de lucro, ni de proselitismo político-electoral o religioso; la cual se regirá de acuerdo con las siguientes:",
+                        "<b>(_)</b> Los comparecientes me exhiben sus comprobantes sus Constancias de Situación Fiscal, de las cuales tomo copias que agrego al apéndice de este instrumento e inserto en los testimonios que de esta escritura se expidan; por lo que me cercioré que el Registro Federal de Contribuyentes que en sus generales han declarado, concuerdan fiel y exactamente con los documentos exhibidos, mismos que agregaré al apéndice de este instrumento con la letra que corresponda."
+                    ]
+                },
+                {
+                    "name": "Clausulas",
+                    "texts": [
+                        "<b>C A P I T U L O  P R I M E R O</b>",
+                        "<b>DENOMINACIÓN, DOMICILIO, DURACIÓN Y OBJETO.</b>",
+                        "<b>P R I M E R A</b>",
+                        "<b>DENOMINACIÓN.- </b> La Asociación se denominará “__________________________________”, e irá seguida de las palabras ASOCIACIÓN CIVIL o de su abreviatura A.C.",
+                        "<b>S E G U N D A</b>",
+                        "<b>DOMICILIO.-</b> La Asociación tiene su domicilio en _________________________________________; pudiendo establecer oficinas o representaciones en cualquier parte del interior del Estado de Puebla o de los Estados Unidos Mexicanos",
+                        "<b>T E R C E R A</b>",
+                        "<b>DURACIÓN.-</b> La duración de la Asociación será de _________________ años, contados a partir de la fecha de firma del presente instrumento",
+                        "<b>C U A R T A</b>",
+                        "<b>Objeto.-</b> <br> ____",
+                        "<b>Q U I N T A</b>",
+                        "<b>NACIONALIDAD.-</b> La Asociación adopta la Cláusula de Exclusión de Extranjeros, por lo que los asociados convienen en que la Asociación no admitirá directa ni indirectamente como asociados integrantes a inversionistas extranjeros ni a sociedades o asociaciones con cláusula de admisión de extranjeros.",
+                        "<b>PARA ADMISIÓN DE EXTRANJEROS</b>",
+                        "<b>Nacionalidad.-</b> La Sociedad es de Nacionalidad Mexicana en virtud de que se constituye conforme a las Leyes Mexicanas y establece su domicilio social dentro del territorio Nacional. Los socios hacen pacto expreso y convienen en los términos de la fracción I del artículo 27 de la Constitución Política de los Estados Unidos Mexicanos; y de los artículos 15 de la Ley de la Inversión Extranjera y 14 del Reglamento de la Ley de Inversión Extranjera y del Registro Nacional de Inversiones Extranjeras, que los Socios extranjeros actuales o futuros de la Sociedad, se obligan formalmente con la Secretaría de Relaciones Exteriores a considerarse como Nacionales respecto de: I.- Las acciones, partes sociales o derechos que adquieran de dichas sociedades; II.- Los bienes, derechos, concesiones, participaciones o intereses de que sean titulares tales sociedades; y III.- Los derechos y obligaciones que deriven de los contratos en que sean parte las propias sociedades. Asimismo, se inserta en este Convenio o pacto, que los extranjeros actuales o futuros de la Sociedad, renuncian a invocar la protección de sus gobiernos bajo la pena, en caso contrario, de perder en beneficio de la Nación los derechos y bienes que hubiesen adquirido",
+                        "<b>C A P I T U L O  S E G U N D O</b>",
+                        "<b>S E X T A</b>",
+                        "El <b>PATRIMONIO</b> de la Asociación se compondrá de:",
+                        "I.- Las cuotas, aportaciones o cooperaciones de cualquier especie, ordinarias o extraordinarias de los asociados que al efecto establezca la Asamblea de Asociados.",
+                        "II.- Las cuotas de recuperación que se establezcan en el ejercicio y desarrollo de su objeto.",
+                        "III.- Los donativos de carácter nacional o internacional que reciba.",
+                        "IV.- De los apoyos o estímulos que reciba.",
+                        "V.- Realización de rifas o sorteos.",
+                        "VI.- Cualquier otro ingreso que se vincule con su objeto social y que legalmente pueda proporcionarse.",
+                        "<b>S E P T I M A</b>",
+                        "El patrimonio de la Asociación, incluyendo los apoyos y estímulos públicos que reciba, se destinarán exclusivamente a los fines propios de su objeto social, no pudiendo otorgar beneficios sobre el remanente distribuible a persona física alguna o a sus integrantes personas físicas o morales, salvo que se trate, en este último caso, de alguna de las personas morales o fideicomisos autorizados para recibir donativos deducibles de impuestos o se trate de la remuneración de servicios efectivamente recibidos, en términos de la Ley del Impuesto sobre la Renta. La Asociación no deberá distribuir entre sus asociados, remanentes de los apoyos y estímulos públicos que reciba. Lo estipulado en la presente disposición es de carácter irrevocable.",
+                        "<b>O C T A V A</b>",
+                        "La Asociación se disolverá por cualquiera de las siguientes causas:",
+                        "I.- Por acuerdo tomado en la asamblea.",
+                        "II.- Por haber concluido el término fijado para su duración.",
+                        "III.- Por haberse conseguido el objeto de la asociación o por imposibilidad de realizarse el mismo.",
+                        "IV.- Por resolución dictada por autoridad competente.",
+                        "Disuelta la Asociación se pondrá en liquidación y la asamblea nombrará uno o varios liquidadores quienes gozarán de las mismas facultades que en estos estatutos se confieren al director o al consejo de directores.",
+                        "La liquidación se practicará de acuerdo con las bases siguientes:",
+                        "I.- Se continuarán las operaciones pendientes de la manera más conveniente a la Asociación, cobrando los créditos y pagando las deudas.",
+                        "II.- Se formulará el estado financiero de liquidación, el cual deberá ser aprobado por la asamblea.",
+                        "Liquidada la asociación, la totalidad de su patrimonio, incluyendo los apoyos y estímulos públicos, se destinará a personas morales autorizadas para recibir donativos deducibles del Impuesto Sobre la Renta que se encuentren inscritas en el Registro Federal de las Organizaciones de la Sociedad Civil. Lo estipulado en la presente disposición es de carácter irrevocable.",
+                        "En caso de disolución y liquidación, el Patrimonio de la Asociación será destinado en su totalidad a una o varias instituciones autorizadas para recibir donativos deducibles en los términos de la Ley del Impuesto Sobre la Renta, en la inteligencia de que los bienes adquiridos con apoyos y estímulos públicos, así como en su caso, los remanentes de dichos apoyos y estímulos, se destinarán a una o varias instituciones autorizadas para recibir donativos deducibles en los términos de la Ley del Impuesto Sobre la Renta que se encuentren inscritas en el Registro Federal de las Organizaciones de la Sociedad Civil. Lo estipulado en la presente disposición es de carácter irrevocable.",
+                        "<b>N O V E N A</b>",
+                        "La Asociación se regirá por las cláusulas de este instrumento, por sus Estatutos que firmados por los asociados fundadores entregan a la suscrita Notario autorizante, para que forme parte del mismo con todos sus fines legales, de conformidad con el Artículo 186 del Código Civil del Estado Libre y Soberano de Puebla y sus reformas, y van en _________ hojas firmadas por cada uno de los comparecientes, los cuales yo, la Notario agrego al legajo respectivo del apéndice de este volumen y en copias debidamente certificadas en los testimonios que de esta acta se ministren.",
+                        "<b>CLÁUSULAS TRANSITORIAS</b>",
+                        "Los comparecientes toman esta reunión como la primera Asamblea y por unanimidad de votos acuerdan lo siguiente:",
+                        "<b>PRIMERA.-</b> La Asociación sea administrada por un __________, designando los siguientes cargos:",
+                        "Presidente:",
+                        "Secretario:",
+                        "Tesorero:",
+                        "Vocal:",
+                        "<b>SEGUNDA.-</b> El PRESIDENTE, SECRETARIO y TESORERO del CONSEJO DIRECTIVO, serán los ejecutores de las decisiones del mismo y por consiguiente los representantes legales de la Asociación, quienes de manera mancomunada, cualquiera de los dos, contarán con todas las facultades conferidas en el Artículo __________ de los Estatutos sociales, a excepción de las facultades con Actos de Dominio, las cuales se reservan a la Asamblea General, así como las facultades consignadas especialmente al PRESIDENTE de dicho Consejo estipuladas en el punto __________ del citado artículo.",
+                        "<b>TERCERA.-</b> Los miembros del CONSEJO DIRECTIVO designados desempeñarán su cargo por __________ años y podrán durar en funciones hasta que la Asamblea General nombre a las personas que los sustituyan y éstos tomen posesión de sus cargos.",
+                        "<b>CUARTA.-</b> Los designados asumen los cargos que les han sido conferidos y prometen desempeñarlos fielmente, toman posesión de los mismos en este acto y permanecen en ellos hasta en tanto no renuncien o sean removidos y el o los sustitutos sean elegidos y tomen posesión.",
+                        "<b>QUINTA.-</b> El primer ejercicio social se cierra el __________ de __________ y los subsecuentes del primero de enero al treinta y uno de diciembre de cada año."
+                    ]
+                },
+                {
+                    "name": "Yo, la Notario certifico",
+                    "texts": [
+                        "I.- Que los comparecientes tienen a mi juicio la capacidad legal necesaria para la celebración de este acto.",
+                        "II.- Que lo relacionado e inserto concuerda fielmente con sus originales que he tenido a la vista y a los que me remito.",
+                        "III.- Que advertí a los comparecientes que deberán acreditarme dentro del mes siguiente a la fecha de firma del presente instrumento, haber presentado la solicitud de inscripción de la Asociación ante el Registro Federal de Contribuyentes y en caso de no exhibirme dicha solicitud, procederé a dar el Aviso correspondiente a las autoridades competentes.",
+                        "IV.- Que de conformidad con lo dispuesto por el artículo 22 del Reglamento para la Autorización de Uso de Denominaciones y Razones Sociales, advertí a los comparecientes que la Asociación que en este acto se constituye, tendrá las obligaciones siguientes:",
+                        "a).- Responder por cualquier daño, perjuicio o afectación que pudiere causar el uso indebido o no autorizado de la Denominación o Razón Social otorgada mediante la presente Autorización, conforme a la Ley de Inversión Extranjera y al Reglamento para la Autorización de Uso de Denominaciones y Razones Sociales.",
+                        "b).- Proporcionar a la Secretaría de Economía la información y documentación que le sea requerida por escrito o a través del Sistema en relación con el uso de la Denominación o Razón Social otorgada mediante la presente Autorización, al momento de haberla reservado, durante el tiempo en que se encuentre en uso, y después de que se haya dado el Aviso de Liberación respecto de la misma.",
+                        "V.- Que en términos de lo dispuesto por los artículos 8 y 17 de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, los comparecientes manifiestan conocer el Aviso de Privacidad a que se refiere la mencionada Ley, mismo que se encuentra exhibido en el área de recepción de las oficinas de esta Notaría a mi cargo y que se encuentra a su disposición para ser consultado en cualquier momento. Por lo que con la firma del presente instrumento manifiestan su consentimiento expreso con el tratamiento de sus datos personales.",
+                        "VI.- Por sus generales manifestaron ser mexicanos por nacimiento e hijos de padres mexicanos: ________________________________________, originario de ___________________, nacido el día ____________________________, con Clave Única de Registro de Población: ____________________, con Registro Federal de Contribuyente: ___________________, *** ocupación*** estado civil*****, con domicilio en __________________________________________; y la señora ________________________, originaria de ___________________, nacida el día _______________________, con Clave Única de Registro de Población: ___________________________, Registro Federal de Contribuyentes: ________________________, *** ocupación*** estado civil*****, con domicilio en __________________________________________, de paso por esta Ciudad, de cuyas identificaciones tomo copias certificadas que anexo al apéndice respectivo.",
+                        "VII.- Que los otorgantes manifiestan: a).- Conocerse entre sí y no tener duda en relación a la recíproca identidad; b).- Conocer el objeto de la operación en forma precisa y total; y c).- Declaran que todas las causas motivadoras de la voluntad contractual han sido expresamente indicadas en este documento.",
+                        "VIII.- Que hice saber a los contratantes el derecho que tienen de leer personalmente la presente Escritura.",
+                        "IX.- Que habiéndoles leído el presente instrumento a los comparecientes explicándoles el valor, fuerza y consecuencias legales de su contenido, manifestaron su conformidad firmando en comprobación el mismo día y año de su otorgamiento. Asimismo, la parte vendedora estampa su huella digital del dedo índice de su mano derecha ante mí. Doy Fe."
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "CANCELACION DE RESERVA DE DOMINIO",
+            "content": [
+                {
+                    "name": "Introduccion",
+                    "texts": [
+                        "CANCELACIÓN DE RESERVA DE DOMINIO, que solicita _______________________, en favor de _______________________"
+                    ]
+                },
+                {
+                    "name": "Antecedentes",
+                    "texts": [
+                        "<b><u>Manifiestan los comparecientes:</b></u>",
+                        "<b>(_)</b> Que por __________________________________________________________________ inscrita en el Registro Público de la Propiedad del Distrito Judicial de ___________________________, bajo _____________________________, de fecha ______________________________, adquirió mediante _________________________, el inmueble identificado como: ________________________, con las siguientes medidas y colindancias:",
+                        "<b>(_)</b> Dicho inmueble paga sus contribuciones prediales al Municipio de ________________, con la cuenta número ____________ (_________________________), la cual se encuentra al corriente en su pago.",
+                        "<b>(_)</b> El valor de la operación fue por la cantidad de $_______________ m.n. (____________________________), que ya fue pagado por la parte compradora a la parte vendedora, sin que durante el plazo se haya generado interés alguno.",
+                        "Dados estos antecedentes se otorgan las siguientes:"
+                    ]
+                },
+                {
+                    "name": "Clausulas",
+                    "texts": [
+                        "<b>(_)</b> _____________________, por medio de esta cláusula y previo pago a cargo ________________, solicita la CANCELACIÓN TOTAL DE RESERVA DE DOMINIO respecto del inmueble identificado como ____________________________________________________________________________________, con las especificaciones mencionadas en el punto uno de los antecedentes de esta escritura, las cuales se dan aquí por reproducidas como si se insertasen a la letra. Consolidándose dicha propiedad en su CIEN POR CIENTO en favor de _____________________, respecto del inmueble identificado como: ________________________________; toda vez que _________________________, se da por pagada del total del valor de operación que se consagra en el instrumento descrito en el antecedente primero de esta escritura y autoriza al Ciudadano Registrador Público de la Propiedad del Distrito Judicial de ___________________________, para que se proceda a tildar y cancelar de una manera absoluta la partida relativa a la inscripción de RESERVA DE DOMINIO.",
+                        "<b>(_)</b> Para el ejercicio y conocimiento de las acciones derivadas de esta declaración se someten los comparecientes expresamente a los Tribunales del Distrito Judicial de __________________ y a las Leyes del Estado renunciando a mayor abundamiento a cualquier otro fuero que en razón de su domicilio presente o futuro les pudiere corresponder.",
+                        "<b>(_)</b> Todos los gastos, derechos y honorarios que se causen con motivo del otorgamiento del presente instrumento, serán por cuenta de _________________________.",
+                        "<b>DE LA PERSONALIDAD</b>",
+                        "Transcripción del instrumento número _______ de fecha________, pasado ante la fe de _______ inscrita en el Registro Público ___________________ de fecha _______ que a la letra dice:"
+                    ]
+                },
+                {
+                    "name": "Yo, la Notario certifico",
+                    "texts": [
+                        "<b>(_)</b> Del conocimiento y capacidad legal de los contratantes.",
+                        "<b>(_)</b> Que las facultades que ostenta ___________________________, no le han sido revocadas ni reformadas en forma alguna, lo que manifiesta bajo protesta de decir verdad.",
+                        "<b>(_)</b> Se les instruye a los comparecientes de la obligación que tienen de inscribir su sociedad conyugal en el Registro Público de la Propiedad según artículo 348 fracciones VI y VII del Código Civil para el Estado Libre y Soberano de Puebla.",
+                        "<b>(_)</b> Que en términos de lo dispuesto por los artículos 8 y 17 de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, los comparecientes manifiestan conocer el Aviso de Privacidad a que se refiere la mencionada Ley, mismo que se encuentra exhibido en el área de recepción de las oficinas de esta Notaría a mi cargo y que se encuentra a su disposición para ser consultado en cualquier momento. Por lo que con la firma del presente instrumento manifiestan su consentimiento expreso con el tratamiento de sus datos personales.",
+                        "<b>(_)</b> Por sus generales manifestaron ser mexicanos por nacimiento e hijos de padres mexicanos: __________________________________, originario de _________________, nacido el día __________________________________________, con Clave Única de Registro de Población: _________________________________, con Registro Federal de Contribuyente: ________________, *** ocupación*** estado civil******; con domicilio en ___________________________________; y el señora __________________________________, originario de  ___________________, nacido el día _________________________, con Clave Única de Registro de Población: ________________________, Registro Federal de Contribuyentes: _________________________, *** ocupación*** estado civil*****, con domicilio en _____________________________________________, de paso por esta Ciudad, de cuyas identificaciones tomo copias certificadas que anexo al apéndice respectivo.",
+                        "<b>(_)</b> Que los otorgantes manifiestan: a).- Conocerse entre sí y no tener duda en relación a la recíproca identidad; b).- Conocer el objeto de la operación en forma precisa y total; y c).- Declaran que todas las causas motivadoras de la voluntad contractual han sido expresamente indicadas en este documento.",
+                        "<b>(_)</b> Que hice saber a los contratantes el derecho que tienen de leer personalmente la presente Escritura.",
+                        "<b>(_)</b> Que habiéndoles leído el presente instrumento a los comparecientes explicándoles del valor, fuerza y consecuencias legales de su contenido manifestaron su conformidad firmando en comprobación el mismo día y año de su otorgamiento, asimismo la parte vendedora estampa su huella digital del dedo índice de su mano derecha ante mí. Doy Fe."
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "COMPRA VENTA A PLAgitZOS CON RESERVA DE DOMINIO",
+            "content": [
+                {
+                    "name": "Introduccion",
+                    "texts": [
+                        " COMPRA-VENTA A PLAZOS CON RESERVA DE DOMINIO, que celebran de una parte como vendedor ______________________________; y de la otra como comprador _______________________________"
+                    ]
+                },
+                {
+                    "name": "Antecedentes",
+                    "texts": [
+                        "I.- Que por __________________________________________________________________ inscrita en el Registro Público de la Propiedad del Distrito Judicial de ___________________________, bajo _____________________________, de fecha ______________________________, adquirió mediante _________________________, el inmueble identificado como: ________________________, con las siguientes medidas y colindancias: ________________________________________________________________________________________.",
+                        "II.- Dicho inmueble paga sus contribuciones prediales al Municipio de _____________________________, con la cuenta número ______________ (__________________________), encontrándose al corriente como lo justifica con el recibo de pago correspondiente, documento del que tomo copias debidamente certificadas que inserto en los testimonios que de esta escritura se expidan, así como en el apéndice respectivo.",
+                        "III.- Por concepto del Servicio de Agua Potable, exhibe la _____________________________________________________________________________, respecto del inmueble objeto del presente contrato; documento que en original anexo al apéndice respectivo y tomo copias certificadas que inserto en los testimonios que de esta escritura se expidan.",
+                        "IV.- Se tramitó y obtuvo el Certificado de libertad de Gravamen expedido por el _______________________________________________, del inmueble objeto del presente contrato, el cual reporta Libre de Gravamen, y el Primer Aviso Preventivo relativo a la presente operación; documento que en original agrego al apéndice respectivo y tomo copias certificadas que inserto en los testimonios que de esta escritura se expidan."
                     ]
                 }
             ]

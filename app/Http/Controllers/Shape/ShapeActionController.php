@@ -7,6 +7,8 @@
 namespace App\Http\Controllers\Shape;
 
 use App\Http\Controllers\ApiController;
+use App\Models\Grantor;
+use App\Models\GrantorLink;
 use App\Models\Procedure;
 use App\Models\Shape;
 use App\Models\Stake;
@@ -87,7 +89,7 @@ class ShapeActionController extends ApiController
             $jasperPath = Storage::path('reports/format_t/FORMAT_T.jasper');
             $outputPath = Storage::path('reports/format_t/FORMAT_T.' . $extension);
             $imageAsset = Storage::path('assets/LogoFormaT1.png');
-            $parameters += ['imageSF1' => Storage::path('assets/LogoFormaCastroT.png')];   
+            $parameters += ['imageSF1' => Storage::path('assets/LogoFormaCastroT.png')];
         }
 
         unset($procedure->shape['template_shape']);
@@ -98,7 +100,7 @@ class ShapeActionController extends ApiController
         $procedure = $this->traverseAndEvaluate($procedure);
 
         // return $this->showList($procedure);
-        
+
         $jsonData = json_encode($procedure);
 
         Storage::put("reports/tempJson.json", $jsonData);
@@ -175,16 +177,42 @@ class ShapeActionController extends ApiController
 
             //ALIENATING RFC AND CURP
             $grantorRfc = $grantorAlienating?->rfc ?? $procedure->shape->data_form['alienating_rfc'] ?? null;
-            $procedure->shape->alien_rfc_s = $this->splitString($grantorRfc, 13, 'al_rfc');
+            $grantorCurp = null;
 
-            $grantorCurp = $grantorAlienating?->curp ?? $procedure->shape->data_form['alienating_crup'] ?? null;
+            if (isset($grantorAlienating)) {
+                if ($grantorAlienating->type == Grantor::MORAL_PERSON) {
+                    $grantorLink = $grantorAlienating->grantorLinks()->first();
+                    if ($grantorLink) {
+                        $grantorCurp = $grantorLink->curp;
+                    }
+                } else {
+                    $grantorCurp = $grantorAlienating->curp;
+                }
+            } else {
+                $grantorCurp = $procedure->shape->data_form['alienating_curp'] ?? null;
+            }
+
+            $procedure->shape->alien_rfc_s = $this->splitString($grantorRfc, 13, 'al_rfc');
             $procedure->shape->alien_curp_s = $this->splitString($grantorCurp, 18, 'al_curp');
 
             //ACQUIRER RFC AND CURP
             $grantorRfc = $grantorAcquirer?->rfc ?? $procedure->shape->data_form['acquirer_rfc'] ?? null;
-            $procedure->shape->acq_rfc_s = $this->splitString($grantorRfc, 13, 'ac_rfc');
+            $grantorCurp = null;
 
-            $grantorCurp = $grantorAcquirer?->curp ?? $procedure->shape->data_form['acquirer_curp'] ?? null;
+            if (isset($grantorAcquirer)) {
+                if ($grantorAcquirer->type == Grantor::MORAL_PERSON) {  
+                    $grantorLink = $grantorAcquirer->grantorLinks()->first();
+                    if ($grantorLink) {
+                        $grantorCurp = $grantorLink->curp;
+                    }
+                } else {
+                    $grantorCurp = $grantorAcquirer->curp;
+                }
+            } else {
+                $grantorCurp = $procedure->shape->data_form['acquirer_curp'] ?? null;
+            }
+
+            $procedure->shape->acq_rfc_s = $this->splitString($grantorRfc, 13, 'ac_rfc');
             $procedure->shape->acq_curp_s = $this->splitString($grantorCurp, 18, 'ac_curp');
         } else {
             //AMOUNT DATA
@@ -195,10 +223,23 @@ class ShapeActionController extends ApiController
             $procedure->shape->alienatingData = $this->grantorAlienating($grantorAlienating, $procedure);
 
             $grantorRfc = $grantorAlienating?->rfc ?? $procedure->shape->data_form['rfc'] ?? null;
-            $procedure->shape->rfc = $this->splitString($grantorRfc, 13, 'rfc');
+            $grantorCurp = null;
 
-            $grantorCurp = $grantorAlienating?->curp ?? $procedure->shape->data_form['curp'] ?? null;
-            $procedure->shape->curp = $this->splitString($grantorCurp, 18, 'curp');
+            if (isset($grantorAlienating)) {
+                if ($grantorAlienating->type == Grantor::MORAL_PERSON) {
+                    $grantorLink = $grantorAlienating->grantorLinks()->first();
+                    if ($grantorLink) {
+                        $grantorCurp = $grantorLink->curp;
+                    }
+                } else {
+                    $grantorCurp = $grantorAlienating->curp;
+                }
+            } else {
+                $grantorCurp = $procedure->shape->data_form['curp'] ?? null;
+            }
+
+            $procedure->shape->rfc = $this->splitString($grantorRfc, 13, 'al_rfc');
+            $procedure->shape->curp = $this->splitString($grantorCurp, 18, 'al_curp');
         }
 
         $grantorsAcquirers = $procedure->shape->grantors()->where('principal', false)->where('grantor_shape.type', Stake::ACQUIRER)->get();

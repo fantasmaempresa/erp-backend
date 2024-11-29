@@ -365,6 +365,66 @@
 		<property name="net.sf.jasperreports.json.field.expression" value="staff.abbreviation"/>
 		<fieldDescription><![CDATA[staff.abbreviation]]></fieldDescription>
 	</field>
+	<field name="alienated_property_street" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.alienated_property_street"/>
+		<fieldDescription><![CDATA[shape.data_form.alienated_property_street]]></fieldDescription>
+	</field>
+	<field name="alienated_property_outdoor_number" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.alienated_property_outdoor_number"/>
+		<fieldDescription><![CDATA[shape.data_form.alienated_property_outdoor_number]]></fieldDescription>
+	</field>
+	<field name="alienated_property_interior_number" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.alienated_property_interior_number"/>
+		<fieldDescription><![CDATA[shape.data_form.alienated_property_interior_number]]></fieldDescription>
+	</field>
+	<field name="alienated_property_colony" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.alienated_property_colony"/>
+		<fieldDescription><![CDATA[shape.data_form.alienated_property_colony]]></fieldDescription>
+	</field>
+	<field name="alienated_property_locality" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.alienated_property_locality"/>
+		<fieldDescription><![CDATA[shape.data_form.alienated_property_locality]]></fieldDescription>
+	</field>
+	<field name="alienated_property_municipality" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.alienated_property_municipality"/>
+		<fieldDescription><![CDATA[shape.data_form.alienated_property_municipality]]></fieldDescription>
+	</field>
+	<field name="alienated_property_entity" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.alienated_property_entity"/>
+		<fieldDescription><![CDATA[shape.data_form.alienated_property_entity]]></fieldDescription>
+	</field>
+	<field name="alienated_property_zipcode" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.alienated_property_zipcode"/>
+		<fieldDescription><![CDATA[shape.data_form.alienated_property_zipcode]]></fieldDescription>
+	</field>
+	<field name="alienated_property_phone" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.alienated_property_phone"/>
+		<fieldDescription><![CDATA[shape.data_form.alienated_property_phone]]></fieldDescription>
+	</field>
+	<field name="firs_modification_settlement" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.firs_modification_settlement"/>
+		<fieldDescription><![CDATA[shape.data_form.firs_modification_settlement]]></fieldDescription>
+	</field>
+	<field name="second_modification_settlement" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.second_modification_settlement"/>
+		<fieldDescription><![CDATA[shape.data_form.second_modification_settlement]]></fieldDescription>
+	</field>
+	<field name="thirty_modification_settlement" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.thirty_modification_settlement"/>
+		<fieldDescription><![CDATA[shape.data_form.thirty_modification_settlement]]></fieldDescription>
+	</field>
+	<field name="fourth_modification_settlement" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.fourth_modification_settlement"/>
+		<fieldDescription><![CDATA[shape.data_form.fourth_modification_settlement]]></fieldDescription>
+	</field>
+	<field name="total_1" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.total"/>
+		<fieldDescription><![CDATA[shape.data_form.total]]></fieldDescription>
+	</field>
+	<field name="total_modification_settlement" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.total_modification_settlement"/>
+		<fieldDescription><![CDATA[shape.data_form.total_modification_settlement]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -1507,7 +1567,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</reportElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="470" y="668" width="43" height="11" uuid="7999aeae-5c12-4b35-8b11-e1b1f2b577bd"/>
+				<reportElement x="470" y="668" width="39" height="11" uuid="7999aeae-5c12-4b35-8b11-e1b1f2b577bd"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="6"/>
 				</textElement>
@@ -1626,13 +1686,13 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				<textFieldExpression><![CDATA[$F{operation_value}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="24" y="379" width="538" height="10" uuid="b7559bab-76ad-43fa-9df3-4d2f73959d97"/>
+				<reportElement x="25" y="356" width="538" height="10" uuid="b7559bab-76ad-43fa-9df3-4d2f73959d97"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Arial" size="6" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{property}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="329" y="414" width="12" height="12" uuid="f25ac48e-e148-4eec-b283-d0406b347b9d">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -1647,7 +1707,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rfc0}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="341" y="414" width="12" height="12" uuid="674d0e6b-3719-433e-928f-37eb64ff3173"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1660,7 +1720,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rfc1}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="353" y="414" width="12" height="12" uuid="41d4cfc5-7b88-43bd-8194-5c0a8dd78626"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1673,7 +1733,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rfc2}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="365" y="414" width="12" height="12" uuid="addae96a-e1be-4d15-90d1-d706e6c0093f"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1686,7 +1746,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rfc3}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="377" y="414" width="12" height="12" uuid="4b645708-753c-4de2-99e5-341c03ad7a15"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1699,7 +1759,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rfc4}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="389" y="414" width="12" height="12" uuid="bf652131-f20f-41e5-9f73-e18be0f5e593"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1712,7 +1772,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rfc5}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="401" y="414" width="12" height="12" uuid="52c29cb7-a2d9-4f1e-834f-b10010893c9b"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1725,7 +1785,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rfc6}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="413" y="414" width="12" height="12" uuid="04977c19-f134-48d8-b401-c3fec9dc05ec"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1738,7 +1798,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rfc7}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="425" y="414" width="12" height="12" uuid="08ba19b3-1edb-448c-b839-8eb91e7c1d73"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1751,7 +1811,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rfc8}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="437" y="414" width="12" height="12" uuid="3890451a-10f8-4d1b-b953-fe88eb543f17"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1764,7 +1824,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rfc9}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="449" y="414" width="12" height="12" uuid="c1b71fbd-ffb6-4d6a-a326-ffc1d4e7eba1"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1777,7 +1837,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rfc10}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="461" y="414" width="12" height="12" uuid="d49ca0db-90e7-49cf-85a7-e588abccd7c2"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1790,7 +1850,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rfc11}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="473" y="414" width="12" height="12" uuid="060f00a8-ad73-4003-93d8-65ef458131e1"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1803,7 +1863,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rfc12}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="329" y="436" width="12" height="12" uuid="b1d203ac-3307-485b-9943-276b5cae3b69"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1816,7 +1876,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp0}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="341" y="436" width="12" height="12" uuid="1f1389fb-5a2b-496d-9a5d-ebeee97d3b08"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1829,7 +1889,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp1}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="353" y="436" width="12" height="12" uuid="6c64142a-bebe-4517-b3da-e84b924468aa"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1842,7 +1902,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp2}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="365" y="436" width="12" height="12" uuid="e3978421-6ea5-44c3-a709-ec48466503c1"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1855,7 +1915,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp3}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="377" y="436" width="12" height="12" uuid="a36ce6de-4a78-4d5f-895b-a9b3b2e01305"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1868,7 +1928,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp4}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="389" y="436" width="12" height="12" uuid="4425baf1-a479-4ebb-ad60-5f7ebe8bdd95"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1881,7 +1941,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp5}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="401" y="436" width="12" height="12" uuid="6045fe3b-0200-436f-88a5-02262f90bda4"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1894,7 +1954,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp6}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="413" y="436" width="12" height="12" uuid="5ed6688a-3193-44d0-a37d-58f6e79c7a0a"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1907,7 +1967,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp7}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="425" y="436" width="12" height="12" uuid="9b867e34-237b-4de0-8435-2fda8f2bf42c"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1920,7 +1980,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp8}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="437" y="436" width="12" height="12" uuid="9c130069-1b93-4a32-baa6-095f96af54b9"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1933,7 +1993,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp9}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="449" y="436" width="12" height="12" uuid="15e77c9b-2eda-43ae-9214-4a38ca43f682"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1946,7 +2006,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp10}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="461" y="436" width="12" height="12" uuid="45510082-4b42-4c1c-b6ad-93848889eaef"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1959,7 +2019,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp11}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="473" y="436" width="12" height="12" uuid="918687d6-6f63-478d-897b-7d17cafe3908"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1972,7 +2032,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp12}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="485" y="436" width="12" height="12" uuid="abf738d3-5ca8-49d5-a750-21104c370d0a"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1985,7 +2045,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp13}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="497" y="436" width="12" height="12" uuid="6edb61c5-a1a3-44ca-b68a-5af6abccd87c"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1998,7 +2058,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp14}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="509" y="436" width="12" height="12" uuid="dfd3e695-eb12-4be4-8644-a6c961b1e210"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -2011,7 +2071,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp15}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="521" y="436" width="12" height="12" uuid="f6a61c83-fc75-49e0-9d68-0a69f05f5991"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -2024,7 +2084,7 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curp16}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="533" y="436" width="12" height="12" uuid="817bb57a-a63c-40be-8be0-b61f28945c25"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -2221,13 +2281,6 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 				<textFieldExpression><![CDATA[$F{street} + " " + $F{outdoor_number} + " " + $F{interior_number} + " " + $F{colony} + " " + $F{locality} + " " + $F{municipality} + " " + $F{entity} + " " + $F{zipcode} + " " + $F{phone}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="313" y="666" width="97" height="14" uuid="174e9ab3-c081-4be8-8dcb-5cd161adfaa4"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="23" y="476" width="417" height="10" uuid="641a5f97-a9fc-4b4e-9033-5a2991f2b722"/>
 				<box leftPadding="5"/>
 				<textElement verticalAlignment="Middle">
@@ -2241,6 +2294,113 @@ DEL GOBIERNO DEL ESTADO DE PUEBLA]]></text>
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{staff_abbreviation} + "/" + $F{procedure_name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="113" y="380" width="100" height="10" uuid="06d5849e-cd9b-40d3-8ff0-3d12f3f37470">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienated_property_street}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="264" y="380" width="78" height="10" uuid="5351957f-1c75-4088-b64c-ee60deca04d8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienated_property_outdoor_number}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="355" y="380" width="78" height="10" uuid="cb4d8c6f-8c36-44f1-a5bf-b75bfca40284"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienated_property_interior_number}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="476" y="380" width="78" height="10" uuid="4ba1ceac-ba53-412d-abcc-724929a8d169"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienated_property_colony}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="54" y="400" width="78" height="10" uuid="989fc837-cb10-4cff-a063-4ee09ef7a37e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienated_property_locality}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="174" y="400" width="78" height="10" uuid="e4cf1fe5-0df4-4e3d-b23a-35852f8a12d5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienated_property_municipality}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="306" y="400" width="78" height="10" uuid="cadb5776-a0aa-4e5c-939d-337eedf1d9d1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienated_property_entity}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="408" y="400" width="78" height="10" uuid="3dc8e2d4-c825-4119-b242-541f68f242b6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienated_property_zipcode}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="489" y="400" width="78" height="10" uuid="cf8d8385-b231-4c0a-b713-50675d2afe74"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alienated_property_phone}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="311" y="666" width="97" height="14" uuid="d0247857-2ea0-4530-bd08-ff9f82d2b935"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="491" y="608" width="78" height="14" uuid="1931ab10-4c4f-437d-9a53-cd5210a79990"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{firs_modification_settlement}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="491" y="622" width="78" height="14" uuid="aba1bca3-7108-4548-8732-9dcc3b8fa428"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{second_modification_settlement}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="491" y="636" width="78" height="14" uuid="304ed080-5ab5-4cf1-aba8-a07caf5452e4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{thirty_modification_settlement}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="491" y="650" width="78" height="14" uuid="d008fad3-fcd1-479f-a746-4b12945412fc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fourth_modification_settlement}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="509" y="668" width="62" height="11" uuid="054ec7f7-2d57-4a1d-83d5-a13fcb4f6a24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_modification_settlement}]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="130">
