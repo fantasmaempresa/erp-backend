@@ -66,15 +66,15 @@ class AuthController extends AccessTokenController
                 $content->user->url = url('storage/app/users/profile/' . $user->config['profile']['image']);
             }
 
-            $notification = $this->createNotification(User::getMessageNotify(User::$ONLINE, $user->name), null, Role::$ADMIN);
+            // $notification = $this->createNotification(User::getMessageNotify(User::$ONLINE, $user->name), null, Role::$ADMIN);
 
-            $this->sendNotification(
-                $notification,
-                null,
-                new NotificationEvent($notification, 0, Role::$ADMIN, [])
-            );
+            // $this->sendNotification(
+            //     $notification,
+            //     null,
+            //     new NotificationEvent($notification, 0, Role::$ADMIN, [])
+            // );
 
-            event(new RefreshDataEvent($user));
+            // event(new RefreshDataEvent($user));
 
             return $content;
         });
