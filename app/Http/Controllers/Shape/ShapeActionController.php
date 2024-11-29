@@ -238,8 +238,8 @@ class ShapeActionController extends ApiController
                 $grantorCurp = $procedure->shape->data_form['curp'] ?? null;
             }
 
-            $procedure->shape->rfc = $this->splitString($grantorRfc, 13, 'al_rfc');
-            $procedure->shape->curp = $this->splitString($grantorCurp, 18, 'al_curp');
+            $procedure->shape->rfc = $this->splitString($grantorRfc, 13, 'rfc');
+            $procedure->shape->curp = $this->splitString($grantorCurp, 18, 'curp');
         }
 
         $grantorsAcquirers = $procedure->shape->grantors()->where('principal', false)->where('grantor_shape.type', Stake::ACQUIRER)->get();
