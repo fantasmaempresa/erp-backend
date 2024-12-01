@@ -3,12 +3,19 @@
 namespace App\Http\Controllers\Report;
 
 use App\Http\Controllers\Controller;
-use App\Models\Operation;
+use App\Http\Controllers\Report\Deed\DeedFolioController;
+use App\Http\Controllers\Report\Deed\DeedProjectController;
+use App\Http\Controllers\Report\Deed\DeedTestimonyController;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
 class DeedsController extends Controller
 {
+    const TESTIMONY = 1;
+    const FOLIO = 2;
+    const PROJECT = 3;
+
+
     public function getStructure(...$args)
     {
         $project = $args[0];
@@ -65,7 +72,7 @@ class DeedsController extends Controller
         //GET ALL OPERATIONS
         $project->procedure->operations->map(function ($operation) use ($deeds, &$deedsData) {
             $operationDeed = $deeds->where("type", $operation->name)->first();
-            if(!is_null($operationDeed)) {
+            if (!is_null($operationDeed)) {
                 $deedsData[] = $operationDeed;
             }
         });
@@ -102,13 +109,29 @@ class DeedsController extends Controller
 
     public function getDocument(...$args)
     {
-        return [
-            "data" => $args[0][0],
-            "parameters" => [],
-            "jasperPath" => Storage::path('reports/deeds/DEEDS.jasper'),
-            "output" => Storage::path('reports/deeds/Deeds.docx'),
-            "documentType" => "docx",
-        ];
+        $data = $args[0];
+
+        if (!isset($data['stage'])) {
+            $deedTestimonyController = new DeedTestimonyController();
+            return $deedTestimonyController->documentParams($data);
+        }
+
+        switch ($data['stage']) {
+            case self::TESTIMONY:
+                $controller = new DeedTestimonyController();
+                break;
+            case self::FOLIO:
+                $controller = new DeedFolioController();
+                break;
+            case self::PROJECT:
+                $controller = new DeedProjectController();
+                break;
+            default:
+                $controller = new DeedTestimonyController();
+                break;
+        }
+
+        return $controller->documentParams($data);
     }
 
     private function buildGeneralSections($deeds, $structure, $type, &$id)

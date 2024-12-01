@@ -165,7 +165,7 @@ class DomainTransferController extends ApiController
 
     public function getFormatBuySell(...$args) {
         $buySell = new DeedsController();
-        return $buySell->getDocument($args);
+        return $buySell->getDocument(...$args);
     }
     // END DEEDS REPORT
 
