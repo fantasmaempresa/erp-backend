@@ -50,7 +50,7 @@ class ProcessingIncomeCommentController extends ApiController
         $processingIncomeComment = new ProcessingIncomeComment($request->all());
         $processingIncomeComment->user_id = Auth::id();
         $processingIncomeComment->save();
-        $processingIncomeComment->notify();
+        // $processingIncomeComment->notify();
 
         return $this->showOne($processingIncomeComment);
     }

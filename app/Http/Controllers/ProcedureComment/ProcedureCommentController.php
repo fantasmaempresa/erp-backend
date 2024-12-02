@@ -60,7 +60,7 @@ class ProcedureCommentController extends ApiController
         $procedureComment = new ProcedureComment($request->all());
         $procedureComment->user_id = Auth::id();
         $procedureComment->save();
-        $procedureComment->notify();
+        // $procedureComment->notify();
 
         return $this->showOne($procedureComment);
     }
