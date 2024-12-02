@@ -192,19 +192,18 @@ class ProcedureController extends ApiController
             }
 
             if (!empty($request->get('grantors'))) {
-                foreach ($request->get('grantors') as $item) {
-                    
-                    $procedure->grantors()->attach($item['grantor']['id'], ['stake_id' => $item['stake']['id']]);
+                foreach ($request->get('grantors') as $grantor) {
+                    $grantors[$grantor['id']] = ['stake_id' => $grantor['stake']['id']];
                 }
             }
 
             foreach ($request->get('documents') as $document) {
-                $procedure->documents()->attach($document['id']);
+                $documents[] = $document['id'];
             }
 
             foreach ($request->get('operations') as $operation) {
-                $procedure->operations()->attach($operation['id']);
-            }
+                $operations[] = $operation['id'];
+            } 
 
             $procedure->grantors()->sync($grantors);
             $procedure->documents()->sync($documents);
