@@ -340,7 +340,7 @@ class DocumentLinkController extends ApiController
             $client = ProcessingIncome::findOrFail($request->get('client_id'));
             $path = 'incomming/' . $client->id . '/expedient/';
             $pivot = DocumentProcessingIncome::findOrFail($request->get('document_pivot_id'));
-            // $client->notify($request->get('document_id'));
+            $client->notify($request->get('document_id'));
         } else if ($request->get('view') == 'vulnerable_operation') {
             $client = VulnerableOperation::findOrFail($request->get('client_id'));
             $path = 'vulnerable_operation/' . $client->id . '/expedient/';
