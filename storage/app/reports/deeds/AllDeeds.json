@@ -327,7 +327,7 @@
             ]
         },
         {
-            "type": "COMPRA VENTA A PLAgitZOS CON RESERVA DE DOMINIO",
+            "type": "COMPRA VENTA A PLAZOS CON RESERVA DE DOMINIO",
             "content": [
                 {
                     "name": "Introduccion",
@@ -342,6 +342,384 @@
                         "II.- Dicho inmueble paga sus contribuciones prediales al Municipio de _____________________________, con la cuenta número ______________ (__________________________), encontrándose al corriente como lo justifica con el recibo de pago correspondiente, documento del que tomo copias debidamente certificadas que inserto en los testimonios que de esta escritura se expidan, así como en el apéndice respectivo.",
                         "III.- Por concepto del Servicio de Agua Potable, exhibe la _____________________________________________________________________________, respecto del inmueble objeto del presente contrato; documento que en original anexo al apéndice respectivo y tomo copias certificadas que inserto en los testimonios que de esta escritura se expidan.",
                         "IV.- Se tramitó y obtuvo el Certificado de libertad de Gravamen expedido por el _______________________________________________, del inmueble objeto del presente contrato, el cual reporta Libre de Gravamen, y el Primer Aviso Preventivo relativo a la presente operación; documento que en original agrego al apéndice respectivo y tomo copias certificadas que inserto en los testimonios que de esta escritura se expidan."
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "COMPRA VENTA JUDICIAL",
+            "content": [
+                {
+                    "name": "Introduccion",
+                    "texts": [
+                        "COMPRA VENTA JUDICIAL que otorga el Ciudadano Juez Abogado _________________, en nombre y rebeldía del señor: __________________________________________________________, por sentencia dictada dentro del expediente número _______________________________, del Juzgado _____________________________,  -ñrelativo al _________________________, en favor de ___________________________"
+                    ]
+                },
+                {
+                    "name": "Antecedentes",
+                    "texts": [
+                        "<b>(_)</b> De los autos relativos al ______________________, promovido por ____________________, en contra de _________________, radicado en el Juzgado __________________________, bajo el Expediente número _____________, y documentos glosados; para el otorgamiento de esta escritura, por lo que certifico copia fotostática de dichos autos en lo conducente y marcados con la letra que corresponda la mando agregar al apéndice de este Instrumento para su incorporación en los testimonios que del mismo se expidan; apareciendo de ello lo siguiente:",
+                        "a).-",
+                        "b).-",
+                        "c).-",
+                        "d).-",
+                        "e).-",
+                        "f).- Que por sentencia definitiva de primera instancia, de fecha quince de diciembre de dos mil dieciséis; se resuelve: “… PRIMERO.-  _______________________________________________________________”.",
+                        "g).- Por auto de fecha ____________________________________________________a ésta Notaría, para el otorgamiento de la escritura correspondiente.",
+                        "i).- Por oficio número _____________________________________________, remite el expediente número _________________________ a ésta Notaría.",
+                        "<b>(_)</b> Que el inmueble objeto de la presente escritura, paga sus contribuciones prediales al Municipio de ___________, con la cuenta número _________ (_________________________), encontrándose al corriente como lo justifica con su respetivo recibo de pago, del que tomo copias certificadas que anexo al apéndice respectivo e inserto en los testimonios que de esta escritura se expidan.",
+                        "<b>(_)</b> Por concepto de los servicios de agua potable del inmueble materia de la presente escritura, la compradora manifiesta bajo protesta de decir verdad no tener adeudo, como lo demuestra con ______________________, la cual anexo al apéndice respectivo y tomo copias certificadas que inserto en los testimonios que de esta escritura se expidan.",
+                        "Expuesto lo anterior, se otorgan las siguientes:"
+                    ]
+                },
+                {
+                    "name": "Clausulas",
+                    "texts": [
+                        "PRIMERA.- El Ciudadano Juez ______________________, en nombre y rebeldía de __________________, por sentencia dictada dentro del expediente número ______________________________, relativo al Juicio de ____________________, trasmite a favor de ___________________________, quien adquiere por ese concepto el inmueble identificado como ___________________________________________________, dentro de la superficie, medidas y colindancias hechas constar en el antecedente I (romano) inciso ____, las cuales se dan aquí por reproducidas como si se insertasen a la letra.",
+                        "SEGUNDA.- Manifiestan los contratantes que el precio fijado por esta operación es la cantidad de __________________________________________________________, según inciso ______ de los antecedentes. Retrotrayendo los efectos de esta operación, al _______________________, fecha en que compró el inmueble la parte adquirente.",
+                        "TERCERA.- La enajenación que se formaliza en este contrato queda sujeta a las condiciones propias de su naturaleza, obligándose la parte vendedora a responder por el saneamiento para el caso de evicción y las cargas o responsabilidades de carácter fiscal que llegaren a resultar a su cargo con anterioridad a la fecha de firma de la presente operación.",
+                        "CUARTA.- Los impuestos que se generen por la presente operación quedarán sujetos a revisión por las Autoridades Fiscales, manifestando el adquirente su conformidad de que en caso de existir reevaluación pagará la diferencia correspondiente, sin responsabilidad alguna para la suscrita Notario.",
+                        "QUINTA.- Todos los gastos, impuestos, derechos y honorarios que cause la presente escritura serán por cuenta exclusiva de la parte compradora.",
+                        "SEXTA.- Para la interpretación, ejecución y cumplimiento de las cláusulas de este contrato, así como para todo lo no previsto en el mismo, las partes por voluntad expresa convienen en someterse a la jurisdicción y competencia de los Tribunales del Distrito Judicial de ____, por lo que renuncian al fuero que por razón de su domicilio presente o futuro les pudiera corresponder."
+                    ]
+                },
+                {
+                    "name": "Personalidad",
+                    "texts": [
+                        "El señor ________________ acredita su personalidad y la legal existencia de su representada la persona moral denominada _________________________, mediante instrumento número _______________, de fecha ______, pasado ante la fe de ____________________________, inscrito en el Registro Público ______________, de fecha _________; documentos de los que tomo copias debidamente certificadas que agrego al apéndice respectivo y a manera de inserción en los testimonios que de esta escritura se ministren."
+                    ]
+                },
+                {
+                    "name": "Yo, la Notario certifico",
+                    "texts": [
+                        "<b>(_)</b> Del conocimiento y capacidad legal de los comparecientes.",
+                        "<b>(_)</b> Que las facultades que ostenta ___________________________, no le han sido revocadas ni reformadas en forma alguna, lo que manifiesta bajo protesta de decir verdad.",
+                        "<b>(_)</b> Se les instruye a los comparecientes de la obligación que tienen de inscribir su sociedad conyugal en el Registro Público de la Propiedad según artículo 348 fracciones VI y VII del Código Civil para el Estado Libre y Soberano de Puebla.",
+                        "<b>(_)</b> Que lo inserto y relacionado aquí se tomó de sus originales que tuve a la vista y a los cuales me remito.",
+                        "<b>(_)</b> Por sus generales manifestaron ser mexicanos por nacimiento e hijos de padres mexicanos: Ciudadano Juez, _________________, con domicilio oficial en _______________________________________; y ___________, nacido el ___________________________, con Clave Única de Registro de Población: ________________, *ocupación** estado civil***, con domicilio en ___________, y de paso por esta Ciudad; de cuyas identificaciones tomo copias debidamente certificadas que anexo al apéndice respectivo.",
+                        "<b>(_)</b> Que en términos de lo dispuesto por los artículos 8 y 17 de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, los comparecientes manifiestan conocer el Aviso de Privacidad a que se refiere la mencionada Ley, mismo que se encuentra exhibido en el área de recepción de las oficinas de esta Notaría a mi cargo y que se encuentra a su disposición para ser consultado en cualquier momento. Por lo que con la firma del presente instrumento los comparecientes manifiestan su consentimiento expreso con el tratamiento de sus datos personales.",
+                        "<b>(_)</b> Que habiéndoles leído el presente instrumento a los comparecientes explicándoles del valor, fuerza y consecuencias legales de su contenido manifestaron su conformidad firmando en comprobación el mismo día y año de su otorgamiento. DOY FE"
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "COMPRA VENTA",
+            "content": [
+                {
+                    "name": "Introduccion",
+                    "texts": [
+                        "COMPRA-VENTA, que celebran de una parte como vendedor ______________________________; y de la otra como comprador _______________________________"
+                    ]
+                },
+                {
+                    "name": "Antecedentes",
+                    "texts": [
+                        "<b>(_)</b> Que por __________________________________________________________________ inscrita en el Registro Público de la Propiedad del Distrito Judicial de ___________________________, bajo _____________________________, de fecha ______________________________, adquirió mediante _________________________, el inmueble identificado como: ________________________, con las siguientes medidas y colindancias: ________________________________________________________________________________________.",
+                        "<b>(_)</b> Dicho inmueble paga sus contribuciones prediales al Municipio de _____________________________, con la cuenta número ______________ (__________________________), encontrándose al corriente como lo justifica con el recibo de pago correspondiente, documento del que tomo copias debidamente certificadas que inserto en los testimonios que de esta escritura se expidan, así como en el apéndice respectivo.",
+                        "<b>(_)</b> Por concepto del Servicio de Agua Potable, exhibe la _____________________________________________________________________________, respecto del inmueble objeto del presente contrato; documento que en original anexo al apéndice respectivo y tomo copias certificadas que inserto en los testimonios que de esta escritura se expidan.",
+                        "<b>(_)</b> Se tramitó y obtuvo el Certificado de libertad de Gravamen expedido por el _______________________________________________, del inmueble objeto del presente contrato, el cual reporta Libre de Gravamen, y el Primer Aviso Preventivo relativo a la presente operación; documento que en original agrego al apéndice respectivo y tomo copias certificadas que inserto en los testimonios que de esta escritura se expidan."
+                    ]
+                },
+                {
+                    "name": "Declaraciones",
+                    "texts": [
+                        "<b>(_)</b> Que de conformidad con la Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita, las partes manifiestan que NO existe relación de negocios con la suscrita Notario.",
+                        "<b>(_)</b> Que en el presente instrumento actúan en su nombre y por cuenta propia ya que no existe BENEFICIARIO CONTROLADOR o DUEÑO BENEFICIARIO.",
+                        "Dados estos antecedentes y declaraciones, se otorgan las siguientes:"
+                    ]
+                },
+                {
+                    "name": "Clausulas",
+                    "texts": [
+                        "<b>(_)</b> __________________________, vende a favor de __________________________, quien compra para su representada el inmueble identificado como: _______________________________________, con las superficies, indiviso, medidas y colindancias hechas constar en el punto I (romano) de los antecedentes de esta escritura, las cuales se dan aquí por reproducidas como si se insertasen a la letra para todos sus efectos legales. Transmitiendo la parte vendedora a la parte compradora el dominio pleno y la posesión civil del referido inmueble, con todo cuanto de hecho y por derecho le pertenezca por usos, costumbres, servidumbres y accesiones sin reserva ni limitación alguna.",
+                        "<b>(_)</b> La parte compradora adquiere el bien objeto de esta escritura afecto a régimen de propiedad en condominio y en consecuencia acepta dicha propiedad limitada en términos de la ley respectiva, de la escritura constitutiva y del reglamento de condominio y administración del inmueble, en los cuales constan los derechos que adquiere y las obligaciones que contrae.",
+                        "<b>(_)</b> Manifiestan los contratantes que el precio fijado por esta operación es la cantidad de $______________________ (_____________________________), suma que es pagada de la parte compradora a entera satisfacción y conformidad de la parte vendedora, de la siguiente forma: _____________________________________________________, cantidad que la parte compradora entrega a entera satisfacción y conformidad de la parte vendedora, de cuyos comprobantes tomo copia fotostática para el apéndice de esta escritura, sirviendo esta escritura como el recibo más amplio, valedero y eficaz que en derecho proceda por la suma recibida.",
+                        "<b>(_)</b> Quedan advertidos los contratantes, que los impuestos que por esta operación se pagan, se calculan de acuerdo al valor de operación que manifiestan y que de acuerdo con el Código Fiscal, las autoridades Municipales, Estatales o Federales, tienen facultad para modificarlo y aumentarlo, por lo que cada parte es responsable para pagar las liquidaciones complementarias que resulten por aumento al mismo.",
+                        "<b>(_)</b> Es justo y legal el precio fijado, renuncian las partes a demandarse nulidad o rescisión por causa de lesión o error y a los artículos 1477, 1478 y 1948 del Código Civil para el Estado de Puebla.",
+                        "<b>(_)</b> Declara la parte vendedora que el inmueble enajenado se encuentra libre de gravamen y adeudos de carácter fiscal, pero de cualquier manera se obliga a responder por el saneamiento y la evicción en términos de ley.",
+                        "<b>(_)</b> Todos los gastos, impuestos, derechos y honorarios que cause la presente escritura serán por cuenta exclusiva de la parte compradora, con excepción del pago del Impuesto Sobre la Renta por enajenación de inmuebles que deberá cubrir la parte enajenante.",
+                        "<b>(_)</b> Convienen las partes que en caso de controversia, se podrán supeditar al procedimiento de mediación, atento a lo dispuesto por los artículos 835 y 836, fracción V del Código de Procedimientos Civiles del Estado de Puebla, pudiendo intervenir el Notario Público que designen las partes.",
+                        "<b>(_)</b> Para la interpretación, ejecución y cumplimiento de las cláusulas de este contrato, así como para todo lo no previsto en el mismo, las partes por voluntad expresa convienen en someterse a la jurisdicción y competencia de los Tribunales del Distrito Judicial de ____________________, por lo que renuncian al fuero que por razón de su domicilio presente o futuro les pudiera corresponder."
+                    ]
+                },
+                {
+                    "name": "Personalidad",
+                    "texts": [
+                        "El señor ________________ acredita su personalidad y la legal existencia de su representada, la persona moral denominada _________________________, mediante instrumento número _______________, de fecha ______ pasado ante la fe de ____________________________, inscrito en el Registro Público ______________, de fecha_________; documentos de los que tomo copias debidamente certificadas que agrego al apéndice respectivo y a manera de inserción en los testimonios que de esta escritura se ministren."
+                    ]
+                },
+                {
+                    "name": "Yo, la Notario certifico",
+                    "texts": [
+                        "<b>(_)</b> Del conocimiento y capacidad legal de los contratantes.",
+                        "<b>(_)</b> Que las facultades que ostenta ___________________________, no le han sido revocadas ni reformadas en forma alguna, lo que manifiesta bajo protesta de decir verdad.",
+                        "<b>(_)</b> Se les instruye a los comparecientes de la obligación que tienen de inscribir su sociedad conyugal en el Registro Público de la Propiedad según artículo 348 fracciones VI y VII del Código Civil para el Estado Libre y Soberano de Puebla.",
+                        "<b>(_)</b> Que en términos de lo dispuesto por los artículos 8 y 17 de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, los comparecientes manifiestan conocer el Aviso de Privacidad a que se refiere la mencionada Ley, mismo que se encuentra exhibido en el área de recepción de las oficinas de esta Notaría a mi cargo y que se encuentra a su disposición para ser consultado en cualquier momento. Por lo que con la firma del presente instrumento manifiestan su consentimiento expreso con el tratamiento de sus datos personales.",
+                        "<b>(_)</b> Que advertí a los comparecientes que el acto consignado en el presente instrumento constituye una actividad vulnerable en los términos de la Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita y se dará el aviso de ley.",
+                        "<b>(_)</b> Por sus generales manifestaron ser mexicanos por nacimiento e hijos de padres mexicanos: __________________________________, originario de _________________, nacido el día __________________________________________, con Clave Única de Registro de Población: _________________________________, con Registro Federal de Contribuyente: ________________, *** ocupación*** estado civil******; con domicilio en ___________________________________; y la señora ________________________________, originario de ___________________, nacido el día _________________________, con Clave Única de Registro de Población: ________________________, Registro Federal de Contribuyentes: _________________________, *** ocupación*** estado civil*****, con domicilio en _____________________________________________, de paso por esta Ciudad, de cuyas identificaciones tomo copias certificadas que anexo al apéndice respectivo.",
+                        "<b>(_)</b> Que los otorgantes manifiestan: a).- Conocerse entre sí y no tener duda en relación a la recíproca identidad; b).- Conocer el objeto de la operación en forma precisa y total; y c).- Declaran que todas las causas motivadoras de la voluntad contractual han sido expresamente indicadas en este documento.",
+                        "<b>(_)</b> Que hice saber a los contratantes el derecho que tienen de leer personalmente la presente Escritura.",
+                        "<b>(_)</b> Que habiéndoles leído el presente instrumento a los comparecientes explicándoles del valor, fuerza y consecuencias legales de su contenido manifestaron su conformidad firmando en comprobación el mismo día y año de su otorgamiento, asimismo la parte vendedora estampa su huella digital del dedo índice de su mano derecha ante mí. Doy Fe."
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "CONSOLIDACION DE PROPIEDAD",
+            "content": [
+                {
+                    "name": "Introduccion",
+                    "texts": [
+                        "CONSOLIDACIÓN DE PROPIEDAD, que solicita ___________________________________________"
+                    ]
+                },
+                {
+                    "name": "Antecedentes",
+                    "texts": [
+                        "<b>(_)</b> Que por __________________________________________________________________ inscrita en el Registro Público de la Propiedad del Distrito Judicial de ___________________________, bajo _____________________________, de fecha ______________________________, adquirió mediante _________________________, el inmueble identificado como: ________________________, con las siguientes medidas y colindancias:",
+                        "<b>(_)</b> Dicho inmueble paga sus contribuciones prediales al Municipio de _____________________________, con la cuenta número ______________ (__________________________), encontrándose al corriente como lo justifica con el recibo de pago correspondiente, documento del que tomo copias debidamente certificadas que inserto en los testimonios que de esta escritura se expidan, así como en el apéndice respectivo.",
+                        "<b>(_)</b> Se tramitó y obtuvo el Certificado de libertad de Gravamen expedido el _______________________________________________, del inmueble objeto del presente contrato, el cual reporta Libre de Gravamen, y el Primer Aviso Preventivo relativo a la presente operación; documento que en original agrego al apéndice respectivo y tomo copias certificadas que inserto en los testimonios que de esta escritura se expidan."
+                    ]
+                },
+                {
+                    "name": "Declaraciones",
+                    "texts": [
+                        "<b>(_)</b> Que por __________________________________________________________________ inscrita en el Registro Público de la Propiedad del Distrito Judicial de ___________________________, bajo _____________________________, de fecha ______________________________, adquirió mediante _________________________, el inmueble identificado como: ________________________, con las siguientes medidas y colindancias:",
+                        "<b>(_)</b> Dicho inmueble paga sus contribuciones prediales al Municipio de _____________________________, con la cuenta número ______________ (__________________________), encontrándose al corriente como lo justifica con el recibo de pago correspondiente, documento del que tomo copias debidamente certificadas que inserto en los testimonios que de esta escritura se expidan, así como en el apéndice respectivo.",
+                        "<b>(_)</b> Se tramitó y obtuvo el Certificado de libertad de Gravamen expedido el _______________________________________________, del inmueble objeto del presente contrato, el cual reporta Libre de Gravamen, y el Primer Aviso Preventivo relativo a la presente operación; documento que en original agrego al apéndice respectivo y tomo copias certificadas que inserto en los testimonios que de esta escritura se expidan."
+                    ]
+                },
+                {
+                    "name": "Clausulas",
+                    "texts": [
+                        "<b>(_)</b> ___________________________, por su propio derecho y con fundamento en el artículo 1243, fracciones I y IV, del Código Civil para el Estado Libre y Soberano de Puebla y demás concordantes, consolida a su favor por ser NUDO PROPIETARIO, el USUFRUCTO VITALICIO que le correspondía a _________________ del inmueble identificado como: _______________________________________, con la superficie, medidas y colindancias hechas constar en el punto número uno de los antecedentes las cuales se dan aquí por reproducidas como si se insertasen a la letra, toda vez que _________________________, falleció como lo demuestra con su respectiva Acta de Defunción, de la que tomo copias debidamente certificadas que anexo al apéndice respectivo e inserto en los testimonios que de esta escritura se expidan, consolidándose dicha propiedad en su cien por ciento a favor del nudo propietario.",
+                        "Lo que notifica al Ciudadano Registrador Público de la Propiedad y del Comercio del Distrito Judicial de Puebla, para que haga las anotaciones correspondientes.",
+                        "<b>(_)</b> Para la interpretación y cumplimiento de esta declaración se somete el declarante a los Tribunales del Distrito Judicial _____________________, con renuncia de cualquier otro fuero que en razón de su domicilio presente o futuro le pudiere corresponder."
+                    ]
+                },
+                {
+                    "name": "Yo, la Notario certifico",
+                    "texts": [
+                        "<b>(_)</b> Del conocimiento y capacidad legal de los contratantes.",
+                        "<b>(_)</b> Se les instruye a los comparecientes de la obligación que tienen de inscribir su sociedad conyugal en el Registro Público de la Propiedad según artículo 348 fracciones VI y VII del Código Civil para el Estado Libre y Soberano de Puebla.",
+                        "<b>(_)</b> Que en términos de lo dispuesto por los artículos 8 y 17 de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, los comparecientes manifiestan conocer el Aviso de Privacidad a que se refiere la mencionada Ley, mismo que se encuentra exhibido en el área de recepción de las oficinas de esta Notaría a mi cargo y que se encuentra a su disposición para ser consultado en cualquier momento. Por lo que con la firma del presente instrumento manifiestan su consentimiento expreso con el tratamiento de sus datos personales.",
+                        "<b>(_)</b> Por sus generales manifestaron ser mexicanos por nacimiento e hijos de padres mexicanos: __________________________________, originario de _________________, nacido el día __________________________________________, con Clave Única de Registro de Población: _________________________________, con Registro Federal de Contribuyente: ________________, *** ocupación*** estado civil******; con domicilio en ___________________________________; y el señora __________________________________, originario de ___________________, nacido el día _________________________, con Clave Única de Registro de Población: ________________________, Registro Federal de Contribuyentes: _________________________, *** ocupación*** estado civil*****, con domicilio en _____________________________________________, de paso por esta Ciudad, de cuyas identificaciones tomo copias certificadas que anexo al apéndice respectivo.",
+                        "<b>(_)</b> Que los otorgantes manifiestan: a).- Conocerse entre sí y no tener duda en relación a la reciproca identidad; b).- Conocer el objeto de la operación en forma precisa y total; y c).- Declaran que todas las causas motivadoras de la voluntad contractual han sido expresamente indicadas en este documento.",
+                        "<b>(_)</b> Que hice saber a los contratantes el derecho que tienen de leer personalmente la presente Escritura.",
+                        "<b>(_)</b> Que habiéndoles leído el presente instrumento a los comparecientes explicándoles del valor, fuerza y consecuencias legales de su contenido manifestaron su conformidad firmando en comprobación el mismo día y año de su otorgamiento, asimismo la parte vendedora estampa su huella digital del dedo índice de su mano derecha ante mí Doy Fe."
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "DACION EN PAGO",
+            "content": [
+                {
+                    "name": "Introduccion",
+                    "texts": [
+                        "DACIÓN EN PAGO, que celebran por una _________________________________________;  a quien en lo sucesivo se le denominará como “LA OTORGANTE”; en favor de ___________________________________________,  a quien en lo sucesivo se le denominará como “LA ADQUIRENTE”"
+                    ]
+                },
+                {
+                    "name": "Antecedentes",
+                    "texts": [
+                        "<b>(_)</b> DECLARAN LOS COMPARECIENTES:",
+                        "a).- Que mediante _____________________, volumen número ____________, de fecha ______________________, pasado ante la fe de __________________ e inscrito en el Registro Público de la Propiedad del Distrito Judicial de ___________________, bajo ____________________, de fecha ______________________________, adquirió mediante _______________________ el inmueble identificado como: _____________________________________; ________________________________________.",
+                        "<b>(_)</b> Dicho inmueble paga sus contribuciones prediales al Honorable Ayuntamiento del Municipio de _________________________, con la cuenta número __________________ (__________________), encontrándose al corriente como lo justifica con su último recibo de pago.",
+                        "<b>(_)</b> Por concepto del Servicio de Agua potable, exhibe el original de _______________________, de fecha _______________________________, expedida por el _______________________, documento que en original anexo al apéndice respectivo y del que tomo copias certificadas que inserto en los testimonios que de esta escritura se expidan.",
+                        "<b>(_)</b> Se solicitó y obtuvo Certificado de libertad de Gravamen número _______________________, expedido por __________________________________, respecto del inmueble objeto de la presente escritura, el que reporta ___________________________________________ relativo a la presente operación presentado por la suscrita Notario; documento que en original agrego al apéndice respectivo y tomo copias certificadas que inserto en los testimonios que de esta escritura se expidan."
+                    ]
+                },
+                {
+                    "name": "Declaraciones",
+                    "texts": [
+                        "Declaran los comparecientes, bajo protesta de decir verdad, advertidos de las penas que merecen quienes declaran con falsedad:",
+                        "<b>(_)</b> Que de conformidad con la Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita, las partes manifiestan que NO existe relación de negocios con la suscrita Notario.",
+                        "<b>(_)</b> Que en el presente instrumento actúan en su nombre y por cuenta propia ya que no existe BENEFICIARIO CONTROLADOR O DUEÑO BENEFICIARIO.",
+                        "<b>(_)</b> Declara ______________________________, que está de acuerdo en recibir en Dación en pago, el inmueble descrito en el antecedente primero inciso a) de esta escritura, como pago de acuerdo al contrato descrito en el inciso b) de los antecedentes de la presente escritura.",
+                        "Dados estos antecedentes y declaraciones se otorgan las siguientes:"
+                    ]
+                },
+                {
+                    "name": "Clausulas",
+                    "texts": [
+                        "<b>(_)</b> “LA OTORGANTE” _______________________________________, -DA EN PAGO- en favor de “LA ADQUIRENTE” ___________________________________________________, quien recibe el inmueble identificado como: __________________________________________________, con la superficie, medidas y colindancias, hechas constar en el punto número ________________ de los antecedentes las cuales se dan aquí por reproducidas como si se insertasen a la letra.",
+                        "<b>(_)</b> Como consecuencia de la DACIÓN EN PAGO hecha constar anteriormente “LA OTORGANTE”, TRANSMITE a “LA ADQUIRENTE”, el dominio pleno del referido inmueble, con todo cuanto de hecho y por derecho le pertenezca por usos, costumbres, servidumbres y accesiones sin reserva ni limitación alguna, declarándose las partes completamente saldadas desde este momento y no teniéndole nada más que reclamar por ningún concepto únicamente respecto al inmueble materia de la presente operación.",
+                        "<b>(_)</b> Las partes convienen, para los efectos de DAR Y RECIBIR en pago, en asignarle al inmueble materia de esta escritura el valor de: $___________________, ______________________________; conforme a lo establecido como pago de acuerdo al contrato descrito en el _________________ de los antecedentes de la presente escritura.",
+                        "El precio fijado a la presente Dación corresponde al pago total de la cantidad convenida como IMPORTE TOTAL del pago a cargo de “EL OTORGANTE”, conforme a lo establecido como pago de acuerdo al contrato descrito en el ______________________ de los antecedentes de la presente escritura.",
+                        "Asimismo, por medio de esta cláusula, “LA ADQUIRENTE”, otorga a “LA OTORGANTE”, el recibo más amplio, valedero y eficaz que en derecho proceda por la suma establecida.",
+                        "<b>(_)</b> Las partes para efectos legales a que pueda haber lugar, manifiestan que el valor del inmueble materia de la presente Dación, es señalado en el avalúo catastral; mismo que se anexa en copia certificada a la presente escritura y el original al apéndice correspondiente.",
+                        "<b>(_)</b> Estiman las partes que el valor fijado al inmueble objeto de esta Dación en Pago es justo y legal aun por dictamen posterior de peritos, renuncian las partes a demandarse nulidad o rescisión por causa de lesión o error y a los artículos 1477, 1478 y 1948, del Código Civil para el Estado.",
+                        "<b>(_)</b> El inmueble materia de esta Dación en Pago se encuentra libre de gravamen y adeudos de carácter fiscal, pero de cualquier manera se obligan los otorgantes o deudores a responder por el saneamiento y la evicción en términos de ley.",
+                        "<b>(_)</b> Todos los gastos, impuestos, derechos y honorarios que cause la presente escritura serán por cuenta exclusiva de la parte que adquiere por medio de Dación en Pago, excepto el pago del impuesto sobre la renta que deberá cubrir la parte que transmite, liberando en este acto a la suscrita notario de cualquier obligación al respecto.",
+                        "<b>(_)</b> Convienen las partes que en caso de controversia, se supeditarán al procedimiento de mediación, atento a lo dispuesto por los artículos 835 y 836 fracción V del Código de Procedimientos Civiles del Estado de Puebla, pudiendo intervenir el Notario Público que designen las partes.",
+                        "<b>(_)</b> Para la interpretación, ejecución y cumplimiento de las cláusulas de este contrato, así como para todo lo no previsto en el mismo, las partes por voluntad expresa se someten a la jurisdicción y competencia de los Tribunales del Distrito Judicial de ________________________, por lo que renuncian al fuero que por razón de su domicilio presente o futuro les pudiera corresponder."
+                    ]
+                },
+                {
+                    "name": "Yo, la Notario certifico",
+                    "texts": [
+                        "<b>(_)</b> Del conocimiento y capacidad legal de los contratantes.",
+                        "<b>(_)</b> Que las facultades que ostenta ___________________________, no le han sido revocadas ni reformadas en forma alguna, lo que manifiesta bajo protesta de decir verdad.",
+                        "<b>(_)</b> Se les instruye a los comparecientes de la obligación que tienen de inscribir su sociedad conyugal en el Registro Público de la Propiedad según artículo 348 fracciones VI y VII del Código Civil para el Estado Libre y Soberano de Puebla.",
+                        "<b>(_)</b> Que en términos de lo dispuesto por los artículos 8 y 17 de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, los comparecientes manifiestan conocer el Aviso de Privacidad a que se refiere la mencionada Ley, mismo que se encuentra exhibido en el área de recepción de las oficinas de esta Notaría a mi cargo y que se encuentra a su disposición para ser consultado en cualquier momento. Por lo que con la firma del presente instrumento manifiestan su consentimiento expreso con el tratamiento de sus datos personales.",
+                        "<b>(_)</b> Que advertí a los comparecientes que el acto consignado en el presente instrumento constituye una actividad vulnerable en los términos de la Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita y se dará el aviso de ley.",
+                        "<b>(_)</b> Por sus generales manifestaron ser mexicanos por nacimiento e hijos de padres mexicanos: __________________________________, originario de _________________, nacido el día ____________________________________________, con Clave Única de Registro de Población: __________________________________, con Registro Federal de Contribuyente: ________________, *** ocupación*** estado civil******; con domicilio en ___________________________________; y la señora __________________________________, originario de ___________________, nacido el día _________________________, con Clave Única de Registro de Población: ________________________, Registro Federal de Contribuyentes: _________________________, *** ocupación*** estado civil*****, con domicilio en _____________________________________________, de paso por esta Ciudad, de cuyas identificaciones tomo copias certificadas que anexo al apéndice respectivo.",
+                        "<b>(_)</b> Que los otorgantes manifiestan: a).- Conocerse entre sí y no tener duda en relación a la reciproca identidad; b).- Conocer el objeto de la operación en forma precisa y total; y c).- Declaran que todas las causas motivadoras de la voluntad contractual han sido expresamente indicadas en este documento.",
+                        "<b>(_)</b> Que hice saber a los contratantes el derecho que tienen de leer personalmente la presente Escritura.",
+                        "<b>(_)</b> Que habiéndoles leído el presente instrumento a los comparecientes explicándoles del valor, fuerza y consecuencias legales de su contenido manifestaron su conformidad firmando en comprobación el mismo día y año de su otorgamiento, asimismo la parte vendedora estampa su huella digital del dedo índice de su mano derecha ante mí Doy Fe."
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "DECLARACION DE CONSTRUCCION",
+            "content": [
+                {
+                    "name": "Introduccion",
+                    "texts": [
+                        "DECLARACIÓN DE ERECCIÓN DE FINCA URBANA, que solicita ______________________________________________"
+                    ]
+                },
+                {
+                    "name": "Antecedentes",
+                    "texts": [
+                        "<b>Manifiesta</b>  ____________________________________________",
+                        "<b>(_)</b> Que por __________________________________________________________________ inscrita en el Registro Público de la Propiedad del Distrito Judicial de ___________________________, bajo _______________________________, de fecha ______________________________, adquirió mediante _________________________, el inmueble identificado como: ________________________, con las siguientes medidas y colindancias: ------------------------------------------------------------------------------------------------------------------------------------------ ________________________________________________________________________________________",
+                        "<b>(_)</b> Dicho inmueble paga sus contribuciones prediales al Municipio de _____________________________, con la cuenta número ______________ (__________________________), encontrándose al corriente como lo justifica con el recibo de pago correspondiente, documento del que tomo copias debidamente certificadas que inserto en los testimonios que de esta escritura se expidan, así como en al apéndice respectivo.",
+                        "<b>(_)</b> Por concepto del Servicio de Agua Potable, exhibe la _____________________________________________________________________________, respecto del inmueble objeto del presente contrato; documento que en original anexo al apéndice respectivo y tomo copias certificadas que inserto en los testimonios que de esta escritura se expidan.",
+                        "<b>(_)</b> Se tramitó y obtuvo el Certificado de libertad de Gravamen expedido por el _______________________________________________, del inmueble objeto del presente contrato, el cual reporta Libre de Gravamen, y el Primer Aviso Preventivo relativo a la presente operación; documento que en original agrego al apéndice respectivo y tomo copias certificadas que inserto en los testimonios que de esta escritura se expidan.",
+                        "<b>(_)</b> Que tramitó y obtuvo de la Secretaría de _____________________________________________________________________________, los siguientes documentos_________________________________________________________, documentos de los cuales tomo copias debidamente certificadas, que anexo al apéndice respectivo e inserto en los testimonios que de esta escritura se expidan.",
+                        "Dados estos antecedentes, se otorga la siguiente:"
+                    ]
+                },
+                {
+                    "name": "Clausulas",
+                    "texts": [
+                        "PRIMERA.- _______________________________________, por medio de esta cláusula declaran la erección de __________________________________, construida con dinero propio sobre __________________________________________________, descrito en el punto uno romano de los antecedentes de esta escritura, el cual se da aquí por reproducido como si se insertase a la letra; con una superficie total de construcción de: _______ m2. (__________________________); de lo cual piden se haga constar tanto en los padrones fiscales, así como en las demás dependencias a que corresponda."
+                    ]
+                },
+                {
+                    "name": "Yo, la Notario certifico",
+                    "texts": [
+                        "<b>(_)</b> Del conocimiento y capacidad legal de los contratantes.",
+                        "<b>(_)</b> Que las facultades que ostenta ___________________________, no le han sido revocadas ni reformadas en forma alguna, lo que manifiesta bajo protesta de decir verdad.",
+                        "<b>(_)</b> Se les instruye a los comparecientes de la obligación que tienen de inscribir su sociedad conyugal en el Registro Público de la Propiedad según artículo 348 fracciones VI y VII del Código Civil para el Estado Libre y Soberano de Puebla.",
+                        "<b>(_)</b> Que en términos de lo dispuesto por los artículos 8 y 17 de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, los comparecientes manifiestan conocer el Aviso de Privacidad a que se refiere la mencionada Ley, mismo que se encuentra exhibido en el área de recepción de las oficinas de esta Notaría a mi cargo y que se encuentra a su disposición para ser consultado en cualquier momento. Por lo que con la firma del presente instrumento manifiestan su consentimiento expreso con el tratamiento de sus datos personales.",
+                        "<b>(_)</b> Que advertí a los comparecientes que el acto consignado en el presente instrumento constituye una actividad vulnerable en los términos de la Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita y se dará el aviso de ley.",
+                        "<b>(_)</b> Por sus generales manifestaron ser mexicanos por nacimiento e hijos de padres mexicanos: __________________________________, originario de _________________, nacido el día __________________________________________, con Clave Única de Registro de Población: __________________________________, con Registro Federal de Contribuyente: ________________, *** ocupación*** estado civil******; con domicilio en ___________________________________; y la señora __________________________________, originario de ___________________, nacido el día _________________________, con Clave Única de Registro de Población: ________________________, Registro Federal de Contribuyentes: _________________________, *** ocupación*** estado civil*****, con domicilio en _____________________________________________, de paso por esta Ciudad, de cuyas identificaciones tomo copias certificadas que anexo al apéndice respectivo.",
+                        "<b>(_)</b> Que los otorgantes manifiestan: a) Conocerse entre sí y no tener duda en relación a la reciproca identidad; b) Conocer el objeto de la operación en forma precisa y total; y c) Declaran que todas las causas motivadoras de la voluntad contractual han sido expresamente indicadas en este documento.",
+                        "<b>(_)</b> Que hice saber a los contratantes el derecho que tienen de leer personalmente la presente Escritura.",
+                        "<b>(_)</b> Que habiéndoles leído el presente instrumento a los comparecientes explicándoles del valor, fuerza y consecuencias legales de su contenido manifestaron su conformidad firmando en comprobación el mismo día y año de su otorgamiento, asimismo la parte vendedora estampa su huella digital del dedo índice de su mano derecha ante mí Doy Fe."
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "DONACION CON RESERVA DE USUFRUCTO VITALICIO",
+            "content": [
+                {
+                    "name": "Introduccion",
+                    "texts": [
+                        "DONACIÓN GRATUITA, PURA, SIMPLE E IRREVOCABLE CON RESERVA DE USUFRUCTO VITALICIO, que celebran de una parte como donante ________________________________; y de la otra parte como donatario _____________________, respecto a la NUDA PROPIEDAD"
+                    ]
+                },
+                {
+                    "name": "Declaraciones",
+                    "texts": [
+                        "<b>Declaran los comparecientes bajo formal protesta de conducirse con verdad:</b>",
+                        "<b>PRIMERA.</b> Que de conformidad con la Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita, NO existe relación de negocios con la suscrita Notario.",
+                        "<b>SEGUNDA.</b> Que en el presente instrumento actúan en su nombre y por cuenta propia ya que no existe BENEFICIARIO CONTROLADOR o DUEÑO BENEFICIARIO."
+                    ]
+                },
+                {
+                    "name": "Antecedentes",
+                    "texts": [
+                        "<b><u>Declara la Parte Donante:</u></b>",
+                        "<b>(_)</b> Que por __________________________________________________________________ inscrita en el Registro Público de la Propiedad del Distrito Judicial de ___________________________, bajo _______________________________, de fecha ______________________________, adquirió mediante _________________________, el inmueble identificado como: ________________________, con las siguientes medidas y colindancias: ",
+                        "<b>(_)</b> Dicho inmueble paga sus contribuciones prediales al Municipio de _____________________________, con la cuenta número ______________ (__________________________), encontrándose al corriente como lo justifica con el recibo de pago correspondiente, documento del que tomo copias debidamente certificadas que inserto en los testimonios que de esta escritura se expidan, así como en al apéndice respectivo.",
+                        "<b>(_)</b> Por concepto del Servicio de Agua Potable, exhibe la _____________________________________________________________________________, respecto del inmueble objeto del presente contrato; documento que en original anexo al apéndice respectivo y tomo copias certificadas que inserto en los testimonios que de esta escritura se expidan.",
+                        "<b>(_)</b> Se tramitó y obtuvo el Certificado de libertad de Gravamen expedido por el _______________________________________________, del inmueble objeto del presente contrato, el cual reporta Libre de Gravamen, y el Primer Aviso Preventivo relativo a la presente operación; documento que en original agrego al apéndice respectivo y tomo copias certificadas que inserto en los testimonios que de esta escritura se expidan."
+                    ]
+                },
+                {
+                    "name": "Clausulas",
+                    "texts": [
+                        "<b>(_)</b> ___________________________, hacen DONACIÓN GRATUITA, PURA, SIMPLE E IRREVOCABLE CON RESERVA DE USUFRUCTO VITALICIO en favor de ________________________, respecto de la NUDA PROPIEDAD, del inmueble identificado como: ________________________________________, dentro de las medidas, indivisos, colindancias y superficie hechas constar en el punto I de los antecedentes, las cuales se dan aquí por reproducidas como si se insertasen a la letra para todos sus efectos legales. Transmite la parte donante a la parte donataria el dominio pleno y la posesión civil del referido inmueble, con todo cuanto de hecho y por derecho le pertenezca por usos, costumbres, servidumbres y accesiones, sin reserva ni limitación alguna. RESERVÁNDOSE LOS DONANTES EL USUFRUCTO VITALICIO, EL CUAL SE CONSOLIDARÁ EN FAVOR DE LA PARTE NUDA PROPIEDAD A LA MUERTE DE LOS USUFRUCTUARIOS, SIN NECESIDAD DE AUTORIZACIÓN JUDICIAL.",
+                        "<b>(_)</b> La parte donataria acepta la donación gratuita, que en su favor ha hecho la parte donante en la cláusula que antecede, así mismo tienen aplicación los artículos 2190, 2199, 2202, 2204 fracción cuarta, 2205, 2212, 2213, 2222 del Código Civil para el Estado Libre y Soberano de Puebla.",
+                        "<b>(_)</b> La donación a que se refiere la cláusula que antecede, es de carácter gratuito, por lo que la parte donante en este acto declara que no recibe ninguna contraprestación a cargo de la parte donataria y con fundamento en lo dispuesto en el artículo 2203 del Código Civil del Estado de Puebla, la parte donante manifiesta que para efectos fiscales se tomará el valor que arroje el avalúo catastral del inmueble trasmitido el cual es de cinco millones seiscientos noventa y cuatro mil setecientos setenta y cinco pesos cero centavos moneda nacional.",
+                        "<b>(_)</b> Manifiesta la parte donante que el inmueble donado se encuentra libre de gravamen y adeudos de carácter fiscal, pero de cualquier manera se obliga a responder por el saneamiento y la evicción en términos de ley.",
+                        "<b>(_)</b> Todos los gastos, impuestos, derechos y honorarios notariales que cause la presente escritura serán por cuenta de la parte ________.",
+                        "<b>(_)</b> Conviene la parte donante que en caso de controversia, se supeditarán al procedimiento de mediación, atento a lo dispuesto por los artículos 835 y 836 fracción V del Código de Procedimientos Civiles del Estado de Puebla, pudiendo intervenir el Notario Público que designen las partes.",
+                        "<b>(_)</b> Para la interpretación, ejecución y cumplimiento de las cláusulas de este contrato, así como para todo lo no previsto en el mismo, la parte donante por voluntad expresa conviene en dirimir su controversia en los Tribunales del Distrito Judicial de _____________, por lo que renuncian al fuero que por razón de su domicilio presente o futuro les pudiera corresponder."
+                    ]
+                },
+                {
+                    "name": "Yo, la Notario certifico",
+                    "texts": [
+                        "<b>(_)</b> Del conocimiento y capacidad legal de los comparecientes.",
+                        "<b>(_)</b> Se les instruye a los comparecientes de la obligación que tienen de inscribir su sociedad conyugal en el Registro Público de la Propiedad según artículo 348 fracciones VI y VII del Código Civil para el Estado Libre y Soberano de Puebla.",
+                        "<b>(_)</b> Que en términos de lo dispuesto por los artículos 8 y 17 de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, los comparecientes manifiestan conocer el Aviso de Privacidad a que se refiere la mencionada Ley, mismo que se encuentra exhibido en el área de recepción de las oficinas de esta Notaría a mi cargo y que se encuentra a su disposición para ser consultado en cualquier momento. Por lo que con la firma del presente instrumento manifiestan su consentimiento expreso con el tratamiento de sus datos personales.",
+                        "<b>(_)</b> Por sus generales manifestaron ser mexicanos por nacimiento e hijos de padres mexicanos: __________________________________, originario de _________________, nacido el día ____________________________________________, con Clave Única de Registro de Población: __________________________________, con Registro Federal de Contribuyente: ________________, *** ocupación*** estado civil******; con domicilio en ___________________________________; y el señora __________________________________, originario de ___________________, nacido el día _________________________, con Clave Única de Registro de Población: ________________________, Registro Federal de Contribuyentes: _________________________, *** ocupación*** estado civil*****, con domicilio en _____________________________________________, de paso por esta Ciudad, de cuyas identificaciones tomo copias certificadas que anexo al apéndice respectivo.",
+                        "<b>(_)</b> Que los otorgantes manifiestan: a) Conocer el objeto de la operación en forma precisa y total; y b) Declaran que todas las causas motivadoras de la voluntad contractual han sido expresamente indicadas en este documento.",
+                        "<b>(_)</b> Que hice saber a los contratantes el derecho que tienen de leer personalmente la presente Escritura.",
+                        "<b>(_)</b> Que habiéndoles leído el presente instrumento a los comparecientes explicándoles del valor, fuerza y consecuencias legales de su contenido manifestaron su conformidad firmando en comprobación el mismo día y año de su otorgamiento, asimismo estampan su huella digital del dedo índice de su mano derecha ante mí Doy Fe."
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "DONACION",
+            "content": [
+                {
+                    "name": "Introduccion",
+                    "texts": [
+                        "DONACIÓN GRATUITA, PURA, SIMPLE E IRREVOCABLE, que celebra de una parte como donante ____________________ y de la otra parte como donataria ________________________"
+                    ]
+                },
+                {
+                    "name": "Antecedentes",
+                    "texts": [
+                        "<b><u>Declara la Parte Vendedora a través de su representante legal:</u></b>",
+                        "<b>(_)</b> Que por __________________________________________________________________ inscrita en el Registro Público de la Propiedad del Distrito Judicial de ___________________________, bajo _______________________________, de fecha ______________________________, adquirió mediante _________________________, el inmueble identificado como: ________________________, con las siguientes medidas y colindancias: ________________________________________________________________________________________.",
+                        "<b>(_)</b> Dicho inmueble paga sus contribuciones prediales al Municipio de _____________________________, con la cuenta número ______________ (__________________________), encontrándose al corriente como lo justifica con el recibo de pago correspondiente, documento del que tomo copias debidamente certificadas que inserto en los testimonios que de esta escritura se expidan, así como en al apéndice respectivo.",
+                        "<b>(_)</b> Por concepto del Servicio de Agua Potable, exhibe la _____________________________________________________________________________, respecto del inmueble objeto del presente contrato; documento que en original anexo al apéndice respectivo y tomo copias certificadas que inserto en los testimonios que de esta escritura se expidan.",
+                        "<b>(_)</b> Se tramitó y obtuvo el Certificado de libertad de Gravamen expedido por el _______________________________________________, del inmueble objeto del presente contrato, el cual reporta Libre de Gravamen, y el Primer Aviso Preventivo relativo a la presente operación; documento que en original agrego al apéndice respectivo y tomo copias certificadas que inserto en los testimonios que de esta escritura se expidan."
+                    ]
+                },
+                {
+                    "name": "Declaraciones",
+                    "texts": [
+                        "Declaran los comparecientes bajo formal protesta de conducirse con verdad:",
+                        "<b>(_)</b> Que de conformidad con la Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita, las partes manifiestan que NO existe relación de negocios con la suscrita Notario.",
+                        "<b>(_)</b> Que en el presente instrumento actúan en su nombre y por cuenta propia ya que no existe BENEFICIARIO CONTROLADOR o DUEÑO BENEFICIARIO.",
+                        "Dados estos antecedentes y declaraciones, se otorgan las siguientes:"
+                    ]
+                },
+                {
+                    "name": "Clausulas",
+                    "texts": [
+                        "<b>(_)</b> _____________________________, hace DONACIÓN GRATUITA, PURA, SIMPLE E IRREVOCABLE, en favor de __________________, respecto del inmueble identificado como: ________________________________________________________________________________________. Dentro de la superficie, indiviso, medidas y colindancias hechas constar en el antecedente I romano de esta escritura, las cuales se dan aquí por reproducidas como si se insertasen a la letra para todos sus efectos legales.",
+                        "Transmite la parte donante a la parte donataria el dominio pleno y la posesión civil del referido inmueble, con todo cuanto de hecho y por derecho le pertenezca por usos, costumbres, servidumbres y accesiones, sin reserva ni limitación alguna.",
+                        "<b>(_)</b> La donación a que se refiere la cláusula que antecede, es de carácter gratuito, por lo que la parte donante en este acto declara que no recibe ninguna contraprestación a cargo de la parte donataria y con fundamento en lo dispuesto en el artículo 2203 del Código Civil del Estado de Puebla, la parte donante manifiesta que para efectos fiscales se tomará el valor que arroje el avalúo catastral del inmueble transmitido.",
+                        "<b>(_)</b> El inmueble de que se trata pasa a poder de la parte donataria, libre de todo gravamen, al corriente en el pago de sus contribuciones prediales, según se ha manifestado.",
+                        "<b>(_)</b> Declara la parte donante, que para los efectos del artículo 2224 del Código Civil del Estado de Puebla, se reserva bienes suficientes para cubrir todas y cada una de las necesidades y obligaciones de las personas que pudieran depender de ellos.",
+                        "<b>(_)</b> Todos los gastos, impuestos, derechos y honorarios notariales que cause la presente escritura serán por cuenta exclusiva de la parte donataria.",
+                        "<b>(_)</b> Convienen que en caso de controversia, se podrán supeditar al procedimiento de mediación, atento a lo dispuesto por los artículos 835 y 836 fracción V del Código de Procedimientos Civiles del Estado de Puebla, pudiendo intervenir el Notario Público que designen las partes.",
+                        "<b>(_)</b> Para la interpretación, ejecución y cumplimiento de las cláusulas de este contrato, así como para todo lo no previsto en el mismo, las partes por voluntad expresa convienen en someterse a la jurisdicción y competencia de los Tribunales del Distrito Judicial de _____________________, por lo que renuncian al fuero que por razón de su domicilio presente o futuro les pudiera corresponder."
+                    ]
+                },
+                {
+                    "name": "Yo, la Notario certifico",
+                    "texts": [
+                        "<b>(_)</b> Del conocimiento y capacidad legal de los comparecientes.",
+                        "<b>(_)</b> Se les instruye a los comparecientes de la obligación que tienen de inscribir su sociedad conyugal en el Registro Público de la Propiedad según artículo 348 fracciones VI y VII del Código Civil para el Estado Libre y Soberano de Puebla.",
+                        "<b>(_)</b> Que en términos de lo dispuesto por los artículos 8 y 17 de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, los comparecientes manifiestan conocer el Aviso de Privacidad a que se refiere la mencionada Ley, mismo que se encuentra exhibido en el área de recepción de las oficinas de esta Notaría a mi cargo y que se encuentra a su disposición para ser consultado en cualquier momento. Por lo que con la firma del presente instrumento manifiestan su consentimiento expreso con el tratamiento de sus datos personales.",
+                        "<b>(_)</b> Por sus generales manifestaron ser mexicanos por nacimiento e hijos de padres mexicanos: ____________________________________, originario de _________________, nacido el día ____________________________, con Clave Única de Registro de Población: _____________, con Registro Federal de Contribuyente: ________________, *** ocupación*** estado civil******; con domicilio en ___________________________; y la señora ______________________________, originaria de ________________________, nacida el día _____________________, con Clave Única de Registro de Población: ________________, Registro Federal de Contribuyentes: ________________, *** ocupación*** estado civil*****, con domicilio en ______________________________, de paso por esta Ciudad, de cuyas identificaciones tomo copias certificadas que anexo al apéndice respectivo.",
+                        "<b>(_)</b> Que los otorgantes manifiestan: a).- Conocer el objeto de la operación en forma precisa y total; y b).- Declaran que todas las causas motivadoras de la voluntad contractual han sido expresamente indicadas en este documento.",
+                        "<b>(_)</b> Que hice saber a los contratantes el derecho que tienen de leer personalmente la presente Escritura.",
+                        "<b>(_)</b> Que habiéndoles leído el presente instrumento a los comparecientes explicándoles del valor, fuerza y consecuencias legales de su contenido manifestaron su conformidad firmando en comprobación el mismo día y año de su otorgamiento, asimismo estampan su huella digital del dedo índice de su mano derecha ante mí Doy Fe."
                     ]
                 }
             ]

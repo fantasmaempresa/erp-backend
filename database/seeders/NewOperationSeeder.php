@@ -20,7 +20,7 @@ class NewOperationSeeder extends Seeder
             ['name' => "APLICACION DE BIENES HEREDITARIOS", 'description' => 'APLICACION DE BIENES HEREDITARIOS',],
             ['name' => "ASOCIACION CIVIL", 'description' => 'ASOCIACION CIVIL',],
             ['name' => "CANCELACION DE RESERVA DE DOMINIO", 'description' => 'CANCELACION DE RESERVA DE DOMINIO',],
-            ['name' => "COMPRA VENTA A PLAgitZOS CON RESERVA DE DOMINIO", 'description' => 'COMPRA VENTA A PLAZOS CON RESERVA DE DOMINIO',],
+            ['name' => "COMPRA VENTA A PLAZOS CON RESERVA DE DOMINIO", 'description' => 'COMPRA VENTA A PLAZOS CON RESERVA DE DOMINIO',],
             ['name' => "COMPRA VENTA JUDICIAL", 'description' => 'COMPRA VENTA JUDICIAL',],
             ['name' => "COMPRA VENTA", 'description' => 'COMPRA VENTA',],
             ['name' => "CONSOLIDACION DE PROPIEDAD", 'description' => 'CONSOLIDACION DE PROPIEDAD',],
