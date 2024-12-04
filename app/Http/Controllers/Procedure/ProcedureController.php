@@ -193,7 +193,7 @@ class ProcedureController extends ApiController
 
             if (!empty($request->get('grantors'))) {
                 foreach ($request->get('grantors') as $grantor) {
-                    $grantors[$grantor['id']] = ['stake_id' => $grantor['stake']['id']];
+                    $grantors[$grantor['grantor']['id']] = ['stake_id' => $grantor['stake']['id']];
                 }
             }
 
