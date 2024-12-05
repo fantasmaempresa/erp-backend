@@ -723,6 +723,99 @@
                     ]
                 }
             ]
+        },
+        {
+            "type": "FUSION",
+            "content": [
+                {
+                    "name": "Introduccion",
+                    "texts": [
+                        "FUSIÓN DE PREDIOS; que solicita ____________________________________________"
+                    ]
+                },
+                {
+                    "name": "Antecedentes",
+                    "texts": [
+                        "<b><u>Declara ___________________________________:</u></b>",
+                        "<b>(_)</b> Que mediante __________________________________________________________________ inscrita en el Registro Público de la Propiedad del Distrito Judicial de ___________________________, bajo _____________________________, de fecha ______________________________, adquirió mediante _________________________, el inmueble identificado como: ________________________, con las siguientes medidas y colindancias: ________________________________________________________________________________________.",
+                        "<b>(_)</b> Dicho inmueble paga sus contribuciones prediales al Municipio de _____________________________, con la cuenta número ______________ (__________________________), encontrándose al corriente como lo justifica con el recibo de pago correspondiente, documento del que tomo copias debidamente certificadas que inserto en los testimonios que de esta escritura se expidan, así como en al apéndice respectivo.",
+                        "<b>(_)</b> Que tramitó y obtuvo de ___________________________________________________________; documento del cual tomo copias debidamente certificadas que anexo al apéndice respectivo e inserto en los testimonios que de esta escritura se expidan.",
+                        "<b>(_)</b> Que mediante __________________________________________________________________ inscrita en el Registro Público de la Propiedad del Distrito Judicial de ___________________________, bajo _____________________________, de fecha ______________________________, adquirió mediante _________________________, el inmueble identificado como: ________________________, con las siguientes medidas y colindancias: ________________________________________________________________________________________.",
+                        "<b>(_)</b> Dicho inmueble paga sus contribuciones prediales al Municipio de _____________________________, con la cuenta número ______________ (__________________________), encontrándose al corriente como lo justifica con el recibo de pago correspondiente, documento del que tomo copias debidamente certificadas que inserto en los testimonios que de esta escritura se expidan, así como en al apéndice respectivo.",
+                        "<b>(_)</b> Que tramitó y obtuvo de ____________________________________________________________; documento del cual tomo copias debidamente certificadas que anexo al apéndice respectivo e inserto en los testimonios que de esta escritura se expidan.",
+                        "<b>(_)</b> Que tramitaron y obtuvieron de ____________________, el oficio número __________________, de fecha _______________, mediante el cual se autoriza la Fusión, ____________________________________________________; para quedar de la siguiente manera: 1. ________________________________________________________________________________________ 2. ________________________________________________________________________________________ 3. ________________________________________________________________________________________.",
+                        "Dados estos antecedentes, se otorgan las siguientes:"
+                    ]
+                },
+                {
+                    "name": "Clausulas",
+                    "texts": [
+                        "<b>DE LA FUSIÓN DE PREDIOS</b>",
+                        "<b>(_)</b> _________________________, por medio de esta cláusula declara la FUSIÓN DE PREDIOS de ___________________________________; con una superficie total fusionada de __________ m² (_____________________________________________), dentro de las medidas y colindancias, hechas constar en el punto _______________ de los antecedentes, las cuales se dan aquí por reproducidas como si se insertasen a la letra.",
+                        "<b>(_)</b> De lo cual pide se haga constar tanto en los padrones fiscales, así como a las demás dependencias a que corresponda.",
+                        "<b>(_)</b> Para la interpretación, ejecución y cumplimiento de las cláusulas de esta declaración, el compareciente se somete a la jurisdicción y competencia de los Tribunales del Distrito Judicial de _______________, por lo que renuncia al fuero que por razón de su domicilio presente o futuro le pudiera corresponder."
+                    ]
+                },
+                {
+                    "name": "Yo, la Notario certifico",
+                    "texts": [
+                        "<b>(_)</b> Del conocimiento y capacidad legal de los comparecientes.",
+                        "<b>(_)</b> Se les instruye a los comparecientes de la obligación que tienen de inscribir su sociedad conyugal en el Registro Público de la Propiedad según artículo 348 fracciones VI y VII del Código Civil para el Estado Libre y Soberano de Puebla.",
+                        "<b>(_)</b> Que en términos de lo dispuesto por los artículos 8 y 17 de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, los comparecientes manifiestan conocer el Aviso de Privacidad a que se refiere la mencionada Ley, mismo que se encuentra exhibido en el área de recepción de las oficinas de esta Notaría a mi cargo y que se encuentra a su disposición para ser consultado en cualquier momento. Por lo que con la firma del presente instrumento manifiestan su consentimiento expreso con el tratamiento de sus datos personales.",
+                        "<b>(_)</b> Por sus generales manifestaron ser mexicanos por nacimiento e hijos de padres mexicanos: ________________________________, originario de _________________, nacido el día __________________________________________, con Clave Única de Registro de Población: _________________________________, con Registro Federal de Contribuyente: ________________, *** ocupación*** estado civil******; con domicilio en ___________________________________; y el señora ________________________________, originario de ___________________, nacido el día _________________________, con Clave Única de Registro de Población: ________________________, Registro Federal de Contribuyentes: _________________________, *** ocupación*** estado civil*****, con domicilio en _____________________________________________, de paso por esta Ciudad, de cuyas identificaciones tomo copias certificadas que anexo al apéndice respectivo.",
+                        "<b>(_)</b> Que los otorgantes manifiestan: a) Conocer el objeto de la operación en forma precisa y total; y b) Declaran que todas las causas motivadoras de la voluntad contractual han sido expresamente indicadas en este documento.",
+                        "<b>(_)</b> Que hice saber a los contratantes el derecho que tienen de leer personalmente la presente Escritura.",
+                        "<b>(_)</b> Que habiéndoles leído el presente instrumento a los comparecientes explicándoles del valor, fuerza y consecuencias legales de su contenido manifestaron su conformidad firmando en comprobación el mismo día y año de su otorgamiento, asimismo estampan su huella digital del dedo índice de su mano derecha ante mí Doy Fe."
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "INSCRIPCION DE NOMBRAMIENTO DE ALBACEA",
+            "content": [
+                {
+                    "name": "Introduccion",
+                    "texts": [
+                        " Inscripción del NOMBRAMIENTO DE ALBACEA ______________________, que solicita _________________, en su carácter de Albacea _______________ dentro de la Sucesión _________________ de ___________________________________,"
+                    ]
+                },
+                {
+                    "name": "Antecedentes",
+                    "texts": [
+                        "<b>(_)</b> De la propiedad del inmueble objeto de la inscripción: Que mediante _______________________________, de fecha __________________, pasado ante la fe de _____________________________________, inscrita en el Registro Público de la Propiedad y del Comercio ______________________________, bajo _____________________________, de fecha ___________________________________, _____________________, adquirió el inmueble identificado como _______________________________________________________________________________________, con una superficie de _______________________; y las siguientes medidas y colindancias:",
+                        "<b>(_)</b> Dicho inmueble paga sus contribuciones prediales al Honorable Ayuntamiento del Municipio de _________________________, con la cuenta número __________________ (__________________), encontrándose al corriente como lo justifica con su último recibo de pago.",
+                        "<b>(_)</b> Acta de inicio de tramitación extrajudicial de la sucesión ________________. Por fallecimiento de ________________________, en _______________, a las _____________ del día ______________________, por instrumento número __________________, volumen número _____________________________, de fecha ______________________, pasado ante la fe de _____________________________________, se otorgó la escritura de _______________________, que solicitó _______________________, en su calidad de heredera a bienes de _________________________; aceptando la herencia y se declara como _______________________ de todos sus bienes, derechos, cuentas bancarias y acciones, aceptando también su nombramiento como Albacea ________________ dentro de dicha Sucesión. Documento del cual tomo copias debidamente certificadas que anexo al apéndice respectivo e inserto en los testimonios que de esta escritura se expidan.",
+                        "<b>(_)</b> Se solicitó y obtuvo Certificado de libertad de Gravamen número _______________________, expedido por __________________________________, respecto del inmueble objeto de la presente escritura, el que reporta, ___________________________________________ relativo a la presente operación presentado por la suscrita Notario; documento que en original agrego al apéndice respectivo y tomo copias certificadas que inserto en los testimonios que de esta escritura se expidan.",
+                        "<b>(_)</b> Por concepto del Servicio de Agua potable, exhibe el original de _______________________, de fecha _______________________________, expedida por el _______________________, documento que en original anexo al apéndice respectivo y del que tomo copias certificadas que inserto en los testimonios que de esta escritura se expidan."
+                    ]
+                },
+                {
+                    "name": "Declaraciones",
+                    "texts": [
+                        "Declaran los comparecientes bajo formal protesta de conducirse con verdad:",
+                        "<b>(_)</b> Que de conformidad con la Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita, NO existe relación de negocios con la suscrita Notario.",
+                        "<b>(_)</b> Que en el presente instrumento actúan en su nombre y por cuenta propia ya que no existe BENEFICIARIO CONTROLADOR o DUEÑO BENEFICIARIO."
+                    ]
+                },
+                {
+                    "name": "Clausulas",
+                    "texts": [
+                        "<b><u>a).- INSCRIPCIÓN DEL NOMBRAMIENTO DE ALBACEA</u></b>",
+                        "<b><u>ÚNICA.-</u></b> Por medio de esta cláusula _______________________, en su carácter de Albacea __________________ dentro de la Sucesión _____________ a bienes de ______________________________, solicita la inscripción del cargo de Albacea __________________, sobre el folio inmobiliario del inmueble materia de la presente operación."
+                    ]
+                },
+                {
+                    "name": "Yo, la Notario certifico",
+                    "texts": [
+                        "<b>(_)</b> Del conocimiento y capacidad legal de los comparecientes.",
+                        "<b>(_)</b> Que lo inserto y relacionado aquí se tomó de sus originales que tuve a la vista y a los cuales me remito.",
+                        "<b>(_)</b> Que en términos de lo dispuesto por los artículos 8 y 17 de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, los comparecientes manifiestan conocer el Aviso de Privacidad a que se refiere la mencionada Ley, mismo que se encuentra exhibido en el área de recepción de las oficinas de esta Notaría a mi cargo y que se encuentra a su disposición para ser consultado en cualquier momento. Por lo que con la firma del presente instrumento manifiestan su consentimiento expreso con el tratamiento de sus datos personales.",
+                        "<b>(_)</b> Por sus generales manifestaron ser mexicanos por nacimiento e hijos de padres mexicanos: __________________________________, originario de _________________, nacido el día __________________________________________, con Clave Única de Registro de Población: __________________________________, con Registro Federal de Contribuyente: ________________, *** ocupación*** estado civil******; con domicilio en ___________________________________; y el señora __________________________________, originario de ___________________, nacido el día _________________________, con Clave Única de Registro de Población: _______________________, Registro Federal de Contribuyentes: _________________________, *** ocupación*** estado civil*****, con domicilio en _____________________________________________, de paso por esta Ciudad, de cuyas identificaciones tomo copias certificadas que anexo al apéndice respectivo.",
+                        "<b>(_)</b> Que hice saber a los contratantes el derecho que tienen de leer personalmente la presente Escritura.",
+                        "<b>(_)</b> Que habiéndoles leído el presente instrumento a los comparecientes explicándoles del valor, fuerza y consecuencias legales de su contenido manifestaron su conformidad firmando en comprobación el mismo día y año de su otorgamiento, asimismo estampan su huella digital del dedo índice de su mano derecha ante mí Doy Fe."
+                    ]
+                }
+            ]
         }
     ]
 }
