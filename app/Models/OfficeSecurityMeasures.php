@@ -14,6 +14,7 @@ class OfficeSecurityMeasures extends Model
             'id',
             'staff_id',
             'article_id',
+            'warehouse_id',
             'acquisition_date',
             'return_date',
             'acquisition_comments',
@@ -48,6 +49,7 @@ class OfficeSecurityMeasures extends Model
         $rule = [
             'staff_id' => 'required|int',
             'article_id' => 'required|int',
+            'warehouse_id' =>'required|int',
             'acquisition_date' => 'required|date',
             'return_date' => 'nullable|date',
             'acquisition_comments' => 'nullable|string',

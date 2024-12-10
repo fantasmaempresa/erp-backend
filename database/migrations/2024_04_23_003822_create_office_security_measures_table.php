@@ -17,6 +17,7 @@ class CreateOfficeSecurityMeasuresTable extends Migration
             $table->id();
             $table->foreignId('staff_id')->constrained();
             $table->foreignId('article_id')->constrained();
+            $table->foreignId('warehouse_id')->constrained();
             $table->date('acquisition_date');
             $table->date('return_date');
             $table->string('acquisition_comments')->nullable();
