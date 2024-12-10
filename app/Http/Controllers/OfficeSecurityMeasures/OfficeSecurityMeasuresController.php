@@ -26,7 +26,16 @@ class OfficeSecurityMeasuresController extends ApiController
 
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
             $response = $this->showList(OfficeSecurityMeasures::search($request->get('search'))->orderBy('id','desc')->paginate($paginate));
-        } else {
+        } else if ($request->get('view') == 'officeSecurityMeasures') {
+            $this->validate($request, [
+                'warehouse_id' => 'required|int', 
+                'view' => 'required|string'
+            ]);
+
+            $warehouseId = $request->input('warehouse_id');
+            $response = $this->showList(OfficeSecurityMeasures::where('warehouse_id', $warehouseId)->orderBy('id','desc')->paginate($paginate));
+        } 
+        else {
             $response = $this->showList(OfficeSecurityMeasures::orderBy('id','desc')->paginate($paginate));
         }
 
