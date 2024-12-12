@@ -50,10 +50,12 @@ class ProcessingIncomeComment extends Model
 
     public function notify()
     {
-        $procesingIncome = ProcessingIncome::find($this->processing_income_id);
+        $procesingIncomeName = $this->processingIncome->name;
+        $procedureName =$this->processingIncome->procedure->name;
+
         $notification = $this->createNotification([
             "title" => "Se ha registrado un nuevo comentario",
-            "message" => "Se ha registrado un nuevo comentario para el expediente : ($procesingIncome->name)",
+            "message" => "Se ha registrado un nuevo comentario para el expediente $procedureName : ($procesingIncomeName)",
         ], null, Role::$ADMIN);
 
         $this->sendNotification($notification, null, new NotificationEvent($notification, 0, Role::$ADMIN, []));

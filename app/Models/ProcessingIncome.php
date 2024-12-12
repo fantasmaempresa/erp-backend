@@ -65,22 +65,22 @@ class ProcessingIncome extends Model
         return $this->hasMany(ProcessingIncomeComment::class);
     }
 
-    private static function getMessageNotify(int $statusNotify, string $name = '')
+    private static function getMessageNotify(int $statusNotify, string $name = '', string $name_procedure = '')
     {
         $notifications = [
             self::DOCUMENT_REGISTER => [
                 'title' => 'Se ha registrado un nuevo documento de registro',
-                'message' => "Se ha registrado un nuevo documento de registro para el expediente : ($name)",
+                'message' => "Se ha registrado un nuevo documento de registro para el expediente $name_procedure : ($name)",
                 'type' => self::DOCUMENT_REGISTER,
             ],
             self::DOCUMENT_OUTPUT => [
                 'title' => 'Se ha registrado un nuevo documento de salida',
-                'message' => "Se ha registrado un nuevo documento de salida para el expediente : ($name)",
+                'message' => "Se ha registrado un nuevo documento de salida para el expediente $name_procedure : ($name)",
                 'type' => self::DOCUMENT_OUTPUT,
             ],
             self::DOCUMENT_RETURN => [
                 'title' => 'Se ha registrado un nuevo documento que regresa',
-                'message' => "Se ha registrado un nuevo documento que regresa para el expediente : ($name)",
+                'message' => "Se ha registrado un nuevo documento que regresa para el expediente $name_procedure : ($name)",
                 'type' => self::DOCUMENT_RETURN,
             ]
         ];
@@ -92,7 +92,8 @@ class ProcessingIncome extends Model
     {
         $document = $this->documents()->where('document_id', $documentId)->first();
         if (!is_null($document)) {
-            $notification = $this->createNotification(self::getMessageNotify($document->pivot->type, $this->name), null, Role::$ADMIN);
+
+            $notification = $this->createNotification(self::getMessageNotify($document->pivot->type, $this->name, $this->procedure->name), null, Role::$ADMIN);
             $this->sendNotification(
                 $notification,
                 null,

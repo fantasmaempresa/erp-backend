@@ -31,11 +31,15 @@ class ProjectQuoteReportController extends ApiController
         $jasperPath = Storage::path('reports/quotation/COTIZACION.jasper');
         $outputPath = Storage::path('reports/quotation/quotation.pdf');
 
+        $jsonData = json_encode($request->all());
+        Storage::put("reports/tempJson.json", $jsonData);
+
         $pdf = new Report(
-            $request->all(),
+            Storage::path('reports/tempJson.json'),
             ['Logo' => $imageAsset, 'subReportPath' => $subReportPath],
             $jasperPath,
-            $outputPath
+            $outputPath, 
+            'pdf'
         );
 
         $result = $pdf->generateReport();

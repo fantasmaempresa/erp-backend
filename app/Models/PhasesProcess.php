@@ -49,6 +49,17 @@ class PhasesProcess extends Model
         'withFormat',
     ];
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'form' => 'array',
+        'withFormat' => 'array',
+    ];
+
+
     protected function setNameAttribute($value)
     {
         $this->attributes['name'] = strtolower($value);
@@ -68,18 +79,6 @@ class PhasesProcess extends Model
     {
         return strtoupper($value);
     }
-
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'form' => 'array',
-        'withFormat' => 'array',
-    ];
-
     /**
      * Function to return array rules in method create and update
      *

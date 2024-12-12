@@ -8,7 +8,6 @@ namespace App\Http\Controllers\Shape;
 
 use App\Http\Controllers\ApiController;
 use App\Models\Grantor;
-use App\Models\GrantorLink;
 use App\Models\Procedure;
 use App\Models\Shape;
 use App\Models\Stake;

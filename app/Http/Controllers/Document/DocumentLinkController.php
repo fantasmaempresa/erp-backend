@@ -254,13 +254,10 @@ class DocumentLinkController extends ApiController
             $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
             $file->storeAs($path, $fileName);
             $client->documents()->sync([$document->id], ['file' => $fileName]);
-
             DB::commit();
-
             return $this->showOne($client);
-        } catch (\Exception $e) {
+        } catch (\RuntimeException $e) {
             DB::rollBack();
-
             return $this->errorResponse('error --> ' . $e->getMessage(), 409);
         }
     }
@@ -324,6 +321,7 @@ class DocumentLinkController extends ApiController
             'document_pivot_id' => 'required|int'
         ]);
 
+
         if ($request->get('view') == 'client') {
             $client = Client::findOrFail($request->get('client_id'));
             $path = 'clients/' . $client->id . '/expedient/';
@@ -361,7 +359,7 @@ class DocumentLinkController extends ApiController
             $pivot->save();
             DB::commit();
             return $this->showOne($pivot);
-        } catch (Exception $e) {
+        } catch (\RuntimeException $e) {
             DB::rollBack();
 
             return $this->errorResponse('error --> ' . $e->getMessage(), 409);

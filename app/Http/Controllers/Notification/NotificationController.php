@@ -27,9 +27,20 @@ class NotificationController extends ApiController
     /**
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        return $this->showList(Notification::paginate(env('number_paginate')));
+        $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
+
+        if (!empty($request->get('search')) && $request->get('search') !== 'null') {
+            //TODO AGREGAR BUSQUEDA XD 
+            $query = Notification::with('user')->with('role');         
+        }else {
+            $query = Notification::with('user')->with('role');         
+        }
+
+        $notification = $query->orderby('id', 'desc')->paginate($paginate);
+
+        return $this->showList($notification);
     }
 
     /**

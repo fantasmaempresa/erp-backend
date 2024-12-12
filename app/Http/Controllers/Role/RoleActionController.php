@@ -51,6 +51,7 @@ use App\Http\Controllers\ProjectQuote\ProjectQuoteController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteFilterController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteOperationsController;
 use App\Http\Controllers\Rate\RateController;
+use App\Http\Controllers\Reminder\ReminderController;
 use App\Http\Controllers\Shape\ShapeController;
 use App\Http\Controllers\Shape\ShapeActionController;
 use App\Http\Controllers\Staff\StaffController;
@@ -65,6 +66,7 @@ use App\Http\Controllers\User\UserFilterController;
 use App\Http\Controllers\VulnerableOperation\VulnerableOperationController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
+use App\Models\Reminder;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -121,7 +123,6 @@ class RoleActionController extends ApiController
                 UnitController::class,
             ],
         ],
-
         [
             'label' => 'Personal',
             'route' => './staff',
@@ -479,6 +480,22 @@ class RoleActionController extends ApiController
                 MovementTrackingController::class,
                 OfficeSecurityMeasuresController::class,
                 WarehouseController::class,
+            ],
+        ],
+        [
+            'label' => 'Historial de notificaciones',
+            'route' => './notifications/list',
+            'icon' => 'history',
+            'controllers' => [
+                NotificationController::class,
+            ],
+        ],
+        [
+            'label' => 'Historial de recordatorios',
+            'route' => './reminders',
+            'icon' => 'history',
+            'controllers' => [
+                ReminderController::class,
             ],
         ],
         [

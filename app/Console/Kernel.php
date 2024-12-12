@@ -26,7 +26,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('database:backup')->everyMinute();
+        // $schedule->command('database:backup')->everyMinute();
+        $schedule->command('send:daily-reminders')->hourlyAt(9)->between('9:00', '22:00');
+        $schedule->command('send:restore-daily-reminders')->dailyAt('7:00');
     }
 
     /**

@@ -48,4 +48,12 @@ class Notification extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+        /**
+     * @return BelongsTo
+     */
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
+    }
 }
