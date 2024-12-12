@@ -79,6 +79,8 @@ use App\Http\Controllers\OfficeSecurityMeasures\OfficeSecurityMeasuresController
 use App\Http\Controllers\MovementTracking\MovementTrackingController;
 use App\Http\Controllers\Procedure\ProcedureReportController;
 use App\Http\Controllers\Project\ProjectActionPredefinedController;
+use App\Http\Controllers\Reminder\ReminderActionController;
+use App\Http\Controllers\Reminder\ReminderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -272,6 +274,10 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     //FOLIO REPORT
     Route::get('procedure/report/controlFolio', [ProcedureReportController::class, 'folioContol']);
     Route::get('folio/procedure/unused/{folio}', [FolioActionController::class, 'unsetProcedure']);
+
+    //REMINDERS 
+    Route::resource('reminder', ReminderController::class);
+    Route::get('reminder/enableDisable/{reminder}', [ReminderActionController::class, 'enable_disable_reminder']);
 });
 
 
