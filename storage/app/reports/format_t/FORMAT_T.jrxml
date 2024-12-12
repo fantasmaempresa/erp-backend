@@ -408,6 +408,10 @@
 		<property name="net.sf.jasperreports.json.field.expression" value="shape.data_form.total_modification_settlement"/>
 		<fieldDescription><![CDATA[shape.data_form.total_modification_settlement]]></fieldDescription>
 	</field>
+	<field name="reverse" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="shape.reverse"/>
+		<fieldDescription><![CDATA[shape.reverse]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -2520,6 +2524,19 @@ INMOBILIARIOS]]></text>
 				<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("shape.extra.alientating")]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{subReportPath} + "ALIENATING.jasper"]]></subreportExpression>
 			</subreport>
+		</band>
+		<band height="64">
+			<printWhenExpression><![CDATA[$F{reverse} != null && $F{reverse} != ""]]></printWhenExpression>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="81" y="5" width="503" height="54" uuid="b374e559-ae42-4863-a589-96e820019755">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{reverse} != null ? $F{reverse} : ""]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>
