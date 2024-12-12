@@ -51,6 +51,7 @@ use App\Http\Controllers\ProjectQuote\ProjectQuoteController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteFilterController;
 use App\Http\Controllers\ProjectQuote\ProjectQuoteOperationsController;
 use App\Http\Controllers\Rate\RateController;
+use App\Http\Controllers\Reminder\ReminderActionController;
 use App\Http\Controllers\Reminder\ReminderController;
 use App\Http\Controllers\Shape\ShapeController;
 use App\Http\Controllers\Shape\ShapeActionController;
@@ -66,6 +67,7 @@ use App\Http\Controllers\User\UserFilterController;
 use App\Http\Controllers\VulnerableOperation\VulnerableOperationController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\WorkArea\WorkAreaController;
+use App\Models\ProcessingIncome;
 use App\Models\Reminder;
 use App\Models\Role;
 use App\Models\User;
@@ -496,6 +498,9 @@ class RoleActionController extends ApiController
             'icon' => 'history',
             'controllers' => [
                 ReminderController::class,
+                ReminderActionController::class,
+                ProcedureController::class,
+                ProcessingIncome::class,
             ],
         ],
         [
