@@ -270,6 +270,7 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::get('folio/unused/{book}', [FolioActionController::class, 'unusedFolios']);
     Route::get('folio/unused/count/{book}', [FolioActionController::class, 'foliosCount']);
     Route::get('folio/instrument/unused', [FolioActionController::class, 'unusedInstruments']);
+    Route::get('folio/checkApendix/{folio}', [FolioActionController::class, 'checkApendix']);
 
     //FOLIO REPORT
     Route::get('procedure/report/controlFolio', [ProcedureReportController::class, 'folioContol']);

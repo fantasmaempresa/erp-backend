@@ -19,9 +19,12 @@ class CreateFoliosTable extends Migration
             $table->bigInteger('folio_min')->nullable(); //rango bajo de folio
             $table->bigInteger('folio_max'); //rango alto de folio
             $table->json('unused_folios')->nullable(); //folios inutilizados
+            $table->boolean('integrate_appendix')->nullable(); //folios inutilizados
+            $table->json('config')->nullable(); //folios inutilizados
             $table->foreignId('book_id')->constrained(); //libro
             $table->foreignId('procedure_id')->nullable()->constrained(); //procedimiento
             $table->foreignId('user_id')->constrained(); 
+
             $table->timestamps();
         });
     }

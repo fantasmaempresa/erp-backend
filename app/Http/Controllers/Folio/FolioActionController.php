@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers\Folio;
 
+use App\Events\NotificationEvent;
 use App\Http\Controllers\ApiController;
 use App\Models\Book;
 use App\Models\Folio;
+use App\Models\Procedure;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class FolioActionController extends ApiController
 {
@@ -287,15 +290,49 @@ class FolioActionController extends ApiController
         ]);
     }
 
-    public function unsetProcedure(Folio $folio){
-        
+    public function unsetProcedure(Folio $folio)
+    {
+
         $user = Auth::user();
 
-        if($user->role_id != Role::$ADMIN){
+        if ($user->role_id != Role::$ADMIN) {
             return $this->errorResponse('No tiene permisos para realizar esta accion', 422);
         }
 
         $folio->procedure_id = null;
         $folio->save();
+    }
+
+    public function checkApendix(Folio $folio)
+    {
+        DB::beginTransaction();
+        $user = Auth::user();
+
+        try {
+            $folio->integrate_appendix = true;
+            $folio->procedure->status = Procedure::FINISHED;
+            $folio->save();
+            $folio->procedure->save();
+
+            $notification = $this->createNotification([
+                'title' => 'Apendice integrado',
+                'message' => 'Se integro el apendice del Expediente (' . $folio->procedure->name . ') - Instrumento ('
+                . $folio->name . ') Autorizado por el usuario ' . $user->email,
+            ]);
+
+            $this->sendNotification(
+                $notification,
+                null,
+                new NotificationEvent($notification, 0, 0, [])
+            );
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse('No se puede congifurar el apendice', 422);
+        }
+
+
+        return $this->showOne($folio);
     }
 }

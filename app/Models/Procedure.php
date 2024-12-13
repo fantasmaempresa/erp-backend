@@ -25,6 +25,7 @@ class Procedure extends Model
     const IN_PROCESS = 1;
     const NO_ACCEPTED = 2;
     const ACCEPTED = 3;
+    const FINISHED = 4;
 
     const TRANSFER = 1;
     const CHECK = 2;
