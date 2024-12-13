@@ -5,10 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Validation\Rule;
 
 class Article extends Model
 {
     use HasFactory;
+
+    const ACTIVE = 1;
+    const CONSUMABLE = 2;
 
     protected $fillable
         = [
@@ -24,8 +28,8 @@ class Article extends Model
             'type',
             'brand',
             'storable',
-            'purchase_meashure_unit',
-            'sale_meashure_unit',
+            'purchase_measure_unit',
+            'sale_measure_unit',
         ];
     
     protected function setBarCodeAttribute($value){
@@ -52,14 +56,6 @@ class Article extends Model
         return strtoupper($value);
     }
 
-    protected function setTypeAttribute($value){
-        $this->attributes['type'] = strtolower($value);
-    }
-    
-    protected function getTypeAttribute($value){
-        return strtoupper($value);
-    }
-
     protected function setBrandAttribute($value){
         $this->attributes['brand'] = strtolower($value);
     }
@@ -68,40 +64,43 @@ class Article extends Model
         return strtoupper($value);
     }
 
-    protected function setPurchaseMeashureUnitAttribute($value){
-        $this->attributes['purchase_meashure_unit'] = strtolower($value);
+    protected function setPurchaseMeasureUnitAttribute($value){
+        $this->attributes['purchase_measure_unit'] = strtolower($value);
     }
     
-    protected function getPurchaseMeashureUnitAttribute($value){
+    protected function getPurchaseMeasureUnitAttribute($value){
         return strtoupper($value);
     }
 
     protected function setSaleMeashureUnitAttribute($value){
-        $this->attributes['sale_meashure_unit'] = strtolower($value);
+        $this->attributes['sale_measure_unit'] = strtolower($value);
     }
     
-    protected function getSaleMeashureUnitAttribute($value){
+    protected function getSaleMeasureUnitAttribute($value){
         return strtoupper($value);
     }
 
-    public static function rules($id = null): array
+    public static function rules($id = null, $type): array
     {
         $rule = [
             'billable' => 'required|boolean',
-            'bar_code' => 'required|string',
+            'bar_code' => [
+                'unique:articles,bar_code',
+                Rule::requiredIf($type == self::ACTIVE)
+            ], // Activo,Consumible
             'description' => 'required|string',
             'name' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'line_id' => 'required|string',
-            'purchase_cost' => 'nullable|float|default:0',
-            'sale_cost' => 'nullable|float|default:0',
-            'type' => 'required|string|in:Activo,Consumible',
+            'line_id' => 'required|exists:lines,id',
+            'purchase_cost' => 'nullable|numeric',
+            'sale_cost' => 'nullable|numeric',
+            'type' => 'required|int',
             'brand' => 'nullable|string',
             'storable' => 'required|boolean',
-            'purchase_meashure_unit' => 'required|string',
-            'sale_meashure_unit' => 'required|string',
+            'purchase_measure_unit' => 'required|string',
+            'sale_measure_unit' => 'required|string',
         ];
-        $rule['bar_code'] .='|unique:type,Activo';
+
         return $rule;
     }
 

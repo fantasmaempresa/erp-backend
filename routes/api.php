@@ -74,8 +74,11 @@ use App\Http\Controllers\Document\DocumentActionControler;
 use App\Http\Controllers\Folio\FolioActionController;
 use App\Http\Controllers\Folio\FolioController;
 use App\Http\Controllers\Inventory\InventoryController;
+use App\Http\Controllers\Inventory\InventoryActionController;
+use App\Http\Controllers\Inventory\InventoryFilterController;
 use App\Http\Controllers\Warehouse\WarehouseController;
 use App\Http\Controllers\OfficeSecurityMeasures\OfficeSecurityMeasuresController;
+use App\Http\Controllers\OfficeSecurityMeasures\OfficeSecurityMeasuresFilterController;
 use App\Http\Controllers\MovementTracking\MovementTrackingController;
 use App\Http\Controllers\Procedure\ProcedureReportController;
 use App\Http\Controllers\Project\ProjectActionPredefinedController;
@@ -250,13 +253,23 @@ Route::group(['middleware' => ['auth:api', 'permission']], function () {
     Route::get('procedure/graphics/withoutData', [ProcedureGraphicController::class, 'proceduresWithoutData']);
     Route::get('procedure/graphics/withoutShape', [ProcedureGraphicController::class, 'proceduresWithoutShape']);
     Route::get('procedure/graphics/withoutDocument', [ProcedureGraphicController::class, 'procedureWithoutDocument']);
+
     //INVENTORIES
     Route::resource('line', LineController::class);
-    Route::resource('article', ArticleController::class);
-    Route::resource('inventory', InventoryController::class);
+    Route::resource('inventory',InventoryController::class);
+
+    Route::post('inventory/action/initialInventory', [InventoryActionController::class, 'initialInventory']);
+    Route::post('inventory/action/purchase', [InventoryActionController::class, 'purchase']);
+    Route::post('inventory/action/sale', [InventoryActionController::class, 'sale']);
+    Route::post('inventory/action/warehouseTransfer', [InventoryActionController::class, 'warehouseTransfer']);
+    Route::get('inventory/filter/getWarehouseInventory', [InventoryFilterController::class , 'getWarehouseInventory']);
+    
+    Route::resource('article',ArticleController::class);
     Route::resource('warehouse', WarehouseController::class);
     Route::resource('movementTracking', MovementTrackingController::class);
+
     Route::resource('officeSecurityMeasures', OfficeSecurityMeasuresController::class);
+    Route::get('officeSecurityMeasures/filter/getStaffOfficeSecurityMeasures', [OfficeSecurityMeasuresFilterController::class, 'getStaffOfficeSecurityMeasures']);
 
     //RECOMMENDATIONS INSTRUMENT AND FOLIO
     Route::get('procedures/recommendation/expedient', [ProcedureActionController::class, 'expedientRecommendation']);

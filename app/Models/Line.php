@@ -34,7 +34,7 @@ class Line extends Model
     public static function rules($id = null): array
     {
         $rule = [
-            'line' => 'required|string',
+            'line' => 'required|string|unique:lines',
         ];
         return $rule;
     }

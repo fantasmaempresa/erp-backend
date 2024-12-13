@@ -27,10 +27,18 @@ class Inventory extends Model
     public static function rules($id = null): array
     {
         $rule = [
-            'article_id' => 'required|int',
-            'warehouse_id' => 'required|int',
+            'article_id' => 'required|exists:articles,id',
+            'warehouse_id' => 'required|exists:warehouses,id',
             'amount' => 'required|int',
         ];
         return $rule;
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function warehouse(): HasMany
+    {
+        return $this->HasMany(Warehouse::class);
     }
 }

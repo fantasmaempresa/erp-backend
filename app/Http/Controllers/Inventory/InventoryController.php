@@ -21,30 +21,22 @@ class InventoryController extends ApiController
      */
     public function index(Request $request): JsonResponse
     {
+
+        $this->validate($request, [
+            'warehouse_id' => 'required|int', 
+            'view' => 'required|string'
+        ]);
+
+
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
-        if (!empty($request->get('search')) && $request->get('search') !== 'null') {
-            $response = $this->showList(Inventory::search($request->get('search'))->orderBy('id','desc')->paginate($paginate));
+        if ($request->get('view') == 'inventory') {
+            $warehouseId = $request->input('warehouse_id');
+            $response = $this->showList(Inventory::where('warehouse_id', $warehouseId)->orderBy('id','desc')->paginate($paginate));
         } else {
-            $response = $this->showList(Inventory::orderBy('id','desc')->paginate($paginate));
+            return $this->errorResponse('value view not correct', 409);
         }
-
         return $response;
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return JsonResponse
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function store(Request $request): JsonResponse
-    {
-        $this->validate($request, Inventory::rules());
-        $line = Inventory::create($request->all());
-
-        return $this->showOne($line);
     }
 
     /**
@@ -58,28 +50,7 @@ class InventoryController extends ApiController
     {
         return $this->showOne($inventory);
     }
-
-    /**
-     * @param Request $request
-     * @param Inventory $inventory
-     *
-     * @return JsonResponse
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function update(Request $request, Inventory $inventory): JsonResponse
-    {
-        $this->validate($request, Inventory::rules());
-        $inventory->fill($request->all());
-        if ($inventory->isClean()) {
-            return $this->errorResponse('A different value must be specified to update', 422);
-        }
-
-        $inventory->save();
-
-        return $this->showOne($inventory);
-    }
-
+    
     /**
      * Remove the specified resource from storage.
      *

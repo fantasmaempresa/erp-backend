@@ -6,6 +6,7 @@ namespace App\Http\Controllers\OfficeSecurityMeasures;
 
 use App\Http\Controllers\ApiController;
 use App\Models\OfficeSecurityMeasures;
+use App\Models\MovementTracking;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,16 @@ class OfficeSecurityMeasuresController extends ApiController
 
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
             $response = $this->showList(OfficeSecurityMeasures::search($request->get('search'))->orderBy('id','desc')->paginate($paginate));
-        } else {
+        } else if ($request->get('view') == 'officeSecurityMeasures') {
+            $this->validate($request, [
+                'warehouse_id' => 'required|int', 
+                'view' => 'required|string'
+            ]);
+
+            $warehouseId = $request->input('warehouse_id');
+            $response = $this->showList(OfficeSecurityMeasures::where('warehouse_id', $warehouseId)->orderBy('id','desc')->paginate($paginate));
+        } 
+        else {
             $response = $this->showList(OfficeSecurityMeasures::orderBy('id','desc')->paginate($paginate));
         }
 
@@ -42,55 +52,64 @@ class OfficeSecurityMeasuresController extends ApiController
     public function store(Request $request): JsonResponse
     {
         $this->validate($request, OfficeSecurityMeasures::rules());
-        $OfficeSecurityMeasuress = OfficeSecurityMeasures::create($request->all());
-
-        return $this->showOne($OfficeSecurityMeasuress);
+        $OfficeSecurityMeasures = OfficeSecurityMeasures::create($request->all());
+        $this->newMovementTrackingEntry($request->input('article_id'), $request->input('warehouse_id'),0 , "New Office Security Measure");
+        return $this->showOne($OfficeSecurityMeasures);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param OfficeSecurityMeasures $OfficeSecurityMeasuress
+     * @param OfficeSecurityMeasures $OfficeSecurityMeasures
      *
      * @return JsonResponse
      */
-    public function show(OfficeSecurityMeasures $OfficeSecurityMeasuress): JsonResponse
+    public function show(OfficeSecurityMeasures $OfficeSecurityMeasures): JsonResponse
     {
-        return $this->showOne($OfficeSecurityMeasuress);
+        return $this->showOne($OfficeSecurityMeasures);
     }
 
     /**
      * @param Request $request
-     * @param OfficeSecurityMeasures $OfficeSecurityMeasuress
+     * @param OfficeSecurityMeasures $OfficeSecurityMeasures
      *
      * @return JsonResponse
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request, OfficeSecurityMeasures $OfficeSecurityMeasuress): JsonResponse
+    public function update(Request $request, OfficeSecurityMeasures $OfficeSecurityMeasures): JsonResponse
     {
         $this->validate($request, OfficeSecurityMeasures::rules());
-        $OfficeSecurityMeasuress->fill($request->all());
-        if ($OfficeSecurityMeasuress->isClean()) {
+        $OfficeSecurityMeasures->fill($request->all());
+        if ($OfficeSecurityMeasures->isClean()) {
             return $this->errorResponse('A different value must be specified to update', 422);
         }
 
-        $OfficeSecurityMeasuress->save();
+        $OfficeSecurityMeasures->save();
 
-        return $this->showOne($OfficeSecurityMeasuress);
+        return $this->showOne($OfficeSecurityMeasures);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param OfficeSecurityMeasures $OfficeSecurityMeasuress
+     * @param OfficeSecurityMeasures $OfficeSecurityMeasures
      *
      * @return JsonResponse
      */
-    public function destroy(OfficeSecurityMeasures $OfficeSecurityMeasuress): JsonResponse
+    public function destroy(OfficeSecurityMeasures $OfficeSecurityMeasures): JsonResponse
     {
-        $OfficeSecurityMeasuress->delete();
+        $OfficeSecurityMeasures->delete();
 
         return $this->showMessage('Record deleted successfully');
+    }
+
+    private function newMovementTrackingEntry($article_id, $warehouse_id, $amount, $reason){
+        $newMovementTrackingEntry = new MovementTracking();
+        $newMovementTrackingEntry->article_id = $article_id;
+        $newMovementTrackingEntry->warehouse_id = $warehouse_id;
+        $newMovementTrackingEntry->amount = $amount;
+        $newMovementTrackingEntry->reason = $reason;
+        $newMovementTrackingEntry->save();
     }
 }

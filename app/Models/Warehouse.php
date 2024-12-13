@@ -26,11 +26,11 @@ class Warehouse extends Model
         return strtoupper($value);
     }
 
-    protected function setAdressAttribute($value){
+    protected function setAddressAttribute($value){
         $this->attributes['address'] = strtolower($value);
     }
     
-    protected function getAdressAttribute($value){
+    protected function getAddressAttribute($value){
         return strtoupper($value);
     }
 
