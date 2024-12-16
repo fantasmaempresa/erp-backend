@@ -29,12 +29,17 @@ class OperationController extends ApiController
         $paginate = empty($request->get('paginate')) ? env('NUMBER_PAGINATE') : $request->get('paginate');
 
         if (!empty($request->get('search')) && $request->get('search') !== 'null') {
-            $response = $this->showList(Operation::search($request->get('search'))->with('categoryOperation')->orderBy('name')->paginate($paginate));
-        } else {
-            $response = $this->showList(Operation::with('categoryOperation')->orderBy('name')->paginate($paginate));
+            $response = Operation::search($request->get('search'))->with('categoryOperation');
+        }else if(!empty($request->get('view')) && $request->get('view') == 'projects'){
+            $response = Operation::where('visible', 1)->with('categoryOperation');
+        } 
+        else {
+            $response = Operation::with('categoryOperation');
         }
 
-        return $response;
+        $response = $response->orderBy('name')->paginate($paginate);
+
+        return $this->showList($response);
     }
 
     /**

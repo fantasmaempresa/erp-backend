@@ -27,19 +27,23 @@ class Operation extends Model
         'config' => 'array',
     ];
 
-    protected function setNameAttribute($value){
+    protected function setNameAttribute($value)
+    {
         $this->attributes['name'] = strtolower($value);
     }
-    
-    protected function getNameAttribute($value){
+
+    protected function getNameAttribute($value)
+    {
         return strtoupper($value);
     }
 
-    protected function setDescriptionAttribute($value){
+    protected function setDescriptionAttribute($value)
+    {
         $this->attributes['description'] = strtolower($value);
     }
-    
-    protected function getDescriptionAttribute($value){
+
+    protected function getDescriptionAttribute($value)
+    {
         return strtoupper($value);
     }
 
@@ -57,7 +61,8 @@ class Operation extends Model
      */
     public function scopeSearch($query, $search): mixed
     {
-        return $query->orWhere('name', 'like', "%$search%");
+        return $query->orWhere('name', 'like', "%$search%")
+            ->orWhere('visible', '=', $search);
     }
 
 

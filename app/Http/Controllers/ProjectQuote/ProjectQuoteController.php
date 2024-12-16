@@ -7,7 +7,6 @@
 namespace App\Http\Controllers\ProjectQuote;
 
 use App\Events\NotificationEvent;
-use App\Events\QuoteEvent;
 use App\Http\Controllers\ApiController;
 use App\Models\ProjectQuote;
 use App\Models\Role;
