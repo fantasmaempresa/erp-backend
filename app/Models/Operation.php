@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Operation extends Model
@@ -61,8 +62,8 @@ class Operation extends Model
      */
     public function scopeSearch($query, $search): mixed
     {
-        return $query->orWhere('name', 'like', "%$search%")
-            ->orWhere('visible', '=', $search);
+        return $query->orWhere('name', 'like', "%$search%");
+        // ->orWhere('visible', '=', $search)
     }
 
 
@@ -72,6 +73,14 @@ class Operation extends Model
     public function procedures(): HasMany
     {
         return $this->hasMany(Procedure::class);
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function projectQuotes(): BelongsToMany
+    {
+        return $this->belongsToMany(ProjectQuote::class);
     }
 
     /**

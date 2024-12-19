@@ -98,7 +98,7 @@ class OperationController extends ApiController
 
         DB::beginTransaction();
         try {
-            if ($request->has('documents')) {
+            if (!empty($request->get('documents'))) {
                 //DATA EN CONFIG
                 $operation->config =
                     array_merge(
