@@ -160,6 +160,12 @@ class TemplateShapeSeeder extends Seeder
                         'label' => 'Teléfono del inmueble',
                     ],
 
+                    [
+                        'name' => 'alienated_property_home',
+                        'type' => 'text',
+                        'label' => 'Domicilio para notificar',
+                    ],
+
                     ['name' => 'first_article', 'type' => 'text', 'label' => 'Articulo (Renglón 1)'],
                     ['name' => 'legal_section', 'type' => 'text', 'label' => 'Apartado (Renglón 1)'],
                     ['name' => 'first_fraction', 'type' => 'text', 'label' => 'Fraccion (Renglón 1)'],

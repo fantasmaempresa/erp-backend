@@ -52,7 +52,7 @@ class DatabaseSeeder extends Seeder
                 // BookSeeder::class,
                 // FolioSeeder::class,
                 // FixGrantorProcedure::class
-                NewOperationSeeder::class
+                // NewOperationSeeder::class
             ]
         );
     }
